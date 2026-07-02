@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rift-cv1-center"
+version = "2.0"
+description = "Status, display test, USB fixes, Touch pairing and SteamVR integration for the Oculus Rift CV1 on Linux (OpenHMD stack)"
+requires-python = ">=3.9"
+# GUI needs PyGObject (GTK4/libadwaita) from the distro; the CLI is stdlib-only.
+
+[project.scripts]
+rift-cv1-center = "riftcv1.main:main"
+
+[tool.setuptools]
+packages = ["riftcv1"]
