@@ -12,6 +12,18 @@ capture hook, the OVR-style fusion port) ship as `patches/`, which
 **Setup & install** applies automatically on top of pinned upstream
 commits. You do not need any pre-modified checkout.
 
+## Screenshots
+
+| Control center | Wake test & activity log |
+|---|---|
+| ![Main window with status card and actions](screenshots/Screenshot_20260707_081541.png) | ![Headset wake test running, display link detected](screenshots/Screenshot_20260707_081629.png) |
+
+| Sensor Setup (Oculus-style wizard) | Room calibration (advanced) |
+|---|---|
+| ![Sensor Setup wizard, Place Your Sensors page](screenshots/sensor-setup.png) | ![Live coverage map with sensor view cones and solve targets](screenshots/Screenshot_20260707_081646.png) |
+
+![Advanced tools window](screenshots/Screenshot_20260707_081653.png)
+
 ## Getting started
 
 1. Install the build dependencies (the Setup dialog shows the exact
