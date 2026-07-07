@@ -7,6 +7,7 @@ name = "rift-cv1-center"
 version = "2.0"
 description = "Status, display test, USB fixes, Touch pairing and SteamVR integration for the Oculus Rift CV1 on Linux (OpenHMD stack)"
 requires-python = ">=3.9"
+license = { file = "LICENSE" }
 # GUI needs PyGObject (GTK4/libadwaita) from the distro; the CLI is stdlib-only.
 
 [project.scripts]

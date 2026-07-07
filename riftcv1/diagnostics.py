@@ -24,8 +24,7 @@ def wake_test(log):
         log("SteamVR is running — it already owns the headset; close it "
             "before running the wake test.")
         return False
-    if hw.usb_sysfs_device(hw.OCULUS_VID, hw.HMD_PID) and \
-            not hw.hmd_hid_bound():
+    if hw.hmd_hid_state() == "unbound":
         log("Headset HID not bound — run 'Fix USB' first.")
         return False
     log("Waking headset (15 s)…")
@@ -129,32 +128,33 @@ def tracking_quality_test(set_text, append, cancel, set_proc):
                    "reflections (mirrors,\nglossy surfaces) near the "
                    "play area.")
     else:
-        rep.append("\nVERDICT: UNSTABLE — try 'Reset room "
-                   "calibration', check that the\nsensor cannot "
-                   "wobble, and remove reflective surfaces. If it\n"
+        rep.append("\nVERDICT: UNSTABLE — check that the sensor cannot "
+                   "wobble and remove\nreflective surfaces. If it "
                    "persists, a second CV1 sensor helps a lot.")
     rep.append("\nIf height is wrong in VR: run SteamVR Room Setup "
                "(standing mode).")
     return "\n".join(rep)
 
 
+_LEGACY_ROOM_NOTE = (
+    "NOTE: the current rift-kalman-filter build does not read or write "
+    "this\nfile — the sensor pose is re-estimated automatically at the "
+    "start of\nevery session. The file is a leftover from older OpenHMD "
+    "builds.")
+
+
 def room_reset(log):
     path = config.ROOM_CONFIG
     if not os.path.exists(path):
-        return ("No room calibration file present — a fresh one is "
-                "calibrated\nautomatically during the next tracking "
-                "session.")
+        return ("No room calibration file present.\n\n"
+                + _LEGACY_ROOM_NOTE)
     bak = path + ".bak-" + time.strftime("%Y%m%d-%H%M%S")
     with open(path) as f:
         content = f.read()
     os.rename(path, bak)
-    log("Room calibration reset (backup: " + bak + ")")
-    return ("ROOM CALIBRATION RESET\n\n"
-            "The stored sensor-camera pose was removed; the tracker "
-            "will\nre-calibrate it automatically next session.\n\n"
-            "Do this whenever you MOVE the sensor camera — a stale "
-            "pose\ncauses wrong height and position shifting. "
-            "Afterwards, re-run\nSteamVR Room Setup.\n\n"
+    log("Legacy room calibration file removed (backup: " + bak + ")")
+    return ("LEGACY ROOM CALIBRATION FILE REMOVED\n\n"
+            + _LEGACY_ROOM_NOTE + "\n\n"
             f"Backup: {bak}\n\nOld content:\n{content}")
 
 
@@ -167,10 +167,10 @@ def room_calibration_info():
         mtime = time.strftime("%Y-%m-%d %H:%M",
                               time.localtime(os.path.getmtime(path)))
     except OSError:
-        return ("No room calibration file present — one is calibrated\n"
-                "automatically during the next tracking session.\n\n"
-                f"(would be at {path})")
-    out = [f"ROOM CALIBRATION\n\nfile: {path}\nlast updated: {mtime}\n"]
+        return ("No room calibration file present.\n\n"
+                + _LEGACY_ROOM_NOTE + f"\n\n(would be at {path})")
+    out = [f"ROOM CALIBRATION (legacy file)\n\nfile: {path}\n"
+           f"last updated: {mtime}\n\n" + _LEGACY_ROOM_NOTE + "\n"]
     try:
         data = json.loads(raw)
     except ValueError:
@@ -199,10 +199,10 @@ def room_calibration_info():
         for k, v in pos3:
             out.append("  %-40s %+9.3f %+9.3f %+9.3f" % (k, *v))
         out.append("")
-    out.append("If height or position is wrong in VR: leave the sensor "
-               "where it is,\nrun 'Reset room calibration', start SteamVR "
-               "once with the headset\nfacing the sensor, then run SteamVR "
-               "Room Setup (Standing).\n")
+    out.append("If height or position is wrong in VR: start SteamVR with "
+               "the headset\nresting at your usual start spot facing the "
+               "sensor, then run SteamVR\nRoom Setup (Standing) — or use "
+               "'Calibrate tracking' for the guided flow.\n")
     out.append("raw config:\n" + json.dumps(data, indent=2))
     return "\n".join(out)
 

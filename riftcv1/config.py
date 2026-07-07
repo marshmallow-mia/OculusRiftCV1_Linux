@@ -64,6 +64,12 @@ OPENHMD_REPO = "https://github.com/thaytan/OpenHMD.git"
 OPENHMD_BRANCH = "rift-kalman-filter"
 OUVRT_REPO = "https://github.com/pH5/ouvrt.git"
 
+# upstream commits the vendored driver patches (patches/) apply to;
+# Setup & install checks these out on fresh clones before patching
+OPENHMD_COMMIT = "04f5276bfc679968ceea62e4d1df6cbe6376941c"
+STEAMVR_OPENHMD_COMMIT = "55e266814b2da82bc33774dc781b6b59709766a3"
+PATCH_DIR = os.path.join(APP_DIR, "patches")
+
 OPENVR_PATHS = os.path.join(HOME, ".config/openvr/openvrpaths.vrpath")
 WIVRN_XRIZER_GLOB = (
     "/var/lib/flatpak/app/io.github.wivrn.wivrn/current/active/files/xrizer",
@@ -75,6 +81,15 @@ DESKTOP_FILE = os.path.join(
 ENTRY_POINT = os.path.join(APP_DIR, "rift_cv1_center.py")
 POSE_TEST = os.path.join(PKG_DIR, "pose_test.py")
 VRINFO = os.path.join(PKG_DIR, "vrinfo.py")
+ROOMSETUP = os.path.join(PKG_DIR, "roomsetup.py")
+CAL_TOOL = os.path.join(APP_DIR, "calibrate_room.py")
+CAL_CAPTURE_DEFAULT = os.path.join(HOME, "cal-capture.jsonl")
+CAL_CAPTURE_ENV = "OHMD_RIFT_CAL_CAPTURE"
+
+# short per-phase captures written by the Sensor Setup wizard
+SETUP_CACHE_DIR = os.path.join(HOME, ".cache/rift-cv1-center")
+SETUP_HOLD_CAPTURE = os.path.join(SETUP_CACHE_DIR, "sensor-setup-hold.jsonl")
+SETUP_FLOOR_CAPTURE = os.path.join(SETUP_CACHE_DIR, "sensor-setup-floor.jsonl")
 
 # venv holding the python-openvr bindings: prefer a pre-existing one next to
 # the checkout, else a stable per-user location

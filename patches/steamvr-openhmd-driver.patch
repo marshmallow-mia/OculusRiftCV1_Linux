@@ -1,0 +1,57 @@
+diff --git a/driver_openhmd.cpp b/driver_openhmd.cpp
+index 5af3658..638c7a3 100644
+--- a/driver_openhmd.cpp
++++ b/driver_openhmd.cpp
+@@ -373,6 +373,7 @@ public:
+ 
+     DriverPose_t GetPose()
+     {
++	pose = { 0 };
+ 	pose.poseIsValid = true;
+ 	pose.result = TrackingResult_Running_OK;
+ 	pose.deviceIsConnected = true;
+@@ -384,6 +385,12 @@ public:
+ 		pose.qRotation.y = quat[1];
+ 		pose.qRotation.z = quat[2];
+ 		pose.qRotation.w = quat[3];
++
++		float angvel[3];
++		ohmd_device_getf(device, OHMD_ANGULAR_VELOCITY_VECTOR, angvel);
++		pose.vecAngularVelocity[0] = angvel[0];
++		pose.vecAngularVelocity[1] = angvel[1];
++		pose.vecAngularVelocity[2] = angvel[2];
+ 	}
+ 
+ 	if (device_flags & OHMD_DEVICE_FLAGS_POSITIONAL_TRACKING) {
+@@ -392,6 +399,12 @@ public:
+ 		pose.vecPosition[0] = pos[0];
+ 		pose.vecPosition[1] = pos[1];
+ 		pose.vecPosition[2] = pos[2];
++
++		float vel[3];
++		ohmd_device_getf(device, OHMD_VELOCITY_VECTOR, vel);
++		pose.vecVelocity[0] = vel[0];
++		pose.vecVelocity[1] = vel[1];
++		pose.vecVelocity[2] = vel[2];
+ 	}
+ 
+ 	// DriverLog("get controller %d pose %f %f %f %f, %f %f %f\n", index, quat[0], quat[1], quat[2], quat[3], pos[0], pos[1], pos[2]);
+@@ -978,6 +991,18 @@ public:
+         pose.vecPosition[1] = pos[1];
+         pose.vecPosition[2] = pos[2];
+ 
++        float angvel[3];
++        ohmd_device_getf(d, OHMD_ANGULAR_VELOCITY_VECTOR, angvel);
++        pose.vecAngularVelocity[0] = angvel[0];
++        pose.vecAngularVelocity[1] = angvel[1];
++        pose.vecAngularVelocity[2] = angvel[2];
++
++        float vel[3];
++        ohmd_device_getf(d, OHMD_VELOCITY_VECTOR, vel);
++        pose.vecVelocity[0] = vel[0];
++        pose.vecVelocity[1] = vel[1];
++        pose.vecVelocity[2] = vel[2];
++
+         //printf("%f %f %f %f  %f %f %f\n", quat[0], quat[1], quat[2], quat[3], pos[0], pos[1], pos[2]);
+         //fflush(stdout);
+         //DriverLog("get hmd pose %f %f %f %f, %f %f %f\n", quat[0], quat[1], quat[2], quat[3], pos[0], pos[1], pos[2]);

@@ -7,9 +7,8 @@ Examples:
   rift_cv1_center.py switch-runtime steamvr
 """
 import argparse
-import time
 
-from . import config, diagnostics, hw, runtime
+from . import calibrate, config, diagnostics, hw, runtime
 
 
 def _row(label, value):
@@ -23,10 +22,12 @@ def cmd_status(_args):
     if not usb:
         problems.append("headset not on USB")
 
-    hid = hw.hmd_hid_bound()
-    _row("headset HID", "bound" if hid else
-         ("NOT BOUND — run: fix-usb" if usb else "—"))
-    if usb and not hid:
+    hid = hw.hmd_hid_state()
+    _row("headset HID",
+         {"bound": "bound",
+          "in-use": "in use by VR driver (normal during a session)",
+          "unbound": "NOT BOUND — run: fix-usb"}.get(hid, "—"))
+    if hid == "unbound":
         problems.append("HID not bound")
 
     sensors = hw.tracking_sensors()
@@ -40,18 +41,25 @@ def cmd_status(_args):
                     f"USB 3.x, {spd} Mbps" if spd >= 5000 else
                     f"USB 2, {spd} Mbps — use a USB 3 port!")
             _row(f"sensor {i}", f"serial {s['serial'] or '-'} ({link})")
+            if s["power"] and s["power"] != "on":
+                _row("", "autosuspend enabled — reinstall udev rules")
+                problems.append(f"sensor {i} autosuspend enabled")
 
     conn, ovr = hw.rift_edid_connector()
     _row("display link", f"Rift active on {conn}" if ovr
          else "asleep / unknown (run: test)")
 
-    mt = runtime.room_config_mtime()
     _row("room calibration",
-         time.strftime("calibrated %d %b %H:%M", time.localtime(mt))
-         if mt else "will auto-calibrate next session")
+         "auto at session start — verify with: calibrate")
 
     drv = runtime.driver_registered()
-    _row("SteamVR driver", "registered" if drv else "NOT REGISTERED")
+    fresh = runtime.driver_deploy_state()
+    if drv and fresh is False:
+        _row("SteamVR driver", "registered, but deployed copy is STALE — "
+             "run ./install_files_to_build.sh in SteamVR-OpenHMD")
+        problems.append("deployed driver stale after rebuild")
+    else:
+        _row("SteamVR driver", "registered" if drv else "NOT REGISTERED")
     if not drv:
         problems.append("driver not registered")
 
@@ -114,6 +122,69 @@ def cmd_room(args):
     return 0
 
 
+def _pause(prompt):
+    try:
+        input(prompt)
+        return True
+    except (EOFError, KeyboardInterrupt):
+        print("\naborted")
+        return False
+
+
+def cmd_calibrate(_args):
+    marks = {True: " ok ", None: "WARN", False: "FAIL"}
+    print("FULL TRACKING CALIBRATION — 5 steps\n\n[1/5] preflight checks")
+    rows = calibrate.preflight()
+    for ok, label, detail in rows:
+        print(f"  [{marks[ok]}] {label:<18} {detail}")
+    if not calibrate.preflight_ok(rows):
+        print("\nfix the FAIL rows above, then rerun calibrate")
+        return 1
+
+    print("\n[2/5] sensor placement\n" + calibrate.PLACEMENT)
+    if not _pause("\nsensor placed and plugged in? press Enter… "):
+        return 1
+
+    print("\n[3/5] optical tracking check\n" + calibrate.SESSION_NOTE
+          + "\n\n" + calibrate.STILL_HINT)
+    if not _pause("\nheadset in place? press Enter to start… "):
+        return 1
+    ok, report = calibrate.optical_check(
+        print, print, None, lambda _p: None)
+    print("\n" + report)
+    if not ok:
+        return 1
+
+    print("\n[4/5] SteamVR standing centre & floor")
+    if not hw.proc_running("vrserver"):
+        print("launching SteamVR…")
+        calibrate.launch_steamvr()
+        if not calibrate.wait_for_steamvr(print):
+            print("SteamVR did not come up — start it manually and rerun "
+                  "calibrate")
+            return 1
+    print("\n" + calibrate.QUICK_ROOM_NOTE)
+    try:
+        raw = input("\nheadset height above the floor in cm [0]: ").strip()
+        height_cm = float(raw or 0)
+    except (EOFError, KeyboardInterrupt):
+        print("\naborted")
+        return 1
+    except ValueError:
+        print("not a number — aborted")
+        return 1
+    ok, msg = calibrate.quick_room_setup(height_cm / 100, print)
+    print(msg)
+    if not ok:
+        print("\n" + calibrate.ROOM_SETUP_STEPS)
+        return 1
+
+    print("\n[5/5] verify")
+    ok, text = calibrate.verify()
+    print(text)
+    return 0 if ok else 1
+
+
 def main(argv):
     p = argparse.ArgumentParser(
         prog="rift_cv1_center.py",
@@ -133,7 +204,10 @@ def main(argv):
             ("export", cmd_export,
              "write a diagnostics report, print its path"),
             ("devices", cmd_devices, "list OpenHMD devices"),
-            ("info", cmd_info, "headset serial / firmware / sensor info")]:
+            ("info", cmd_info, "headset serial / firmware / sensor info"),
+            ("calibrate", cmd_calibrate,
+             "guided full tracking calibration (optical + SteamVR "
+             "Room Setup)")]:
         sp = sub.add_parser(name, help=help_)
         sp.set_defaults(fn=fn)
 

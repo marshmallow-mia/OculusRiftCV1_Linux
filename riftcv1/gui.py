@@ -10,8 +10,11 @@ gi.require_version("Adw", "1")
 from gi.repository import Adw, Gio, GLib, Gtk
 
 from . import config, diagnostics, hw, install, runtime
+from .calwizard import open_calibration_wizard
 from .camview import open_camera_window
 from .pairing import find_radio_object, gdbus_call, open_pairing_wizard
+from .roomcal import open_roomcal_window
+from .sensorsetup import open_sensor_setup
 from .widgets import StatusRow
 
 
@@ -41,6 +44,7 @@ class App(Adw.Application):
             title="Rift CV1", subtitle="Control Center"))
         menu = Gio.Menu()
         menu.append("Auto-fix USB wedge", "app.autofix")
+        menu.append("Tracking convergence check", "app.convergence")
         menu.append("Re-register driver", "app.register")
         menu.append("Open OpenHMD config folder", "app.open-config")
         menu.append("Open SteamVR logs folder", "app.open-logs")
@@ -57,6 +61,8 @@ class App(Adw.Application):
                              lambda a, v: a.set_state(v))
         self.add_action(self.autofix)
         for name, cb in [
+                ("convergence",
+                 lambda *_: open_calibration_wizard(self)),
                 ("register", lambda *_: self.on_register(None)),
                 ("open-config", lambda *_: self.open_folder(
                     config.OPENHMD_CONFIG)),
@@ -157,7 +163,14 @@ class App(Adw.Application):
         grid.attach(self.btn_adv, 1, 3, 1, 1)
         self.btn_cam = button("Camera & placement guide",
                               "camera-video-symbolic", self.on_camera)
-        grid.attach(self.btn_cam, 0, 4, 2, 1)
+        self.btn_cal = button("Sensor Setup",
+                              "find-location-symbolic", self.on_calibrate,
+                              "suggested-action")
+        grid.attach(self.btn_cam, 0, 4, 1, 1)
+        grid.attach(self.btn_cal, 1, 4, 1, 1)
+        self.btn_roomcal = button("Room calibration (advanced)",
+                                  "view-grid-symbolic", self.on_roomcal)
+        grid.attach(self.btn_roomcal, 0, 5, 2, 1)
 
         # activity log
         exp = Gtk.Expander(label="Activity log")
@@ -238,10 +251,10 @@ class App(Adw.Application):
             st = {
                 "usb": hw.usb_sysfs_device(hw.OCULUS_VID,
                                            hw.HMD_PID) is not None,
-                "hid": hw.hmd_hid_bound(),
+                "hid": hw.hmd_hid_state(),
                 "sensors": hw.tracking_sensors(),
-                "room_mtime": runtime.room_config_mtime(),
                 "drv": runtime.driver_registered(),
+                "drv_fresh": runtime.driver_deploy_state(),
                 "rt": runtime.active_runtime(),
                 "svr": hw.proc_running("vrserver"),
             }
@@ -262,9 +275,10 @@ class App(Adw.Application):
         usb, hid, svr = st["usb"], st["hid"], st["svr"]
         self.rows["usb"].set(usb, "connected" if usb else "not found")
         self.rows["hid"].set(
-            hid if usb else False,
-            "bound" if hid else ("NOT BOUND — use Fix USB" if usb
-                                 else "—"))
+            {"bound": True, "in-use": True, "unbound": False}.get(hid),
+            {"bound": "bound",
+             "in-use": "in use by VR driver",
+             "unbound": "NOT BOUND — use Fix USB"}.get(hid, "—"))
 
         sensors = st["sensors"]
         cam = bool(sensors)
@@ -275,9 +289,15 @@ class App(Adw.Application):
             label = "connected" if n == 1 else f"{n} connected"
             slow = [s for s in sensors if s["speed"] and s["speed"] < 5000]
             known = [s for s in sensors if s["speed"]]
+            nosuspend = [s for s in sensors
+                         if s["power"] and s["power"] != "on"]
             if slow:
                 self.rows["cam"].set(None, label +
                                      " — on USB 2, use a USB 3 port!")
+            elif nosuspend:
+                self.rows["cam"].set(None, label +
+                                     " — autosuspend on, reinstall "
+                                     "udev rules (Setup)")
             else:
                 self.rows["cam"].set(True, label +
                                      (" (USB 3)" if known else ""))
@@ -311,15 +331,21 @@ class App(Adw.Application):
             f"Rift active on {conn}" if ovr
             else "asleep / unknown (run test)")
 
-        if st["room_mtime"]:
-            self.rows["room"].set(True, time.strftime(
-                "calibrated %d %b %H:%M",
-                time.localtime(st["room_mtime"])))
+        mtime = runtime.room_config_mtime()
+        if mtime:
+            self.rows["room"].set(
+                True, "set up " + time.strftime("%b %d", time.localtime(
+                    mtime)) + " — rerun Sensor Setup if a sensor moved")
         else:
-            self.rows["room"].set(None, "will auto-calibrate next session")
+            self.rows["room"].set(None, "not set up — run Sensor Setup")
 
         drv = st["drv"]
-        self.rows["drv"].set(drv, "registered" if drv else "not registered")
+        if drv and st.get("drv_fresh") is False:
+            self.rows["drv"].set(False, "deployed copy STALE — rerun "
+                                        "install_files_to_build.sh")
+        else:
+            self.rows["drv"].set(drv,
+                                 "registered" if drv else "not registered")
 
         rt = st["rt"]
         self.rows["rt"].set(rt == "SteamVR", rt)
@@ -327,8 +353,10 @@ class App(Adw.Application):
         self.rows["svr"].set(True if svr else None,
                              "running" if svr else "not running")
 
-        # auto-fix the USB wedge (gentle driver reattach, no reset)
-        if (usb and not hid and not self.busy
+        # auto-fix the USB wedge (gentle driver reattach, no reset).
+        # 'in-use' is NOT a wedge — a VR driver detached the kernel HID on
+        # purpose; reattaching would yank the headset out of the session.
+        if (hid == "unbound" and not svr and not self.busy
                 and self.autofix.get_state().get_boolean()
                 and time.time() - self._last_autofix > 20):
             self._last_autofix = time.time()
@@ -346,7 +374,7 @@ class App(Adw.Application):
         if not usb:
             banner("Headset not detected — check its USB connection "
                    "and power")
-        elif not hid:
+        elif hid == "unbound" and not svr:
             banner("Headset USB is wedged (no HID)", "Fix now",
                    self.on_reset)
         elif not drv:
@@ -420,6 +448,12 @@ class App(Adw.Application):
     def on_pair(self, _b):
         open_pairing_wizard(self)
 
+    def on_calibrate(self, _b):
+        open_sensor_setup(self)
+
+    def on_roomcal(self, _b):
+        open_roomcal_window(self)
+
     def on_camera(self, _b):
         open_camera_window(self)
 
@@ -467,7 +501,7 @@ class App(Adw.Application):
 
         hint = Gtk.Label(xalign=0, wrap=True)
         hint.set_markup("<small>If dependencies are missing, install "
-                        f"them first:\n<tt>{install.PACMAN_HINT}</tt>"
+                        f"them first:\n<tt>{install.deps_hint()}</tt>"
                         "</small>")
         box.append(hint)
         btn = Gtk.Button()
@@ -489,12 +523,13 @@ class App(Adw.Application):
             if missing:
                 self.log("Missing build dependencies: " +
                          ", ".join(missing))
-                self.log("Install them first: " + install.PACMAN_HINT)
+                self.log("Install them first: " + install.deps_hint())
                 GLib.idle_add(refresh)
                 return
             steps = [
                 ("SteamVR-OpenHMD",
-                 lambda: install.install_steamvr_openhmd(self.run_cmd)),
+                 lambda: install.install_steamvr_openhmd(self.run_cmd,
+                                                         self.log)),
                 ("ouvrt", lambda: install.install_ouvrt(self.run_cmd)),
                 ("udev rules",
                  lambda: install.install_udev(self.run_cmd, self.log)),
@@ -788,23 +823,9 @@ class App(Adw.Application):
             return ("SteamVR is not running — this test measures poses "
                     "inside a live\nSteamVR session. Launch SteamVR first "
                     "(or use the other tracking test).")
-        venv_py = os.path.join(config.POSE_VENV, "bin/python")
-        have = (os.path.exists(venv_py) and subprocess.run(
-            [venv_py, "-c", "import openvr"],
-            capture_output=True).returncode == 0)
-        if not have:
-            self.adv_set("STEAMVR POSE TEST\n\nOne-time setup: installing "
-                         "Python OpenVR bindings…")
-            r = subprocess.run(["python3", "-m", "venv", config.POSE_VENV],
-                               capture_output=True, text=True)
-            if r.returncode != 0:
-                return "venv creation failed:\n" + r.stderr
-            r = subprocess.run([venv_py, "-m", "pip", "install",
-                                "--quiet", "openvr"],
-                               capture_output=True, text=True)
-            if r.returncode != 0:
-                return "pip install openvr failed:\n" + r.stderr
-            self.adv_append("bindings installed ✓")
+        venv_py = runtime.ensure_openvr_venv(self.adv_append)
+        if not venv_py:
+            return "Failed to install the Python OpenVR bindings."
         self.adv_set(
             "STEAMVR POSE TEST — capturing 35 s\n\n"
             "Put the headset ON and move naturally: look around, move "
