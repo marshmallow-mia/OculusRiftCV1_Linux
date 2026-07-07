@@ -41,6 +41,35 @@ def driver_registered():
         "SteamVR-OpenHMD" in p for p in d.get("external_drivers") or [])
 
 
+def driver_deploy_state():
+    """Whether the driver copy SteamVR loads matches the built one.
+
+    ninja only refreshes build/driver_openhmd.so; SteamVR loads
+    build/bin/linux64/driver_openhmd.so, which install_files_to_build.sh
+    copies. A rebuild without that step leaves SteamVR on a stale driver.
+    Returns True (fresh), False (stale) or None (not built/deployed).
+    """
+    built = os.path.join(config.STEAMVR_OPENHMD, "build",
+                         "driver_openhmd.so")
+    deployed = os.path.join(config.STEAMVR_OPENHMD, "build",
+                            "bin", "linux64", "driver_openhmd.so")
+    if not os.path.exists(built) or not os.path.exists(deployed):
+        return None
+    import hashlib
+
+    def digest(path):
+        h = hashlib.sha256()
+        with open(path, "rb") as f:
+            for chunk in iter(lambda: f.read(1 << 20), b""):
+                h.update(chunk)
+        return h.digest()
+
+    try:
+        return digest(built) == digest(deployed)
+    except OSError:
+        return None
+
+
 def switch_runtime(target=None):
     """Set the OpenVR runtime; toggles SteamVR <-> WiVRn if no target."""
     if hw.proc_running("vrserver"):
@@ -69,6 +98,31 @@ def room_config_mtime():
         return os.path.getmtime(config.ROOM_CONFIG)
     except OSError:
         return None
+
+
+def ensure_openvr_venv(log=None):
+    """Path to the venv python with `openvr` installed, creating the venv
+    on first use. None on failure."""
+    venv_py = os.path.join(config.POSE_VENV, "bin/python")
+    if os.path.exists(venv_py) and subprocess.run(
+            [venv_py, "-c", "import openvr"],
+            capture_output=True).returncode == 0:
+        return venv_py
+    if log:
+        log("One-time setup: installing the python-openvr bindings…")
+    r = subprocess.run(["python3", "-m", "venv", config.POSE_VENV],
+                       capture_output=True, text=True)
+    if r.returncode != 0:
+        if log:
+            log("venv creation failed: " + r.stderr.strip())
+        return None
+    r = subprocess.run([venv_py, "-m", "pip", "install", "--quiet",
+                        "openvr"], capture_output=True, text=True)
+    if r.returncode != 0:
+        if log:
+            log("pip install openvr failed: " + r.stderr.strip())
+        return None
+    return venv_py
 
 
 def vr_device_status(timeout=10):

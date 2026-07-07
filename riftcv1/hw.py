@@ -59,9 +59,14 @@ def usb_speed(syspath):
 
 
 def tracking_sensors():
-    """All connected CV1 tracking cameras, with link speed and serial."""
+    """All connected CV1 tracking cameras, with link speed and serial.
+
+    "power" is the sysfs autosuspend policy — anything but "on" means the
+    kernel may suspend the camera, which drops it off the bus mid-session.
+    """
     return [{"path": p, "node": n, "speed": usb_speed(p),
-             "serial": _read_attr(p, "serial")}
+             "serial": _read_attr(p, "serial"),
+             "power": _read_attr(p, "power/control")}
             for p, n in usb_sysfs_devices(OCULUS_VID, CAMERA_PID)]
 
 
@@ -88,6 +93,30 @@ def hmd_hid_bound():
         except OSError:
             pass
     return False
+
+
+def hmd_hid_state():
+    """How the headset's HID interfaces are driven right now:
+
+    'bound'    kernel HID driver attached — idle and ready
+    'in-use'   claimed by a VR driver through libusb (normal during a
+               session; the kernel driver is detached so hidraw is gone)
+    'unbound'  no driver at all — the post-self-reboot wedge (fix_usb)
+    None       headset not on USB
+    """
+    found = usb_sysfs_device(OCULUS_VID, HMD_PID)
+    if not found:
+        return None
+    drivers = set()
+    for ifpath in glob.glob(found[0] + ":*"):
+        try:
+            drivers.add(os.path.basename(
+                os.readlink(os.path.join(ifpath, "driver"))))
+        except OSError:
+            pass
+    if "usbfs" in drivers:
+        return "in-use"
+    return "bound" if "usbhid" in drivers else "unbound"
 
 
 def find_hmd_hidraw():
@@ -162,17 +191,36 @@ def hexdump(b):
     return "\n".join(lines)
 
 
-def proc_running(name):
-    """True if a process with this comm name runs (pgrep -x without a fork)."""
+def proc_pid(name):
+    """PID of the first process with this comm name, or None."""
     short = name[:15]      # /proc/*/comm is truncated to 15 chars
     for p in glob.glob("/proc/[0-9]*/comm"):
         try:
             with open(p) as f:
                 if f.read().strip() == short:
-                    return True
-        except OSError:
+                    return int(p.split("/")[2])
+        except (OSError, ValueError):
             pass
-    return False
+    return None
+
+
+def proc_running(name):
+    """True if a process with this comm name runs (pgrep -x without a fork)."""
+    return proc_pid(name) is not None
+
+
+def proc_env(pid, key):
+    """One variable from a process's environment (same-user only)."""
+    try:
+        with open(f"/proc/{pid}/environ", "rb") as f:
+            data = f.read()
+    except OSError:
+        return None
+    prefix = key.encode() + b"="
+    for item in data.split(b"\0"):
+        if item.startswith(prefix):
+            return item[len(prefix):].decode(errors="replace")
+    return None
 
 
 def usb_reattach_hid():
@@ -214,6 +262,11 @@ def usb_reset_hmd():
 
 def fix_usb(log):
     """Reattach drivers, then USB-reset if still unbound. Returns bound."""
+    if hmd_hid_state() == "in-use":
+        log("A VR driver holds the headset (HID detached on purpose) — "
+            "nothing to fix. Close the VR session first if something is "
+            "actually wrong.")
+        return False
     _, msg = usb_reattach_hid()
     log(msg)
     time.sleep(2)
