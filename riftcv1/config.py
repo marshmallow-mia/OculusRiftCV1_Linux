@@ -70,6 +70,36 @@ OPENHMD_COMMIT = "04f5276bfc679968ceea62e4d1df6cbe6376941c"
 STEAMVR_OPENHMD_COMMIT = "55e266814b2da82bc33774dc781b6b59709766a3"
 PATCH_DIR = os.path.join(APP_DIR, "patches")
 
+# small persistent app state (remembered wizard inputs etc.), separate
+# from the read-only path config above
+STATE_FILE = os.path.join(HOME, ".config/rift-cv1-center/state.json")
+
+
+def state_get(key, default=None):
+    try:
+        with open(STATE_FILE) as f:
+            data = json.load(f)
+        return data.get(key, default) if isinstance(data, dict) else default
+    except (OSError, ValueError):
+        return default
+
+
+def state_set(key, value):
+    try:
+        with open(STATE_FILE) as f:
+            data = json.load(f)
+        if not isinstance(data, dict):
+            data = {}
+    except (OSError, ValueError):
+        data = {}
+    data[key] = value
+    os.makedirs(os.path.dirname(STATE_FILE), exist_ok=True)
+    tmp = STATE_FILE + ".tmp"
+    with open(tmp, "w") as f:
+        json.dump(data, f, indent=1)
+    os.replace(tmp, STATE_FILE)
+
+
 OPENVR_PATHS = os.path.join(HOME, ".config/openvr/openvrpaths.vrpath")
 WIVRN_XRIZER_GLOB = (
     "/var/lib/flatpak/app/io.github.wivrn.wivrn/current/active/files/xrizer",

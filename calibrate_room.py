@@ -590,7 +590,9 @@ def ref_pose_from_capture(observations, ref_id):
 
 def device_world_poses(observations, poses_by_sid):
     """(positions (N,3), forward floor-vectors (N,2)) of the device under
-    the given per-sensor world poses. Forward is the device -Z axis."""
+    the given per-sensor world poses. The optical pose is in the LED-model
+    frame, where the faceplate LEDs emit along +Z — the wearer faces +Z
+    (NOT -Z; that OpenGL-view assumption put the sensors behind the user)."""
     pos, fwd = [], []
     for o in observations:
         if o["s"] not in poses_by_sid:
@@ -599,7 +601,7 @@ def device_world_poses(observations, poses_by_sid):
         R_cd, t_cd = pose_to_rt(o["cam"])
         Rw = Rc @ R_cd
         pos.append(Rc @ t_cd + tc)
-        fwd.append(-Rw[:, 2])
+        fwd.append(Rw[:, 2])
     return np.array(pos), np.array(fwd)
 
 

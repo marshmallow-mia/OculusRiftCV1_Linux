@@ -603,19 +603,26 @@ P_CHECK, P_INTRO, P_HEIGHT, P_PREPARE, P_PLACE, P_TRACK, P_CONFIRM, \
     P_DONE = range(8)
 
 
-def open_sensor_setup(app):
+def open_sensor_setup(app, quick=False):
+    """quick=True: recalibration flow — skip the intro/height/placement
+    pages (height is remembered from the last full setup) and go straight
+    from the connection check to the tracking capture. Use after a sensor
+    was bumped or the driver's gravity reference changed; identical solve,
+    same wizard, four pages instead of eight."""
     if getattr(app, "sensorsetup_win", None):
         app.sensorsetup_win.present()
         return
     _install_css()
 
-    win = Gtk.Window(title="Sensor Setup")
+    quick = bool(quick and os.path.exists(config.ROOM_CONFIG))
+
+    win = Gtk.Window(title="Quick Recalibrate" if quick else "Sensor Setup")
     win.set_transient_for(app.win)
     win.set_default_size(880, 660)
     win.add_css_class("oculus-setup")
     app.sensorsetup_win = win
 
-    st = {"page": 0, "closed": False, "timer": None,
+    st = {"page": 0, "closed": False, "timer": None, "quick": quick,
           "phase": None, "stop_phase": threading.Event(),
           "trk": {"frac": 0.0, "state": "idle", "live": set(), "n_usb": 0},
           "stand": {"frac": 0.0, "state": "idle", "dists": {}},
@@ -655,7 +662,7 @@ def open_sensor_setup(app):
     line_l = Gtk.DrawingArea(hexpand=True, valign=Gtk.Align.CENTER)
     line_l.set_content_height(4)
     line_l.set_draw_func(line_draw(0))
-    top_title = Gtk.Label(label=STEP_LABEL)
+    top_title = Gtk.Label(label="QUICK RECALIBRATE" if quick else STEP_LABEL)
     top_title.add_css_class("oc-step")
     line_r = Gtk.DrawingArea(hexpand=True, valign=Gtk.Align.CENTER)
     line_r.set_content_height(4)
@@ -780,7 +787,7 @@ def open_sensor_setup(app):
     hlabel = Gtk.Label(label="Height")
     hlabel.add_css_class("oc-status")
     hspin = Gtk.SpinButton.new_with_range(120, 220, 1)
-    hspin.set_value(175)
+    hspin.set_value(config.state_get("height_cm", 175))
     himp = Gtk.Label(label="")
     himp.add_css_class("oc-dim")
 
@@ -1036,6 +1043,7 @@ def open_sensor_setup(app):
                 log(line)
             proc.wait()
             if proc.returncode == 0:
+                config.state_set("height_cm", int(hspin.get_value()))
                 GLib.idle_add(solve_done)
             else:
                 confirm_fail(last or "Calibration failed.")
@@ -1131,7 +1139,14 @@ def open_sensor_setup(app):
         i = st["page"]
         if i == P_CHECK:
             if st["check_ok"]:
-                show(P_INTRO)
+                if st["quick"]:
+                    # height already known from the last full setup?
+                    show(P_TRACK if config.state_get("height_cm")
+                         else P_HEIGHT)
+                else:
+                    show(P_INTRO)
+        elif i == P_HEIGHT and st["quick"]:
+            show(P_TRACK)
         elif i in (P_INTRO, P_HEIGHT, P_PREPARE, P_PLACE):
             show(i + 1)
         elif i == P_TRACK:
@@ -1145,7 +1160,13 @@ def open_sensor_setup(app):
         elif i == P_DONE:
             win.close()
     cont.connect("clicked", on_continue)
-    back.connect("clicked", lambda _b: show(max(0, st["page"] - 1)))
+
+    def on_back(_b):
+        if st["quick"] and st["page"] in (P_HEIGHT, P_TRACK):
+            show(P_CHECK)
+        else:
+            show(max(0, st["page"] - 1))
+    back.connect("clicked", on_back)
 
     def on_close(_w):
         st["closed"] = True
