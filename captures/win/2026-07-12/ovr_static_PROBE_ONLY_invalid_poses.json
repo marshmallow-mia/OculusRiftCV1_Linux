@@ -1,0 +1,46 @@
+{
+  "runtime_version": "1.4.0",
+  "hmd_product": "Oculus Rift CV1",
+  "hmd_manufacturer": "Oculus VR",
+  "hmd_serial": "WMHD316C1006SW",
+  "hmd_firmware": "7.9",
+  "hmd_type": 14,
+  "tracking_origin": "EyeLevel",
+  "tracker_count": 2,
+  "trackers": [
+    {
+      "index": 0,
+      "connected": true,
+      "pose_valid": false,
+      "pose": {
+        "position":    [0.000000000, 0.000000000, -1.000000000],
+        "orientation": [0.000000000, 0.000000000, 0.000000000, -1.000000000]
+      },
+      "leveled_pose": {
+        "position":    [0.000000000, 0.000000000, -1.000000000],
+        "orientation": [0.000000000, 0.000000000, 0.000000000, -1.000000000]
+      },
+      "frustum_hfov_deg": 100.0000,
+      "frustum_vfov_deg": 70.0000,
+      "frustum_near_m":   0.4000,
+      "frustum_far_m":    2.5000
+    },
+    {
+      "index": 1,
+      "connected": true,
+      "pose_valid": false,
+      "pose": {
+        "position":    [0.000000000, 0.000000000, -1.000000000],
+        "orientation": [0.000000000, 0.000000000, 0.000000000, -1.000000000]
+      },
+      "leveled_pose": {
+        "position":    [0.000000000, 0.000000000, -1.000000000],
+        "orientation": [0.000000000, 0.000000000, 0.000000000, -1.000000000]
+      },
+      "frustum_hfov_deg": 100.0000,
+      "frustum_vfov_deg": 70.0000,
+      "frustum_near_m":   0.4000,
+      "frustum_far_m":    2.5000
+    }
+  ]
+}
