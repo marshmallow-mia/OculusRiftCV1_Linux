@@ -1,3 +1,11 @@
 __pycache__/
 *.pyc
 venv/
+
+# Capture data — large binaries, kept on the USB kit, not in git
+captures/**/*.pcap
+captures/**/*.csv
+captures/**/*.jsonl
+tools/win/*.obj
+tools/win/*.exe
+tools/__pycache__/

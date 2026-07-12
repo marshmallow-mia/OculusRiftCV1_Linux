@@ -1,5 +1,5 @@
 diff --git a/driver_openhmd.cpp b/driver_openhmd.cpp
-index 5af3658..638c7a3 100644
+index 5af3658..0f3e45c 100644
 --- a/driver_openhmd.cpp
 +++ b/driver_openhmd.cpp
 @@ -373,6 +373,7 @@ public:
@@ -23,7 +23,7 @@ index 5af3658..638c7a3 100644
  	}
  
  	if (device_flags & OHMD_DEVICE_FLAGS_POSITIONAL_TRACKING) {
-@@ -392,6 +399,12 @@ public:
+@@ -392,8 +399,32 @@ public:
  		pose.vecPosition[0] = pos[0];
  		pose.vecPosition[1] = pos[1];
  		pose.vecPosition[2] = pos[2];
@@ -33,10 +33,30 @@ index 5af3658..638c7a3 100644
 +		pose.vecVelocity[0] = vel[0];
 +		pose.vecVelocity[1] = vel[1];
 +		pose.vecVelocity[2] = vel[2];
++
++		// Acceleration makes SteamVR's extrapolation second-order instead of
++		// purely linear. OpenHMD has always exposed it; we simply never read it.
++		float accel[3];
++		ohmd_device_getf(device, OHMD_ACCELERATION_VECTOR, accel);
++		pose.vecAcceleration[0] = accel[0];
++		pose.vecAcceleration[1] = accel[1];
++		pose.vecAcceleration[2] = accel[2];
  	}
  
++	// SteamVR predicts this pose forward to photon time itself, using the
++	// velocities above and poseTimeOffset as the epoch. Leaving the offset at 0
++	// claims the pose was sampled at the instant of this call, which is a lie by
++	// the pipeline latency (USB + fusion), so SteamVR under-predicts by exactly
++	// that much. Report the real age instead; it is negative because the sample
++	// is in the past.
++	float pose_age = 0.0f;
++	ohmd_device_getf(device, OHMD_POSE_AGE_SECONDS, &pose_age);
++	pose.poseTimeOffset = -pose_age;
++
  	// DriverLog("get controller %d pose %f %f %f %f, %f %f %f\n", index, quat[0], quat[1], quat[2], quat[3], pos[0], pos[1], pos[2]);
-@@ -978,6 +991,18 @@ public:
+ 
+ 	for (int i = 0; i < 3; i++) {
+@@ -978,6 +1009,30 @@ public:
          pose.vecPosition[1] = pos[1];
          pose.vecPosition[2] = pos[2];
  
@@ -51,6 +71,18 @@ index 5af3658..638c7a3 100644
 +        pose.vecVelocity[0] = vel[0];
 +        pose.vecVelocity[1] = vel[1];
 +        pose.vecVelocity[2] = vel[2];
++
++        float accel[3];
++        ohmd_device_getf(d, OHMD_ACCELERATION_VECTOR, accel);
++        pose.vecAcceleration[0] = accel[0];
++        pose.vecAcceleration[1] = accel[1];
++        pose.vecAcceleration[2] = accel[2];
++
++        // See the HMD GetPose(): report how stale the pose is so SteamVR
++        // predicts forward from the sample epoch, not from "now".
++        float pose_age = 0.0f;
++        ohmd_device_getf(d, OHMD_POSE_AGE_SECONDS, &pose_age);
++        pose.poseTimeOffset = -pose_age;
 +
          //printf("%f %f %f %f  %f %f %f\n", quat[0], quat[1], quat[2], quat[3], pos[0], pos[1], pos[2]);
          //fflush(stdout);

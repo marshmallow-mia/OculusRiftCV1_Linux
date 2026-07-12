@@ -1,0 +1,46 @@
+{
+  "runtime_version": "1.4.0",
+  "hmd_product": "Oculus Rift CV1",
+  "hmd_manufacturer": "Oculus VR",
+  "hmd_serial": "WMHD316C1006SW",
+  "hmd_firmware": "7.9",
+  "hmd_type": 14,
+  "tracking_origin": "FloorLevel",
+  "tracker_count": 2,
+  "trackers": [
+    {
+      "index": 0,
+      "connected": true,
+      "pose_valid": true,
+      "pose": {
+        "position":    [0.411121905, 0.885747850, -1.332003713],
+        "orientation": [-0.124424845, 0.045226704, -0.048829410, -0.989994287]
+      },
+      "leveled_pose": {
+        "position":    [0.411121905, 0.885747850, -1.332003713],
+        "orientation": [0.000000000, 0.045636207, 0.000000000, -0.998958111]
+      },
+      "frustum_hfov_deg": 100.0000,
+      "frustum_vfov_deg": 70.0000,
+      "frustum_near_m":   0.4000,
+      "frustum_far_m":    2.5000
+    },
+    {
+      "index": 1,
+      "connected": true,
+      "pose_valid": true,
+      "pose": {
+        "position":    [-0.845395684, 1.114252090, -1.407400727],
+        "orientation": [-0.126085803, -0.171609059, -0.017806496, -0.976901054]
+      },
+      "leveled_pose": {
+        "position":    [-0.845395684, 1.114252090, -1.407400727],
+        "orientation": [0.000000000, -0.173017487, 0.000000000, -0.984918654]
+      },
+      "frustum_hfov_deg": 100.0000,
+      "frustum_vfov_deg": 70.0000,
+      "frustum_near_m":   0.4000,
+      "frustum_far_m":    2.5000
+    }
+  ]
+}
