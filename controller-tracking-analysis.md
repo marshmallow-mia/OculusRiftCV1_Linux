@@ -3,7 +3,40 @@
 > **UPDATE (same night):** both remaining diseases were root-caused and fixed
 > — disease A is the IMU offset add-vs-subtract convention bug, disease B is
 > the missing radio watchdog/wake-config. Full wire-level analysis and fix
-> details: `windows-touch-protocol.md`. Validation pending.
+> details: `windows-touch-protocol.md`.
+>
+> **UPDATE 2 (late night, in-game iteration — openhmd 7ad4c30):** three more
+> controller root causes found from instrumented motion captures:
+>
+> 1. **Touch IMU timing (~25 ms)**: radio-relayed samples were stamped with
+>    arrival time; every vision fix was computed against a state from AFTER
+>    the exposure, dragging the fused pose backward along motion — 40-160 mm
+>    of rubber-banding at hand speed, invisible at rest (which is why all
+>    early validations passed). Fixed: transport compensation
+>    (OHMD_RIFT_TOUCH_IMU_LATENCY_MS=25, tuned: 10 too little, 35 unstable) +
+>    exposure-time mapping per device clock + constant-velocity snapshot
+>    extrapolation. Fast-motion error p90 100-157 -> 16-23 mm.
+> 2. **Accel-locked tilt under sustained motion**: the OVR port corrected
+>    tilt from the accelerometer only (vision = yaw only); centripetal accel
+>    masquerades as tilted gravity with low variance -> tilt confidently
+>    stuck 9-16 deg wrong per run (verified: orientation fixes were 94-100%
+>    ACCEPTED yet the error persisted — it is an equilibrium, not gating;
+>    error is pure TILT: 10.6 of 10.7 deg). Fixed: vision tilt correction
+>    (gain 0.5/s, snap 0.15 rad, OHMD_RIFT_NO_VISION_TILT=1 for A/B).
+>    **Deployed ee5314b4499e but NOT yet validated — first thing next
+>    session: motion capture with sustained smooth waving.**
+> 3. Rejected hypotheses, so nobody re-chases them: fixed IMU-to-model trim
+>    rotation (Wahba fit over 28k pairs across grips: best constant rotation
+>    3.8 deg, residual unchanged), orientation prior-gating lock-in (fixes
+>    were being accepted), optical failures during motion (optics stay
+>    strong at 93-96 obs/s, zero gaps).
+>
+> Also added the same night: online extrinsic refinement (self-healing
+> sensor poses from same-exposure co-observations, Windows-style — see
+> windows-touch-protocol.md §5), after a physically-bumped sensor produced
+> 150 mm cross-camera splits that desk captures could not see (steep-view
+> PnP ambiguity masks extrinsic damage — never diagnose extrinsics from
+> desk-resting captures).
 
 ## Symptom
 
