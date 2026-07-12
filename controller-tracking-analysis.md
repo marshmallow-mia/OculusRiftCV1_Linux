@@ -1,5 +1,10 @@
 # Touch controller tracking: root-cause analysis (2026-07-12, evening)
 
+> **UPDATE (same night):** both remaining diseases were root-caused and fixed
+> — disease A is the IMU offset add-vs-subtract convention bug, disease B is
+> the missing radio watchdog/wake-config. Full wire-level analysis and fix
+> details: `windows-touch-protocol.md`. Validation pending.
+
 ## Symptom
 
 Controllers "moving around weirdly" in SteamVR while the HMD (after the

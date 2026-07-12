@@ -168,9 +168,12 @@ class App(Adw.Application):
                               "suggested-action")
         grid.attach(self.btn_cam, 0, 4, 1, 1)
         grid.attach(self.btn_cal, 1, 4, 1, 1)
+        self.btn_recal = button("Quick Recalibrate",
+                                "view-refresh-symbolic", self.on_recalibrate)
+        grid.attach(self.btn_recal, 0, 5, 1, 1)
         self.btn_roomcal = button("Room calibration (advanced)",
                                   "view-grid-symbolic", self.on_roomcal)
-        grid.attach(self.btn_roomcal, 0, 5, 2, 1)
+        grid.attach(self.btn_roomcal, 1, 5, 1, 1)
 
         # activity log
         exp = Gtk.Expander(label="Activity log")
@@ -335,7 +338,8 @@ class App(Adw.Application):
         if mtime:
             self.rows["room"].set(
                 True, "set up " + time.strftime("%b %d", time.localtime(
-                    mtime)) + " — rerun Sensor Setup if a sensor moved")
+                    mtime)) + " — Quick Recalibrate if a sensor moved "
+                    "or the driver changed")
         else:
             self.rows["room"].set(None, "not set up — run Sensor Setup")
 
@@ -450,6 +454,9 @@ class App(Adw.Application):
 
     def on_calibrate(self, _b):
         open_sensor_setup(self)
+
+    def on_recalibrate(self, _b):
+        open_sensor_setup(self, quick=True)
 
     def on_roomcal(self, _b):
         open_roomcal_window(self)
