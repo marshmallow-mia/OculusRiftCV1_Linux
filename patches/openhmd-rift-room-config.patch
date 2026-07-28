@@ -302,10 +302,10 @@ index 0483dd2..bd891c1 100644
  
 diff --git a/src/drv_oculus_rift/rift-fusion-ovr.c b/src/drv_oculus_rift/rift-fusion-ovr.c
 new file mode 100644
-index 0000000..b11690d
+index 0000000..4f166ac
 --- /dev/null
 +++ b/src/drv_oculus_rift/rift-fusion-ovr.c
-@@ -0,0 +1,554 @@
+@@ -0,0 +1,560 @@
 +/*
 + * Complementary-filter fusion ported from Oculus SDK 0.3.2
 + * (LibOVR/Src/OVR_SensorFusion.cpp) — see rift-fusion-ovr.h.
@@ -825,6 +825,12 @@ index 0000000..b11690d
 +	}
 +}
 +
++void rift_fusion_ovr_notify_camera_moved(rift_fusion_ovr *f)
++{
++	f->have_vision_error = false;
++	f->snap_pending = true;
++}
++
 +bool rift_fusion_ovr_get_gravity_body(rift_fusion_ovr *f, vec3f *out)
 +{
 +	if (!f->grav_init || f->grav_warmup < 1.0f)
@@ -862,10 +868,10 @@ index 0000000..b11690d
 +}
 diff --git a/src/drv_oculus_rift/rift-fusion-ovr.h b/src/drv_oculus_rift/rift-fusion-ovr.h
 new file mode 100644
-index 0000000..4435703
+index 0000000..1137654
 --- /dev/null
 +++ b/src/drv_oculus_rift/rift-fusion-ovr.h
-@@ -0,0 +1,96 @@
+@@ -0,0 +1,101 @@
 +/*
 + * Complementary-filter fusion for the Rift, ported from the algorithm
 + * Oculus shipped as open source in SDK 0.3.2 (LibOVR OVR_SensorFusion.cpp)
@@ -949,6 +955,11 @@ index 0000000..4435703
 +	posef *pose, int delay_slot, float obs_scale, bool replace_pending);
 +void rift_fusion_ovr_position_update(rift_fusion_ovr *f, uint64_t time,
 +	vec3f *position, int delay_slot, float obs_scale, bool replace_pending);
++
++/* A sensor's extrinsics changed, so every vision fix taken through it was
++ * computed against a world that has since moved. Drop the pending error and
++ * take the next fix in full rather than blending it with a stale one. */
++void rift_fusion_ovr_notify_camera_moved(rift_fusion_ovr *f);
 +
 +void rift_fusion_ovr_get_delay_slot_pose_at(rift_fusion_ovr *f, uint64_t time, int delay_slot,
 +	posef *pose, vec3f *vel, vec3f *accel, vec3f *ang_vel, vec3f *pos_error, vec3f *rot_error);
@@ -1435,7 +1446,7 @@ index 0000000..0bd9f56
 +
 +#endif /* RIFT_JOINT_POSE_H */
 diff --git a/src/drv_oculus_rift/rift-kalman-6dof.c b/src/drv_oculus_rift/rift-kalman-6dof.c
-index 8d0666f..28a9566 100644
+index 8d0666f..cbdad41 100644
 --- a/src/drv_oculus_rift/rift-kalman-6dof.c
 +++ b/src/drv_oculus_rift/rift-kalman-6dof.c
 @@ -25,6 +25,17 @@
@@ -1557,8 +1568,25 @@ index 8d0666f..28a9566 100644
  			return;
  		}
  	}
-@@ -796,11 +867,35 @@ void rift_kalman_6dof_prepare_delay_slot(rift_kalman_6dof_filter *state, uint64_
+@@ -794,13 +865,52 @@ void rift_kalman_6dof_prepare_delay_slot(rift_kalman_6dof_filter *state, uint64_
+ 	state->reset_slot = -1;
+ }
  
++void rift_kalman_6dof_notify_camera_moved(rift_kalman_6dof_filter *state,
++	double pos_var, double rot_var)
++{
++	int i;
++
++	for (i = COV_POSITION; i < COV_POSITION + 3; i++) {
++		if (MATRIX2D_XY(state->ukf.P_prior, i, i) < pos_var)
++			MATRIX2D_XY(state->ukf.P_prior, i, i) = pos_var;
++	}
++	for (i = COV_ORIENTATION; i < COV_ORIENTATION + 3; i++) {
++		if (MATRIX2D_XY(state->ukf.P_prior, i, i) < rot_var)
++			MATRIX2D_XY(state->ukf.P_prior, i, i) = rot_var;
++	}
++}
++
  void rift_kalman_6dof_release_delay_slot(rift_kalman_6dof_filter *state, int delay_slot)
  {
 +	int base = BASE_COV_SIZE + (DELAY_SLOT_COV_SIZE * delay_slot);
@@ -1594,7 +1622,7 @@ index 8d0666f..28a9566 100644
  	ukf_measurement *m;
  
  	/* Put angular velocity into the input vector to update the orientation */
-@@ -816,11 +911,30 @@ void rift_kalman_6dof_imu_update (rift_kalman_6dof_filter *state, uint64_t time,
+@@ -816,11 +926,30 @@ void rift_kalman_6dof_imu_update (rift_kalman_6dof_filter *state, uint64_t time,
  	MATRIX2D_Y(m->z, IMU_MEAS_ACCEL+2) = accel->z;
  
  	rift_kalman_6dof_update(state, time, m);
@@ -1626,7 +1654,7 @@ index 8d0666f..28a9566 100644
  
  	/* Use lagged state vector entries to correct for delay */
  	state->pose_slot = delay_slot;
-@@ -847,19 +961,32 @@ void rift_kalman_6dof_pose_update(rift_kalman_6dof_filter *state, uint64_t time,
+@@ -847,19 +976,32 @@ void rift_kalman_6dof_pose_update(rift_kalman_6dof_filter *state, uint64_t time,
  
  	state->saw_pose_update = true;
  	rift_kalman_6dof_update(state, time, m);
@@ -1661,7 +1689,7 @@ index 8d0666f..28a9566 100644
  
  	m = &state->m_position;
  	MATRIX2D_Y(m->z, POSE_MEAS_POSITION+0) = pos->x;
-@@ -867,6 +994,7 @@ void rift_kalman_6dof_position_update(rift_kalman_6dof_filter *state, uint64_t t
+@@ -867,6 +1009,7 @@ void rift_kalman_6dof_position_update(rift_kalman_6dof_filter *state, uint64_t t
  	MATRIX2D_Y(m->z, POSE_MEAS_POSITION+2) = pos->z;
  
  	rift_kalman_6dof_update(state, time, m);
@@ -1670,7 +1698,7 @@ index 8d0666f..28a9566 100644
  
  /* Get the pose info from a delay slot, or the main state
 diff --git a/src/drv_oculus_rift/rift-kalman-6dof.h b/src/drv_oculus_rift/rift-kalman-6dof.h
-index 14012b8..4b66358 100644
+index 14012b8..036560f 100644
 --- a/src/drv_oculus_rift/rift-kalman-6dof.h
 +++ b/src/drv_oculus_rift/rift-kalman-6dof.h
 @@ -19,25 +19,28 @@
@@ -1714,13 +1742,18 @@ index 14012b8..4b66358 100644
    /* ukf_base needs to be the first element in the struct */
    ukf_base ukf;
  
-@@ -81,9 +84,13 @@ void rift_kalman_6dof_clear(rift_kalman_6dof_filter *state);
+@@ -81,9 +84,18 @@ void rift_kalman_6dof_clear(rift_kalman_6dof_filter *state);
  void rift_kalman_6dof_prepare_delay_slot(rift_kalman_6dof_filter *state, uint64_t time, int delay_slot);
  void rift_kalman_6dof_release_delay_slot(rift_kalman_6dof_filter *state, int delay_slot);
  
 -void rift_kalman_6dof_imu_update (rift_kalman_6dof_filter *state, uint64_t time, const vec3f* ang_vel, const vec3f* accel, const vec3f* mag_field);
 -void rift_kalman_6dof_pose_update(rift_kalman_6dof_filter *state, uint64_t time, posef *pose, int delay_slot);
 -void rift_kalman_6dof_position_update(rift_kalman_6dof_filter *state, uint64_t time, vec3f *position, int delay_slot);
++/* A sensor's extrinsics changed: the state was conditioned on the old ones, so
++ * widen the pose uncertainty and let the next observations re-establish it. */
++void rift_kalman_6dof_notify_camera_moved(rift_kalman_6dof_filter *state,
++	double pos_var, double rot_var);
++
 +/* accel_saturated: the accelerometer clipped; its measurement noise is
 + * inflated for this sample instead of being taken at face value. */
 +void rift_kalman_6dof_imu_update (rift_kalman_6dof_filter *state, uint64_t time, const vec3f* ang_vel, const vec3f* accel, const vec3f* mag_field, bool accel_saturated);
@@ -2582,7 +2615,7 @@ index 0000000..58dc87e
 +#endif
 +
 diff --git a/src/drv_oculus_rift/rift-tracker.c b/src/drv_oculus_rift/rift-tracker.c
-index ad297a1..2ef90e2 100644
+index ad297a1..ce452f2 100644
 --- a/src/drv_oculus_rift/rift-tracker.c
 +++ b/src/drv_oculus_rift/rift-tracker.c
 @@ -15,17 +15,22 @@
@@ -2728,7 +2761,7 @@ index ad297a1..2ef90e2 100644
  	int num_pending_imu_observations;
  	rift_tracked_device_imu_observation pending_imu_observations[RIFT_MAX_PENDING_IMU_OBSERVATIONS];
  
-@@ -148,12 +203,39 @@ struct rift_tracked_device_priv {
+@@ -148,12 +203,43 @@ struct rift_tracked_device_priv {
  	FILE *debug_file;
  };
  
@@ -2752,6 +2785,10 @@ index ad297a1..2ef90e2 100644
 +	uint64_t last_save_ts;
 +	posef start_pose;   /* camera pose at first apply (net-drift telemetry) */
 +	bool have_start;
++	/* Calibration settle state: unsettled while refinement is still moving
++	 * this sensor, settled after enough consecutive quiet evaluations. */
++	bool settled;
++	int quiet_rounds;
 +	double applied_pos_total; /* sum of applied step sizes (telemetry) */
 +	double applied_ang_total;
 +} rift_extrinsic_refine;
@@ -2768,7 +2805,7 @@ index ad297a1..2ef90e2 100644
  	ohmd_thread* usb_thread;
  	int usb_completed;
  
-@@ -161,17 +243,260 @@ struct rift_tracker_ctx_s
+@@ -161,17 +247,291 @@ struct rift_tracker_ctx_s
  	int exposure_history_size;
  	rift_tracker_exposure_info exposure_history[NUM_EXPOSURE_HISTORY];
  
@@ -2793,6 +2830,30 @@ index ad297a1..2ef90e2 100644
 +		use = !(e && strcmp(e, "ukf") == 0);
 +	}
 +	return use;
++}
++
++/* Tell every tracked device that a sensor's extrinsics moved. Each fix taken
++ * through that sensor was computed against a world that has since shifted, so
++ * the fusion must stop treating its pending error as current. Oculus does the
++ * same and says so: "Ekf CameraPoseChange: dt ... dr ..." followed by
++ * "Ekf Reset on CameraPoseChange". */
++static void notify_camera_moved(rift_tracker_ctx *ctx, const vec3f *dpos, float dang)
++{
++	/* how wrong the pose could now be, as a variance */
++	const double pos_var = (double)ovec3f_get_length(dpos) * ovec3f_get_length(dpos);
++	const double rot_var = (double)dang * dang;
++	int i;
++
++	for (i = 0; i < ctx->n_devices; i++) {
++		rift_tracked_device_priv *dev = ctx->devices + i;
++
++		ohmd_lock_mutex(dev->device_lock);
++		if (use_ovr_fusion())
++			rift_fusion_ovr_notify_camera_moved(&dev->ovr_fusion);
++		else
++			rift_kalman_6dof_notify_camera_moved(&dev->ukf_fusion, pos_var, rot_var);
++		ohmd_unlock_mutex(dev->device_lock);
++	}
 +}
 +
 +static void fusion_imu_update(rift_tracked_device_priv *dev, uint64_t time,
@@ -2899,6 +2960,13 @@ index ad297a1..2ef90e2 100644
 +	}
 +	return enabled;
 +}
++
++/* Calibration settle state, mirroring the runtime's own
++ * "Camera Calibration Settled/Unsettled" and its is_sensor_settled /
++ * are_sensors_settled telemetry. A sensor is unsettled while refinement is
++ * still moving it, and settles once this many consecutive evaluations produce
++ * a step small enough to be inside the deadband. */
++#define EXTRINSIC_SETTLE_QUIET_ROUNDS 3
 +
 +#define EXTRINSIC_REFINE_MIN_MEAS 100
 +#define EXTRINSIC_REFINE_INTERVAL_NS 5000000000ULL
@@ -3031,7 +3099,7 @@ index ad297a1..2ef90e2 100644
  static int rift_tracked_device_exposure_claim(rift_tracked_device_priv *dev, rift_tracked_device_exposure_info *dev_info);
  static void rift_tracked_device_exposure_release_locked(rift_tracked_device_priv *dev, rift_tracked_device_exposure_info *dev_info);
  
-@@ -194,12 +519,19 @@ rift_tracker_add_device (rift_tracker_ctx *ctx, int device_id, posef *imu_pose,
+@@ -194,12 +554,19 @@ rift_tracker_add_device (rift_tracker_ctx *ctx, int device_id, posef *imu_pose,
  	next_dev = ctx->devices + ctx->n_devices;
  
  	next_dev->base.id = device_id;
@@ -3051,7 +3119,7 @@ index ad297a1..2ef90e2 100644
  	/* Init delay slot bookkeeping */
  	for (s = 0; s < next_dev->n_delay_slots; s++) {
  		rift_tracker_pose_delay_slot *slot = next_dev->delay_slots + s;
-@@ -238,6 +570,15 @@ rift_tracker_add_device (rift_tracker_ctx *ctx, int device_id, posef *imu_pose,
+@@ -238,6 +605,15 @@ rift_tracker_add_device (rift_tracker_ctx *ctx, int device_id, posef *imu_pose,
  
  	next_dev->base.leds = leds;
  	next_dev->base.led_search = led_search_model_new (leds);
@@ -3067,7 +3135,7 @@ index ad297a1..2ef90e2 100644
  	ctx->n_devices++;
  	ohmd_unlock_mutex (ctx->tracker_lock);
  
-@@ -276,10 +617,16 @@ rift_tracker_new (ohmd_context* ohmd_ctx,
+@@ -276,10 +652,16 @@ rift_tracker_new (ohmd_context* ohmd_ctx,
  	rift_tracker_ctx *tracker_ctx = NULL;
  	int ret, i;
  	libusb_device **devs;
@@ -3084,7 +3152,7 @@ index ad297a1..2ef90e2 100644
  
  	for (i = 0; i < RIFT_MAX_TRACKED_DEVICES; i++) {
  		rift_tracked_device_priv *dev = tracker_ctx->devices + i;
-@@ -300,7 +647,7 @@ rift_tracker_new (ohmd_context* ohmd_ctx,
+@@ -300,7 +682,7 @@ rift_tracker_new (ohmd_context* ohmd_ctx,
  	for (i = 0; devs[i]; ++i) {
  		struct libusb_device_descriptor desc;
  		libusb_device_handle *usb_devh;
@@ -3093,7 +3161,7 @@ index ad297a1..2ef90e2 100644
  
  		ret = libusb_get_device_descriptor(devs[i], &desc);
  		if (ret < 0)
-@@ -315,7 +662,7 @@ rift_tracker_new (ohmd_context* ohmd_ctx,
+@@ -315,7 +697,7 @@ rift_tracker_new (ohmd_context* ohmd_ctx,
  		}
  
  		sprintf ((char *) serial, "UNKNOWN");
@@ -3102,7 +3170,7 @@ index ad297a1..2ef90e2 100644
  
  		if (desc.iSerialNumber) {
  			ret = libusb_get_string_descriptor_ascii(usb_devh, desc.iSerialNumber, serial, 32);
-@@ -336,10 +683,25 @@ rift_tracker_new (ohmd_context* ohmd_ctx,
+@@ -336,10 +718,25 @@ rift_tracker_new (ohmd_context* ohmd_ctx,
  			continue;
  		}
  
@@ -3130,7 +3198,7 @@ index ad297a1..2ef90e2 100644
  			break;
  		}
  	}
-@@ -428,7 +790,7 @@ void rift_tracker_on_new_exposure (rift_tracker_ctx *ctx, uint32_t hmd_ts, uint1
+@@ -428,7 +825,7 @@ void rift_tracker_on_new_exposure (rift_tracker_ctx *ctx, uint32_t hmd_ts, uint1
  		dev_info->device_index = dev->index;
  
  		ohmd_lock_mutex (dev->device_lock);
@@ -3139,7 +3207,7 @@ index ad297a1..2ef90e2 100644
  
  		rift_tracked_device_send_imu_debug(dev);
  
-@@ -461,15 +823,64 @@ rift_tracker_frame_captured (rift_tracker_ctx *ctx, uint64_t local_ts, uint64_t
+@@ -461,15 +858,64 @@ rift_tracker_frame_captured (rift_tracker_ctx *ctx, uint64_t local_ts, uint64_t
  	int i;
  	ohmd_lock_mutex (ctx->tracker_lock);
  
@@ -3208,7 +3276,7 @@ index ad297a1..2ef90e2 100644
  		}
  	}
  
-@@ -553,6 +964,8 @@ rift_tracker_free (rift_tracker_ctx *tracker_ctx)
+@@ -553,6 +999,8 @@ rift_tracker_free (rift_tracker_ctx *tracker_ctx)
  		rift_tracked_device_priv *dev = tracker_ctx->devices + i;
  		if (dev->base.led_search)
  			led_search_model_free (dev->base.led_search);
@@ -3217,7 +3285,7 @@ index ad297a1..2ef90e2 100644
  		if (dev->debug_metadata != NULL)
  			ohmd_pw_debug_stream_free (dev->debug_metadata);
  
-@@ -568,10 +981,11 @@ rift_tracker_free (rift_tracker_ctx *tracker_ctx)
+@@ -568,10 +1016,11 @@ rift_tracker_free (rift_tracker_ctx *tracker_ctx)
  		libusb_exit (tracker_ctx->usb_ctx);
  
  	ohmd_destroy_mutex (tracker_ctx->tracker_lock);
@@ -3230,7 +3298,7 @@ index ad297a1..2ef90e2 100644
  {
  	rift_tracked_device_priv *dev = (rift_tracked_device_priv *) (dev_base);
  	rift_tracked_device_imu_observation *obs;
-@@ -586,8 +1000,22 @@ void rift_tracked_device_imu_update(rift_tracked_device *dev_base, uint64_t loca
+@@ -586,8 +1035,22 @@ void rift_tracked_device_imu_update(rift_tracked_device *dev_base, uint64_t loca
  		dev->device_time_ns += dt_ns;
  	}
  	dev->last_device_ts = device_ts;
@@ -3254,7 +3322,7 @@ index ad297a1..2ef90e2 100644
  
  	obs = dev->pending_imu_observations + dev->num_pending_imu_observations;
  	obs->local_ts = local_ts;
-@@ -607,6 +1035,66 @@ void rift_tracked_device_imu_update(rift_tracked_device *dev_base, uint64_t loca
+@@ -607,6 +1070,66 @@ void rift_tracked_device_imu_update(rift_tracked_device *dev_base, uint64_t loca
  	ohmd_unlock_mutex (dev->device_lock);
  }
  
@@ -3321,7 +3389,7 @@ index ad297a1..2ef90e2 100644
  void rift_tracked_device_get_view_pose(rift_tracked_device *dev_base, posef *pose, vec3f *vel, vec3f *accel, vec3f *ang_vel)
  {
  	rift_tracked_device_priv *dev = (rift_tracked_device_priv *) (dev_base);
-@@ -619,7 +1107,53 @@ void rift_tracked_device_get_view_pose(rift_tracked_device *dev_base, posef *pos
+@@ -619,7 +1142,53 @@ void rift_tracked_device_get_view_pose(rift_tracked_device *dev_base, posef *pos
  		vec3f imu_ang_vel = { 0, };
  		vec3f imu_vel = { 0, }, imu_accel = { 0, };
  
@@ -3376,7 +3444,7 @@ index ad297a1..2ef90e2 100644
  
  		/* Take our fusion / IMU global pose back to device pose by
  		 * computing the IMU->device pose and applying the
-@@ -637,34 +1171,127 @@ void rift_tracked_device_get_view_pose(rift_tracked_device *dev_base, posef *pos
+@@ -637,32 +1206,125 @@ void rift_tracked_device_get_view_pose(rift_tracked_device *dev_base, posef *pos
  		exp_filter_pose_run(&dev->pose_output_filter, dev->device_time_ns, &device_pose, &dev->reported_pose);
  		dev->last_reported_pose = dev->device_time_ns;
  
@@ -3496,10 +3564,10 @@ index ad297a1..2ef90e2 100644
  	if (vel)
 -		*vel = dev->reported_lin_vel;
 +		*vel = out_vel;
- 
- 	ohmd_unlock_mutex (dev->device_lock);
- }
- 
++
++	ohmd_unlock_mutex (dev->device_lock);
++}
++
 +/* Age of the fused pose: how long ago the IMU sample it is an estimate at
 + * arrived, on the host clock. SteamVR's DriverPose_t.poseTimeOffset wants the
 + * negative of this, so it predicts forward from the correct epoch instead of
@@ -3508,19 +3576,17 @@ index ad297a1..2ef90e2 100644
 +{
 +	rift_tracked_device_priv *dev = (rift_tracked_device_priv *) (dev_base);
 +	uint64_t age = 0;
-+
+ 
 +	ohmd_lock_mutex (dev->device_lock);
 +	if (dev->last_imu_local_ts != 0 && now_local_ts > dev->last_imu_local_ts)
 +		age = now_local_ts - dev->last_imu_local_ts;
-+	ohmd_unlock_mutex (dev->device_lock);
+ 	ohmd_unlock_mutex (dev->device_lock);
 +
 +	return age;
-+}
-+
- static rift_tracker_pose_delay_slot *get_matching_delay_slot(rift_tracked_device_priv *dev, rift_tracked_device_exposure_info *dev_info);
+ }
  
- /* Retrieve the latest model pose estimate from a delay slot into the exposure info.
-@@ -687,7 +1314,7 @@ bool rift_tracked_device_get_latest_exposure_info_pose (rift_tracked_device *dev
+ static rift_tracker_pose_delay_slot *get_matching_delay_slot(rift_tracked_device_priv *dev, rift_tracked_device_exposure_info *dev_info);
+@@ -687,7 +1349,7 @@ bool rift_tracked_device_get_latest_exposure_info_pose (rift_tracked_device *dev
  		posef imu_global_pose;
  		vec3f global_pos_error, global_rot_error;
  
@@ -3529,7 +3595,7 @@ index ad297a1..2ef90e2 100644
  						NULL, NULL, NULL, &global_pos_error, &global_rot_error);
  
  		oposef_apply(&dev->model_from_fusion, &imu_global_pose, &dev_info->capture_pose);
-@@ -715,8 +1342,29 @@ bool rift_tracked_device_get_latest_exposure_info_pose (rift_tracked_device *dev
+@@ -715,8 +1377,29 @@ bool rift_tracked_device_get_latest_exposure_info_pose (rift_tracked_device *dev
  	return res;
  }
  
@@ -3560,7 +3626,7 @@ index ad297a1..2ef90e2 100644
  {
  	rift_tracked_device_priv *dev = (rift_tracked_device_priv *) (dev_base);
  	uint64_t frame_device_time_ns = 0;
-@@ -763,9 +1411,53 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
+@@ -763,9 +1446,53 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
  			pos_error.x, pos_error.y, pos_error.z,
  			source);
  
@@ -3615,7 +3681,7 @@ index ad297a1..2ef90e2 100644
  			update_position = false;
  			LOGI("Ignoring position observation with error %f %f %f (prior stddev was %f %f %f)\n",
  				pos_error.x, pos_error.y, pos_error.z,
-@@ -776,7 +1468,7 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
+@@ -776,7 +1503,7 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
  		}
  
  		/* If we have a strong match, update both position and orientation */
@@ -3624,7 +3690,7 @@ index ad297a1..2ef90e2 100644
  			update_orientation = true;
  			if ((dev->device_time_ns - dev->last_observed_orient_ts) > (POSE_LOST_ORIENT_THRESHOLD * 1000000UL)) {
  				LOGI("Matched orientation after %f sec", (dev->device_time_ns - dev->last_observed_pose_ts) / 1000000000.0);
-@@ -785,7 +1477,8 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
+@@ -785,7 +1512,8 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
  			if (update_position)
  				dev->last_observed_orient_ts = dev->device_time_ns;
  		}
@@ -3634,7 +3700,7 @@ index ad297a1..2ef90e2 100644
  			LOGI("Forcing orientation observation");
  			update_orientation = true;
  			/* Don't update the orientation match time here - only do that on an actual match */
-@@ -799,29 +1492,192 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
+@@ -799,29 +1527,192 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
  			if (dev->last_acquired_pose_lock_ts == 0)
  				dev->last_acquired_pose_lock_ts = dev->last_acquired_pose_lock_ts;
  
@@ -3834,7 +3900,7 @@ index ad297a1..2ef90e2 100644
  		}
  	}
  
-@@ -859,12 +1715,23 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
+@@ -859,12 +1750,23 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
  }
  
  /* Called with the device lock held */
@@ -3862,7 +3928,7 @@ index ad297a1..2ef90e2 100644
  
  	/* Apply the pose conversion from IMU->model */
  	oposef_apply(&dev->model_from_fusion, &imu_global_pose, &model_pose);
-@@ -1014,10 +1881,23 @@ get_matching_delay_slot(rift_tracked_device_priv *dev, rift_tracked_device_expos
+@@ -1014,10 +1916,23 @@ get_matching_delay_slot(rift_tracked_device_priv *dev, rift_tracked_device_expos
  
  /* Called with the device lock held. Allocate a delay slot and populate the device exposure info */
  static void
@@ -3888,7 +3954,7 @@ index ad297a1..2ef90e2 100644
  
  	if (slot == NULL) {
  		/* We might reclaim a busy delay slot if some frame search is being slow and we already got an observation from another camera */
-@@ -1040,7 +1920,7 @@ rift_tracked_device_on_new_exposure(rift_tracked_device_priv *dev, rift_tracked_
+@@ -1040,7 +1955,7 @@ rift_tracked_device_on_new_exposure(rift_tracked_device_priv *dev, rift_tracked_
  	}
  	dev_info->last_acquired_pose_lock_ts = dev->last_acquired_pose_lock_ts;
  
@@ -3897,7 +3963,7 @@ index ad297a1..2ef90e2 100644
  
  	if (slot) {
  		slot->device_time_ns = dev_info->device_time_ns;
-@@ -1053,7 +1933,7 @@ rift_tracked_device_on_new_exposure(rift_tracked_device_priv *dev, rift_tracked_
+@@ -1053,7 +1968,7 @@ rift_tracked_device_on_new_exposure(rift_tracked_device_priv *dev, rift_tracked_
  		dev_info->fusion_slot = slot->slot_id;
  
  		/* Tell the kalman filter to prepare the delay slot */
@@ -3906,7 +3972,7 @@ index ad297a1..2ef90e2 100644
  
  		/* Clear the last no-free-delay-slot tracking to avoid logging noise */
  		dev->last_no_free_delay_slot = 0;
-@@ -1131,3 +2011,124 @@ void rift_tracked_device_frame_release(rift_tracked_device *dev_base, rift_track
+@@ -1131,3 +2046,157 @@ void rift_tracked_device_frame_release(rift_tracked_device *dev_base, rift_track
  	}
  	ohmd_unlock_mutex (dev->device_lock);
  }
@@ -3970,8 +4036,17 @@ index ad297a1..2ef90e2 100644
 +	}
 +	ohmd_unlock_mutex(ctx->refine_lock);
 +
-+	if (!have)
++	if (!have) {
++		/* Nothing worth correcting this round. Enough of those in a row and
++		 * the sensor's calibration is settled. */
++		ohmd_lock_mutex(ctx->refine_lock);
++		if (!r->settled && ++r->quiet_rounds >= EXTRINSIC_SETTLE_QUIET_ROUNDS) {
++			r->settled = true;
++			LOGI("sensor %s calibration SETTLED", rift_sensor_serial_no(sensor));
++		}
++		ohmd_unlock_mutex(ctx->refine_lock);
 +		return;
++	}
 +
 +	float dist = ovec3f_get_length(&mean_pos);
 +	float t_pos = EXTRINSIC_REFINE_GAIN;
@@ -3992,6 +4067,30 @@ index ad297a1..2ef90e2 100644
 +	rift_sensor_get_pose(sensor, &cur);
 +	oposef_apply(&cur, &step, &newp);
 +	rift_sensor_set_pose(sensor, &newp);
++
++	/* Every fix taken through this sensor was computed against the pose we
++	 * just changed. Say so, in the same terms the runtime does, and make the
++	 * fusion stop trusting its pending error. */
++	{
++		vec3f applied_d;
++		float applied_ang = ang * t_ang;
++		ovec3f_subtract(&newp.pos, &cur.pos, &applied_d);
++
++		LOGI("sensor %s CameraPoseChange: dt %.1f %.1f %.1f (%.1f) mm  dr %.2f deg",
++			rift_sensor_serial_no(sensor),
++			applied_d.x * 1000.0, applied_d.y * 1000.0, applied_d.z * 1000.0,
++			ovec3f_get_length(&applied_d) * 1000.0, RAD_TO_DEG(applied_ang));
++
++		notify_camera_moved(ctx, &applied_d, applied_ang);
++
++		ohmd_lock_mutex(ctx->refine_lock);
++		r->quiet_rounds = 0;
++		if (r->settled) {
++			r->settled = false;
++			LOGI("sensor %s calibration UNSETTLED", rift_sensor_serial_no(sensor));
++		}
++		ohmd_unlock_mutex(ctx->refine_lock);
++	}
 +
 +	bool save = false;
 +	ohmd_lock_mutex(ctx->refine_lock);
@@ -4779,10 +4878,10 @@ index 0000000..0cfa1c3
 +}
 diff --git a/tests/unittests/kalman_6dof.c b/tests/unittests/kalman_6dof.c
 new file mode 100644
-index 0000000..6570ce7
+index 0000000..f2f01f0
 --- /dev/null
 +++ b/tests/unittests/kalman_6dof.c
-@@ -0,0 +1,219 @@
+@@ -0,0 +1,284 @@
 +/*
 + * Synthetic tests for the 6DOF UKF.
 + *
@@ -5002,11 +5101,76 @@ index 0000000..6570ce7
 +
 +	rift_kalman_6dof_clear(&f);
 +}
++
++/* When a sensor's extrinsics are corrected, every fix taken through it was
++ * computed against a world that has since moved. The fusion has to be told, or
++ * it blends the new (correct) fix with its stale pending error and barely
++ * moves. A/B over a 50 mm extrinsic correction. */
++static float camera_moved_residual_mm(bool notify)
++{
++	const vec3f accel = {{ 0.0f, (float)GRAVITY, 0.0f }};
++	const vec3f gyro = {{ 0.0f, 0.0f, 0.0f }};
++	posef a, b, out;
++	vec3f vel, acc, ang_vel, d;
++	rift_fusion_ovr f;
++	uint64_t t = 0;
++	int i;
++
++	ovec3f_set(&a.pos, 0.0f, 1.2f, -1.3f);
++	oquatf_set(&a.orient, 0.0f, 0.0f, 0.0f, 1.0f);
++	b = a;
++	b.pos.x += 0.05f;
++
++	rift_fusion_ovr_init(&f, &a, 3);
++
++	for (i = 1; i <= 2000; i++) {           /* settle on the old extrinsics */
++		t = (uint64_t)i * 1000000ULL;
++		rift_fusion_ovr_imu_update(&f, t, &gyro, &accel, NULL, false);
++		if (i % 20 == 0) {
++			int s = (i / 20) % 3;
++			rift_fusion_ovr_prepare_delay_slot(&f, t, s);
++			rift_fusion_ovr_pose_update(&f, t, &a, s, 1.0f, false);
++			rift_fusion_ovr_release_delay_slot(&f, s);
++		}
++	}
++
++	if (notify)
++		rift_fusion_ovr_notify_camera_moved(&f);
++
++	for (i = 2001; i <= 2020; i++) {
++		t = (uint64_t)i * 1000000ULL;
++		rift_fusion_ovr_imu_update(&f, t, &gyro, &accel, NULL, false);
++	}
++	rift_fusion_ovr_prepare_delay_slot(&f, t, 0);
++	rift_fusion_ovr_pose_update(&f, t, &b, 0, 1.0f, false);
++	rift_fusion_ovr_release_delay_slot(&f, 0);
++	for (i = 2021; i <= 2040; i++) {
++		t = (uint64_t)i * 1000000ULL;
++		rift_fusion_ovr_imu_update(&f, t, &gyro, &accel, NULL, false);
++	}
++
++	rift_fusion_ovr_get_pose_at(&f, t, &out, &vel, &acc, &ang_vel, NULL, NULL);
++	ovec3f_subtract(&out.pos, &b.pos, &d);
++	rift_fusion_ovr_clear(&f);
++
++	return ovec3f_get_length(&d) * 1000.0f;
++}
++
++void test_rift_fusion_ovr_camera_moved()
++{
++	float without = camera_moved_residual_mm(false);
++	float with = camera_moved_residual_mm(true);
++
++	/* untold, the filter is still most of the 50 mm away */
++	TAssert(without > 20.0f);
++	/* told, it takes the corrected fix in full */
++	TAssert(with < 1.0f);
++}
 diff --git a/tests/unittests/main.c b/tests/unittests/main.c
-index 378cd83..2c7cdeb 100644
+index 378cd83..c14d225 100644
 --- a/tests/unittests/main.c
 +++ b/tests/unittests/main.c
-@@ -41,6 +41,28 @@ int main()
+@@ -41,6 +41,29 @@ int main()
  	Test(test_oposef_inverse);
  	Test(test_oposef_apply);
  
@@ -5025,6 +5189,7 @@ index 378cd83..2c7cdeb 100644
 +	Test(test_rift_kalman_delayed_position_update);
 +	Test(test_rift_fusion_ovr_saturated_accel_ignored);
 +	Test(test_rift_kalman_rejects_non_finite_imu);
++	Test(test_rift_fusion_ovr_camera_moved);
 +	printf("\n");
 +
 +	printf("opencv geometry tests\n");
@@ -5188,10 +5353,10 @@ index 0000000..a70a24e
 +
 +#endif
 diff --git a/tests/unittests/tests.h b/tests/unittests/tests.h
-index 1a7d1c8..5dc9816 100644
+index 1a7d1c8..03139ae 100644
 --- a/tests/unittests/tests.h
 +++ b/tests/unittests/tests.h
-@@ -49,6 +49,23 @@ void test_oposef_init();
+@@ -49,6 +49,24 @@ void test_oposef_init();
  void test_oposef_inverse();
  void test_oposef_apply();
  
@@ -5207,6 +5372,7 @@ index 1a7d1c8..5dc9816 100644
 +void test_rift_kalman_delayed_position_update();
 +void test_rift_fusion_ovr_saturated_accel_ignored();
 +void test_rift_kalman_rejects_non_finite_imu();
++void test_rift_fusion_ovr_camera_moved();
 +
 +// OpenCV geometry regression tests
 +void test_opencv_fisheye_roundtrip();
