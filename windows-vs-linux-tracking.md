@@ -99,35 +99,63 @@ the average bias. The bias is PnP depth ambiguity on a small LED ring seen from 
 steep angle — exactly the degeneracy a second viewpoint removes, but only if both
 viewpoints enter the *same* solve.
 
-### Measured baseline (2026-07-28, `tools/replay_recon.py baseline`, no hardware)
+### MEASURED, 2026-07-28 — `tools/replay_recon.py`, offline, no hardware
 
-Replaying the recorded captures through today's logic — each sensor's own solve,
-then the tracker's `1/obs_scale²` weighted merge:
+Replaying the recorded captures through today's logic (each sensor's own solve,
+then the tracker's `1/obs_scale²` weighted merge) versus a joint solve over the
+pooled blobs of both cameras with the extrinsics held fixed. Extrinsics from
+`~/.config/openhmd/rift-room-config.json`, i.e. the current solved room.
 
-| capture | device | co-obs | disagreement | reproj own cam | reproj **other** cam | reproj merged |
-|---|---|---|---|---|---|---|
-| `ctrl-obs.jsonl` | Touch L | 1199 | 86.3 mm / 4.67° | 0.090 px | **31.1 px** | 15.6 px |
-| `final-verify.jsonl` | HMD (floor) | 1156 | 116.9 mm / 4.94° | 0.122 px | **33.5 px** | 16.8 px |
-| `cal-capture.jsonl` | HMD (pre-recal) | 44 | 568 mm / 155° | 0.107 px | 211 px | 108 px |
+| | `ctrl-obs.jsonl` — Touch L, 1199 exposures | `final-verify.jsonl` — HMD on floor, 1156 exposures |
+|---|---|---|
+| cross-camera disagreement | 12.76 mm / 0.97° | 5.50 mm / 1.08° |
+| reproj, own solve in **own** camera | 0.090 px | 0.122 px |
+| reproj, own solve in **other** camera | 5.65 px | 0.719 px |
+| reproj, **merged** pose (today) | 2.83 px | 0.372 px |
+| **reproj, joint pose, worst camera** | **0.662 px** | **0.257 px** |
+| joint pose vs merged pose | 15.7 mm | 2.6 mm |
+| **frame-to-frame step, merged (today)** | 0.490 mm | 1.377 mm |
+| **frame-to-frame step, joint** | **0.045 mm** | **0.205 mm** |
+| passes Oculus's 2 px acceptance | **100 %** | **100 %** |
 
-Two things this makes precise for the first time:
+Three conclusions:
 
-1. **Each camera's solve is essentially perfect in its own image** (0.09–0.12 px)
-   and catastrophically wrong in the other's (31–34 px). The merged pose splits
-   the difference and is wrong in *both* (~16 px). Averaging cannot help; only a
-   pose that satisfies both images can.
-2. **The disagreement is rigid, not noisy** — over 1199 exposures the Touch
-   figure spans 86.2 → 87.8 mm. A noise-driven PnP ambiguity would not be that
-   tight.
+1. **The joint solve reaches Oculus's own acceptance bar on every single
+   exposure**, on real recorded data, on both the controller and the headset.
+2. **Frame-to-frame jitter falls 11× (Touch) and 6.7× (HMD)** — 0.490 → 0.045 mm
+   and 1.377 → 0.205 mm. This is on top of the same-exposure merge fix already
+   deployed, and it is the rubber-banding/wander the user sees.
+3. **The merged pose is systematically wrong**, not merely noisy: the joint pose
+   sits 15.7 mm (Touch) and 2.6 mm (HMD) away from it. Averaging two poses that
+   each fit only their own camera lands between two right answers to the wrong
+   question.
 
-Point 2 means the joint solve doubles as the diagnostic this project has been
-missing: if one pose can satisfy both cameras at ~2 px, the residual was depth
-ambiguity; if it cannot, the *extrinsics* are wrong. Oculus makes exactly that
-distinction — `"Bad calibration for camera %d, object %d: reprojection err %.2f,
-tilt err %.2f"` **[diag]** — and `controller-tracking-analysis.md` warned that
-steep-view PnP ambiguity masks extrinsic damage. The `cal-capture.jsonl` row is
-the positive control: that capture predates the gravity-gate/world-flip fix, and
-the harness flags it at 155°.
+**The joint reprojection error is also an extrinsic-quality detector.** Run
+against each capture's *embedded* `campose` — the extrinsics the driver was
+actually using when the capture was recorded, before the room was re-solved —
+no single pose can satisfy both cameras at all:
+
+| capture | extrinsics | disagreement | joint worst-camera reproj | passes 2 px |
+|---|---|---|---|---|
+| `ctrl-obs.jsonl` | capture-time `campose` | 86.3 mm / 4.67° | 18.3 px | 0 % |
+| `final-verify.jsonl` | capture-time `campose` | 116.9 mm / 4.94° | 28.7 px | 0 % |
+| `cal-capture.jsonl` | capture-time (pre-recal) | 568 mm / 155° | — | 0 % |
+
+That is exactly the distinction Oculus draws — `"Bad calibration for camera %d,
+object %d: reprojection err %.2f, tilt err %.2f"` **[diag]**. A joint residual
+that cannot be driven below a few px means the *extrinsics* are wrong, not the
+pose; a residual that collapses to sub-px means they are right. This project has
+never had that test, and `controller-tracking-analysis.md` explicitly warned that
+steep-view PnP ambiguity masks extrinsic damage. It no longer does.
+
+(Bundle-adjusting `ctrl-obs.jsonl` moves sensor 1 by 20.7 mm / 0.98° and takes
+the disagreement to 0.71 mm / 0.13°, so even the current config is slightly stale
+for that capture — which is what §5's online calibration is for.)
+
+**Not yet implemented in the prototype**: RANSAC and the iterative outlier
+removal. The captures contain only LED-ID-verified correspondences, so gross
+outliers are rare in them; both are required for the C port, where the
+correspondence set is not pre-filtered.
 
 ### What it would take
 
