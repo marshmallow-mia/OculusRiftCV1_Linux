@@ -10,6 +10,52 @@ classes), `decomp/rift-dll-tracking-strings.txt` (627 tracking log strings),
 
 ---
 
+## Status — 2026-07-28
+
+Branch `windows-parity`: 9 commits in the openhmd tree, 12 here, 33 unit tests
+passing (`meson test -C build`). **No hardware was available**, so every number
+below is from replaying recorded captures or from synthetic tests, and nothing
+here has been seen tracking a real headset.
+
+**Shipped, with the measurement that justifies it**
+
+| | measured |
+|---|---|
+| **Joint multi-camera reconstruction** (§2) — one pose per exposure from every camera's blobs, replacing the pose average | worst-camera reprojection 2.83 → **0.662 px** (Touch), frame-to-frame jitter 0.490 → **0.045 mm** (11×) and 1.377 → **0.205 mm** (6.7×); **100 %** of 2355 real exposures inside Oculus's 2 px bar |
+| **Extrinsic-change notification** (§5) — tell the fusion when a sensor pose moves | residual after a 50 mm correction: 45.22 → **0.00 mm** |
+| **IMU saturation handling** (§7b) | a clipped reading claiming "down is sideways" tilts the filter 90.00° unflagged, **0.00°** flagged |
+| **Accelerometer noise measured, not guessed** (§7) | `m1.R` was 1e-6 under a FIXME; measured **2.2e-3** from a real CV1's raw 1 kHz stream, ~2000× |
+| **OpenCV 5 port** (§8b) | the driver did not build at all; now builds against OpenCV 3/4/5, with geometry round-trip tests so a future bump cannot silently move the tracking |
+| **Numerical guards, timing telemetry, UKF defect fixes** (§7, §7b, §7c) | reset on Cholesky failure, non-finite catch, four continuous timing checks |
+
+**Tried and deliberately reverted** — both recorded rather than quietly dropped
+
+- **Gravity as EKF states** (§3b). Implemented, stable, and *inert*: the state
+  moved 0.0004 m/s² in 20 s, and loosening its prior 4× changed nothing. With
+  ~1000 accelerometer updates per second and physically-correct near-zero
+  process noise, the covariance collapses in the first few samples and freezes.
+  Which is why Oculus feeds its gravity states from a separate aligner.
+- **dt-scaling the process noise** (§7). Correct in principle; makes the next
+  Cholesky factorisation fail, because the unconditional addition had been
+  quietly keeping P positive definite. A filter that will not factorise is
+  worse than a mistuned one.
+
+**Needs hardware**
+
+1. **Live validation of everything above.** The joint solver's runtime plumbing
+   is compile-verified only — that both sensors' correspondences land in the
+   same delay slot under real threading is untested.
+2. **The gravity aligner** (§4). The measurement works and found a repeatable
+   **~6° tilt bias in the HMD's fused orientation** (differential between
+   cameras 0.72–0.90°, consistent across two devices; common mode ~5.97° for the
+   HMD vs 0.73° for Touch). The driver now records the accelerometer `grav`
+   vector so a fresh capture can settle it without the circularity.
+3. **The back-of-head LED group** (§7c). `rift_get_led_info()` *discards* every
+   headband LED, so the headset is trackable only from the front — and no
+   capture we hold contains one to test against.
+
+---
+
 ## 0. Where their code is
 
 ```
