@@ -94,6 +94,41 @@ def reproj_px(R_obj, t_obj, cam_pose, sensor, pts, uv):
     return np.linalg.norm(project(Xc, sensor["K"], sensor["dist"]) - uv, axis=1)
 
 
+def solve_joint(entries, cam_poses, sensors, R0, t0, huber_px=2.0):
+    """One object world pose minimising reprojection across ALL cameras.
+
+    The extrinsics are held fixed and the 6-DoF object pose is the only
+    unknown — the shape of Oculus's reconstruction (fcn.18010cac0 called with
+    camera index -1 = all cameras). Residuals are in pixels; their acceptance
+    threshold is 2 px (their `2/715` normalised, fcn.18017f370).
+    """
+    from scipy.optimize import least_squares
+    from scipy.spatial.transform import Rotation
+
+    packed = []
+    for e in entries:
+        Rc, tc = cam_poses[e["sid"]]
+        packed.append((Rc, tc, sensors[e["sid"]], e["pts"], e["uv"]))
+
+    rv0 = Rotation.from_matrix(R0).as_rotvec()
+
+    def residuals(x):
+        R = Rotation.from_rotvec(x[0:3]).as_matrix()
+        t = x[3:6]
+        out = []
+        for Rc, tc, sen, pts, uv in packed:
+            Xw = pts @ R.T + t
+            Xc = (Xw - tc) @ Rc
+            out.append((project(Xc, sen["K"], sen["dist"]) - uv).ravel())
+        return np.concatenate(out)
+
+    res = least_squares(residuals, np.concatenate([rv0, t0]),
+                        loss="huber", f_scale=huber_px, x_scale="jac",
+                        max_nfev=200)
+    R = Rotation.from_rotvec(res.x[0:3]).as_matrix()
+    return R, res.x[3:6], res.success
+
+
 def quat_angle_deg(Ra, Rb):
     cos = (np.trace(Ra.T @ Rb) - 1.0) / 2.0
     return float(np.degrees(np.arccos(np.clip(cos, -1.0, 1.0))))
@@ -143,13 +178,14 @@ def fmt(label, s, unit, width=34):
 def cam_poses_for(capture_sensors, groups, config_path, use_config):
     """Extrinsics per sensor id: from --config, else the capture's campose."""
     if use_config:
-        cfg = load_config(config_path)
+        _, poses = load_config(config_path)
         out = {}
         for sid, s in capture_sensors.items():
-            if s["serial"] not in cfg:
+            if s["serial"] not in poses:
                 raise SystemExit(
                     f"sensor {sid} serial {s['serial']} not in {config_path}")
-            out[sid] = pose_to_rt(cfg[s["serial"]])
+            pos, quat = poses[s["serial"]]
+            out[sid] = pose_to_rt(np.concatenate([pos, quat]))
         return out, f"config {config_path}"
 
     out = {}
@@ -185,7 +221,8 @@ def run_baseline(args):
 
     disagree_pos, disagree_ang = [], []
     own_reproj, cross_reproj, merged_reproj = [], [], []
-    merged_track = []
+    joint_reproj, joint_worst, joint_shift = [], [], []
+    merged_track, joint_track = [], []
     n_solo = 0
 
     for key in keys:
@@ -228,11 +265,29 @@ def run_baseline(args):
                                            sensors[e["sid"]], e["pts"], e["uv"]).mean())
         merged_track.append((key[0], mt))
 
-    steps = []
-    merged_track.sort(key=lambda kv: kv[0])
-    for (t0, p0), (t1, p1) in zip(merged_track, merged_track[1:]):
-        if 0 < (t1 - t0) < 60_000_000:      # consecutive exposures, < 60 ms
-            steps.append(np.linalg.norm(p1 - p0))
+        if args.joint:
+            jR, jt, ok = solve_joint(entries, cam_poses, sensors, mR, mt)
+            if ok:
+                worst = 0.0
+                for e in entries:
+                    r = reproj_px(jR, jt, cam_poses[e["sid"]], sensors[e["sid"]],
+                                  e["pts"], e["uv"]).mean()
+                    joint_reproj.append(r)
+                    worst = max(worst, r)
+                joint_worst.append(worst)
+                joint_shift.append(np.linalg.norm(jt - mt))
+                joint_track.append((key[0], jt))
+
+    def f2f(track):
+        out = []
+        track.sort(key=lambda kv: kv[0])
+        for (t0, p0), (t1, p1) in zip(track, track[1:]):
+            if 0 < (t1 - t0) < 60_000_000:   # consecutive exposures, < 60 ms
+                out.append(np.linalg.norm(p1 - p0))
+        return out
+
+    steps = f2f(merged_track)
+    joint_steps = f2f(joint_track)
 
     print(f"\ncapture      {args.capture}")
     print(f"device       {args.device}")
@@ -249,6 +304,18 @@ def run_baseline(args):
     fmt("reproj: own solve in OTHER camera", stats(cross_reproj), "px")
     fmt("reproj: merged pose, both cameras", stats(merged_reproj), "px")
     fmt("merged pose frame-to-frame step", stats(steps, 1000.0), "mm")
+
+    if args.joint:
+        print("\nJOINT — one pose per exposure over all cameras' blobs (Oculus shape)")
+        fmt("reproj: joint pose, each camera", stats(joint_reproj), "px")
+        fmt("reproj: joint pose, WORST camera", stats(joint_worst), "px")
+        fmt("joint vs merged position shift", stats(joint_shift, 1000.0), "mm")
+        fmt("joint pose frame-to-frame step", stats(joint_steps, 1000.0), "mm")
+        w = np.asarray(joint_worst)
+        if w.size:
+            print(f"\n  exposures whose worst-camera reprojection is <= 2 px "
+                  f"(Oculus's acceptance): {100.0 * (w <= 2.0).mean():.1f}%")
+            print(f"  ... <= 5 px: {100.0 * (w <= 5.0).mean():.1f}%")
 
     if args.json:
         out = {
@@ -281,6 +348,8 @@ def main():
     b.add_argument("--min-blobs", type=int, default=6)
     b.add_argument("--limit", type=int, default=0)
     b.add_argument("--json", type=Path, default=None)
+    b.add_argument("--joint", action="store_true",
+                   help="also solve one pose per exposure over all cameras")
     b.set_defaults(func=run_baseline)
 
     args = ap.parse_args()
