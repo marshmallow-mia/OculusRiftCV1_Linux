@@ -328,6 +328,53 @@ they hold as state.
 
 ---
 
+## 3b. Gravity as EKF states — tried, reverted, and what it taught us
+
+**2026-07-28.** Item 3 of §8 said to add gravity magnitude and a 2-dof gravity
+direction to our UKF, matching the states Oculus's `IndirectEkf<18,9>` carries.
+That was implemented — as plain euclidean states so
+`state_residual_func`/`state_sum_func` pick them up unchanged, with the
+magnitude clamped to Oculus's own 9.71–9.91 band and the direction as a
+rotation about a horizontal axis, exactly their `(axis %.3f, 0, %.3f)`
+parameterisation. It built, it was numerically stable, and every existing test
+passed.
+
+**It was reverted, because the states are inert.** Driven with a synthetic
+device whose true local gravity is 9.75 m/s² while the filter starts at
+9.80665, over 20 s at 1 kHz with vision fixes every 20 ms:
+
+| | after 20 s |
+|---|---|
+| stationary | 9.8061 (error +0.056) |
+| rocking ±0.5 rad at 0.5 Hz | 9.8059 (error +0.056) |
+| rocking, accel-bias prior tightened 100× | 9.7912 (error +0.041) |
+| rocking, gravity prior loosened a further 4× | 9.7912 — **unchanged** |
+
+The direction states never moved at all.
+
+Two reasons, and the second is the interesting one:
+
+1. **Gravity and accelerometer bias are confounded.** A constant offset in the
+   body frame is a bias; only orientation diversity separates them, and the
+   bias prior is far looser, so the filter attributes the mismatch there.
+2. **The estimate saturates.** Loosening the gravity prior 4× changes the
+   answer not at all. With ~1000 accelerometer updates per second and a process
+   noise of 1e-16 — correct, since gravity genuinely does not change — the
+   gravity covariance collapses within the first few samples and the state is
+   frozen thereafter. Keeping it alive would need process noise that says
+   gravity wanders, which is physically false.
+
+**This is why Oculus does not estimate gravity from the EKF's accelerometer
+residual either.** Their gravity states exist, but they are *fed* by a separate
+`Gravity aligner` subsystem with its own filter, confidence tiers, reliability
+counts, an explicit nominated alignment camera, and a "filter stuck, too much
+movement" detector (§4). Adding states to the estimator is the easy half; the
+subsystem that makes them observable is the real work. §8 item 3 was mis-ranked
+as separable from item 4 — they are one job, and it is item 4.
+
+Cost avoided: 3 covariance dimensions is 6 more sigma points, roughly 17 % more
+unscented-transform work per IMU sample, for no measurable benefit.
+
 ## 4. Delta 3 — the gravity aligner (a subsystem we simply do not have)
 
 **[diag]**, all from `Rift.dll`:
