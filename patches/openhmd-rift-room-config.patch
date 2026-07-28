@@ -302,10 +302,10 @@ index 0483dd2..bd891c1 100644
  
 diff --git a/src/drv_oculus_rift/rift-fusion-ovr.c b/src/drv_oculus_rift/rift-fusion-ovr.c
 new file mode 100644
-index 0000000..b0ee471
+index 0000000..fe48234
 --- /dev/null
 +++ b/src/drv_oculus_rift/rift-fusion-ovr.c
-@@ -0,0 +1,525 @@
+@@ -0,0 +1,533 @@
 +/*
 + * Complementary-filter fusion ported from Oculus SDK 0.3.2
 + * (LibOVR/Src/OVR_SensorFusion.cpp) — see rift-fusion-ovr.h.
@@ -804,6 +804,14 @@ index 0000000..b0ee471
 +	}
 +}
 +
++bool rift_fusion_ovr_get_gravity_body(rift_fusion_ovr *f, vec3f *out)
++{
++	if (!f->grav_init || f->grav_warmup < 1.0f)
++		return false;
++	*out = f->grav_filter;
++	return true;
++}
++
 +void rift_fusion_ovr_get_delay_slot_pose_at(rift_fusion_ovr *f, uint64_t time, int delay_slot,
 +	posef *pose, vec3f *vel, vec3f *accel, vec3f *ang_vel, vec3f *pos_error, vec3f *rot_error)
 +{
@@ -833,10 +841,10 @@ index 0000000..b0ee471
 +}
 diff --git a/src/drv_oculus_rift/rift-fusion-ovr.h b/src/drv_oculus_rift/rift-fusion-ovr.h
 new file mode 100644
-index 0000000..26a6353
+index 0000000..5b7dfaf
 --- /dev/null
 +++ b/src/drv_oculus_rift/rift-fusion-ovr.h
-@@ -0,0 +1,88 @@
+@@ -0,0 +1,94 @@
 +/*
 + * Complementary-filter fusion for the Rift, ported from the algorithm
 + * Oculus shipped as open source in SDK 0.3.2 (LibOVR OVR_SensorFusion.cpp)
@@ -921,6 +929,12 @@ index 0000000..26a6353
 +
 +void rift_fusion_ovr_get_delay_slot_pose_at(rift_fusion_ovr *f, uint64_t time, int delay_slot,
 +	posef *pose, vec3f *vel, vec3f *accel, vec3f *ang_vel, vec3f *pos_error, vec3f *rot_error);
++/* The accelerometer-derived gravity direction in the CURRENT BODY FRAME, as
++ * low-passed by the tilt-correction filter. This is pure accelerometer - no
++ * vision - which is what makes it usable as an independent reference for
++ * gravity alignment. Returns false before the filter has warmed up. */
++bool rift_fusion_ovr_get_gravity_body(rift_fusion_ovr *f, vec3f *out);
++
 +void rift_fusion_ovr_get_pose_at(rift_fusion_ovr *f, uint64_t time,
 +	posef *pose, vec3f *vel, vec3f *accel, vec3f *ang_vel, vec3f *pos_error, vec3f *rot_error);
 +
@@ -1666,10 +1680,10 @@ index 876b391..ef6bfa3 100644
  		}
  	}
 diff --git a/src/drv_oculus_rift/rift-sensor-pose-search.c b/src/drv_oculus_rift/rift-sensor-pose-search.c
-index 6989c0a..f64adb0 100644
+index 6989c0a..1127e16 100644
 --- a/src/drv_oculus_rift/rift-sensor-pose-search.c
 +++ b/src/drv_oculus_rift/rift-sensor-pose-search.c
-@@ -28,6 +28,166 @@ static int update_device_and_blobs (rift_pose_finder *pf, rift_sensor_analysis_f
+@@ -28,6 +28,175 @@ static int update_device_and_blobs (rift_pose_finder *pf, rift_sensor_analysis_f
  	rift_tracked_device_exposure_info *exp_dev_info,
  	posef *obj_cam_pose);
  
@@ -1753,6 +1767,13 @@ index 6989c0a..f64adb0 100644
 +	const posef *wp = &exp_dev_info->capture_pose;
 +	blobservation *bwobs = frame->bwobs;
 +
++	/* Accelerometer-derived gravity in the model frame. Independent of vision
++	 * and of the room config, so an offline solver can use it to check how the
++	 * room frame relates to true up (tools/replay_recon.py gravity). Zero when
++	 * unavailable. */
++	vec3f grav = {{ 0.0f, 0.0f, 0.0f }};
++	rift_tracked_device_get_gravity_model(dev, &grav);
++
 +	pthread_mutex_lock(&cal_capture_lock);
 +	FILE *f = cal_capture_get_file();
 +	if (f) {
@@ -1760,7 +1781,8 @@ index 6989c0a..f64adb0 100644
 +			"\"flags\":%u,\"re\":%.5g,\"ge\":%.5g,\"pe\":[%.5g,%.5g,%.5g],"
 +			"\"cam\":[%.7g,%.7g,%.7g,%.7g,%.7g,%.7g,%.7g],"
 +			"\"wp\":[%.7g,%.7g,%.7g,%.7g,%.7g,%.7g,%.7g],"
-+			"\"campose\":[%.7g,%.7g,%.7g,%.7g,%.7g,%.7g,%.7g],\"blobs\":[",
++			"\"campose\":[%.7g,%.7g,%.7g,%.7g,%.7g,%.7g,%.7g],"
++			"\"grav\":[%.6g,%.6g,%.6g],\"blobs\":[",
 +			pf->sensor_id, frame->exposure_info.local_ts,
 +			(unsigned) frame->exposure_info.count, dev->id,
 +			(unsigned) score->match_flags, score->reprojection_error,
@@ -1772,7 +1794,8 @@ index 6989c0a..f64adb0 100644
 +			wp->orient.x, wp->orient.y, wp->orient.z, wp->orient.w,
 +			pf->camera_pose.pos.x, pf->camera_pose.pos.y, pf->camera_pose.pos.z,
 +			pf->camera_pose.orient.x, pf->camera_pose.orient.y, pf->camera_pose.orient.z,
-+			pf->camera_pose.orient.w);
++			pf->camera_pose.orient.w,
++			grav.x, grav.y, grav.z);
 +
 +		int n_out = 0;
 +		for (int i = 0; i < bwobs->num_blobs; i++) {
@@ -1836,7 +1859,7 @@ index 6989c0a..f64adb0 100644
  void rift_pose_finder_init(rift_pose_finder *pf, rift_sensor_camera_params *calib,
  		rift_pose_finder_cb pose_cb, void *pose_cb_data)
  {
-@@ -450,7 +610,17 @@ update_device_and_blobs (rift_pose_finder *pf, rift_sensor_analysis_frame *frame
+@@ -450,7 +619,17 @@ update_device_and_blobs (rift_pose_finder *pf, rift_sensor_analysis_frame *frame
  		oquatf_get_rotated(&cam_orient, &gravity_vector, &pf->cam_gravity_vector);
  
  		pf->have_camera_pose = true;
@@ -1854,7 +1877,7 @@ index 6989c0a..f64adb0 100644
  
  	if (!pf->have_camera_pose) {
  		LOGD("Sensor %d No camera pose yet - gravity error is %f degrees rot_error (%f, %f, %f). Not fusing pose for device %d",
-@@ -472,7 +642,13 @@ update_device_and_blobs (rift_pose_finder *pf, rift_sensor_analysis_frame *frame
+@@ -472,7 +651,13 @@ update_device_and_blobs (rift_pose_finder *pf, rift_sensor_analysis_frame *frame
  
  	assert (pf->pose_cb != NULL);
  
@@ -2443,7 +2466,7 @@ index 0000000..58dc87e
 +#endif
 +
 diff --git a/src/drv_oculus_rift/rift-tracker.c b/src/drv_oculus_rift/rift-tracker.c
-index ad297a1..2f43368 100644
+index ad297a1..051065b 100644
 --- a/src/drv_oculus_rift/rift-tracker.c
 +++ b/src/drv_oculus_rift/rift-tracker.c
 @@ -15,17 +15,22 @@
@@ -3371,16 +3394,38 @@ index ad297a1..2f43368 100644
  						NULL, NULL, NULL, &global_pos_error, &global_rot_error);
  
  		oposef_apply(&dev->model_from_fusion, &imu_global_pose, &dev_info->capture_pose);
-@@ -716,7 +1329,7 @@ bool rift_tracked_device_get_latest_exposure_info_pose (rift_tracked_device *dev
+@@ -715,8 +1328,29 @@ bool rift_tracked_device_get_latest_exposure_info_pose (rift_tracked_device *dev
+ 	return res;
  }
  
++bool rift_tracked_device_get_gravity_model(rift_tracked_device *dev_base, vec3f *out)
++{
++	rift_tracked_device_priv *dev = (rift_tracked_device_priv *) (dev_base);
++	vec3f grav_fusion;
++	bool ret = false;
++
++	ohmd_lock_mutex (dev->device_lock);
++	if (use_ovr_fusion() && rift_fusion_ovr_get_gravity_body(&dev->ovr_fusion, &grav_fusion)) {
++		/* the filter works in the fusion (IMU) frame; the capture and the
++		 * optical solve are both in the model frame */
++		quatf model_from_fusion = dev->fusion_from_model.orient;
++		oquatf_inverse(&model_from_fusion);
++		oquatf_get_rotated(&model_from_fusion, &grav_fusion, out);
++		ovec3f_normalize_me(out);
++		ret = true;
++	}
++	ohmd_unlock_mutex (dev->device_lock);
++
++	return ret;
++}
++
  bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64_t local_ts, uint64_t frame_start_local_ts, rift_tracker_exposure_info *exposure_info,
 -    rift_pose_metrics *score, posef *model_pose, const char *source)
 +    rift_pose_metrics *score, posef *model_pose, const rift_joint_view *view, const char *source)
  {
  	rift_tracked_device_priv *dev = (rift_tracked_device_priv *) (dev_base);
  	uint64_t frame_device_time_ns = 0;
-@@ -763,9 +1376,53 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
+@@ -763,9 +1397,53 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
  			pos_error.x, pos_error.y, pos_error.z,
  			source);
  
@@ -3435,7 +3480,7 @@ index ad297a1..2f43368 100644
  			update_position = false;
  			LOGI("Ignoring position observation with error %f %f %f (prior stddev was %f %f %f)\n",
  				pos_error.x, pos_error.y, pos_error.z,
-@@ -776,7 +1433,7 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
+@@ -776,7 +1454,7 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
  		}
  
  		/* If we have a strong match, update both position and orientation */
@@ -3444,7 +3489,7 @@ index ad297a1..2f43368 100644
  			update_orientation = true;
  			if ((dev->device_time_ns - dev->last_observed_orient_ts) > (POSE_LOST_ORIENT_THRESHOLD * 1000000UL)) {
  				LOGI("Matched orientation after %f sec", (dev->device_time_ns - dev->last_observed_pose_ts) / 1000000000.0);
-@@ -785,7 +1442,8 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
+@@ -785,7 +1463,8 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
  			if (update_position)
  				dev->last_observed_orient_ts = dev->device_time_ns;
  		}
@@ -3454,7 +3499,7 @@ index ad297a1..2f43368 100644
  			LOGI("Forcing orientation observation");
  			update_orientation = true;
  			/* Don't update the orientation match time here - only do that on an actual match */
-@@ -799,29 +1457,192 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
+@@ -799,29 +1478,192 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
  			if (dev->last_acquired_pose_lock_ts == 0)
  				dev->last_acquired_pose_lock_ts = dev->last_acquired_pose_lock_ts;
  
@@ -3526,13 +3571,13 @@ index ad297a1..2f43368 100644
  				} else {
 -					rift_kalman_6dof_position_update(&dev->ukf_fusion, dev->device_time_ns, &imu_pose.pos, slot->slot_id);
 +					dev->joint_single++;
- 				}
--      }
++				}
 +
 +				if (merged && (dev->joint_solved % 300) == 1) {
 +					LOGI("Device %d: joint reconstruction %u solved, %u rejected, %u single-camera",
 +						dev->base.id, dev->joint_solved, dev->joint_rejected, dev->joint_single);
-+				}
+ 				}
+-      }
 +			}
 +
 +			if (!merged && obs_merge_enabled() && slot->n_used_reports > 0) {
@@ -3654,7 +3699,7 @@ index ad297a1..2f43368 100644
  		}
  	}
  
-@@ -859,12 +1680,23 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
+@@ -859,12 +1701,23 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
  }
  
  /* Called with the device lock held */
@@ -3682,7 +3727,7 @@ index ad297a1..2f43368 100644
  
  	/* Apply the pose conversion from IMU->model */
  	oposef_apply(&dev->model_from_fusion, &imu_global_pose, &model_pose);
-@@ -1014,10 +1846,23 @@ get_matching_delay_slot(rift_tracked_device_priv *dev, rift_tracked_device_expos
+@@ -1014,10 +1867,23 @@ get_matching_delay_slot(rift_tracked_device_priv *dev, rift_tracked_device_expos
  
  /* Called with the device lock held. Allocate a delay slot and populate the device exposure info */
  static void
@@ -3708,7 +3753,7 @@ index ad297a1..2f43368 100644
  
  	if (slot == NULL) {
  		/* We might reclaim a busy delay slot if some frame search is being slow and we already got an observation from another camera */
-@@ -1040,7 +1885,7 @@ rift_tracked_device_on_new_exposure(rift_tracked_device_priv *dev, rift_tracked_
+@@ -1040,7 +1906,7 @@ rift_tracked_device_on_new_exposure(rift_tracked_device_priv *dev, rift_tracked_
  	}
  	dev_info->last_acquired_pose_lock_ts = dev->last_acquired_pose_lock_ts;
  
@@ -3717,7 +3762,7 @@ index ad297a1..2f43368 100644
  
  	if (slot) {
  		slot->device_time_ns = dev_info->device_time_ns;
-@@ -1053,7 +1898,7 @@ rift_tracked_device_on_new_exposure(rift_tracked_device_priv *dev, rift_tracked_
+@@ -1053,7 +1919,7 @@ rift_tracked_device_on_new_exposure(rift_tracked_device_priv *dev, rift_tracked_
  		dev_info->fusion_slot = slot->slot_id;
  
  		/* Tell the kalman filter to prepare the delay slot */
@@ -3726,7 +3771,7 @@ index ad297a1..2f43368 100644
  
  		/* Clear the last no-free-delay-slot tracking to avoid logging noise */
  		dev->last_no_free_delay_slot = 0;
-@@ -1131,3 +1976,124 @@ void rift_tracked_device_frame_release(rift_tracked_device *dev_base, rift_track
+@@ -1131,3 +1997,124 @@ void rift_tracked_device_frame_release(rift_tracked_device *dev_base, rift_track
  	}
  	ohmd_unlock_mutex (dev->device_lock);
  }
@@ -3852,7 +3897,7 @@ index ad297a1..2f43368 100644
 +		rift_tracker_update_sensor_pose(ctx, sensor, &newp);
 +}
 diff --git a/src/drv_oculus_rift/rift-tracker.h b/src/drv_oculus_rift/rift-tracker.h
-index 04ca128..9743188 100644
+index 04ca128..7dc3680 100644
 --- a/src/drv_oculus_rift/rift-tracker.h
 +++ b/src/drv_oculus_rift/rift-tracker.h
 @@ -9,13 +9,13 @@
@@ -3871,7 +3916,7 @@ index 04ca128..9743188 100644
  rift_tracker_ctx *rift_tracker_new (ohmd_context* ohmd_ctx, const uint8_t radio_id[5]);
  
  rift_tracked_device *rift_tracker_add_device (rift_tracker_ctx *ctx, int device_id, posef *imu_pose, posef *model_pose, rift_leds *leds, rift_tracked_device_imu_calibration *calib);
-@@ -29,10 +29,18 @@ void rift_tracker_free (rift_tracker_ctx *ctx);
+@@ -29,10 +29,24 @@ void rift_tracker_free (rift_tracker_ctx *ctx);
  
  void rift_tracked_device_imu_update(rift_tracked_device *dev, uint64_t local_ts, uint32_t device_ts, float dt, const vec3f* ang_vel, const vec3f* accel, const vec3f* mag_field);
  void rift_tracked_device_get_view_pose(rift_tracked_device *dev, posef *pose, vec3f *vel, vec3f *accel, vec3f *ang_vel);
@@ -3884,6 +3929,12 @@ index 04ca128..9743188 100644
 + * When two or more sensors supply one for the same exposure, the tracker
 + * reconstructs a single pose from all of them instead of averaging their
 + * separate solutions - see rift-joint-pose.h. */
++/* Accelerometer-derived gravity direction in the device MODEL frame, for
++ * gravity alignment. Vision plays no part in it, so it is an independent
++ * reference for how the room frame relates to true up. False if unavailable
++ * (not warmed up, or a fusion backend that does not track it). */
++bool rift_tracked_device_get_gravity_model(rift_tracked_device *dev_base, vec3f *out);
++
 +bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64_t local_ts, uint64_t frame_start_local_ts, rift_tracker_exposure_info *exposure_info, rift_pose_metrics *score, posef *pose, const rift_joint_view *view, const char *source);
  void rift_tracked_device_frame_release (rift_tracked_device *dev_base, rift_tracker_exposure_info *info);
  

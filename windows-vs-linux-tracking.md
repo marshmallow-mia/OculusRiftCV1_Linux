@@ -457,11 +457,21 @@ for gravity alignment"` **[diag]** shows they bin IMU samples per camera frame
 rather than consulting the fused pose. Our capture format records no IMU at
 all, so that separation cannot be done offline today.
 
-**Therefore the runtime aligner is not implemented, and is recorded as pending
-rather than guessed at.** The next step is a one-field addition to the capture
-writer — the exposure-time gravity direction in the device frame — which then
-needs hardware to produce new captures. The measurement tool and the
-decomposition above are in place and will score it when that data exists.
+**The capture format now records it.** `rift_cal_capture_obs` writes a `grav`
+field per observation — the complementary filter's low-passed accelerometer
+direction, rotated into the device model frame, which owes nothing to vision or
+to the room config. `replay_recon.py gravity` prefers it when present and warns
+when falling back to the fused pose. Existing captures predate the field, so
+the numbers above are still the fused-pose estimate.
+
+**The runtime aligner itself is not implemented, and is recorded as pending
+rather than guessed at.** What remains: accumulate up-in-camera per (camera,
+device) with Oculus's confidence and reliability counting, nominate an
+alignment camera, and correct the room frame — which also needs the room config
+extended beyond its single `room-yaw-offset` scalar, since a non-vertical room
+frame cannot currently be represented at all
+(`rift-tracker-config.c:78-80`). Scoring any of that needs a fresh capture
+carrying `grav`, and therefore hardware.
 
 ## 5. Delta 4 — online camera calibration (bundle adjustment)
 
