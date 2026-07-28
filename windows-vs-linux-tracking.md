@@ -496,12 +496,31 @@ rejected **[decomp]**.
 
 We do have the offline analogue: `calibrate_room.py solve` is a real bundle
 adjustment (`scipy.optimize.least_squares` over LED reprojection with the
-reference camera fixed). What we lack is (a) it running *online*, (b) the
-Settled/Unsettled state, and (c) telling the estimator when the extrinsics moved
-— they emit `Ekf CameraPoseChange: dt … dr …` and then `Ekf Reset on
-CameraPoseChange` **[diag]**, whereas
-`rift_tracker_extrinsic_refine_apply` (`rift-tracker.c:1898`) rewrites the sensor
-pose silently under a running filter whose state was conditioned on the old one.
+reference camera fixed). What we lack is it running **online**.
+
+**(b) and (c) are done, 2026-07-28.** `rift_tracker_extrinsic_refine_apply`
+used to rewrite a sensor pose silently under a running filter whose state was
+conditioned on the old one. It now logs the applied delta in the runtime's own
+terms (`sensor %s CameraPoseChange: dt … dr …`) and notifies every tracked
+device: the complementary filter drops its pending vision error and takes the
+next fix in full, the UKF widens its pose covariance by the size of the change.
+A per-sensor settle state was added alongside — UNSETTLED while refinement is
+still moving a sensor, SETTLED after three consecutive quiet evaluations —
+matching the runtime's `is_sensor_settled` / `are_sensors_settled`.
+
+**Measured**, A/B over a 50 mm extrinsic correction, one fix after the change:
+
+| | residual to the corrected pose |
+|---|---|
+| filter not told (old behaviour) | **45.22 mm** |
+| filter told | **0.00 mm** |
+
+Untold, the filter blends the new, *correct* fix 50/50 with the stale error it
+is still holding, so a full observation buys under 5 mm of the 50 mm it should.
+That is the mechanism behind the "physically-bumped sensor produced 150 mm
+cross-camera splits" note in `controller-tracking-analysis.md`: the correction
+was being applied to the extrinsics and then immediately half-ignored by the
+fusion.
 
 ---
 
@@ -615,7 +634,7 @@ tests in `tests/unittests/kalman_6dof.c` (`meson test -C build`).
 | **3** | **Gravity magnitude + 2-dof gravity direction as UKF states** (§3). Both are euclidean-ish additions; `rift-kalman-6dof.c`'s `state_residual_func`/`state_sum_func` pick up appended euclidean states for free, but a 2-dof direction needs explicit residual/sum handling (like `calc_quat_residual`). Gate |g| to 9.71–9.91. | Retires the fixed-gravity assumption behind the whole class of tilt/world-frame bugs. | M |
 | **4** | **Gravity aligner** (§4): estimate up-in-camera per sensor from tracked-object gravity, filter it with confidence, and extend the room config beyond a single yaw scalar to a full alignment transform. | Makes the room frame self-levelling instead of a manual calibration step. Requires a config schema change. | M |
 | **5** | **Saturation + numerical guards** (§6): use `sensor_range`, detect per-axis rails pre-calibration (`rift.c:313-314`, `:465-480`), inflate R / skip the sample, add `isfinite` checks and a real reset path on Cholesky failure. | Cheap, and today a clipped sample enters the filter at face value during exactly the fast motion where it matters. | S |
-| **6** | **Extrinsic-change → filter reset** (§5), plus a Settled/Unsettled state for the refinement. | Our new online refinement currently moves the world under a running filter. | S |
+| ~~6~~ | ~~Extrinsic-change → filter reset, plus a Settled/Unsettled state.~~ **DONE** — see §5. A/B: 45.22 mm → 0.00 mm residual after a 50 mm extrinsic correction. | | |
 | **7** | **Back-of-head LED group as a separate body** (§1). The CV1 strap flexes; they reconstruct it separately. | Improves HMD tracking when facing away; explains part of the rear-facing degradation. | M |
 | **8** | **Sync/latency validation telemetry**: predicted vs measured camera latency, repeated exposure time, late-pose age — they log all three **[diag]**. | The two costliest bugs in this project were both timing. Cheap regression detector. | S |
 | **9** | Dynamic `SetLedOnTime`; IMU lost-sample accounting; IMU temperature compensation. | Second-order. | S |
