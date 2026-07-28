@@ -139,7 +139,7 @@ index 6a07b2b..7539181 100644
  
  /** A collection of int value information types used for getting information with ohmd_device_geti(). */
 diff --git a/meson.build b/meson.build
-index 288345d..d2f1572 100644
+index 288345d..5675311 100644
 --- a/meson.build
 +++ b/meson.build
 @@ -38,7 +38,10 @@ if not dep_libusb.found()
@@ -185,7 +185,7 @@ index 288345d..d2f1572 100644
  endif
  
  # OpenGL
-@@ -345,13 +363,16 @@ openhmd_dep = declare_dependency(
+@@ -345,13 +363,17 @@ openhmd_dep = declare_dependency(
  if get_option('tests')
  	unittests_sources = [
  		'src/omath.c',
@@ -199,7 +199,8 @@ index 288345d..d2f1572 100644
 -		'tests/unittests/pose.c'
 +		'tests/unittests/pose.c',
 +		'tests/unittests/joint_pose.c',
-+		'tests/unittests/opencv_geometry.c'
++		'tests/unittests/opencv_geometry.c',
++		'tests/unittests/kalman_6dof.c'
  	]
  
  	unittests = executable(
@@ -1397,11 +1398,81 @@ index 0000000..0bd9f56
 +
 +#endif /* RIFT_JOINT_POSE_H */
 diff --git a/src/drv_oculus_rift/rift-kalman-6dof.c b/src/drv_oculus_rift/rift-kalman-6dof.c
-index 8d0666f..0475637 100644
+index 8d0666f..7041954 100644
 --- a/src/drv_oculus_rift/rift-kalman-6dof.c
 +++ b/src/drv_oculus_rift/rift-kalman-6dof.c
-@@ -818,9 +818,27 @@ void rift_kalman_6dof_imu_update (rift_kalman_6dof_filter *state, uint64_t time,
+@@ -25,6 +25,14 @@
+ #define HYBRID_MOTION_THRESHOLD (3 / 1000.0)
+ 
+ /* IMU biases noise levels */
++/* Measured accelerometer noise, see the R setup in rift_kalman_6dof_init */
++#define IMU_ACCEL_NOISE (0.05 * 0.05) /* (m/s^2)^2 */
++
++/* Covariance held on a delay slot that is not in use. Its state is pinned to
++ * identity/zero, so the value is arbitrary - it only has to be positive, so
++ * that P stays positive definite. */
++#define DELAY_SLOT_UNUSED_COV 1.0
++
+ #define IMU_GYRO_BIAS_NOISE 1e-17 /* gyro bias (rad/s)^2 */
+ #define IMU_GYRO_BIAS_NOISE_INITIAL 1e-3 /* gyro bias (rad/s)^2 */
+ #define IMU_ACCEL_BIAS_NOISE 1e-16 /* accelerometer bias (m/s^2)^2 */
+@@ -711,9 +719,16 @@ void rift_kalman_6dof_init(rift_kalman_6dof_filter *state, posef *init_pose, int
+ 	/* m1 is for IMU measurement - accel */
+ 	ukf_measurement_init(&state->m1, 3, 3, &state->ukf, imu_measurement_func, NULL, NULL, NULL);
+ 
+-	/* FIXME: Set R matrix to something based on IMU noise */
++	/* Accelerometer measurement noise. This was 1e-6 - a 1 mm/s^2 standard
++	 * deviation - under a FIXME, which told the filter to believe the
++	 * accelerometer almost absolutely. Measured from the raw 1 kHz IMU stream
++	 * of a real CV1 (tools/measure_imu_noise.py over the quietest windows of
++	 * captures/win/2026-07-12/imu_tracking.pcap): per-axis sigma 0.035-0.047
++	 * m/s^2, i.e. a variance around 2.2e-3, some 2000x the old value. Those
++	 * windows still contain a little real motion, so this is an upper bound;
++	 * 0.05 m/s^2 is the round number just above it. */
+ 	for (int i = 0; i < 3; i++)
+-	 MATRIX2D_XY(state->m1.R, i, i) = 1e-6;
++	 MATRIX2D_XY(state->m1.R, i, i) = IMU_ACCEL_NOISE;
+ 
+ 	/* m2 is for pose measurements - position and orientation. We trust the position more than
+ 	 * the orientation. */
+@@ -738,6 +753,7 @@ void rift_kalman_6dof_init(rift_kalman_6dof_filter *state, posef *init_pose, int
+ 
+ void rift_kalman_6dof_clear(rift_kalman_6dof_filter *state)
+ {
++	ukf_measurement_clear(&state->m_position);
+ 	ukf_measurement_clear(&state->m2);
+ 	ukf_measurement_clear(&state->m1);
+ 	ukf_base_clear(&state->ukf);
+@@ -796,7 +812,24 @@ void rift_kalman_6dof_prepare_delay_slot(rift_kalman_6dof_filter *state, uint64_
+ 
+ void rift_kalman_6dof_release_delay_slot(rift_kalman_6dof_filter *state, int delay_slot)
+ {
++	int base = BASE_COV_SIZE + (DELAY_SLOT_COV_SIZE * delay_slot);
++	int i, j;
++
+ 	state->slot_inuse[delay_slot] = false;
++
++	/* A released slot carries no information, and state_mean_func pins its
++	 * state to identity/zero. Its covariance rows must be given back a
++	 * non-zero, uncorrelated value or P becomes singular and the next
++	 * Cholesky fails - which is exactly what happened once process noise
++	 * stopped being added on zero-dt calls, since that addition had been
++	 * quietly propping these rows up. */
++	for (i = 0; i < DELAY_SLOT_COV_SIZE; i++) {
++		for (j = 0; j < state->ukf.N_cov; j++) {
++			MATRIX2D_XY(state->ukf.P_prior, base + i, j) = 0.0;
++			MATRIX2D_XY(state->ukf.P_prior, j, base + i) = 0.0;
++		}
++		MATRIX2D_XY(state->ukf.P_prior, base + i, base + i) = DELAY_SLOT_UNUSED_COV;
++	}
+ }
+ 
+ void rift_kalman_6dof_imu_update (rift_kalman_6dof_filter *state, uint64_t time, const vec3f* ang_vel, const vec3f* accel, const vec3f* mag_field)
+@@ -816,11 +849,30 @@ void rift_kalman_6dof_imu_update (rift_kalman_6dof_filter *state, uint64_t time,
+ 	MATRIX2D_Y(m->z, IMU_MEAS_ACCEL+2) = accel->z;
+ 
  	rift_kalman_6dof_update(state, time, m);
++	state->pose_slot = -1;
  }
  
 -void rift_kalman_6dof_pose_update(rift_kalman_6dof_filter *state, uint64_t time, posef *pose, int delay_slot)
@@ -1429,8 +1500,11 @@ index 8d0666f..0475637 100644
  
  	/* Use lagged state vector entries to correct for delay */
  	state->pose_slot = delay_slot;
-@@ -849,10 +867,15 @@ void rift_kalman_6dof_pose_update(rift_kalman_6dof_filter *state, uint64_t time,
+@@ -847,19 +899,32 @@ void rift_kalman_6dof_pose_update(rift_kalman_6dof_filter *state, uint64_t time,
+ 
+ 	state->saw_pose_update = true;
  	rift_kalman_6dof_update(state, time, m);
++	state->pose_slot = -1;
  }
  
 -void rift_kalman_6dof_position_update(rift_kalman_6dof_filter *state, uint64_t time, vec3f *pos, int delay_slot)
@@ -1446,11 +1520,75 @@ index 8d0666f..0475637 100644
  	/* Use lagged state vector entries to correct for delay */
  	state->pose_slot = delay_slot;
  
+ 	/* If doing a delayed update, then the slot must be in use (
+ 	 * or else it contains empty data */
+-	if (delay_slot != -1)
++	if (delay_slot != -1) {
+ 		assert(state->slot_inuse[delay_slot]);
++		/* Same as the pose path: the delay slot already carries the delay,
++		 * so the update must not also advance (or rewind) the filter clock.
++		 * Without this a position-only delayed fix ran a predict over the
++		 * gap between the exposure and now, on top of the lag the slot was
++		 * there to represent. */
++		time = 0;
++	}
+ 
+ 	m = &state->m_position;
+ 	MATRIX2D_Y(m->z, POSE_MEAS_POSITION+0) = pos->x;
+@@ -867,6 +932,7 @@ void rift_kalman_6dof_position_update(rift_kalman_6dof_filter *state, uint64_t t
+ 	MATRIX2D_Y(m->z, POSE_MEAS_POSITION+2) = pos->z;
+ 
+ 	rift_kalman_6dof_update(state, time, m);
++	state->pose_slot = -1;
+ }
+ 
+ /* Get the pose info from a delay slot, or the main state
 diff --git a/src/drv_oculus_rift/rift-kalman-6dof.h b/src/drv_oculus_rift/rift-kalman-6dof.h
-index 14012b8..2215448 100644
+index 14012b8..c717a8f 100644
 --- a/src/drv_oculus_rift/rift-kalman-6dof.h
 +++ b/src/drv_oculus_rift/rift-kalman-6dof.h
-@@ -82,8 +82,10 @@ void rift_kalman_6dof_prepare_delay_slot(rift_kalman_6dof_filter *state, uint64_
+@@ -19,25 +19,28 @@
+ typedef struct rift_kalman_6dof_filter rift_kalman_6dof_filter;
+ 
+ struct rift_kalman_6dof_filter {
+-  /* 22 element state vector:
++  /* 19 element state vector, 18 covariance dimensions (the quaternion costs
++   * 4 state entries but only 3 of covariance, parameterised by an exponential
++   * map). Authoritative layout is the STATE_ and COV_ defines in the .c.
++   *
+    * Inertial frame:
+    *  quatd orientation (quaternion) (0:3)
+-   *
+    *  vec3d position (4:6)
+-   *  vec3d velocity; (7:9)
+-   *  vec3d accel; (10:12)
++   *  vec3d velocity (7:9)
++   *  vec3d accel (10:12)
+    *
+    * Body frame:
+-   *  vec3d angular_velocity (13:15)
++   *  vec3d accel-bias (13:15)
++   *  vec3d gyro-bias (16:18)
+    *
+-   *  vec3d accel-bias; (16:18)
+-   *  vec3d gyro-bias (19:21)
++   *  + N lagged slots, each 7 state / 6 covariance:
++   *    quatd orientation (0:3)
++   *    vec3d position (4:6)
+    *
+-   *  + N lagged slots each:
+-   *    quatf orientation (quaternion) (0:3)
+-   *    vec3f position (4:6)
+-   *
+-   */
++   * Angular velocity is NOT a state - it is the control input, taken straight
++   * from the gyro (see `ang_vel` below and process_func in the .c). An earlier
++   * version of this comment listed it as states 13:15 and put the biases at
++   * 16:21, which never matched the code. */
+   /* ukf_base needs to be the first element in the struct */
+   ukf_base ukf;
+ 
+@@ -82,8 +85,10 @@ void rift_kalman_6dof_prepare_delay_slot(rift_kalman_6dof_filter *state, uint64_
  void rift_kalman_6dof_release_delay_slot(rift_kalman_6dof_filter *state, int delay_slot);
  
  void rift_kalman_6dof_imu_update (rift_kalman_6dof_filter *state, uint64_t time, const vec3f* ang_vel, const vec3f* accel, const vec3f* mag_field);
@@ -4119,6 +4257,29 @@ index d28410b..255e726 100644
  void oquatf_inverse(quatf* me);
  
  void oquatf_get_mat4x4(const quatf* me, const vec3f* point, float mat[4][4]);
+diff --git a/src/ukf.c b/src/ukf.c
+index de9bd1b..392b882 100644
+--- a/src/ukf.c
++++ b/src/ukf.c
+@@ -84,7 +84,17 @@ bool ukf_base_predict_with_process(ukf_base *u, double dt, ukf_process_fn proces
+ 
+   /* Add the additive process noise before prediction, so it is
+    * already incorporated in the prediction, and we don't need
+-   * to re-draw points after */
++   * to re-draw points after.
++   *
++   * NOTE: Q is added whole on every call rather than scaled by dt, so the
++   * effective process noise depends on the call rate (1000x/second at the IMU
++   * rate) and a zero-dt call injects a full step for no elapsed time. That is
++   * wrong in principle. Scaling by dt was tried and reverted: it makes the
++   * covariance of released delay slots collapse and the next Cholesky
++   * factorisation fail, because this unconditional addition has been quietly
++   * keeping P positive definite. Fixing it properly means giving the delay
++   * slots a correct covariance of their own first - see
++   * rift-cv1-center/windows-vs-linux-tracking.md section 7. */
+   if (u->Q) {
+     if (matrix2d_add_in_place (u->P_prior, u->Q) != MATRIX_RESULT_OK) {
+       return false;
 diff --git a/tests/unittests/joint_pose.c b/tests/unittests/joint_pose.c
 new file mode 100644
 index 0000000..0cfa1c3
@@ -4351,11 +4512,153 @@ index 0000000..0cfa1c3
 +	TAssert(!rift_joint_pose_solve(leds, N_LEDS, &view, 1, &truth, &out, &res));
 +	TAssert(memcmp(&out, &untouched, sizeof(out)) == 0);
 +}
+diff --git a/tests/unittests/kalman_6dof.c b/tests/unittests/kalman_6dof.c
+new file mode 100644
+index 0000000..6c91d63
+--- /dev/null
++++ b/tests/unittests/kalman_6dof.c
+@@ -0,0 +1,136 @@
++/*
++ * Synthetic tests for the 6DOF UKF.
++ *
++ * There is no hardware in this loop, so these drive the filter with generated
++ * IMU samples and pose observations whose truth is known exactly.
++ *
++ * Distributed under the Boost 1.0 licence, see LICENSE for full text.
++ */
++
++#include <string.h>
++#include <stdlib.h>
++
++#include "tests.h"
++#include "drv_oculus_rift/rift-kalman-6dof.h"
++
++#define GRAVITY 9.80665
++
++/* Run `seconds` of a perfectly stationary, level device at `hz`, with a pose
++ * observation every 20 ms (roughly the CV1 camera cadence). Returns the final
++ * fused pose and its reported position uncertainty. */
++static void run_stationary(double seconds, int hz, posef *out_pose,
++	vec3f *out_vel, vec3f *out_pos_err)
++{
++	rift_kalman_6dof_filter f;
++	posef truth;
++	const vec3f accel = {{ 0.0f, (float)GRAVITY, 0.0f }};
++	const vec3f gyro = {{ 0.0f, 0.0f, 0.0f }};
++
++	ovec3f_set(&truth.pos, 0.10f, 1.20f, -1.30f);
++	oquatf_set(&truth.orient, 0.0f, 0.0f, 0.0f, 1.0f);
++
++	rift_kalman_6dof_init(&f, &truth, 3);
++
++	const uint64_t step_ns = (uint64_t)(1000000000.0 / hz);
++	const uint64_t n = (uint64_t)(seconds * hz);
++	const uint64_t obs_every = (uint64_t)(hz / 50);   /* 20 ms */
++	uint64_t t = 0;
++
++	for (uint64_t i = 1; i <= n; i++) {
++		t = i * step_ns;
++		rift_kalman_6dof_imu_update(&f, t, &gyro, &accel, NULL);
++
++		if (obs_every > 0 && (i % obs_every) == 0) {
++			int slot = (int)((i / obs_every) % 3);
++			rift_kalman_6dof_prepare_delay_slot(&f, t, slot);
++			rift_kalman_6dof_pose_update(&f, t, &truth, slot, 1.0f);
++			rift_kalman_6dof_release_delay_slot(&f, slot);
++		}
++	}
++
++	vec3f accel_out, ang_vel;
++	rift_kalman_6dof_get_pose_at(&f, t, out_pose, out_vel, &accel_out, &ang_vel,
++		out_pos_err, NULL);
++	rift_kalman_6dof_clear(&f);
++}
++
++/* A stationary device, observed at its true pose, must stay there. */
++void test_rift_kalman_stationary()
++{
++	posef pose;
++	vec3f vel, pos_err;
++	vec3f truth_pos = {{ 0.10f, 1.20f, -1.30f }};
++
++	run_stationary(2.0, 1000, &pose, &vel, &pos_err);
++
++	TAssert(isfinite(pose.pos.x) && isfinite(pose.pos.y) && isfinite(pose.pos.z));
++	TAssert(vec3f_eq(pose.pos, truth_pos, 0.01f));      /* within 1 cm */
++	TAssert(ovec3f_get_length(&vel) < 0.05f);           /* not drifting */
++	TAssert(ovec3f_get_length(&pos_err) < 0.5f);        /* covariance sane */
++}
++
++/* The filter must converge to the same answer whether it is fed at 1 kHz or
++ * 500 Hz.
++ *
++ * NOTE this does NOT detect the known process-noise defect (Q is added per
++ * call rather than per unit time, so its effective magnitude tracks the sample
++ * rate). With pose observations arriving every 20 ms the steady state is
++ * dominated by the measurements, and the reported uncertainty barely moves.
++ * Verified by running this test both with and without dt-scaled Q: it passes
++ * either way. Detecting that defect needs a test driven by dead reckoning
++ * alone. */
++void test_rift_kalman_two_sample_rates()
++{
++	posef pose_1k, pose_500;
++	vec3f vel_1k, vel_500, err_1k, err_500;
++
++	run_stationary(2.0, 1000, &pose_1k, &vel_1k, &err_1k);
++	run_stationary(2.0, 500, &pose_500, &vel_500, &err_500);
++
++	/* same simulated time, half the samples: the answer must agree */
++	TAssert(vec3f_eq(pose_1k.pos, pose_500.pos, 0.005f));
++
++	float e1 = ovec3f_get_length(&err_1k);
++	float e2 = ovec3f_get_length(&err_500);
++	TAssert(e1 > 0.0f && e2 > 0.0f);
++	/* reported uncertainty within 25% across a 2x rate change */
++	TAssert(fabsf(e1 - e2) / (e1 > e2 ? e1 : e2) < 0.25f);
++}
++
++/* A delayed position-only update must not drag the filter clock: the delay
++ * slot already represents the lag. */
++void test_rift_kalman_delayed_position_update()
++{
++	rift_kalman_6dof_filter f;
++	posef truth, pose;
++	const vec3f accel = {{ 0.0f, (float)GRAVITY, 0.0f }};
++	const vec3f gyro = {{ 0.0f, 0.0f, 0.0f }};
++
++	ovec3f_set(&truth.pos, 0.0f, 1.0f, -1.0f);
++	oquatf_set(&truth.orient, 0.0f, 0.0f, 0.0f, 1.0f);
++	rift_kalman_6dof_init(&f, &truth, 3);
++
++	uint64_t t = 0;
++	for (int i = 1; i <= 500; i++) {
++		t = (uint64_t)i * 1000000ULL;
++		rift_kalman_6dof_imu_update(&f, t, &gyro, &accel, NULL);
++	}
++
++	/* snapshot a slot 20 ms in the past, then feed the observation late */
++	rift_kalman_6dof_prepare_delay_slot(&f, t, 0);
++	for (int i = 501; i <= 520; i++) {
++		t = (uint64_t)i * 1000000ULL;
++		rift_kalman_6dof_imu_update(&f, t, &gyro, &accel, NULL);
++	}
++	rift_kalman_6dof_position_update(&f, t, &truth.pos, 0, 1.0f);
++	rift_kalman_6dof_release_delay_slot(&f, 0);
++
++	vec3f vel, accel_out, ang_vel, pos_err;
++	rift_kalman_6dof_get_pose_at(&f, t, &pose, &vel, &accel_out, &ang_vel, &pos_err, NULL);
++
++	TAssert(isfinite(pose.pos.x) && isfinite(pose.pos.y) && isfinite(pose.pos.z));
++	TAssert(vec3f_eq(pose.pos, truth.pos, 0.02f));
++	TAssert(ovec3f_get_length(&vel) < 0.2f);
++
++	rift_kalman_6dof_clear(&f);
++}
 diff --git a/tests/unittests/main.c b/tests/unittests/main.c
-index 378cd83..2dd2734 100644
+index 378cd83..b3d4a1f 100644
 --- a/tests/unittests/main.c
 +++ b/tests/unittests/main.c
-@@ -41,6 +41,20 @@ int main()
+@@ -41,6 +41,26 @@ int main()
  	Test(test_oposef_inverse);
  	Test(test_oposef_apply);
  
@@ -4366,6 +4669,12 @@ index 378cd83..2dd2734 100644
 +	Test(test_rift_joint_pose_two_cameras_beat_one);
 +	Test(test_rift_joint_pose_detects_bad_extrinsics);
 +	Test(test_rift_joint_pose_rejects_thin_data);
++	printf("\n");
++
++	printf("kalman 6dof tests\n");
++	Test(test_rift_kalman_stationary);
++	Test(test_rift_kalman_two_sample_rates);
++	Test(test_rift_kalman_delayed_position_update);
 +	printf("\n");
 +
 +	printf("opencv geometry tests\n");
@@ -4529,10 +4838,10 @@ index 0000000..a70a24e
 +
 +#endif
 diff --git a/tests/unittests/tests.h b/tests/unittests/tests.h
-index 1a7d1c8..c6eed89 100644
+index 1a7d1c8..2865f3a 100644
 --- a/tests/unittests/tests.h
 +++ b/tests/unittests/tests.h
-@@ -49,6 +49,16 @@ void test_oposef_init();
+@@ -49,6 +49,21 @@ void test_oposef_init();
  void test_oposef_inverse();
  void test_oposef_apply();
  
@@ -4541,6 +4850,11 @@ index 1a7d1c8..c6eed89 100644
 +void test_rift_joint_pose_two_cameras_beat_one();
 +void test_rift_joint_pose_detects_bad_extrinsics();
 +void test_rift_joint_pose_rejects_thin_data();
++
++// 6DOF UKF tests
++void test_rift_kalman_stationary();
++void test_rift_kalman_two_sample_rates();
++void test_rift_kalman_delayed_position_update();
 +
 +// OpenCV geometry regression tests
 +void test_opencv_fisheye_roundtrip();

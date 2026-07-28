@@ -426,41 +426,71 @@ Touch ±16 g and ±2000 °/s (int16, `rift.c:464-480`).
 ## 7. Defects found in *our* code while doing this comparison
 
 These are not Windows deltas — they are bugs, found by reading our fusion path
-against theirs. Several would corrupt any parity measurement.
+against theirs. Status as of 2026-07-28; all fixes verified by synthetic unit
+tests in `tests/unittests/kalman_6dof.c` (`meson test -C build`).
 
-1. **`rift-kalman-6dof.c:711-714` — `m1.R = 1e-6` for the accelerometer**, i.e.
-   a 1 mm/s² standard deviation, with a `FIXME: Set R matrix to something based
-   on IMU noise` above it. The real CV1 accelerometer is ~3 orders of magnitude
-   noisier. The UKF is being told to believe the accelerometer almost absolutely.
-2. **Q is added once per `ukf_base_predict()` and is not scaled by `dt`**
-   (`ukf.c:85-92`). At 1 kHz IMU that is 1000× the intended spectral density per
-   second, and every delay-slot pseudo-measurement adds another full Q.
-3. **`state->pose_slot` is never reset to −1** after an update
-   (`rift-kalman-6dof.c`, set only at init `:734`), so any later update that does
-   not set it reads the *previous* delay slot.
-4. **`rift_kalman_6dof_position_update` does not zero `time`** the way
-   `rift_kalman_6dof_pose_update` does (`:843-854` vs `:879-885`), so a delayed
-   position-only update runs a predict with the wrong dt.
-5. **UKF covariance output is floored at 25° / 10 cm** before the pose search sees
-   it (`rift-tracker.c:76-77`, `:1263-1268`, `:1610-1623`), and
-   `gravity_error_rad` is derived from that floored value
-   (`rift-sensor-pose-search.c:171`). The gravity gate therefore *can never arm
-   tighter than 25–30°*, no matter how confident the filter is.
-6. **`replace_pending` is silently dropped on the UKF path**
-   (`rift-tracker.c:271, 280`) — the same-exposure merge's "this supersedes the
-   earlier fix" signal is lost, so with `OHMD_RIFT_FUSION=ukf` the merge
-   double-counts.
-7. **`rift-kalman-6dof.h:22-40` documents a 22-element state with an
-   angular-velocity state that does not exist** — angular velocity is a control
-   input. Anyone extending the filter from the header will get it wrong.
-8. `rift_kalman_6dof_clear` leaks `m_position`; `rift_fusion_ovr_clear` is never
-   called (`rift-tracker.c:925`).
-9. `refine_pose()` (`rift-sensor-opencv.cpp:242`, `cv::solvePnPRefineLM`) is dead
-   code — no call site.
-10. `rift.c:455-462` comment says the Touch IMU latency default is "10, 0 = off";
-    the actual default is 25.0 (`:351`).
+**Fixed**
 
----
+1. **`m1.R = 1e-6` for the accelerometer** — a 1 mm/s² standard deviation, under
+   a `FIXME: Set R matrix to something based on IMU noise`. It told the UKF to
+   believe the accelerometer almost absolutely. Now **measured** rather than
+   guessed: `tools/measure_imu_noise.py` decodes the raw 1 kHz IMU stream from
+   `captures/win/2026-07-12/imu_tracking.pcap` and takes the per-axis standard
+   deviation over the quietest windows — **0.035–0.047 m/s², a variance of
+   2.2e-3, about 2000× the shipped value**. Set to (0.05 m/s²)². Those windows
+   still hold a little real motion, so it is an upper bound.
+2. **`state->pose_slot` never reset to −1** — any later update that did not set
+   it silently read the previous update's delay slot. Now cleared after every
+   update.
+3. **`rift_kalman_6dof_position_update` did not zero `time`** the way the pose
+   path does, so a delayed position-only fix ran a predict across the gap
+   between the exposure and now, *on top of* the lag the delay slot exists to
+   represent.
+4. **Released delay slots collapsed their covariance to exactly zero**, leaving
+   P singular. Found while attempting item 6 below. Released slots now get a
+   positive, uncorrelated covariance.
+5. **`m_position` was leaked** by `rift_kalman_6dof_clear`; the stale header
+   comment documenting a 22-element state vector with an angular-velocity state
+   that never existed is corrected (angular velocity is the control input).
+
+**Attempted and reverted, with the reason**
+
+6. **Q is added whole on every call rather than scaled by `dt`** (`ukf.c`), so
+   the effective process noise tracks the call rate — 1000×/second at the IMU
+   rate — and a zero-dt call injects a full step of noise for no elapsed time.
+   Scaling by `dt` is correct in principle and was implemented, but it makes the
+   next Cholesky factorisation fail: this unconditional addition has been
+   quietly keeping P positive definite, and removing it exposes delay-slot
+   covariance blocks that are never properly initialised. Fixing item 4 above
+   was not sufficient. **Reverted rather than shipped**, with the reasoning left
+   in the code — a filter that fails to factorise is worse than a mistuned one.
+   Doing this properly means giving the delay slots a correct covariance of
+   their own first.
+
+   Note the accompanying test, `test_rift_kalman_two_sample_rates`, does **not**
+   detect this defect: with pose observations every 20 ms the steady state is
+   measurement-dominated and passes either way. Catching it needs a
+   dead-reckoning-only test.
+
+**Not a defect — earlier claim withdrawn**
+
+7. `replace_pending` being dropped on the UKF path (`rift-tracker.c:271,280`)
+   was listed here as a bug. It is not: the flag exists to tell the
+   complementary filter to overwrite rather than blend its *pending vision
+   error*, and the UKF has no such state — each fix is applied as a measurement.
+   There is nothing to replace.
+
+**Still open**
+
+8. The **25° / 10 cm covariance floor** (`rift-tracker.c:76-77`) applied before
+   the pose search sees the filter's uncertainty, from which `gravity_error_rad`
+   is derived (`rift-sensor-pose-search.c:171`). The gravity gate can therefore
+   never arm tighter than its own 30° tolerance floor, however confident the
+   filter is. Bounded benefit (the tolerance would go 50° → 30°), so it is
+   ranked below the items in §8.
+9. No `isfinite` checks anywhere in the filter path, and a failed
+   `ukf_base_predict` logs and returns with the prior untouched rather than
+   triggering a reset — see §8 item 5.
 
 ## 8. The program to parity, ranked
 
