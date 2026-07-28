@@ -412,6 +412,107 @@ def run_export(args):
     print(f"wrote {n_written} exposures to {args.out}")
 
 
+def run_gravity(args):
+    """Estimate world-up in each camera's frame, and hence each camera's tilt
+    error, from the captures alone.
+
+    This is the mechanism behind Oculus's gravity aligner
+    (`EstimatedUpInCamera camera %d, object %d, count %d: tilt %.2f %.2f`).
+    A tracked device's tilt in the world is known from its own accelerometer,
+    independently of any camera extrinsics; the vision solve gives that same
+    device's orientation relative to a camera. Composing the two says which way
+    is up in the camera's frame:
+
+        up_in_camera = R(device->camera) * R(device->world)^T * up_world
+
+    Comparing that against what the room config claims (R(camera->world)^T *
+    up_world) gives the camera's tilt error — the `tilt err %.2f` Oculus reports
+    next to reprojection error in "Good/Bad calibration for camera %d".
+
+    Caveat worth stating: `wp` is the fused pose, and since the vision-tilt
+    correction was added the fused tilt is pulled partly toward the optical
+    solution, which does depend on the extrinsics. The accelerometer still
+    dominates, but this is not perfectly independent of the thing it measures.
+    """
+    sensors, leds, observations = load_capture(
+        args.capture, args.min_blobs, {args.device})
+    groups = group_by_exposure(observations)
+    cam_poses, cam_src = cam_poses_for(sensors, groups, args.config,
+                                       args.config is not None)
+
+    up_world = np.array([0.0, 1.0, 0.0])
+    per_sensor = {}
+
+    for obs_by_sensor in groups.values():
+        for sid, obs in obs_by_sensor.items():
+            if sid not in cam_poses:
+                continue
+            R_wp, _ = pose_to_rt(obs["wp"])        # device -> world
+            R_cam, _ = pose_to_rt(obs["cam"])      # device -> camera
+            # up expressed in the device frame, then in the camera frame
+            up_dev = R_wp.T @ up_world
+            per_sensor.setdefault(sid, []).append(R_cam @ up_dev)
+
+    print(f"\ncapture      {args.capture}")
+    print(f"device       {args.device}")
+    print(f"extrinsics   {cam_src}\n")
+    print(f"  {'sensor':<22} {'n':>6}  {'tilt err':>9}  {'scatter':>9}   measured up in camera")
+
+    for sid in sorted(per_sensor):
+        ups = np.array(per_sensor[sid])
+        mean_up = ups.mean(axis=0)
+        mean_up /= np.linalg.norm(mean_up)
+
+        Rc, _ = cam_poses[sid]
+        expected = Rc.T @ up_world                 # what the config implies
+
+        cos = np.clip(float(mean_up @ expected), -1.0, 1.0)
+        tilt_err = np.degrees(np.arccos(cos))
+
+        # dispersion of the individual estimates about their mean = confidence
+        cosines = np.clip(ups @ mean_up / np.linalg.norm(ups, axis=1), -1.0, 1.0)
+        scatter = float(np.degrees(np.arccos(cosines)).std())
+
+        print(f"  {sensors[sid]['serial']:<22} {len(ups):>6}  "
+              f"{tilt_err:>8.3f}°  {scatter:>8.3f}°   "
+              f"({mean_up[0]:+.4f}, {mean_up[1]:+.4f}, {mean_up[2]:+.4f})")
+
+    # Decompose: a tilt shared by every camera cannot be the cameras (they are
+    # not all bumped the same way) - it is the tracked device's own fused tilt
+    # being off. What differs BETWEEN cameras is genuine relative tilt error.
+    sids = sorted(per_sensor)
+    if len(sids) >= 2:
+        errs, meas = [], []
+        for sid in sids:
+            ups = np.array(per_sensor[sid])
+            m = ups.mean(axis=0)
+            m /= np.linalg.norm(m)
+            meas.append(m)
+            Rc, _ = cam_poses[sid]
+            expected = Rc.T @ up_world
+            errs.append(np.degrees(np.arccos(np.clip(float(m @ expected), -1, 1))))
+
+        # relative: how much the cameras disagree about up once each is mapped
+        # back into the world through its own configured pose
+        world_ups = []
+        for sid, m in zip(sids, meas):
+            Rc, _ = cam_poses[sid]
+            world_ups.append(Rc @ m)
+        cos = np.clip(float(world_ups[0] @ world_ups[1]), -1.0, 1.0)
+        differential = np.degrees(np.arccos(cos))
+
+        print(f"\n  common mode   {np.mean(errs):7.3f}°   shared by both cameras — this is the\n"
+              f"                            tracked device's fused tilt, not the cameras\n"
+              f"  differential  {differential:7.3f}°   the cameras disagree about up by this much\n"
+              f"                            once each is mapped through its configured pose;\n"
+              f"                            THIS is genuine relative camera tilt error")
+
+    print("\n  tilt err = angle between the measured up-in-camera and the one the room\n"
+          "             config implies. Oculus reports this per camera alongside\n"
+          "             reprojection error and refuses to calibrate against a camera\n"
+          "             that is not gravity aligned.")
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -438,6 +539,14 @@ def main():
     e.add_argument("--min-blobs", type=int, default=6)
     e.add_argument("--limit", type=int, default=200)
     e.set_defaults(func=run_export)
+
+    g = sub.add_parser("gravity",
+                       help="estimate up-in-camera and each camera's tilt error")
+    g.add_argument("capture", type=Path)
+    g.add_argument("--device", type=int, default=0)
+    g.add_argument("--config", type=Path, default=None)
+    g.add_argument("--min-blobs", type=int, default=6)
+    g.set_defaults(func=run_gravity)
 
     args = ap.parse_args()
     args.func(args)
