@@ -407,6 +407,62 @@ calibrate the rig until it is aligned. Our equivalent is a human running
 
 ---
 
+### MEASURED, 2026-07-28 — `tools/replay_recon.py gravity`, offline
+
+The aligner's core measurement is implementable from the captures today. A
+tracked device's tilt relative to gravity is known from its own accelerometer,
+independently of any camera extrinsics; the vision solve gives that same
+device's orientation relative to a camera. Composing the two says which way is
+up in the camera's frame:
+
+```
+up_in_camera = R(device→camera) · R(device→world)ᵀ · up_world
+```
+
+Comparing that against what the room config implies gives each camera's tilt
+error — Oculus's `tilt err %.2f`, reported next to reprojection error in
+`"Good/Bad calibration for camera %d, object %d"` **[diag]**.
+
+| capture | device | per-camera tilt err | scatter | **common mode** | **differential** |
+|---|---|---|---|---|---|
+| `final-verify.jsonl` | HMD | 5.80° / 6.25° | 0.40° | **6.024°** | **0.717°** |
+| `floor-anchor.jsonl` | HMD | 5.61° / 6.21° | 0.38° | **5.907°** | **0.904°** |
+| `ctrl-obs.jsonl` | Touch | 1.11° / 0.35° | 0.88° | **0.727°** | **0.864°** |
+
+Same two cameras, same room config, all three captures. The decomposition
+matters:
+
+- **The differential — how much the two cameras disagree about up once each is
+  mapped through its own configured pose — is 0.72–0.90° in all three, across
+  two different tracked devices.** A property of the cameras must be
+  device-independent, and this is. That is genuine relative camera tilt error,
+  and it is the quantity an aligner would correct.
+- **The common mode is device-specific: ~5.97° for the HMD, 0.73° for Touch.**
+  A tilt shared by both cameras cannot be the cameras — they are not bumped
+  identically — so it is the tracked device's own fused tilt being off gravity.
+
+The parsimonious reading is that **the HMD's fused orientation carries a ~6°
+tilt bias**, since Touch's common mode is near zero on the same rig. That is
+worth chasing on its own: a 6° tilt error is the world visibly leaning in the
+headset. It is repeatable to 0.12° across two independent captures and precise
+to 0.4° of scatter, so it is not noise. It would be consistent with an error in
+the HMD's IMU-to-model mounting rotation (`fusion_from_model`).
+
+**Caveat, and what would settle it.** This uses `wp`, the *fused* pose, and
+since the vision-tilt correction was added the fused tilt is pulled partly
+toward the optical solution — which depends on the extrinsics being measured.
+Oculus avoids the circularity entirely by using the **raw accelerometer at the
+exposure instant**: their warning `"too many IMU samples between camera frames
+for gravity alignment"` **[diag]** shows they bin IMU samples per camera frame
+rather than consulting the fused pose. Our capture format records no IMU at
+all, so that separation cannot be done offline today.
+
+**Therefore the runtime aligner is not implemented, and is recorded as pending
+rather than guessed at.** The next step is a one-field addition to the capture
+writer — the exposure-time gravity direction in the device frame — which then
+needs hardware to produce new captures. The measurement tool and the
+decomposition above are in place and will score it when that data exists.
+
 ## 5. Delta 4 — online camera calibration (bundle adjustment)
 
 **[rtti]** `OVR::Vision::CameraCalibrator::DoCalibration(int) → CalibrationResult`.
