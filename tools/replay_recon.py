@@ -442,16 +442,39 @@ def run_gravity(args):
 
     up_world = np.array([0.0, 1.0, 0.0])
     per_sensor = {}
+    n_raw = 0
 
     for obs_by_sensor in groups.values():
         for sid, obs in obs_by_sensor.items():
             if sid not in cam_poses:
                 continue
-            R_wp, _ = pose_to_rt(obs["wp"])        # device -> world
             R_cam, _ = pose_to_rt(obs["cam"])      # device -> camera
-            # up expressed in the device frame, then in the camera frame
-            up_dev = R_wp.T @ up_world
+
+            # Prefer the accelerometer's own gravity direction in the device
+            # frame when the capture carries it: it owes nothing to vision or
+            # to the room config, so it breaks the circularity of deriving up
+            # from the fused pose. Older captures have no `grav` field.
+            g = obs.get("grav")
+            if g is not None and np.any(np.asarray(g, dtype=float)):
+                up_dev = -np.asarray(g, dtype=float)   # specific force points up
+                up_dev /= np.linalg.norm(up_dev)
+                n_raw += 1
+            else:
+                R_wp, _ = pose_to_rt(obs["wp"])    # device -> world (fused)
+                up_dev = R_wp.T @ up_world
+
             per_sensor.setdefault(sid, []).append(R_cam @ up_dev)
+
+    total = sum(len(v) for v in per_sensor.values())
+    if n_raw == 0:
+        print("\n  NOTE: this capture has no `grav` field, so up-in-device comes from the\n"
+              "        FUSED pose. Since the vision-tilt correction that is partly pulled\n"
+              "        by the optical solution, which depends on the extrinsics being\n"
+              "        measured. Re-capture with a current driver for an independent\n"
+              "        accelerometer reference.")
+    elif n_raw < total:
+        print(f"\n  NOTE: {n_raw}/{total} observations carry a raw gravity vector; the rest\n"
+              "        fall back to the fused pose.")
 
     print(f"\ncapture      {args.capture}")
     print(f"device       {args.device}")
