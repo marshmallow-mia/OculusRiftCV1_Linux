@@ -335,6 +335,83 @@ def run_baseline(args):
         print(f"\nwrote {args.json}")
 
 
+def undistort_fisheye(uv, K, D):
+    """Pixels -> normalised camera rays, inverse of `project` (OpenCV fisheye)."""
+    x = (uv[:, 0] - K[0, 2]) / K[0, 0]
+    y = (uv[:, 1] - K[1, 2]) / K[1, 1]
+    rd = np.hypot(x, y)
+    th = rd.copy()                      # theta_d ~= theta for small angles
+    for _ in range(12):                 # Newton on theta_d(theta) - rd
+        th2 = th * th
+        f = th * (1 + D[0] * th2 + D[1] * th2**2 + D[2] * th2**3 + D[3] * th2**4) - rd
+        df = (1 + 3 * D[0] * th2 + 5 * D[1] * th2**2
+              + 7 * D[2] * th2**3 + 9 * D[3] * th2**4)
+        th = th - f / np.maximum(df, 1e-9)
+    scale = np.where(rd > 1e-9, np.tan(th) / np.maximum(rd, 1e-9), 1.0)
+    return np.stack([x * scale, y * scale], axis=1)
+
+
+def run_export(args):
+    """Dump real correspondences + the Python joint solution, so the C solver
+    can be checked against this prototype on recorded data (no hardware)."""
+    from scipy.spatial.transform import Rotation
+
+    sensors, leds, observations = load_capture(
+        args.capture, args.min_blobs, {args.device})
+    led_pos = leds[args.device][0]
+    groups = group_by_exposure(observations)
+    cam_poses, _ = cam_poses_for(sensors, groups, args.config, args.config is not None)
+
+    keys = sorted(groups)
+    out = [f"LEDS {len(led_pos)}"]
+    for p in led_pos:
+        out.append(f"{p[0]:.9g} {p[1]:.9g} {p[2]:.9g}")
+
+    n_written = 0
+    for key in keys:
+        if n_written >= args.limit:
+            break
+        entries = []
+        for sid, obs in sorted(groups[key].items()):
+            if sid not in cam_poses:
+                continue
+            pts, uv = blob_arrays(obs, led_pos)
+            if len(pts) < args.min_blobs:
+                continue
+            b = np.asarray(obs["blobs"], dtype=float)
+            ids = b[:, 0].astype(int)
+            keep = (ids >= 0) & (ids < len(led_pos))
+            R, t = world_pose(obs, cam_poses[sid])
+            entries.append({"sid": sid, "R": R, "t": t, "pts": pts, "uv": uv,
+                            "ids": ids[keep], "scale": obs_scale(obs["flags"])})
+        if len(entries) < 2:
+            continue
+
+        mR, mt, _ = weighted_merge(entries)
+        jR, jt, ok = solve_joint(entries, cam_poses, sensors, mR, mt)
+        if not ok:
+            continue
+
+        out.append(f"EXPOSURE {len(entries)}")
+        for e in entries:
+            sen = sensors[e["sid"]]
+            Rc, tc = cam_poses[e["sid"]]
+            q = Rotation.from_matrix(Rc).as_quat()
+            rays = undistort_fisheye(e["uv"], sen["K"], sen["dist"])
+            out.append(f"VIEW {sen['K'][0, 0]:.9g} "
+                       + " ".join(f"{v:.9g}" for v in list(tc) + list(q))
+                       + f" {len(rays)}")
+            for i, r in zip(e["ids"], rays):
+                out.append(f"{i} {r[0]:.9g} {r[1]:.9g}")
+        for name, (R, t) in (("INIT", (mR, mt)), ("PY", (jR, jt))):
+            q = Rotation.from_matrix(R).as_quat()
+            out.append(f"{name} " + " ".join(f"{v:.9g}" for v in list(t) + list(q)))
+        n_written += 1
+
+    Path(args.out).write_text("\n".join(out) + "\n")
+    print(f"wrote {n_written} exposures to {args.out}")
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -351,6 +428,16 @@ def main():
     b.add_argument("--joint", action="store_true",
                    help="also solve one pose per exposure over all cameras")
     b.set_defaults(func=run_baseline)
+
+    e = sub.add_parser("export-c",
+                       help="dump correspondences + Python joint pose for the C cross-check")
+    e.add_argument("capture", type=Path)
+    e.add_argument("--out", type=Path, required=True)
+    e.add_argument("--device", type=int, default=0)
+    e.add_argument("--config", type=Path, default=None)
+    e.add_argument("--min-blobs", type=int, default=6)
+    e.add_argument("--limit", type=int, default=200)
+    e.set_defaults(func=run_export)
 
     args = ap.parse_args()
     args.func(args)
