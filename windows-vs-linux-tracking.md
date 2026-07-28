@@ -157,6 +157,52 @@ removal. The captures contain only LED-ID-verified correspondences, so gross
 outliers are rare in them; both are required for the C port, where the
 correspondence set is not pre-filtered.
 
+### C implementation — `rift-joint-pose.{c,h}`
+
+Gauss-Newton on the 6-DoF pose with a Huber loss and an analytic Jacobian, no
+OpenCV and no external solver, residuals in undistorted normalised rays (the
+space Oculus's `2/715` threshold implies). Unit tests in
+`tests/unittests/joint_pose.c`, runnable standalone with
+`tools/run_joint_tests.sh`.
+
+**Cross-checked against the Python prototype on real recorded data**
+(200 co-observed Touch exposures, `replay_recon.py export-c` → C solver):
+
+| | |
+|---|---|
+| exposures solved | 200 / 200 |
+| passing the 2 px bar | 100 % |
+| C vs Python **position** | median 0.235 mm, max 0.237 mm |
+| C vs Python **rotation** | median 0.097°, max 0.105° |
+
+The 0.235 mm offset is systematic (median ≈ max), not numerical noise: Python
+minimises in *distorted pixel* space, C in *undistorted normalised ray* space,
+and the fisheye Jacobian weights points differently between the two. Blob
+centroid noise is isotropic in pixels, so pixel space is the statistically
+correct one — but normalised space is far cheaper in the driver (no fisheye
+forward projection or its Jacobian per iteration), and 0.235 mm is two orders
+below the 15.7 mm error it removes. Worth revisiting only if sub-mm accuracy
+becomes the binding constraint.
+
+### How much extrinsic error does the 2 px bar actually allow?
+
+Measured by corrupting a synthetic rig (`rift-joint-pose.c` notes,
+reproducible with the probe in the unit test):
+
+| corruption of one camera | worst-view reprojection |
+|---|---|
+| 0.05° rotation | 0.21 px |
+| 0.40° rotation | 1.71 px |
+| 1.00° rotation | ~4.3 px |
+| 16 mm translation | 0.99 px |
+| 32 mm translation | 2.00 px |
+
+So **~4.3 px per degree, ~1 px per 16 mm**, and Oculus's 2 px acceptance
+corresponds to roughly **0.47° or 32 mm** of extrinsic error. A pure
+translation is ~77 % absorbed by moving the object, which is why rotation is
+much the stronger signal — and why the stale-extrinsics captures above land at
+18–29 px: that is several degrees of rotational error, not a bumped position.
+
 ### What it would take
 
 The rendezvous already exists structurally. Both sensors' frames for one exposure
@@ -399,6 +445,30 @@ against theirs. Several would corrupt any parity measurement.
 | **9** | Dynamic `SetLedOnTime`; IMU lost-sample accounting; IMU temperature compensation. | Second-order. | S |
 
 ---
+
+## 8b. BLOCKER — the driver cannot currently be built
+
+`pacman` upgraded **OpenCV 4.13 → 5.0.0 on 2026-07-26**, and OpenCV 5
+restructured its headers: `opencv2/calib3d/calib3d.hpp` no longer exists,
+`solvePnPRansac` now lives in `opencv2/geometry/3d.hpp` (also `ccalib.hpp`),
+fisheye moved into `opencv2/calib.hpp`, and the pkg-config module is `opencv5`
+(meson only probes `opencv4`, then a cmake fallback, then `opencv`).
+
+Consequence: `libopenhmd.a` does not build, so **nothing in the C driver can be
+compiled or tested on this machine** until `rift-sensor-opencv.cpp` and
+`meson.build` are ported to OpenCV 5. That is a prerequisite for the runtime
+wiring of every item in §8, and it is a distinct piece of work from tracking
+parity — it touches the existing PnP path and could change its behaviour.
+
+Everything verified so far was built standalone (the joint solver has no
+OpenCV dependency): `tools/run_joint_tests.sh`.
+
+**Pending because of this**: wiring the joint solver into the live path — the
+per-exposure correspondence buffer in `rift_tracker_pose_delay_slot`, published
+from `rift-sensor-pose-search.c` where the undistorted rays already exist, and
+consumed in `rift_tracked_device_model_pose_update` in place of the weighted
+merge. The design is settled (§2) and the solver is verified; only the
+plumbing and its compile-time verification are blocked.
 
 ## 9. At parity — do not re-chase
 
