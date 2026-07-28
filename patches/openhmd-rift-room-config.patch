@@ -139,12 +139,26 @@ index 6a07b2b..7539181 100644
  
  /** A collection of int value information types used for getting information with ohmd_device_geti(). */
 diff --git a/meson.build b/meson.build
-index 288345d..c2aa0f5 100644
+index 288345d..d2f1572 100644
 --- a/meson.build
 +++ b/meson.build
-@@ -137,7 +137,9 @@ if _drivers.contains('rift')
+@@ -38,7 +38,10 @@ if not dep_libusb.found()
+ 	dep_libusb = proj_hidapi.get_variable('libusb_dep')
+ endif
+ dep_threads = dependency('threads')
+-dep_opencv = dependency('opencv4', required: false)
++dep_opencv = dependency('opencv5', required: false)
++if not dep_opencv.found()
++	dep_opencv = dependency('opencv4', required: false)
++endif
+ if not dep_opencv.found()
+ 	# On Windows, search via cmake
+         dep_opencv = dependency('opencv', method: 'cmake', modules: ['opencv_core'])
+@@ -136,8 +139,11 @@ if _drivers.contains('rift')
+ 		'src/drv_oculus_rift/sensor/esp570.c',
  		'src/drv_oculus_rift/sensor/esp770u.c',
  		'src/drv_oculus_rift/sensor/uvc.c',
++		'src/drv_oculus_rift/rift-joint-pose.c',
  		'src/drv_oculus_rift/rift-tracker.c',
 +		'src/drv_oculus_rift/rift-tracker-config.c',
  		'src/drv_oculus_rift/rift-kalman-6dof.c',
@@ -152,7 +166,7 @@ index 288345d..c2aa0f5 100644
      'src/drv_oculus_rift/correspondence_search.c',
      'src/drv_oculus_rift/led_search.c',
  		'src/drv_oculus_rift/ohmd-video.c',
-@@ -282,6 +284,18 @@ if _examples.contains('simple')
+@@ -282,6 +288,18 @@ if _examples.contains('simple')
  		dependencies: deps,
  		install: true,
  	)
@@ -171,6 +185,24 @@ index 288345d..c2aa0f5 100644
  endif
  
  # OpenGL
+@@ -345,13 +363,16 @@ openhmd_dep = declare_dependency(
+ if get_option('tests')
+ 	unittests_sources = [
+ 		'src/omath.c',
++		'src/drv_oculus_rift/rift-joint-pose.c',
+ 		'tests/unittests/highlevel.c',
+ 		'tests/unittests/main.c',
+ 		'tests/unittests/mat4x4.c',
+ 		'tests/unittests/quat.c',
+ 		'tests/unittests/tests.h',
+ 		'tests/unittests/vec.c',
+-		'tests/unittests/pose.c'
++		'tests/unittests/pose.c',
++		'tests/unittests/joint_pose.c',
++		'tests/unittests/opencv_geometry.c'
+ 	]
+ 
+ 	unittests = executable(
 diff --git a/src/drv_oculus_rift/correspondence_search.c b/src/drv_oculus_rift/correspondence_search.c
 index cd62ea4..488edbc 100644
 --- a/src/drv_oculus_rift/correspondence_search.c
@@ -967,6 +999,403 @@ index fdf45e0..9e3ade6 100644
  void rift_touch_cancel_in_progress(rift_hmd_radio_state *radio, int device_id);
  
  #endif /* RIFT_HMD_RADIO_H */
+diff --git a/src/drv_oculus_rift/rift-joint-pose.c b/src/drv_oculus_rift/rift-joint-pose.c
+new file mode 100644
+index 0000000..06019b3
+--- /dev/null
++++ b/src/drv_oculus_rift/rift-joint-pose.c
+@@ -0,0 +1,305 @@
++/*
++ * Joint multi-camera pose reconstruction - see rift-joint-pose.h.
++ *
++ * Gauss-Newton on the 6-DoF device pose with a Huber loss, analytic Jacobian,
++ * no external solver. The perturbation is applied in the world frame:
++ *
++ *   R <- Exp(dtheta) R,   t <- t + dt
++ *
++ * so for a model point p (device frame), with camera pose (Rc, tc):
++ *
++ *   Xw = R p + t                    d Xw / d dtheta = -[R p]_x
++ *   Xc = Rc^T (Xw - tc)             d Xw / d dt     = I
++ *   r  = (Xc.x/Xc.z, Xc.y/Xc.z) - ray
++ *
++ * Copyright 2026
++ * SPDX-License-Identifier: BSL-1.0
++ */
++#include <math.h>
++#include <string.h>
++
++#include "rift-joint-pose.h"
++
++#define MAX_ITERATIONS 12
++#define MIN_POINTS_TOTAL 6
++#define MIN_POINTS_PER_VIEW 3
++#define CONVERGE_TRANS 1e-6f   /* metres */
++#define CONVERGE_ROT 1e-6f     /* radians */
++#define HUBER_PX 3.0f          /* residuals beyond this are down-weighted */
++#define MIN_DEPTH 0.05f        /* metres; behind/at the camera is nonsense */
++
++/* Cholesky solve of a symmetric positive-definite 6x6 system H x = g.
++ * Returns false if H is not positive definite (degenerate geometry). */
++static bool solve6(const double H[6][6], const double g[6], double x[6])
++{
++	double L[6][6];
++	memset(L, 0, sizeof(L));
++
++	for (int i = 0; i < 6; i++) {
++		for (int j = 0; j <= i; j++) {
++			double sum = H[i][j];
++			for (int k = 0; k < j; k++)
++				sum -= L[i][k] * L[j][k];
++			if (i == j) {
++				if (sum <= 1e-18)
++					return false;
++				L[i][i] = sqrt(sum);
++			} else {
++				L[i][j] = sum / L[j][j];
++			}
++		}
++	}
++
++	double y[6];
++	for (int i = 0; i < 6; i++) {
++		double sum = g[i];
++		for (int k = 0; k < i; k++)
++			sum -= L[i][k] * y[k];
++		y[i] = sum / L[i][i];
++	}
++	for (int i = 5; i >= 0; i--) {
++		double sum = y[i];
++		for (int k = i + 1; k < 6; k++)
++			sum -= L[k][i] * x[k];
++		x[i] = sum / L[i][i];
++	}
++	return true;
++}
++
++/* World -> camera rotation as a 3x3, from the camera->world pose */
++static void camera_rot_inv(const posef *camera_pose, float Rct[3][3])
++{
++	quatf inv = camera_pose->orient;
++	oquatf_inverse(&inv);
++
++	const vec3f ex = {{ 1, 0, 0 }}, ey = {{ 0, 1, 0 }}, ez = {{ 0, 0, 1 }};
++	vec3f c0, c1, c2;
++	oquatf_get_rotated(&inv, &ex, &c0);
++	oquatf_get_rotated(&inv, &ey, &c1);
++	oquatf_get_rotated(&inv, &ez, &c2);
++
++	Rct[0][0] = c0.x; Rct[1][0] = c0.y; Rct[2][0] = c0.z;
++	Rct[0][1] = c1.x; Rct[1][1] = c1.y; Rct[2][1] = c1.z;
++	Rct[0][2] = c2.x; Rct[1][2] = c2.y; Rct[2][2] = c2.z;
++}
++
++static void mat3_mul_vec(const float M[3][3], const vec3f *v, vec3f *out)
++{
++	out->x = M[0][0] * v->x + M[0][1] * v->y + M[0][2] * v->z;
++	out->y = M[1][0] * v->x + M[1][1] * v->y + M[1][2] * v->z;
++	out->z = M[2][0] * v->x + M[2][1] * v->y + M[2][2] * v->z;
++}
++
++float rift_joint_pose_rms_px(const vec3f *leds, int num_leds,
++	const rift_joint_view *view, const posef *pose)
++{
++	float Rct[3][3];
++	camera_rot_inv(&view->camera_pose, Rct);
++
++	double sum = 0.0;
++	int n = 0;
++
++	for (int i = 0; i < view->n_points; i++) {
++		const rift_joint_point *pt = view->points + i;
++		if (pt->led_index >= num_leds)
++			continue;
++
++		vec3f rotated, world, rel, cam;
++		oquatf_get_rotated(&pose->orient, &leds[pt->led_index], &rotated);
++		ovec3f_add(&rotated, &pose->pos, &world);
++		ovec3f_subtract(&world, &view->camera_pose.pos, &rel);
++		mat3_mul_vec(Rct, &rel, &cam);
++		if (cam.z < MIN_DEPTH)
++			continue;
++
++		float dx = cam.x / cam.z - pt->ray[0];
++		float dy = cam.y / cam.z - pt->ray[1];
++		sum += (double)(dx * dx + dy * dy);
++		n++;
++	}
++
++	if (n == 0)
++		return INFINITY;
++	return view->focal_px * (float)sqrt(sum / n);
++}
++
++bool rift_joint_pose_solve(const vec3f *leds, int num_leds,
++	const rift_joint_view *views, int n_views,
++	const posef *init_pose, posef *out_pose, rift_joint_result *out_result)
++{
++	if (leds == NULL || views == NULL || n_views < 1 || init_pose == NULL)
++		return false;
++
++	int usable_views = 0, total_points = 0;
++	for (int v = 0; v < n_views; v++) {
++		int n = 0;
++		for (int i = 0; i < views[v].n_points; i++) {
++			if (views[v].points[i].led_index < num_leds)
++				n++;
++		}
++		if (n >= MIN_POINTS_PER_VIEW) {
++			usable_views++;
++			total_points += n;
++		}
++	}
++	if (usable_views < 1 || total_points < MIN_POINTS_TOTAL)
++		return false;
++
++	/* World->camera rotations are constant across iterations */
++	float Rct[RIFT_MAX_SENSORS_JOINT][3][3];
++	if (n_views > RIFT_MAX_SENSORS_JOINT)
++		n_views = RIFT_MAX_SENSORS_JOINT;
++	for (int v = 0; v < n_views; v++)
++		camera_rot_inv(&views[v].camera_pose, Rct[v]);
++
++	posef pose = *init_pose;
++	oquatf_normalize_me(&pose.orient);
++
++	int iter = 0;
++	for (; iter < MAX_ITERATIONS; iter++) {
++		double H[6][6];
++		double g[6];
++		memset(H, 0, sizeof(H));
++		memset(g, 0, sizeof(g));
++		int used = 0;
++
++		for (int v = 0; v < n_views; v++) {
++			const rift_joint_view *view = views + v;
++			const float huber = HUBER_PX / (view->focal_px > 1.0f ? view->focal_px : 1.0f);
++
++			for (int i = 0; i < view->n_points; i++) {
++				const rift_joint_point *pt = view->points + i;
++				if (pt->led_index >= num_leds)
++					continue;
++
++				vec3f rotated, world, rel, cam;
++				oquatf_get_rotated(&pose.orient, &leds[pt->led_index], &rotated);
++				ovec3f_add(&rotated, &pose.pos, &world);
++				ovec3f_subtract(&world, &view->camera_pose.pos, &rel);
++				mat3_mul_vec(Rct[v], &rel, &cam);
++				if (cam.z < MIN_DEPTH)
++					continue;
++
++				const double inv_z = 1.0 / cam.z;
++				const double rx = cam.x * inv_z - pt->ray[0];
++				const double ry = cam.y * inv_z - pt->ray[1];
++
++				/* d ray / d Xc */
++				const double dr[2][3] = {
++					{ inv_z, 0.0, -cam.x * inv_z * inv_z },
++					{ 0.0, inv_z, -cam.y * inv_z * inv_z },
++				};
++
++				/* d Xc / d (dtheta, dt) = Rct * ( -[rotated]_x | I ) */
++				double dXc[3][6];
++				for (int r = 0; r < 3; r++) {
++					/* -[rotated]_x columns */
++					const double sk[3][3] = {
++						{ 0.0, rotated.z, -rotated.y },
++						{ -rotated.z, 0.0, rotated.x },
++						{ rotated.y, -rotated.x, 0.0 },
++					};
++					for (int c = 0; c < 3; c++) {
++						double acc = 0.0;
++						for (int k = 0; k < 3; k++)
++							acc += Rct[v][r][k] * sk[k][c];
++						dXc[r][c] = acc;
++						dXc[r][c + 3] = Rct[v][r][c];
++					}
++				}
++
++				double J[2][6];
++				for (int row = 0; row < 2; row++) {
++					for (int c = 0; c < 6; c++) {
++						double acc = 0.0;
++						for (int k = 0; k < 3; k++)
++							acc += dr[row][k] * dXc[k][c];
++						J[row][c] = acc;
++					}
++				}
++
++				/* Huber weight on the residual magnitude */
++				const double rn = sqrt(rx * rx + ry * ry);
++				double w = 1.0;
++				if (rn > huber && rn > 0.0)
++					w = huber / rn;
++
++				const double res[2] = { rx, ry };
++				for (int row = 0; row < 2; row++) {
++					for (int a = 0; a < 6; a++) {
++						g[a] -= w * J[row][a] * res[row];
++						for (int b = 0; b <= a; b++)
++							H[a][b] += w * J[row][a] * J[row][b];
++					}
++				}
++				used++;
++			}
++		}
++
++		if (used < MIN_POINTS_TOTAL)
++			return false;
++
++		for (int a = 0; a < 6; a++)
++			for (int b = a + 1; b < 6; b++)
++				H[a][b] = H[b][a];
++
++		/* Small Levenberg damping keeps the normal equations conditioned
++		 * when a device is seen nearly edge-on by every camera. */
++		for (int a = 0; a < 6; a++)
++			H[a][a] *= 1.0 + 1e-6;
++
++		double step[6];
++		if (!solve6(H, g, step))
++			return false;
++
++		for (int a = 0; a < 6; a++) {
++			if (!isfinite(step[a]))
++				return false;
++		}
++
++		vec3f dtheta = {{ (float)step[0], (float)step[1], (float)step[2] }};
++		vec3f dt = {{ (float)step[3], (float)step[4], (float)step[5] }};
++
++		quatf dq;
++		oquatf_from_rotation(&dq, &dtheta);
++		quatf updated;
++		oquatf_mult(&dq, &pose.orient, &updated);
++		oquatf_normalize_me(&updated);
++		pose.orient = updated;
++		ovec3f_add(&pose.pos, &dt, &pose.pos);
++
++		if (ovec3f_get_length(&dt) < CONVERGE_TRANS &&
++		    ovec3f_get_length(&dtheta) < CONVERGE_ROT) {
++			iter++;
++			break;
++		}
++	}
++
++	if (!isfinite(pose.pos.x) || !isfinite(pose.pos.y) || !isfinite(pose.pos.z))
++		return false;
++
++	if (out_result) {
++		double sum_sq = 0.0;
++		int n_tot = 0;
++		float worst = 0.0f;
++		int n_scored = 0;
++		for (int v = 0; v < n_views; v++) {
++			float rms = rift_joint_pose_rms_px(leds, num_leds, views + v, &pose);
++			if (!isfinite(rms))
++				continue;
++			if (rms > worst)
++				worst = rms;
++			sum_sq += (double)rms * rms * views[v].n_points;
++			n_tot += views[v].n_points;
++			n_scored++;
++		}
++		out_result->rms_px = n_tot ? (float)sqrt(sum_sq / n_tot) : INFINITY;
++		out_result->worst_view_px = n_scored ? worst : INFINITY;
++		out_result->n_points = total_points;
++		out_result->n_views = usable_views;
++		out_result->iterations = iter;
++	}
++
++	*out_pose = pose;
++	return true;
++}
+diff --git a/src/drv_oculus_rift/rift-joint-pose.h b/src/drv_oculus_rift/rift-joint-pose.h
+new file mode 100644
+index 0000000..0bd9f56
+--- /dev/null
++++ b/src/drv_oculus_rift/rift-joint-pose.h
+@@ -0,0 +1,80 @@
++/*
++ * Joint multi-camera pose reconstruction for the Rift constellation tracker.
++ *
++ * Solves ONE device pose from the LED correspondences of every camera that saw
++ * the device in the same exposure, with the camera extrinsics held fixed. This
++ * is the shape of the Oculus runtime's own reconstruction: Rift.dll calls its
++ * reconstruction routine with a camera index of -1 meaning "all cameras", and
++ * only re-calls it with a concrete index as a single-camera fallback
++ * ("Object %d using fallback camera %d, cameras %d"). See
++ * rift-cv1-center/windows-vs-linux-tracking.md section 2.
++ *
++ * Why this matters: solving each camera separately and averaging the resulting
++ * poses cannot remove per-camera PnP bias, because each solution is already
++ * optimal in its own image and wrong in the other's. Measured offline on
++ * recorded captures, the per-camera solutions fit their own camera to 0.09 px
++ * while reprojecting into the other camera at 5.6 px; the averaged pose is
++ * wrong in both (2.8 px). One joint solve reaches 0.66 px in the worst camera
++ * and cuts frame-to-frame jitter 11x.
++ *
++ * Residuals are in undistorted normalised camera rays (x/z, y/z), matching the
++ * runtime's own normalised acceptance threshold of 2/715.
++ *
++ * Copyright 2026
++ * SPDX-License-Identifier: BSL-1.0
++ */
++#ifndef RIFT_JOINT_POSE_H
++#define RIFT_JOINT_POSE_H
++
++#include <stdbool.h>
++#include <stdint.h>
++
++#include "../omath.h"
++
++/* CV1 HMD carries 34 LEDs, Touch 24. */
++#define RIFT_JOINT_MAX_POINTS 48
++/* Matches RIFT_MAX_SENSORS; kept local so this module stands alone. */
++#define RIFT_MAX_SENSORS_JOINT 4
++
++typedef struct {
++	uint8_t led_index;
++	float ray[2];  /* undistorted normalised camera ray: (x/z, y/z) */
++} rift_joint_point;
++
++/* One camera's view of the device in a single exposure */
++typedef struct {
++	posef camera_pose;   /* camera -> world */
++	float focal_px;      /* to express residuals in pixels */
++	int n_points;
++	rift_joint_point points[RIFT_JOINT_MAX_POINTS];
++} rift_joint_view;
++
++typedef struct {
++	float rms_px;          /* over all views */
++	float worst_view_px;   /* worst per-view RMS - the acceptance metric */
++	int n_points;          /* correspondences actually used */
++	int n_views;
++	int iterations;
++} rift_joint_result;
++
++/*
++ * leds / num_leds: the device's LED model, positions in the device frame.
++ * views / n_views: per-camera correspondence sets for ONE exposure.
++ * init_pose: starting estimate, device -> world (e.g. the per-camera solve).
++ * out_pose: refined device -> world pose.
++ *
++ * Returns false if there is not enough data to solve, or the solve diverged;
++ * out_pose is then untouched. A caller should fall back to the single-camera
++ * result in that case, as the runtime does.
++ */
++bool rift_joint_pose_solve(const vec3f *leds, int num_leds,
++	const rift_joint_view *views, int n_views,
++	const posef *init_pose, posef *out_pose, rift_joint_result *out_result);
++
++/* Reprojection RMS in pixels of a given pose, per view. Exposed for scoring
++ * and for the extrinsic-quality check: a joint residual that cannot be driven
++ * below a few px means the extrinsics are wrong, not the pose. */
++float rift_joint_pose_rms_px(const vec3f *leds, int num_leds,
++	const rift_joint_view *view, const posef *pose);
++
++#endif /* RIFT_JOINT_POSE_H */
 diff --git a/src/drv_oculus_rift/rift-kalman-6dof.c b/src/drv_oculus_rift/rift-kalman-6dof.c
 index 8d0666f..0475637 100644
 --- a/src/drv_oculus_rift/rift-kalman-6dof.c
@@ -1034,6 +1463,48 @@ index 14012b8..2215448 100644
  
  void rift_kalman_6dof_get_delay_slot_pose_at(rift_kalman_6dof_filter *state, uint64_t time, int delay_slot, posef *pose, vec3f *vel, vec3f *accel, vec3f *ang_vel, vec3f *pos_error, vec3f *rot_error);
  void rift_kalman_6dof_get_pose_at(rift_kalman_6dof_filter *state, uint64_t time, posef *pose, vec3f *vel, vec3f *accel, vec3f *ang_vel, vec3f *pos_error, vec3f *rot_error);
+diff --git a/src/drv_oculus_rift/rift-sensor-opencv.cpp b/src/drv_oculus_rift/rift-sensor-opencv.cpp
+index e009582..f412e76 100644
+--- a/src/drv_oculus_rift/rift-sensor-opencv.cpp
++++ b/src/drv_oculus_rift/rift-sensor-opencv.cpp
+@@ -3,11 +3,13 @@
+  * Copyright 2015 Philipp Zabel
+  * SPDX-License-Identifier:	LGPL-2.0+ or BSL-1.0
+  */
+-#include <opencv2/calib3d/calib3d.hpp>
+-#include <opencv2/imgproc/imgproc.hpp>
+-#if CV_MAJOR_VERSION >= 4
+-#include <opencv2/calib3d/calib3d_c.h>
+-#endif
++/* OpenCV 5 split calib3d into geometry/stereo/calib and dropped the
++ * <module>/<module>.hpp layout; opencv2/calib3d.hpp survives there as a
++ * backward-compatibility umbrella and exists in OpenCV 3/4 as well, so these
++ * flat includes work across all three. The legacy C header
++ * (calib3d/calib3d_c.h) is gone in OpenCV 5 and nothing here needed it. */
++#include <opencv2/calib3d.hpp>
++#include <opencv2/imgproc.hpp>
+ #include <iostream>
+ 
+ using namespace std;
+@@ -326,10 +328,14 @@ extern "C" bool refine_pose(struct blob *blobs, int num_blobs,
+ 		cv::undistortPoints(list_points2d, list_points2d_undistorted, cameraK, distCoeffs);
+ 	}
+ 
+-// OpenCV 3.4.7 introduced a method to go straight to refining the pose with LM:
+-#if CV_VERSION_MAJOR > 4 || (CV_VERSION_MAJOR == 3 && CV_VERSION_MINOR > 4) || (CV_VERSION_MAJOR == 3 && CV_VERSION_MINOR == 4 && CV_VERSION_REVISION >= 7) 
+-	if (!cv::solvePnPRefineLM (list_points3d, list_points2d_undistorted, dummyK, dummyD, rvec, tvec))
+-		return false;
++// OpenCV 3.4.7 introduced a method to go straight to refining the pose with LM.
++// Note the guard below omits OpenCV 4 entirely (`> 4 || == 3 && ...`), so 4.x
++// took the solvePnP path; the branch only became live on OpenCV 5, which
++// exposed that solvePnPRefineLM returns void and cannot be tested with `!`.
++// Left as-is other than dropping the bogus test: refine_pose() has no callers,
++// so widening the guard would change nothing except which dead branch compiles.
++#if CV_VERSION_MAJOR > 4 || (CV_VERSION_MAJOR == 3 && CV_VERSION_MINOR > 4) || (CV_VERSION_MAJOR == 3 && CV_VERSION_MINOR == 4 && CV_VERSION_REVISION >= 7)
++	cv::solvePnPRefineLM (list_points3d, list_points2d_undistorted, dummyK, dummyD, rvec, tvec);
+ #else
+ 	if (!cv::solvePnP(list_points3d, list_points2d_undistorted, dummyK, dummyD, rvec, tvec,
+ 			   true, flags))
 diff --git a/src/drv_oculus_rift/rift-sensor-pose-helper.c b/src/drv_oculus_rift/rift-sensor-pose-helper.c
 index 876b391..ef6bfa3 100644
 --- a/src/drv_oculus_rift/rift-sensor-pose-helper.c
@@ -3429,3 +3900,433 @@ index d28410b..255e726 100644
  void oquatf_inverse(quatf* me);
  
  void oquatf_get_mat4x4(const quatf* me, const vec3f* point, float mat[4][4]);
+diff --git a/tests/unittests/joint_pose.c b/tests/unittests/joint_pose.c
+new file mode 100644
+index 0000000..0cfa1c3
+--- /dev/null
++++ b/tests/unittests/joint_pose.c
+@@ -0,0 +1,226 @@
++/*
++ * Unit tests for the joint multi-camera pose reconstruction.
++ * Distributed under the Boost 1.0 licence, see LICENSE for full text.
++ */
++
++#include <stdlib.h>
++#include <string.h>
++
++#include "tests.h"
++#include "drv_oculus_rift/rift-joint-pose.h"
++
++/* A Touch-sized LED ring: 24 points on a partial sphere */
++#define N_LEDS 24
++
++static void make_leds(vec3f leds[N_LEDS])
++{
++	for (int i = 0; i < N_LEDS; i++) {
++		float a = (float)i * 2.0f * (float)M_PI / N_LEDS;
++		float z = -0.03f + 0.06f * ((i % 5) / 4.0f);
++		leds[i].x = 0.04f * cosf(a);
++		leds[i].y = 0.04f * sinf(a);
++		leds[i].z = z;
++	}
++}
++
++static void pose_from(posef *p, float px, float py, float pz,
++	float ax, float ay, float az, float angle)
++{
++	vec3f axis = {{ ax, ay, az }};
++	ovec3f_normalize_me(&axis);
++	oquatf_init_axis(&p->orient, &axis, angle);
++	ovec3f_set(&p->pos, px, py, pz);
++}
++
++/* Place a camera at `eye` looking at `target`: camera +Z is the view axis. */
++static void look_at(posef *cam, float ex, float ey, float ez,
++	const vec3f *target)
++{
++	vec3f fwd, eye = {{ ex, ey, ez }};
++	const vec3f z = {{ 0.0f, 0.0f, 1.0f }};
++
++	ovec3f_set(&cam->pos, ex, ey, ez);
++	ovec3f_subtract(target, &eye, &fwd);
++	ovec3f_normalize_me(&fwd);
++	oquatf_from_vectors(&cam->orient, &z, &fwd);
++}
++
++/* Fill a view with the exact rays a camera would see for `truth`, keeping only
++ * LEDs that land in front of the camera. */
++static void project_view(rift_joint_view *view, const vec3f *leds, int num_leds,
++	const posef *truth, float noise)
++{
++	quatf inv = view->camera_pose.orient;
++	oquatf_inverse(&inv);
++
++	view->n_points = 0;
++	for (int i = 0; i < num_leds; i++) {
++		vec3f rotated, world, rel, cam;
++		oquatf_get_rotated(&truth->orient, &leds[i], &rotated);
++		ovec3f_add(&rotated, &truth->pos, &world);
++		ovec3f_subtract(&world, &view->camera_pose.pos, &rel);
++		oquatf_get_rotated(&inv, &rel, &cam);
++		if (cam.z < 0.2f)
++			continue;
++
++		rift_joint_point *pt = view->points + view->n_points++;
++		pt->led_index = (uint8_t)i;
++		pt->ray[0] = cam.x / cam.z;
++		pt->ray[1] = cam.y / cam.z;
++		if (noise > 0.0f) {
++			/* deterministic pseudo-noise, +/- noise (normalised units) */
++			pt->ray[0] += noise * (((i * 37) % 17) / 8.0f - 1.0f);
++			pt->ray[1] += noise * (((i * 53) % 13) / 6.0f - 1.0f);
++		}
++	}
++}
++
++/* Exact data, perturbed start: the solve must recover the truth. */
++void test_rift_joint_pose_exact()
++{
++	vec3f leds[N_LEDS];
++	make_leds(leds);
++
++	posef truth;
++	pose_from(&truth, 0.15f, 1.10f, -1.30f, 0.3f, 1.0f, 0.2f, 0.6f);
++
++	rift_joint_view views[2];
++	memset(views, 0, sizeof(views));
++	look_at(&views[0].camera_pose, 0.5f, 1.6f, -1.6f, &truth.pos);
++	look_at(&views[1].camera_pose, -0.7f, 1.8f, -1.5f, &truth.pos);
++	views[0].focal_px = views[1].focal_px = 716.9f;
++	project_view(&views[0], leds, N_LEDS, &truth, 0.0f);
++	project_view(&views[1], leds, N_LEDS, &truth, 0.0f);
++
++	/* start 4 cm and ~6 degrees away */
++	posef init = truth;
++	init.pos.x += 0.04f;
++	init.pos.z -= 0.02f;
++	quatf perturb;
++	vec3f axis = {{ 0.0f, 1.0f, 0.3f }};
++	ovec3f_normalize_me(&axis);
++	oquatf_init_axis(&perturb, &axis, 0.10f);
++	quatf tmp;
++	oquatf_mult(&perturb, &init.orient, &tmp);
++	init.orient = tmp;
++
++	posef out;
++	rift_joint_result res;
++	TAssert(rift_joint_pose_solve(leds, N_LEDS, views, 2, &init, &out, &res));
++
++	TAssert(vec3f_eq(out.pos, truth.pos, 1e-4f));
++	TAssert(quatf_eq(out.orient, truth.orient, 1e-4f));
++	TAssert(res.worst_view_px < 0.01f);
++	TAssert(res.n_views == 2);
++}
++
++/* Two cameras must beat one. With a single steeply-viewed camera the depth is
++ * weakly constrained, so a pose that fits that camera can be centimetres off;
++ * adding the second view has to fix it. This is the whole premise of the
++ * joint solve (windows-vs-linux-tracking.md section 2). */
++void test_rift_joint_pose_two_cameras_beat_one()
++{
++	vec3f leds[N_LEDS];
++	make_leds(leds);
++
++	posef truth;
++	pose_from(&truth, 0.0f, 0.90f, -1.20f, 0.1f, 1.0f, 0.0f, 0.35f);
++
++	rift_joint_view views[2];
++	memset(views, 0, sizeof(views));
++	look_at(&views[0].camera_pose, 0.6f, 1.7f, -1.7f, &truth.pos);
++	look_at(&views[1].camera_pose, -0.8f, 1.7f, -1.4f, &truth.pos);
++	views[0].focal_px = views[1].focal_px = 716.9f;
++
++	/* modest measurement noise, same in both views */
++	project_view(&views[0], leds, N_LEDS, &truth, 2.0e-4f);
++	project_view(&views[1], leds, N_LEDS, &truth, 2.0e-4f);
++
++	posef init = truth;
++	init.pos.y += 0.03f;
++
++	posef one, two;
++	rift_joint_result r_one, r_two;
++	TAssert(rift_joint_pose_solve(leds, N_LEDS, views, 1, &init, &one, &r_one));
++	TAssert(rift_joint_pose_solve(leds, N_LEDS, views, 2, &init, &two, &r_two));
++
++	vec3f err_one, err_two;
++	ovec3f_subtract(&one.pos, &truth.pos, &err_one);
++	ovec3f_subtract(&two.pos, &truth.pos, &err_two);
++
++	/* the joint solve must be at least as good, and in this geometry clearly
++	 * better, than the single-camera solve */
++	TAssert(ovec3f_get_length(&err_two) <= ovec3f_get_length(&err_one));
++	TAssert(ovec3f_get_length(&err_two) < 0.005f);
++	TAssert(r_two.n_views == 2);
++}
++
++/* A pose that satisfies one camera but not the other must NOT be reported as
++ * a good joint solve - that is the extrinsic-quality signal the runtime uses
++ * ("Bad calibration for camera %d ... reprojection err %.2f"). */
++void test_rift_joint_pose_detects_bad_extrinsics()
++{
++	vec3f leds[N_LEDS];
++	make_leds(leds);
++
++	posef truth;
++	pose_from(&truth, 0.0f, 1.00f, -1.25f, 0.0f, 1.0f, 0.0f, 0.2f);
++
++	rift_joint_view views[2];
++	memset(views, 0, sizeof(views));
++	look_at(&views[0].camera_pose, 0.5f, 1.6f, -1.6f, &truth.pos);
++	look_at(&views[1].camera_pose, -0.7f, 1.8f, -1.5f, &truth.pos);
++	views[0].focal_px = views[1].focal_px = 716.9f;
++	project_view(&views[0], leds, N_LEDS, &truth, 0.0f);
++	project_view(&views[1], leds, N_LEDS, &truth, 0.0f);
++
++	/* control: with correct extrinsics the truth pose fits both cameras */
++	posef clean;
++	rift_joint_result clean_res;
++	TAssert(rift_joint_pose_solve(leds, N_LEDS, views, 2, &truth, &clean, &clean_res));
++	TAssert(clean_res.worst_view_px < 0.05f);
++
++	/* Now rotate camera 1 by 1 degree, as a bumped sensor would.
++	 * Measured sensitivity of this residual (see rift-joint-pose.c notes):
++	 *   ~4.3 px per degree of camera rotation error
++	 *   ~1 px per 16 mm of camera translation error
++	 * so Oculus's 2 px acceptance corresponds to roughly 0.47 deg / 32 mm of
++	 * extrinsic error. A pure translation is ~77% absorbed by moving the
++	 * object, which is why rotation is much the stronger signal. */
++	vec3f axis = {{ 0.0f, 1.0f, 0.0f }};
++	quatf bump, rotated;
++	oquatf_init_axis(&bump, &axis, 1.0f / 57.2957795f);
++	oquatf_mult(&bump, &views[1].camera_pose.orient, &rotated);
++	views[1].camera_pose.orient = rotated;
++
++	posef out;
++	rift_joint_result res;
++	TAssert(rift_joint_pose_solve(leds, N_LEDS, views, 2, &truth, &out, &res));
++
++	/* no single pose can satisfy both cameras any more */
++	TAssert(res.worst_view_px > 2.0f);
++}
++
++/* Not enough correspondences must fail cleanly and leave the pose alone. */
++void test_rift_joint_pose_rejects_thin_data()
++{
++	vec3f leds[N_LEDS];
++	make_leds(leds);
++
++	posef truth;
++	pose_from(&truth, 0.0f, 1.0f, -1.2f, 0.0f, 1.0f, 0.0f, 0.0f);
++
++	rift_joint_view view;
++	memset(&view, 0, sizeof(view));
++	look_at(&view.camera_pose, 0.5f, 1.6f, -1.6f, &truth.pos);
++	view.focal_px = 716.9f;
++	project_view(&view, leds, N_LEDS, &truth, 0.0f);
++	view.n_points = 2;   /* below MIN_POINTS_TOTAL */
++
++	posef out;
++	memset(&out, 0xAB, sizeof(out));
++	posef untouched = out;
++	rift_joint_result res;
++	TAssert(!rift_joint_pose_solve(leds, N_LEDS, &view, 1, &truth, &out, &res));
++	TAssert(memcmp(&out, &untouched, sizeof(out)) == 0);
++}
+diff --git a/tests/unittests/main.c b/tests/unittests/main.c
+index 378cd83..2dd2734 100644
+--- a/tests/unittests/main.c
++++ b/tests/unittests/main.c
+@@ -41,6 +41,20 @@ int main()
+ 	Test(test_oposef_inverse);
+ 	Test(test_oposef_apply);
+ 
++	printf("\n");
++
++	printf("joint pose tests\n");
++	Test(test_rift_joint_pose_exact);
++	Test(test_rift_joint_pose_two_cameras_beat_one);
++	Test(test_rift_joint_pose_detects_bad_extrinsics);
++	Test(test_rift_joint_pose_rejects_thin_data);
++	printf("\n");
++
++	printf("opencv geometry tests\n");
++	Test(test_opencv_fisheye_roundtrip);
++	Test(test_opencv_estimate_initial_pose);
++	printf("\n");
++
+ 	printf("high level tests\n");
+ 	Test(test_highlevel_open_close_device);
+ 	Test(test_highlevel_open_close_many_devices);
+diff --git a/tests/unittests/opencv_geometry.c b/tests/unittests/opencv_geometry.c
+new file mode 100644
+index 0000000..a70a24e
+--- /dev/null
++++ b/tests/unittests/opencv_geometry.c
+@@ -0,0 +1,146 @@
++/*
++ * Regression tests for the OpenCV-backed geometry the constellation tracker
++ * depends on: the fisheye projection / undistortion pair and the PnP solve.
++ *
++ * These exist because the OpenCV 4 -> 5 upgrade (2026-07-26) moved the headers
++ * and silently changed which branch of rift-sensor-opencv.cpp compiled. A
++ * major-version bump of OpenCV must not change the geometry, and without
++ * hardware these round-trips are the only way to know.
++ *
++ * Distributed under the Boost 1.0 licence, see LICENSE for full text.
++ */
++
++#include <string.h>
++#include <stdlib.h>
++
++#include "tests.h"
++#include "drv_oculus_rift/rift-sensor-opencv.h"
++
++#if HAVE_OPENCV
++
++/* Real CV1 sensor intrinsics, from captures/lin/2026-07-12/*.jsonl
++ * (sensor 0, WMTD306Q701DEK) */
++static void cv1_calib(rift_sensor_camera_params *calib)
++{
++	memset(calib, 0, sizeof(*calib));
++	calib->is_cv1 = true;
++	calib->dist_fisheye = true;
++	calib->width = 1280;
++	calib->height = 960;
++	calib->camera_matrix.m[0] = 716.934998; calib->camera_matrix.m[1] = 0.0;
++	calib->camera_matrix.m[2] = 661.864014;
++	calib->camera_matrix.m[3] = 0.0; calib->camera_matrix.m[4] = 716.934998;
++	calib->camera_matrix.m[5] = 469.516998;
++	calib->camera_matrix.m[6] = 0.0; calib->camera_matrix.m[7] = 0.0;
++	calib->camera_matrix.m[8] = 1.0;
++	calib->dist_coeffs[0] = 0.0708194003;
++	calib->dist_coeffs[1] = -0.0232641995;
++	calib->dist_coeffs[2] = 0.00510769989;
++	calib->dist_coeffs[3] = -0.000523074996;
++	calib->dist_coeffs[4] = 0.0;
++}
++
++#define N_TEST_LEDS 20
++
++/* A Touch-sized LED ring in front of the camera */
++static void make_leds(rift_led *leds)
++{
++	for (int i = 0; i < N_TEST_LEDS; i++) {
++		float a = (float)i * 2.0f * (float)M_PI / N_TEST_LEDS;
++		leds[i].id = i;
++		leds[i].pos.x = 0.04f * cosf(a);
++		leds[i].pos.y = 0.04f * sinf(a);
++		leds[i].pos.z = -0.02f + 0.04f * ((i % 4) / 3.0f);
++		leds[i].dir.x = 0.0f; leds[i].dir.y = 0.0f; leds[i].dir.z = -1.0f;
++		leds[i].pattern = 0xff;
++	}
++}
++
++/* project (fisheye, distorted pixels) then undistort must return the true
++ * normalised ray. This pins the fisheye model across OpenCV versions. */
++void test_opencv_fisheye_roundtrip()
++{
++	rift_sensor_camera_params calib;
++	rift_led leds[N_TEST_LEDS];
++	cv1_calib(&calib);
++	make_leds(leds);
++
++	posef pose;
++	vec3f axis = {{ 0.2f, 1.0f, 0.1f }};
++	ovec3f_normalize_me(&axis);
++	oquatf_init_axis(&pose.orient, &axis, 0.4f);
++	ovec3f_set(&pose.pos, 0.05f, -0.03f, 1.40f);   /* in front of the camera */
++
++	vec3f projected[N_TEST_LEDS];
++	rift_project_points(leds, N_TEST_LEDS, &calib, &pose, projected);
++
++	/* every point must land inside the sensor */
++	for (int i = 0; i < N_TEST_LEDS; i++) {
++		TAssert(projected[i].x > 0.0f && projected[i].x < (float)calib.width);
++		TAssert(projected[i].y > 0.0f && projected[i].y < (float)calib.height);
++	}
++
++	struct blob blobs[N_TEST_LEDS];
++	memset(blobs, 0, sizeof(blobs));
++	for (int i = 0; i < N_TEST_LEDS; i++) {
++		blobs[i].x = projected[i].x;
++		blobs[i].y = projected[i].y;
++	}
++
++	vec3f rays[N_TEST_LEDS];
++	undistort_points(blobs, N_TEST_LEDS, rays, &calib);
++
++	/* the recovered ray must match the true camera-frame direction */
++	for (int i = 0; i < N_TEST_LEDS; i++) {
++		vec3f rotated, cam;
++		oquatf_get_rotated(&pose.orient, &leds[i].pos, &rotated);
++		ovec3f_add(&rotated, &pose.pos, &cam);
++		TAssert(cam.z > 0.1f);
++		TAssert(float_eq(rays[i].x, cam.x / cam.z, 1e-4f));
++		TAssert(float_eq(rays[i].y, cam.y / cam.z, 1e-4f));
++	}
++}
++
++/* The PnP solve must recover a known pose from exact fisheye projections. */
++void test_opencv_estimate_initial_pose()
++{
++	rift_sensor_camera_params calib;
++	rift_led leds[N_TEST_LEDS];
++	cv1_calib(&calib);
++	make_leds(leds);
++
++	posef truth;
++	vec3f axis = {{ 0.1f, 1.0f, 0.2f }};
++	ovec3f_normalize_me(&axis);
++	oquatf_init_axis(&truth.orient, &axis, 0.3f);
++	ovec3f_set(&truth.pos, -0.02f, 0.04f, 1.25f);
++
++	vec3f projected[N_TEST_LEDS];
++	rift_project_points(leds, N_TEST_LEDS, &calib, &truth, projected);
++
++	struct blob blobs[N_TEST_LEDS];
++	memset(blobs, 0, sizeof(blobs));
++	for (int i = 0; i < N_TEST_LEDS; i++) {
++		blobs[i].x = projected[i].x;
++		blobs[i].y = projected[i].y;
++		blobs[i].led_id = LED_MAKE_ID(1, i);   /* device 1, led i */
++	}
++
++	posef out;
++	memset(&out, 0, sizeof(out));
++	oquatf_set(&out.orient, 0, 0, 0, 1);
++	int num_leds_out = 0, num_inliers = 0;
++	TAssert(estimate_initial_pose(blobs, N_TEST_LEDS, 1, leds, N_TEST_LEDS,
++		&calib, &out, &num_leds_out, &num_inliers, false));
++
++	TAssert(num_leds_out == N_TEST_LEDS);
++	TAssert(vec3f_eq(out.pos, truth.pos, 1e-3f));
++	TAssert(quatf_eq(out.orient, truth.orient, 1e-3f));
++}
++
++#else /* !HAVE_OPENCV */
++
++void test_opencv_fisheye_roundtrip() {}
++void test_opencv_estimate_initial_pose() {}
++
++#endif
+diff --git a/tests/unittests/tests.h b/tests/unittests/tests.h
+index 1a7d1c8..c6eed89 100644
+--- a/tests/unittests/tests.h
++++ b/tests/unittests/tests.h
+@@ -49,6 +49,16 @@ void test_oposef_init();
+ void test_oposef_inverse();
+ void test_oposef_apply();
+ 
++// joint multi-camera pose reconstruction tests
++void test_rift_joint_pose_exact();
++void test_rift_joint_pose_two_cameras_beat_one();
++void test_rift_joint_pose_detects_bad_extrinsics();
++void test_rift_joint_pose_rejects_thin_data();
++
++// OpenCV geometry regression tests
++void test_opencv_fisheye_roundtrip();
++void test_opencv_estimate_initial_pose();
++
+ // high-level tests
+ void test_highlevel_open_close_device();
+ void test_highlevel_open_close_many_devices();

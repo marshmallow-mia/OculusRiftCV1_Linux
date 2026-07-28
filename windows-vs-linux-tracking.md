@@ -446,29 +446,35 @@ against theirs. Several would corrupt any parity measurement.
 
 ---
 
-## 8b. BLOCKER — the driver cannot currently be built
+## 8b. OpenCV 5 port (was a hard blocker — resolved 2026-07-28)
 
-`pacman` upgraded **OpenCV 4.13 → 5.0.0 on 2026-07-26**, and OpenCV 5
-restructured its headers: `opencv2/calib3d/calib3d.hpp` no longer exists,
-`solvePnPRansac` now lives in `opencv2/geometry/3d.hpp` (also `ccalib.hpp`),
-fisheye moved into `opencv2/calib.hpp`, and the pkg-config module is `opencv5`
-(meson only probes `opencv4`, then a cmake fallback, then `opencv`).
+`pacman` upgraded **OpenCV 4.13 → 5.0.0 on 2026-07-26**, and OpenCV 5 split
+calib3d into geometry/stereo/calib and dropped the `<module>/<module>.hpp`
+layout. `libopenhmd` stopped building entirely, so *nothing* in the C driver
+could be compiled or tested.
 
-Consequence: `libopenhmd.a` does not build, so **nothing in the C driver can be
-compiled or tested on this machine** until `rift-sensor-opencv.cpp` and
-`meson.build` are ported to OpenCV 5. That is a prerequisite for the runtime
-wiring of every item in §8, and it is a distinct piece of work from tracking
-parity — it touches the existing PnP path and could change its behaviour.
+Fixed in `rift-sensor-opencv.cpp` + `meson.build`:
 
-Everything verified so far was built standalone (the joint solver has no
-OpenCV dependency): `tools/run_joint_tests.sh`.
+- includes moved to the flat `opencv2/calib3d.hpp` / `opencv2/imgproc.hpp`,
+  which OpenCV 5 keeps as a compatibility umbrella and 3/4 also provide — so
+  the tree builds against all three;
+- the legacy `calib3d/calib3d_c.h` include dropped (nothing used it);
+- meson probes `opencv5` before `opencv4`;
+- `refine_pose()` had `if (!cv::solvePnPRefineLM(...))` on a **void** return.
+  Its version guard omitted OpenCV 4 (`> 4 || == 3 && …`), so 4.x compiled the
+  other branch and the bug stayed latent until OpenCV 5 made it live. The
+  function has no callers, so only the bogus test was removed.
 
-**Pending because of this**: wiring the joint solver into the live path — the
-per-exposure correspondence buffer in `rift_tracker_pose_delay_slot`, published
-from `rift-sensor-pose-search.c` where the undistorted rays already exist, and
-consumed in `rift_tracked_device_model_pose_update` in place of the weighted
-merge. The design is settled (§2) and the solver is verified; only the
-plumbing and its compile-time verification are blocked.
+**Verified, because a major version bump must not move the geometry**:
+`tests/unittests/opencv_geometry.c` requires the fisheye projection and
+undistortion to round-trip a known ray to 1e-4, and `estimate_initial_pose` to
+recover a known pose from exact fisheye projections to 1e-3, both with real CV1
+intrinsics. Both pass on OpenCV 5.0.0, alongside the joint-pose tests — 22
+tests, `meson test -C build`.
+
+The vendored `patches/openhmd-rift-room-config.patch` has been regenerated and
+verified to apply cleanly to the pinned upstream commit, so a fresh
+`install.py` picks all of this up.
 
 ## 9. At parity — do not re-chase
 
