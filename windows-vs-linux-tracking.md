@@ -184,6 +184,39 @@ forward projection or its Jacobian per iteration), and 0.235 mm is two orders
 below the 15.7 mm error it removes. Worth revisiting only if sub-mm accuracy
 becomes the binding constraint.
 
+### Wired into the driver (2026-07-28)
+
+`rift-sensor-pose-search.c` builds a per-sensor correspondence set for each
+exposure — the device's labelled blobs, undistorted to normalised rays via the
+existing `undistort_points()` — and hands it to the tracker alongside the pose.
+`rift_tracked_device_model_pose_update()` stores it in the exposure's delay slot
+next to the existing pose report, and when a second sensor reports for the same
+exposure it reconstructs **one** pose across all of them and uses that as the
+fusion target instead of the confidence-weighted merge. The merge remains as
+the fallback for solo exposures, failed solves, and
+`OHMD_RIFT_NO_JOINT_SOLVE=1`.
+
+A solve whose worst camera exceeds 2 px is **rejected** rather than used — at
+that point no single pose explains every image, which indicts the extrinsics,
+not the pose. The driver logs it as a calibration warning, mirroring Oculus's
+`"Bad calibration for camera %d …"`.
+
+**Verification chain, all offline:**
+
+| link | how | result |
+|---|---|---|
+| driver's rays ≡ prototype's rays | OpenCV `undistort_points` vs the Python undistortion on 400 real blobs | **8.6e-8 normalised = 0.00006 px** |
+| prototype's joint solve | replay over 1199 + 1156 real exposures | 100 % inside 2 px; jitter 11× / 6.7× better |
+| C solver ≡ prototype | 200 real exposures via `export-c` | 0.235 mm / 0.097° |
+| C solver correctness | 4 unit tests (exact recovery, two-beats-one, bad extrinsics, thin data) | pass |
+| driver integration | builds; 22 unit tests pass | compile-verified only |
+
+**Still unverified, and it needs hardware or a driver-level replay**: the
+runtime plumbing itself — that views actually arrive from both sensors within
+the same slot's lifetime under real threading and timing. Everything the solver
+consumes and produces is validated; when the two sensors' reports race, and
+whether the delay slot is still live for both, is not.
+
 ### How much extrinsic error does the 2 px bar actually allow?
 
 Measured by corrupting a synthetic rig (`rift-joint-pose.c` notes,

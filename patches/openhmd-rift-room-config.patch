@@ -1528,10 +1528,10 @@ index 876b391..ef6bfa3 100644
  		}
  	}
 diff --git a/src/drv_oculus_rift/rift-sensor-pose-search.c b/src/drv_oculus_rift/rift-sensor-pose-search.c
-index 6989c0a..b31ec35 100644
+index 6989c0a..f64adb0 100644
 --- a/src/drv_oculus_rift/rift-sensor-pose-search.c
 +++ b/src/drv_oculus_rift/rift-sensor-pose-search.c
-@@ -28,6 +28,122 @@ static int update_device_and_blobs (rift_pose_finder *pf, rift_sensor_analysis_f
+@@ -28,6 +28,166 @@ static int update_device_and_blobs (rift_pose_finder *pf, rift_sensor_analysis_f
  	rift_tracked_device_exposure_info *exp_dev_info,
  	posef *obj_cam_pose);
  
@@ -1651,10 +1651,54 @@ index 6989c0a..b31ec35 100644
 +	pthread_mutex_unlock(&cal_capture_lock);
 +}
 +
++/* Collect this device's labelled blobs for the exposure as undistorted
++ * normalised rays, paired with the LED index they were matched to. This is the
++ * per-sensor half of the joint reconstruction: the tracker pools these across
++ * sensors and solves one pose (see rift-joint-pose.h). */
++static bool build_joint_view(rift_pose_finder *pf, rift_sensor_analysis_frame *frame,
++	rift_tracked_device *dev, rift_joint_view *view)
++{
++	blobservation *bwobs = frame->bwobs;
++	struct blob picked[RIFT_JOINT_MAX_POINTS];
++	uint8_t led_index[RIFT_JOINT_MAX_POINTS];
++	vec3f rays[RIFT_JOINT_MAX_POINTS];
++	int n = 0;
++
++	if (bwobs == NULL || !pf->have_camera_pose)
++		return false;
++
++	for (int i = 0; i < bwobs->num_blobs && n < RIFT_JOINT_MAX_POINTS; i++) {
++		struct blob *b = bwobs->blobs + i;
++		if (LED_OBJECT_ID(b->led_id) != dev->id)
++			continue;
++		int local_id = LED_LOCAL_ID(b->led_id);
++		if (local_id < 0 || local_id >= dev->leds->num_points)
++			continue;
++		picked[n] = *b;
++		led_index[n] = (uint8_t) local_id;
++		n++;
++	}
++
++	if (n < 3)
++		return false;
++
++	undistort_points(picked, n, rays, pf->calib);
++
++	view->camera_pose = pf->camera_pose;
++	view->focal_px = (float) pf->calib->camera_matrix.m[0];
++	view->n_points = n;
++	for (int i = 0; i < n; i++) {
++		view->points[i].led_index = led_index[i];
++		view->points[i].ray[0] = rays[i].x;
++		view->points[i].ray[1] = rays[i].y;
++	}
++	return true;
++}
++
  void rift_pose_finder_init(rift_pose_finder *pf, rift_sensor_camera_params *calib,
  		rift_pose_finder_cb pose_cb, void *pose_cb_data)
  {
-@@ -450,7 +566,17 @@ update_device_and_blobs (rift_pose_finder *pf, rift_sensor_analysis_frame *frame
+@@ -450,7 +610,17 @@ update_device_and_blobs (rift_pose_finder *pf, rift_sensor_analysis_frame *frame
  		oquatf_get_rotated(&cam_orient, &gravity_vector, &pf->cam_gravity_vector);
  
  		pf->have_camera_pose = true;
@@ -1672,11 +1716,46 @@ index 6989c0a..b31ec35 100644
  
  	if (!pf->have_camera_pose) {
  		LOGD("Sensor %d No camera pose yet - gravity error is %f degrees rot_error (%f, %f, %f). Not fusing pose for device %d",
+@@ -472,7 +642,13 @@ update_device_and_blobs (rift_pose_finder *pf, rift_sensor_analysis_frame *frame
+ 
+ 	assert (pf->pose_cb != NULL);
+ 
+-	if (pf->pose_cb (pf->pose_cb_data, dev, frame, &pose, score)) {
++	/* Hand the tracker this sensor's correspondences too, so it can solve one
++	 * pose across every sensor that saw this exposure (rift-joint-pose.c). */
++	rift_joint_view view;
++	bool have_view = build_joint_view(pf, frame, dev, &view);
++
++	if (pf->pose_cb (pf->pose_cb_data, dev, frame, &pose, score,
++			have_view ? &view : NULL)) {
+ 		dev_state->found_device_pose = true;
+ 		ret = score->matched_blobs;
+ 	}
 diff --git a/src/drv_oculus_rift/rift-sensor-pose-search.h b/src/drv_oculus_rift/rift-sensor-pose-search.h
-index f186f77..e5dcc40 100644
+index f186f77..f66703e 100644
 --- a/src/drv_oculus_rift/rift-sensor-pose-search.h
 +++ b/src/drv_oculus_rift/rift-sensor-pose-search.h
-@@ -26,6 +26,7 @@ struct rift_pose_finder {
+@@ -13,12 +13,18 @@
+ #include "rift-sensor-blobwatch.h"
+ 
+ #include "correspondence_search.h"
++#include "rift-joint-pose.h"
+ 
+ typedef struct rift_pose_finder rift_pose_finder;
+ 
++/* `view` carries this sensor's LED correspondences for the exposure, as
++ * undistorted normalised rays, so the tracker can reconstruct one pose from
++ * every sensor that saw the device instead of averaging their separate
++ * solutions. NULL if the correspondence set could not be built. */
+ typedef bool (*rift_pose_finder_cb) (void *cb_data,
+ 	rift_tracked_device *dev, rift_sensor_analysis_frame *frame,
+-	posef *obj_world_pose, rift_pose_metrics *score);
++	posef *obj_world_pose, rift_pose_metrics *score,
++	const rift_joint_view *view);
+ 
+ struct rift_pose_finder {
+ 	int sensor_id;
+@@ -26,6 +32,7 @@ struct rift_pose_finder {
  
  	/* Updated from fast_analysis_thread */
  	bool have_camera_pose;
@@ -1684,7 +1763,7 @@ index f186f77..e5dcc40 100644
  	posef camera_pose;
  	vec3f cam_gravity_vector;
  
-@@ -47,4 +48,14 @@ void rift_pose_finder_process_blobs_long(rift_pose_finder *pf, rift_sensor_analy
+@@ -47,4 +54,14 @@ void rift_pose_finder_process_blobs_long(rift_pose_finder *pf, rift_sensor_analy
  void rift_pose_finder_exp_info_to_dev_state (rift_pose_finder *pf,
    const rift_tracked_device_exposure_info *exp_dev_info, rift_sensor_frame_device_state *dev_state);
  
@@ -1700,7 +1779,7 @@ index f186f77..e5dcc40 100644
 +
  #endif
 diff --git a/src/drv_oculus_rift/rift-sensor.c b/src/drv_oculus_rift/rift-sensor.c
-index fe6fc7e..fc4b633 100644
+index fe6fc7e..76350f1 100644
 --- a/src/drv_oculus_rift/rift-sensor.c
 +++ b/src/drv_oculus_rift/rift-sensor.c
 @@ -17,6 +17,8 @@
@@ -1800,7 +1879,17 @@ index fe6fc7e..fc4b633 100644
  	if (frame->bwobs && frame->bwobs->num_blobs > 0) {
  		rift_pose_finder_process_blobs_fast(&sensor->pf, frame, sensor->devices);
  #if 0
-@@ -353,6 +413,7 @@ rift_sensor_new(ohmd_context* ohmd_ctx, int id, const char *serial_no,
+@@ -303,7 +363,8 @@ static unsigned int fast_analysis_thread(void *arg);
+ static unsigned int long_analysis_thread(void *arg);
+ static bool handle_found_pose (rift_sensor_ctx *sensor_ctx,
+ 	rift_tracked_device *dev, rift_sensor_analysis_frame *frame,
+-	posef *obj_world_pose, rift_pose_metrics *score);
++	posef *obj_world_pose, rift_pose_metrics *score,
++	const rift_joint_view *view);
+ 
+ rift_sensor_ctx *
+ rift_sensor_new(ohmd_context* ohmd_ctx, int id, const char *serial_no,
+@@ -353,6 +414,7 @@ rift_sensor_new(ohmd_context* ohmd_ctx, int id, const char *serial_no,
  	sensor_ctx->bw = blobwatch_new(calib->is_cv1 ? BLOB_THRESHOLD_CV1 : BLOB_THRESHOLD_DK2);
  
  	rift_pose_finder_init(&sensor_ctx->pf, calib, (rift_pose_finder_cb) handle_found_pose, sensor_ctx);
@@ -1808,18 +1897,30 @@ index fe6fc7e..fc4b633 100644
  
  	/* Raw debug video stream */
  	sensor_ctx->debug_vid_raw = ohmd_pw_video_stream_new (stream_id, "Rift Sensor", OHMD_PW_VIDEO_FORMAT_GRAY8,
-@@ -616,6 +677,10 @@ static bool handle_found_pose (rift_sensor_ctx *sensor_ctx,
- 	bool ret = rift_tracked_device_model_pose_update(dev, now, frame->vframe->start_ts, &frame->exposure_info,
- 	       score, obj_world_pose, sensor_ctx->serial_no);
+@@ -605,7 +667,8 @@ static unsigned int fast_analysis_thread(void *arg)
  
+ static bool handle_found_pose (rift_sensor_ctx *sensor_ctx,
+ 	rift_tracked_device *dev, rift_sensor_analysis_frame *frame,
+-	posef *obj_world_pose, rift_pose_metrics *score)
++	posef *obj_world_pose, rift_pose_metrics *score,
++	const rift_joint_view *view)
+ {
+ 	uint64_t now = ohmd_monotonic_get(sensor_ctx->ohmd_ctx);
+ 	LOGD("Sensor %d TS %llu Updating fusion for device %d pose quat %f %f %f %f  pos %f %f %f",
+@@ -614,7 +677,11 @@ static bool handle_found_pose (rift_sensor_ctx *sensor_ctx,
+ 		obj_world_pose->pos.x, obj_world_pose->pos.y, obj_world_pose->pos.z);
+ 
+ 	bool ret = rift_tracked_device_model_pose_update(dev, now, frame->vframe->start_ts, &frame->exposure_info,
+-	       score, obj_world_pose, sensor_ctx->serial_no);
++	       score, obj_world_pose, view, sensor_ctx->serial_no);
++
 +	/* Online extrinsic refinement: apply any ripe correction for THIS
 +	 * sensor from its own thread (no locks held here) */
 +	rift_tracker_extrinsic_refine_apply(sensor_ctx->tracker, sensor_ctx);
-+
+ 
  	if (ret) {
  		/* If this pose was accepted by the tracker, transfer these blob labels to the blobwatch object */
- 		ohmd_lock_mutex(sensor_ctx->sensor_lock);
-@@ -634,3 +699,32 @@ const char *rift_sensor_serial_no (rift_sensor_ctx *sensor)
+@@ -634,3 +701,32 @@ const char *rift_sensor_serial_no (rift_sensor_ctx *sensor)
  {
  	return sensor->serial_no;
  }
@@ -2204,7 +2305,7 @@ index 0000000..58dc87e
 +#endif
 +
 diff --git a/src/drv_oculus_rift/rift-tracker.c b/src/drv_oculus_rift/rift-tracker.c
-index ad297a1..5006d5b 100644
+index ad297a1..2f43368 100644
 --- a/src/drv_oculus_rift/rift-tracker.c
 +++ b/src/drv_oculus_rift/rift-tracker.c
 @@ -15,17 +15,22 @@
@@ -2259,7 +2360,7 @@ index ad297a1..5006d5b 100644
  #define MIN_ROT_ERROR DEG_TO_RAD(25)
  #define MIN_POS_ERROR 0.1
  
-@@ -78,8 +94,11 @@ struct rift_tracked_device_imu_observation {
+@@ -78,8 +94,15 @@ struct rift_tracked_device_imu_observation {
  
  struct rift_tracker_pose_report {
  		bool report_used; /* TRUE if this report has been integrated */
@@ -2268,10 +2369,14 @@ index ad297a1..5006d5b 100644
  		posef pose;
  		rift_pose_metrics score;
 +		float obs_scale; /* confidence tier the report was integrated with */
++		/* This sensor's LED correspondences for the exposure, so a later
++		 * report can reconstruct one pose across all of them */
++		bool have_view;
++		rift_joint_view view;
  };
  
  struct rift_tracker_pose_delay_slot {
-@@ -91,7 +110,7 @@ struct rift_tracker_pose_delay_slot {
+@@ -91,7 +114,7 @@ struct rift_tracker_pose_delay_slot {
  
  	/* rift_tracked_device_model_pose_update stores the observed poses here */
  	int n_pose_reports;
@@ -2280,11 +2385,18 @@ index ad297a1..5006d5b 100644
  	/* Number of reports we used from the supplied ones */
  	int n_used_reports;
  };
-@@ -101,11 +120,14 @@ struct rift_tracked_device_priv {
+@@ -101,11 +124,21 @@ struct rift_tracked_device_priv {
  	rift_tracked_device base;
  
  	int index; /* Index of this entry in the devices array for the tracker and exposures */
 +	rift_tracker_ctx *tracker; /* owning tracker (for extrinsic refinement) */
++
++	/* LED positions in the model frame, unpacked from base.leds so the joint
++	 * solver can take a plain vec3f array. Owned by this struct. */
++	vec3f *led_pos;
++	int n_led_pos;
++	/* Joint reconstruction telemetry */
++	uint32_t joint_solved, joint_rejected, joint_single;
  
  	ohmd_mutex *device_lock;
  
@@ -2295,7 +2407,7 @@ index ad297a1..5006d5b 100644
  
  	/* Account keeping for UKF fusion slots */
  	int n_delay_slots;
-@@ -124,10 +146,20 @@ struct rift_tracked_device_priv {
+@@ -124,10 +157,20 @@ struct rift_tracked_device_priv {
  	uint32_t last_device_ts;
  	uint64_t device_time_ns;
  
@@ -2316,7 +2428,7 @@ index ad297a1..5006d5b 100644
  	uint64_t last_acquired_pose_lock_ts;
  
  	/* Reported view pose (to the user) and model pose (for the tracking) respectively */
-@@ -137,10 +169,21 @@ struct rift_tracked_device_priv {
+@@ -137,10 +180,21 @@ struct rift_tracked_device_priv {
  	vec3f reported_lin_vel;
  	vec3f reported_lin_accel;
  
@@ -2338,7 +2450,7 @@ index ad297a1..5006d5b 100644
  	int num_pending_imu_observations;
  	rift_tracked_device_imu_observation pending_imu_observations[RIFT_MAX_PENDING_IMU_OBSERVATIONS];
  
-@@ -148,12 +191,39 @@ struct rift_tracked_device_priv {
+@@ -148,12 +202,39 @@ struct rift_tracked_device_priv {
  	FILE *debug_file;
  };
  
@@ -2378,7 +2490,7 @@ index ad297a1..5006d5b 100644
  	ohmd_thread* usb_thread;
  	int usb_completed;
  
-@@ -161,17 +231,235 @@ struct rift_tracker_ctx_s
+@@ -161,17 +242,260 @@ struct rift_tracker_ctx_s
  	int exposure_history_size;
  	rift_tracker_exposure_info exposure_history[NUM_EXPOSURE_HISTORY];
  
@@ -2474,6 +2586,31 @@ index ad297a1..5006d5b 100644
 +	}
 +	return enabled;
 +}
++
++/* Joint multi-camera reconstruction: solve ONE pose from every sensor's LED
++ * correspondences for an exposure, instead of averaging the per-sensor poses.
++ * Each per-camera solution is already optimal in its own image and wrong in the
++ * other's, so their average is wrong in both - measured offline on recorded
++ * captures, the per-camera solutions fit their own camera to 0.09 px but
++ * reproject into the other at 5.6 px, and the merged pose sits at 2.8 px. The
++ * joint solve reaches 0.66 px in the worst camera and cuts frame-to-frame
++ * jitter 11x (rift-cv1-center/windows-vs-linux-tracking.md section 2).
++ * OHMD_RIFT_NO_JOINT_SOLVE=1 falls back to the weighted merge for A/B. */
++static bool joint_solve_enabled(void)
++{
++	static int enabled = -1;
++	if (enabled == -1) {
++		const char *e = getenv("OHMD_RIFT_NO_JOINT_SOLVE");
++		enabled = !(e && e[0] == '1');
++	}
++	return enabled;
++}
++
++/* Oculus accepts a reconstruction at 2 px reprojection (their 2/715
++ * normalised, Rift.dll fcn.18017f370). Beyond that no single pose explains
++ * every camera's image, which means the extrinsics are wrong rather than the
++ * pose - measured sensitivity ~4.3 px per degree of camera rotation error. */
++#define JOINT_ACCEPT_PX 2.0f
 +
 +static bool extrinsic_refine_enabled(void)
 +{
@@ -2616,7 +2753,7 @@ index ad297a1..5006d5b 100644
  static int rift_tracked_device_exposure_claim(rift_tracked_device_priv *dev, rift_tracked_device_exposure_info *dev_info);
  static void rift_tracked_device_exposure_release_locked(rift_tracked_device_priv *dev, rift_tracked_device_exposure_info *dev_info);
  
-@@ -194,12 +482,19 @@ rift_tracker_add_device (rift_tracker_ctx *ctx, int device_id, posef *imu_pose,
+@@ -194,12 +518,19 @@ rift_tracker_add_device (rift_tracker_ctx *ctx, int device_id, posef *imu_pose,
  	next_dev = ctx->devices + ctx->n_devices;
  
  	next_dev->base.id = device_id;
@@ -2636,15 +2773,23 @@ index ad297a1..5006d5b 100644
  	/* Init delay slot bookkeeping */
  	for (s = 0; s < next_dev->n_delay_slots; s++) {
  		rift_tracker_pose_delay_slot *slot = next_dev->delay_slots + s;
-@@ -238,6 +533,7 @@ rift_tracker_add_device (rift_tracker_ctx *ctx, int device_id, posef *imu_pose,
+@@ -238,6 +569,15 @@ rift_tracker_add_device (rift_tracker_ctx *ctx, int device_id, posef *imu_pose,
  
  	next_dev->base.leds = leds;
  	next_dev->base.led_search = led_search_model_new (leds);
++
++	/* Unpack the LED model into a plain vec3f array for the joint solver */
++	next_dev->led_pos = calloc(leds->num_points, sizeof(vec3f));
++	if (next_dev->led_pos != NULL) {
++		for (i = 0; i < leds->num_points; i++)
++			next_dev->led_pos[i] = leds->points[i].pos;
++		next_dev->n_led_pos = leds->num_points;
++	}
 +	rift_cal_capture_register_leds (device_id, leds);
  	ctx->n_devices++;
  	ohmd_unlock_mutex (ctx->tracker_lock);
  
-@@ -276,10 +572,16 @@ rift_tracker_new (ohmd_context* ohmd_ctx,
+@@ -276,10 +616,16 @@ rift_tracker_new (ohmd_context* ohmd_ctx,
  	rift_tracker_ctx *tracker_ctx = NULL;
  	int ret, i;
  	libusb_device **devs;
@@ -2661,7 +2806,7 @@ index ad297a1..5006d5b 100644
  
  	for (i = 0; i < RIFT_MAX_TRACKED_DEVICES; i++) {
  		rift_tracked_device_priv *dev = tracker_ctx->devices + i;
-@@ -300,7 +602,7 @@ rift_tracker_new (ohmd_context* ohmd_ctx,
+@@ -300,7 +646,7 @@ rift_tracker_new (ohmd_context* ohmd_ctx,
  	for (i = 0; devs[i]; ++i) {
  		struct libusb_device_descriptor desc;
  		libusb_device_handle *usb_devh;
@@ -2670,7 +2815,7 @@ index ad297a1..5006d5b 100644
  
  		ret = libusb_get_device_descriptor(devs[i], &desc);
  		if (ret < 0)
-@@ -315,7 +617,7 @@ rift_tracker_new (ohmd_context* ohmd_ctx,
+@@ -315,7 +661,7 @@ rift_tracker_new (ohmd_context* ohmd_ctx,
  		}
  
  		sprintf ((char *) serial, "UNKNOWN");
@@ -2679,7 +2824,7 @@ index ad297a1..5006d5b 100644
  
  		if (desc.iSerialNumber) {
  			ret = libusb_get_string_descriptor_ascii(usb_devh, desc.iSerialNumber, serial, 32);
-@@ -336,10 +638,25 @@ rift_tracker_new (ohmd_context* ohmd_ctx,
+@@ -336,10 +682,25 @@ rift_tracker_new (ohmd_context* ohmd_ctx,
  			continue;
  		}
  
@@ -2707,7 +2852,7 @@ index ad297a1..5006d5b 100644
  			break;
  		}
  	}
-@@ -428,7 +745,7 @@ void rift_tracker_on_new_exposure (rift_tracker_ctx *ctx, uint32_t hmd_ts, uint1
+@@ -428,7 +789,7 @@ void rift_tracker_on_new_exposure (rift_tracker_ctx *ctx, uint32_t hmd_ts, uint1
  		dev_info->device_index = dev->index;
  
  		ohmd_lock_mutex (dev->device_lock);
@@ -2716,7 +2861,7 @@ index ad297a1..5006d5b 100644
  
  		rift_tracked_device_send_imu_debug(dev);
  
-@@ -461,15 +778,64 @@ rift_tracker_frame_captured (rift_tracker_ctx *ctx, uint64_t local_ts, uint64_t
+@@ -461,15 +822,64 @@ rift_tracker_frame_captured (rift_tracker_ctx *ctx, uint64_t local_ts, uint64_t
  	int i;
  	ohmd_lock_mutex (ctx->tracker_lock);
  
@@ -2785,7 +2930,16 @@ index ad297a1..5006d5b 100644
  		}
  	}
  
-@@ -568,6 +934,7 @@ rift_tracker_free (rift_tracker_ctx *tracker_ctx)
+@@ -553,6 +963,8 @@ rift_tracker_free (rift_tracker_ctx *tracker_ctx)
+ 		rift_tracked_device_priv *dev = tracker_ctx->devices + i;
+ 		if (dev->base.led_search)
+ 			led_search_model_free (dev->base.led_search);
++		free (dev->led_pos);
++		dev->led_pos = NULL;
+ 		if (dev->debug_metadata != NULL)
+ 			ohmd_pw_debug_stream_free (dev->debug_metadata);
+ 
+@@ -568,6 +980,7 @@ rift_tracker_free (rift_tracker_ctx *tracker_ctx)
  		libusb_exit (tracker_ctx->usb_ctx);
  
  	ohmd_destroy_mutex (tracker_ctx->tracker_lock);
@@ -2793,7 +2947,7 @@ index ad297a1..5006d5b 100644
  	free (tracker_ctx);
  }
  
-@@ -586,8 +953,9 @@ void rift_tracked_device_imu_update(rift_tracked_device *dev_base, uint64_t loca
+@@ -586,8 +999,9 @@ void rift_tracked_device_imu_update(rift_tracked_device *dev_base, uint64_t loca
  		dev->device_time_ns += dt_ns;
  	}
  	dev->last_device_ts = device_ts;
@@ -2804,7 +2958,7 @@ index ad297a1..5006d5b 100644
  
  	obs = dev->pending_imu_observations + dev->num_pending_imu_observations;
  	obs->local_ts = local_ts;
-@@ -607,6 +975,66 @@ void rift_tracked_device_imu_update(rift_tracked_device *dev_base, uint64_t loca
+@@ -607,6 +1021,66 @@ void rift_tracked_device_imu_update(rift_tracked_device *dev_base, uint64_t loca
  	ohmd_unlock_mutex (dev->device_lock);
  }
  
@@ -2871,7 +3025,7 @@ index ad297a1..5006d5b 100644
  void rift_tracked_device_get_view_pose(rift_tracked_device *dev_base, posef *pose, vec3f *vel, vec3f *accel, vec3f *ang_vel)
  {
  	rift_tracked_device_priv *dev = (rift_tracked_device_priv *) (dev_base);
-@@ -619,7 +1047,53 @@ void rift_tracked_device_get_view_pose(rift_tracked_device *dev_base, posef *pos
+@@ -619,7 +1093,53 @@ void rift_tracked_device_get_view_pose(rift_tracked_device *dev_base, posef *pos
  		vec3f imu_ang_vel = { 0, };
  		vec3f imu_vel = { 0, }, imu_accel = { 0, };
  
@@ -2926,7 +3080,7 @@ index ad297a1..5006d5b 100644
  
  		/* Take our fusion / IMU global pose back to device pose by
  		 * computing the IMU->device pose and applying the
-@@ -637,34 +1111,127 @@ void rift_tracked_device_get_view_pose(rift_tracked_device *dev_base, posef *pos
+@@ -637,34 +1157,127 @@ void rift_tracked_device_get_view_pose(rift_tracked_device *dev_base, posef *pos
  		exp_filter_pose_run(&dev->pose_output_filter, dev->device_time_ns, &device_pose, &dev->reported_pose);
  		dev->last_reported_pose = dev->device_time_ns;
  
@@ -3070,7 +3224,7 @@ index ad297a1..5006d5b 100644
  static rift_tracker_pose_delay_slot *get_matching_delay_slot(rift_tracked_device_priv *dev, rift_tracked_device_exposure_info *dev_info);
  
  /* Retrieve the latest model pose estimate from a delay slot into the exposure info.
-@@ -687,7 +1254,7 @@ bool rift_tracked_device_get_latest_exposure_info_pose (rift_tracked_device *dev
+@@ -687,7 +1300,7 @@ bool rift_tracked_device_get_latest_exposure_info_pose (rift_tracked_device *dev
  		posef imu_global_pose;
  		vec3f global_pos_error, global_rot_error;
  
@@ -3079,7 +3233,16 @@ index ad297a1..5006d5b 100644
  						NULL, NULL, NULL, &global_pos_error, &global_rot_error);
  
  		oposef_apply(&dev->model_from_fusion, &imu_global_pose, &dev_info->capture_pose);
-@@ -763,9 +1330,53 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
+@@ -716,7 +1329,7 @@ bool rift_tracked_device_get_latest_exposure_info_pose (rift_tracked_device *dev
+ }
+ 
+ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64_t local_ts, uint64_t frame_start_local_ts, rift_tracker_exposure_info *exposure_info,
+-    rift_pose_metrics *score, posef *model_pose, const char *source)
++    rift_pose_metrics *score, posef *model_pose, const rift_joint_view *view, const char *source)
+ {
+ 	rift_tracked_device_priv *dev = (rift_tracked_device_priv *) (dev_base);
+ 	uint64_t frame_device_time_ns = 0;
+@@ -763,9 +1376,53 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
  			pos_error.x, pos_error.y, pos_error.z,
  			source);
  
@@ -3134,7 +3297,7 @@ index ad297a1..5006d5b 100644
  			update_position = false;
  			LOGI("Ignoring position observation with error %f %f %f (prior stddev was %f %f %f)\n",
  				pos_error.x, pos_error.y, pos_error.z,
-@@ -776,7 +1387,7 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
+@@ -776,7 +1433,7 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
  		}
  
  		/* If we have a strong match, update both position and orientation */
@@ -3143,7 +3306,7 @@ index ad297a1..5006d5b 100644
  			update_orientation = true;
  			if ((dev->device_time_ns - dev->last_observed_orient_ts) > (POSE_LOST_ORIENT_THRESHOLD * 1000000UL)) {
  				LOGI("Matched orientation after %f sec", (dev->device_time_ns - dev->last_observed_pose_ts) / 1000000000.0);
-@@ -785,7 +1396,8 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
+@@ -785,7 +1442,8 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
  			if (update_position)
  				dev->last_observed_orient_ts = dev->device_time_ns;
  		}
@@ -3153,15 +3316,13 @@ index ad297a1..5006d5b 100644
  			LOGI("Forcing orientation observation");
  			update_orientation = true;
  			/* Don't update the orientation match time here - only do that on an actual match */
-@@ -799,29 +1411,141 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
+@@ -799,29 +1457,192 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
  			if (dev->last_acquired_pose_lock_ts == 0)
  				dev->last_acquired_pose_lock_ts = dev->last_acquired_pose_lock_ts;
  
 -			if (update_position) {
 -				if (update_orientation) {
 -					rift_kalman_6dof_pose_update(&dev->ukf_fusion, dev->device_time_ns, &imu_pose, slot->slot_id);
--				} else {
--					rift_kalman_6dof_position_update(&dev->ukf_fusion, dev->device_time_ns, &imu_pose.pos, slot->slot_id);
 +			/* Same-exposure observation merge: both sensors expose on the
 +			 * same sync pulse, so their fixes reference the same delay slot
 +			 * and arrive ms apart in racing order. Applied sequentially at
@@ -3186,7 +3347,57 @@ index ad297a1..5006d5b 100644
 +			float fusion_scale = obs_scale;
 +			bool merged = false;
 +
-+			if (obs_merge_enabled() && slot->n_used_reports > 0) {
++			/* Preferred path: reconstruct ONE pose from every sensor's
++			 * correspondences for this exposure. Falls through to the
++			 * weighted merge when there is only one view, when the solve
++			 * fails, or when it cannot satisfy every camera - the last of
++			 * which means the extrinsics are wrong, not the pose. */
++			if (joint_solve_enabled() && view != NULL && dev->led_pos != NULL) {
++				rift_joint_view views[RIFT_MAX_SENSORS];
++				int n_views = 0;
++
++				for (int vi = 0; vi < slot->n_pose_reports && n_views < RIFT_MAX_SENSORS - 1; vi++) {
++					if (slot->pose_reports[vi].have_view)
++						views[n_views++] = slot->pose_reports[vi].view;
++				}
++
++				if (n_views > 0) {
++					posef joint_model;
++					rift_joint_result jres;
++
++					views[n_views++] = *view;
++
++					if (rift_joint_pose_solve(dev->led_pos, dev->n_led_pos,
++							views, n_views, model_pose, &joint_model, &jres)) {
++						if (jres.worst_view_px <= JOINT_ACCEPT_PX) {
++							oposef_apply(&dev->fusion_from_model, &joint_model, &fusion_target);
++							/* n independent views: the reconstruction is
++							 * correspondingly tighter than one sensor's */
++							fusion_scale = obs_scale / sqrtf((float) n_views);
++							merged = true;
++							dev->joint_solved++;
++						} else {
++							dev->joint_rejected++;
++							if ((dev->joint_rejected % 100) == 1) {
++								LOGI("Device %d: joint reconstruction over %d cameras left %.2f px "
++									"in the worst camera (>%.1f px) - check sensor calibration",
++									dev->base.id, n_views, jres.worst_view_px, JOINT_ACCEPT_PX);
++							}
++						}
++					}
+ 				} else {
+-					rift_kalman_6dof_position_update(&dev->ukf_fusion, dev->device_time_ns, &imu_pose.pos, slot->slot_id);
++					dev->joint_single++;
+ 				}
+-      }
++
++				if (merged && (dev->joint_solved % 300) == 1) {
++					LOGI("Device %d: joint reconstruction %u solved, %u rejected, %u single-camera",
++						dev->base.id, dev->joint_solved, dev->joint_rejected, dev->joint_single);
++				}
++			}
++
++			if (!merged && obs_merge_enabled() && slot->n_used_reports > 0) {
 +				float w_sum = 1.0f / (obs_scale * obs_scale);
 +				vec3f p_acc = imu_pose.pos;
 +				ovec3f_multiply_scalar(&p_acc, w_sum, &p_acc);
@@ -3234,8 +3445,7 @@ index ad297a1..5006d5b 100644
 +							(update_orientation && qw_sum > 1.0f / (obs_scale * obs_scale)) ? "yes" : "no");
 +						dev->merge_shift_accum = 0;
 +					}
- 				}
--      }
++				}
 +			}
 +
 +			/* While tracking is healthy, fold the discrete correction this
@@ -3293,6 +3503,9 @@ index ad297a1..5006d5b 100644
  			report->pose = imu_pose;
  			report->score = *score;
 +			report->obs_scale = obs_scale;
++			report->have_view = (view != NULL);
++			if (view != NULL)
++				report->view = *view;
  
  			if (update_position)
  				slot->n_used_reports++;
@@ -3303,7 +3516,7 @@ index ad297a1..5006d5b 100644
  		}
  	}
  
-@@ -859,12 +1583,23 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
+@@ -859,12 +1680,23 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
  }
  
  /* Called with the device lock held */
@@ -3331,7 +3544,7 @@ index ad297a1..5006d5b 100644
  
  	/* Apply the pose conversion from IMU->model */
  	oposef_apply(&dev->model_from_fusion, &imu_global_pose, &model_pose);
-@@ -1014,10 +1749,23 @@ get_matching_delay_slot(rift_tracked_device_priv *dev, rift_tracked_device_expos
+@@ -1014,10 +1846,23 @@ get_matching_delay_slot(rift_tracked_device_priv *dev, rift_tracked_device_expos
  
  /* Called with the device lock held. Allocate a delay slot and populate the device exposure info */
  static void
@@ -3357,7 +3570,7 @@ index ad297a1..5006d5b 100644
  
  	if (slot == NULL) {
  		/* We might reclaim a busy delay slot if some frame search is being slow and we already got an observation from another camera */
-@@ -1040,7 +1788,7 @@ rift_tracked_device_on_new_exposure(rift_tracked_device_priv *dev, rift_tracked_
+@@ -1040,7 +1885,7 @@ rift_tracked_device_on_new_exposure(rift_tracked_device_priv *dev, rift_tracked_
  	}
  	dev_info->last_acquired_pose_lock_ts = dev->last_acquired_pose_lock_ts;
  
@@ -3366,7 +3579,7 @@ index ad297a1..5006d5b 100644
  
  	if (slot) {
  		slot->device_time_ns = dev_info->device_time_ns;
-@@ -1053,7 +1801,7 @@ rift_tracked_device_on_new_exposure(rift_tracked_device_priv *dev, rift_tracked_
+@@ -1053,7 +1898,7 @@ rift_tracked_device_on_new_exposure(rift_tracked_device_priv *dev, rift_tracked_
  		dev_info->fusion_slot = slot->slot_id;
  
  		/* Tell the kalman filter to prepare the delay slot */
@@ -3375,7 +3588,7 @@ index ad297a1..5006d5b 100644
  
  		/* Clear the last no-free-delay-slot tracking to avoid logging noise */
  		dev->last_no_free_delay_slot = 0;
-@@ -1131,3 +1879,124 @@ void rift_tracked_device_frame_release(rift_tracked_device *dev_base, rift_track
+@@ -1131,3 +1976,124 @@ void rift_tracked_device_frame_release(rift_tracked_device *dev_base, rift_track
  	}
  	ohmd_unlock_mutex (dev->device_lock);
  }
@@ -3501,15 +3714,16 @@ index ad297a1..5006d5b 100644
 +		rift_tracker_update_sensor_pose(ctx, sensor, &newp);
 +}
 diff --git a/src/drv_oculus_rift/rift-tracker.h b/src/drv_oculus_rift/rift-tracker.h
-index 04ca128..0763668 100644
+index 04ca128..9743188 100644
 --- a/src/drv_oculus_rift/rift-tracker.h
 +++ b/src/drv_oculus_rift/rift-tracker.h
-@@ -9,13 +9,12 @@
+@@ -9,13 +9,13 @@
  #include "rift.h"
  #include "rift-kalman-6dof.h"
  #include "rift-tracker-common.h"
 +#include "rift-sensor.h"
  #include "rift-sensor-pose-helper.h"
++#include "rift-joint-pose.h"
  
  #ifndef __RIFT_TRACKER_H__
  #define __RIFT_TRACKER_H__
@@ -3519,7 +3733,7 @@ index 04ca128..0763668 100644
  rift_tracker_ctx *rift_tracker_new (ohmd_context* ohmd_ctx, const uint8_t radio_id[5]);
  
  rift_tracked_device *rift_tracker_add_device (rift_tracker_ctx *ctx, int device_id, posef *imu_pose, posef *model_pose, rift_leds *leds, rift_tracked_device_imu_calibration *calib);
-@@ -29,10 +28,14 @@ void rift_tracker_free (rift_tracker_ctx *ctx);
+@@ -29,10 +29,18 @@ void rift_tracker_free (rift_tracker_ctx *ctx);
  
  void rift_tracked_device_imu_update(rift_tracked_device *dev, uint64_t local_ts, uint32_t device_ts, float dt, const vec3f* ang_vel, const vec3f* accel, const vec3f* mag_field);
  void rift_tracked_device_get_view_pose(rift_tracked_device *dev, posef *pose, vec3f *vel, vec3f *accel, vec3f *ang_vel);
@@ -3527,7 +3741,12 @@ index 04ca128..0763668 100644
  
  bool rift_tracked_device_get_latest_exposure_info_pose (rift_tracked_device *dev, rift_tracked_device_exposure_info *dev_info);
  
- bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64_t local_ts, uint64_t frame_start_local_ts, rift_tracker_exposure_info *exposure_info, rift_pose_metrics *score, posef *pose, const char *source);
+-bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64_t local_ts, uint64_t frame_start_local_ts, rift_tracker_exposure_info *exposure_info, rift_pose_metrics *score, posef *pose, const char *source);
++/* `view` is this sensor's LED correspondences for the exposure (may be NULL).
++ * When two or more sensors supply one for the same exposure, the tracker
++ * reconstructs a single pose from all of them instead of averaging their
++ * separate solutions - see rift-joint-pose.h. */
++bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64_t local_ts, uint64_t frame_start_local_ts, rift_tracker_exposure_info *exposure_info, rift_pose_metrics *score, posef *pose, const rift_joint_view *view, const char *source);
  void rift_tracked_device_frame_release (rift_tracked_device *dev_base, rift_tracker_exposure_info *info);
  
 +void rift_tracker_update_sensor_pose(rift_tracker_ctx *tracker_ctx, rift_sensor_ctx *sensor, posef *new_pose);
