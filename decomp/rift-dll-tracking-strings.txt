@@ -1,0 +1,627 @@
+        "accelMatrix" : [1.01246, 0.000253784, -0.00424986, 0, 0.00315213, 1.02091, 0.00362159, 0, -0.0032977, 0.0262504, 1.01196, 0, 0, 0, 0, 1],
+        "accelTemperatureCoefficients" : [-1, -1, -1],
+        "calibrationTemperature" : 32.16,
+        "gyroMatrix" : [1.0004, -0.00355264, 0.00305553, 0, 0.00256841, 0.999708, -0.0219914, 0, -0.00288637, 0.0223249, 0.997014, 0, 0, 0, 0, 1],
+        "gyroOffset" : [-0.0014, 0.001, -0.0008],
+        "imuPosition" : [0.01658, 0.034, -0.0578389]
+        p95 Latency                -
+        p95 Latency           %6i
+    "accelOffset":                  [-0.0767, -0.2966, -0.0392],
+    CPU Avg Latency                -
+    CPU Avg Latency           %6llu
+    HMD Avg Latency                -
+    HMD Avg Latency           %6llu
+  LatencyPixelPosition = %s
+  Shutter.PixelSettleTime = %s
+  Shutter.VsyncToFirstScanline = %s
+  Shutter.VsyncToNextVsync = %s
+ FAILED with error 
+ Settled : 
+ blobs
+ blobs=
+ buffer bytes) FAILED FinishIO numberOfBytesRead = 
+ buffer bytes) FAILED FinishIO returned false
+ buffer bytes) FAILED invalid function input parameters
+ buffer bytes) FAILED user closed device
+ bytes of calibration data in 
+ failed setting active timeout to 
+ failed setting into active mode: 
+ failed. GetLastError() = 
+ failed: 
+ match_count=
+ report bytes) FAILED got only 
+ report bytes) FAILED readback GetFR LastError=
+ report bytes) FAILED user closed device
+ report bytes) FAILED with error = 
+ usec) failed. Error=
+ was not in standby mode so will not wake it
+ was off so did not set standby mode
+ write failed: 
+ {DISABLED}[
+"calibrationData" :
+"imuCalibration": {
+"interrupt_read_failed":
+"iso_read_failed":
+"streaming_req_failed":
+"timesDisabled": 
+"timesEnabled": 
+%d Ekf: Reset after freeze: %.4f
+%d, cam %d: Brute failed: %s
+%d: Acc saturation: %d samples, pos sigma %.1f
+%d: Begin Acc saturation: %.4f, pos sigma %.1f
+%d: Begin Gyro saturation: %.4f, orient sigma %.2f
+%d: EKF Gravity alignment in %.1f ms
+%d: EKF OnImuConnection
+%d: EKF SetCameraRate %.1f
+%d: Ekf CameraPoseChange: dt %.1f %.1f %.1f (%.1f)   dr %.1f %.1f %.1f (%.1f)
+%d: Ekf Freeze %.4f, %.4f, %.4f
+%d: Ekf Reset #%d: pose %s, vel %.0f, %.0f, %.0f (%.0f)
+%d: Ekf Reset %s
+%d: Ekf Reset after large pose update: %.4f, %.4f, %.3f, %d, %d
+%d: Ekf Reset on CameraPoseChange
+%d: Ekf Reset: %.4f, %.4f, %.3f, %d, %d
+%d: Ekf Reset: Filter empty, adding sample %d %.4f
+%d: Ekf Reset: Inclinometer aligned from gravity aligned sample
+%d: Ekf Reset: Integrate Forward failure
+%d: Ekf Reset: Invalid reset sample time: %.4f
+%d: Ekf Reset: Sigmas: pos %.1f, vel %.1f, orient %.2f
+%d: Ekf Reset: Too few matches: %d
+%d: Ekf Update: %.4f, %.4f, %.3f, %d, %d
+%d: EkfReset: No velocity estimate %d
+%d: Gravity alignment filter stuck, too much movement: %.4f (std %.3g)
+%d: Gyro saturation: %d samples,  orient sigma %.2f
+%d: IMU first sample reset: %d
+%d: Inclinometer orientation reset: %.2f deg
+%d: Initial State: AccBias %.2f, %.2f, %.2f (%.2f) G, GyroBias %.2f, %.2f, %.2f (%.2f) deg/s, Gravity %.3f 
+%d: Pose reconstruction failed: count %d, error = %.3f, cameras %d, matches %d, distance %.1f
+%d: Update failed: Z
+%d: Update: AccBias %.2f, %.2f, %.2f (%.2f), GyroBias %.2f, %.2f, %.2f (%.2f), GravAlign %.1f (axis %.3f, 0, %.3f), G %.3f
+%s: %d/%d IMU samples lost (%.1f%%)
+%s: Camera frames arrived but no exposure timestamps have been received from the HMD. Check HMD connection.
+%s: LoadParameters failed
+%s: Repeated exposure time: %.4f %.4f
+%s: Try to WriteLedOnTime %.0f usec
+%s: WriteIndicatorLedState %u
+%s: out of sync. Exposure Delta = %.1f ms, cameraDelta = %.1f ms.
+%s: predicted latency of %.1f ms differed from measured %.1f ms. Check sync cable.
+%s: successfully synchronized.
+') failed. LastErr=
+'. CreateFileW failed. LastErr = 
+'. ReadFile failed. LastErr = 
+'. WriteFile failed. LastErr = 
+) failed. LastErr=
+). Firmware version checking will be disabled
+, ledExposure = 
+,'Accel':[
+,'CalibrationSize':
+,'Gyro':[
+,'StandbyTimeoutMinutes':
+...Reboot failed for 
+/ProfileDB.json
+: WriteLedOnTime(
+: Wrote LedOnTime = 
+<true/false (Should sleep be disabled on Touch?)>
+?RiftDML:TouchCalibrationFile
+@VisionBlob
+Back LED
+Back LED Count = %s
+Back of head reconstruction failed. Reprojection error: %f
+Back of head tracking status 
+BackLEDCount
+Bad calibration for camera %d, object %d: reprojection err %.2f, tilt err %.2f
+BootloaderRebootFailed
+CM_Get_DevNode_Property failed: 
+CM_Get_Device_ID failed.  Error: %i
+CM_Get_Device_ID failed: 
+CM_Get_Device_Interface_List_Size failed.  Error: %i
+CM_Get_Parent failed: 
+CV1 camera enumeration failed: 
+Calibration
+Calibration disk load failed: Unable to open '
+Calibration disk load failed: Unable to read '
+Calibration disk read succeeded: Retrieved calibration for 
+Calibration disk write failed: Unable to create '
+Calibration disk write failed: Unable to write '
+Calibration disk write started: Storing calibration
+Calibration disk write succeeded: Stored calibration in file '
+Calibration initialization failed
+Calibration updated
+CalibrationMatrix
+Calibrator Reset soft = %d
+CallDriver: CreateEvent faled
+CallDriver: Failed to submit driver request
+CallDriver: Failed to wait for driver response - WAIT_FAILED
+CallDriver: Failed to wait for driver response.  Wait result: 0x%x
+CallDriver: Request failed
+CallDriver: Request failed because another application is currently using the camera
+Camera %d position changed too much: %.1f, retaining old position
+Camera %d position set to %.1f, %.1f, %.1f
+Camera Calibration Settled after alignment
+Camera Calibration Settled after calibration.
+Camera Calibration Unsettled.
+Camera calibration already in progress
+Camera calibration data CRC mismatch
+Camera calibration data is from an old version of the bundle adjustment tool.  It needs to be re-calibrated via bundle adjustment.
+Camera failed to come back after soft reset
+Camera is not calibrated so it cannot be used
+Camera with serial %s is not calibrated so it cannot be used
+Camera.UpdateFailed
+CameraEndpoint: InitCapture failed: 
+CameraTimeSynchronizer
+Can't calibrate: don't have a fixed camera: gravity aligned %d: alignment camera = %d
+Can't load calibration data for camera 
+Can't realign: No default calibration for camera %d
+Can't save calibration data: camera not calibrated: 
+CancelIoAndWaitForRequestCompletions: Failed to wait for all requests to complete.  Attempting to shutdown anyway.  Wait result: 0x%lx, Last Error: 0x%lx
+Cleared camera calibration for 
+Cm_Get_Device_Interface_List failed.  Error: %lu - currentParentDevId %s
+Cm_Get_Device_Interface_List failed.  Error: %lu - size needed %lu - currentParentDevId %s
+Cm_Get_Devnode_Property failed.  Error:
+Computed gravity alignment: camera %d:%s, tilt: calculated %.2f %.2f (%.2f), filtered %.2f %.2f (%.2f), delta %.2f %.2f (%.2f), tilt err %.3g deg, elapsed %.3f, wasAligned %d, numAlignmentCameras %d (%d)
+Concave blob
+Controller data read failed after all retries failed
+CreateAudioInputChangeWaiter failed
+DBT_CONFIGCHANGECANCELED
+DBT_DEVICEQUERYREMOVEFAILED
+DK2 camera enumeration failed: 
+DML failed initialization: 
+Destroy called before Stop
+Destroy recursively called; depth = 
+DevManHMD IMU MI:0 Processing time exceeded warning threshold: 
+Device driver not installed (most likely installing now) skipping this device for now.  SPDRP_INSTALL_STATE = 
+Device entered this mode unexpectedly a second time indicating that reboot has failed
+Device was inaccessible. HidD_GetAttributes failed (LastErr=
+Device watching loop: CreateWindow failed with error 
+Device watching loop: RegisterClass failed with error 
+Device watching loop: RegisterDeviceNotification failed with error 
+Did not find calibration file on disk
+DisableControllerSleep: FRActiveTimeout failed: 
+DisableControllerSleep: FRDisableSleep failed: 
+DisableDistortionCache
+DisableDistortionCache = %s
+Disabled
+Disabled by report privacy settings
+DoGravityAlignment
+DoGravityAlignment cam %d, aligned %d %d 
+EKF: P not positive definite: %d = %.3g
+EKF: Update: Invalid P or K
+EKF: Update: P or Z is not positive definite
+Enabled
+Entering Standby
+Error Saving Calibration Data
+Error: Failed to allocate memory
+Error: copying lensing model failed
+Estimated calibration: camera %d
+EstimatedUpInCamera camera %d, object %d, count %d: tilt %.2f %.2f (%.2f)
+Exiting standby
+Expected %d / %d front / back LEDs, but found %d / %d
+FAILED with error 
+FRActiveTimeout failed: 
+FRPrivateSessionEnd failed: 
+FRStandbyTimeout failed: 
+FRStandbyTimeout success: 
+Failed attempt # 
+Failed elevating audio capture thread to low real time priority
+Failed elevating camera capture thread to low real time priority
+Failed frame: object %d, count %d, Reprojection error: %.3f pix
+Failed to acquire global HMD mutex. HMD must be in use by another app
+Failed to clear nrf error bits
+Failed to close device handle.  Error: %lu
+Failed to communicate with the nrf, the etron spi state machine must be in a bad state.
+Failed to convert string "%s" into an etron firmware version
+Failed to create audio input instance: 
+Failed to create camera driver for replay camera with path: 
+Failed to create camera instance: 
+Failed to create event for frame retrieval
+Failed to create image log thread
+Failed to create message window for camera detection
+Failed to create temporary file %s
+Failed to decompress jpeg
+Failed to enumerate attached sensors
+Failed to fetch registry key IdleInWorkingState
+Failed to find a wrapper object for the attached sensor
+Failed to find tracker with device path
+Failed to get FILETIME device property with error 0x%lx
+Failed to get UINT32 device property with error 0x%lx
+Failed to get camera capabilities for camera 
+Failed to get camera details from camera with path: 
+Failed to get camera endpoint details
+Failed to get camera pointer for camera at index 
+Failed to get camera properties
+Failed to get camera settings
+Failed to get camera usb host info
+Failed to get current firmware version for device
+Failed to get device id
+Failed to get device interface detail: error 0x%lx
+Failed to get device interface info, error 0x%lx
+Failed to get etron version, assuming out-of-date firmware
+Failed to get followup driver stats: 
+Failed to get followup wireless stats: 
+Failed to get hardware revision desc
+Failed to get nrf version, assuming out-of-date firmware
+Failed to get parent device
+Failed to get parent device.  Error: %i
+Failed to get rssi
+Failed to get size after buffer too small. Error: 
+Failed to get string descriptor from hub. Error: 
+Failed to get string descriptor from hub. Error: %i
+Failed to get string device property with error 0x%lx
+Failed to get sync diagnostics
+Failed to get the nrf firmware version.  Maybe the firmware is out-of-date.
+Failed to get the nrf version.  This could just mean that the firmware is out-of-date.
+Failed to get usb host controller information.  Usb tree size: %i
+Failed to get wireless metrics
+Failed to get wireless sync info from HMD.
+Failed to initialize global camera system
+Failed to load LED calibration from %s
+Failed to load LED calibration from the HMD
+Failed to open file
+Failed to open handle to devices.
+Failed to open handle to the hub
+Failed to open tracker
+Failed to parse PCI vid/pid from string "%ls"
+Failed to parse PCI vid/pid from string '
+Failed to parse usb device vid/pid from substr "%s"
+Failed to parse ven/dev out of substr "%s"
+Failed to parse vendor id out of path "%s"
+Failed to read back nrf error info
+Failed to read back power savings mode register: 
+Failed to read power savings mode register: 
+Failed to register OCUSBVID message window class
+Failed to register for OCUSBVID notifications
+Failed to send nRF wireless network info
+Failed to set IdleInWorkingState to 0 for 
+Failed to set alt setting to 0: 
+Failed to set alternate setting to %i
+Failed to set camera settings
+Failed to set debug flag
+Failed to set wireless network on camera 
+Failed to start camera capture
+Failed to stop frame capture: 
+Failed to update power savings mode register: 
+Failed!
+FastCal failed, resetting
+FastCalibrate
+FastCalibrate: Camera moved
+FastCalibrate: camera %d, fixed %d, poses %d, residual %.3f
+FastCalibrateFromHistory
+FastCalibrateFromHistory time: %.2f msec
+Firmware unavailable. Disabled firmware update feature of pairing
+First camera alignment %d, default %s
+Fixed camera %d alignment changed during optimization: translation %.1f, rotation %.2f
+Fixed camera %d became unaligned: can't calibrate
+Found calibration file in file list. Loading from disk...
+Found calibration in cache
+Front LED Count = %s
+FrontLEDCount
+GetFRFailed
+GetMultipleFrames() failed with no wait: %.1f us, timeout %d
+Giving up after all retries failed
+Good calibration for camera %d, object %d: reprojection err %.2f, tilt err %.2f
+Gravity Alignment Update, wasAligned %d, wasEstimated %d
+Gravity aligner not aligned: alignment camera %d
+Gravity aligner reset: aligned = 
+Gravity alignment not updated
+Gravity alignment updated
+Gravity filter update: change: %.2f/%.2f, weight %.2f/%d, conf %.2f/%.2f/%.2f, reliable %d/%d, large %d, wasAligned %d, numAlignmentCameras %d, forced %d
+Gyro offset could not be read from HMD
+GyroCalibration
+HID::Device::FinishIO.CloseCalledDuringWait
+HID::Device::Open.CreateFileFailed
+HID::Device::SetFeature.HidD_SetFeatureFailed
+HMD: tilt %.1f, %.1f, %.1f (%.1f), confidence %.3f, count %d
+HMDCalibration
+HMDManager halted while mode machines are disabled
+HandleAsyncCompletion
+Haptics request failed: 
+Haptics state reset and disabled due to low battery on device
+Haptics timestamps de-synchronized. Skipped around too much (
+Haptics timestamps re-synchronized
+Hard ResetEkf
+Hmd0 Open failed: 
+Hmd1 Open failed: 
+I@Ekf_
+IMU MI:0 Processing time exceeded warning threshold: 
+IMU MI:1 Processing time exceeded warning threshold: 
+IMU Stats
+IMU Temperature correction enabled: (%.4g, %.4g, %.4g)
+IMU average latency too high (expected with Touch): HMD %i, CPU %i
+IMU is not responding
+IMU rate error. Rate/Period: %d/%.2f. Expected [%i, %i] message range, got %i
+IMU report rate = 
+IMU samples outside expcted range. Expected %i - %i samples, got %i
+Ignoring tracker firmware version since no firmware data is available (or firmware update is disabled)
+Image sanity checks disabled in jpeg mode
+ImuPosition
+InReport0Failed
+InReport1Failed
+Inclinometer %d: Correcting orientation: %.1f deg misalignment (uncertainty %.1f)
+Incorrect LED 
+IndicatorLed
+Init recursively called; depth = 
+InitCapture failed.  Shutting down capture: 
+Initialization Failed with error: 
+Initialization: Calibration data MD5 = 
+Initialization: Found calibration by serial in cache
+Input blob too close to image edge
+Insufficient Multicam calibration improvement %.1f%%: %.3f/%.3f > %.3f
+Invalid Bundle Adjustment
+Invalid calibration - high error
+Invalid calibration - no improvement with no valid calibration
+Invalid calibration magic 0x%llx
+Invalid calibration: resetting history
+Invalid input blob size: %d %d
+Invalid or standby
+It Initially looked like the sensor was ready, but it failed the followup read.  Waiting a little longer.
+LED Calibration Path = %s
+LED count mismatch: %d, expected %d
+LED state change unverified after 2 tries, will try again...
+LEDCalibrationPath
+Latency Tester
+LatencyPixelPosition
+Leaving device watching loop: GetMessage failed with error 
+LedOnTime
+Loaded calibration data for camera %d:%s: t %.1f %.1f %.1f  r %.2f %.2f %.2f
+Loading HmdDefOverride.json failed
+Loading HmdDefOverride.json failed - %s
+Looking for calibration
+Mag calibration could not be read from HMD
+MagCalibration
+Marauder: FailedRetries=
+Maximum supported image dimension is %u pixels
+Mechanical calibration could not be read from HMD
+Missing IMU Position
+Multicam calibration computed: residual %.3f --> %.3f pix, sample counts: %d, %d, %d %d, num cameras: %d
+Multicam calibration error too large: %.3f/%.3f > %.3f
+Multicam calibration timing: %.2f, %.2f, %.2f
+NAN in camera calibration
+NRF indicated that it's generating a sync signal, but we're not getting frames
+No Calibration
+No IMU data received from the HMD for the last period
+No firmware file was found. Firmware version checking will be disabled
+Non-finite value in OnTrackingStateUpdate: s.ImuFromCpf
+Non-finite value in OnTrackingStateUpdate: s.WorldFromImu.ThePose
+Nordic enabled but no sync pulses sent
+NormalFeatureReportFailed
+NormalRFFeatureReportFailed
+OVR::DML::CameraEndpointImpl::GetCalibration
+OVR::DML::CameraEndpointImpl::GetExposure
+OVR::DML::CameraEndpointImpl::SetExposure
+OVR::DML::TouchManager::onTouchCalibrationBlock
+OVR::DML::TouchManager::onTouchCalibrationBlock.InvalidHeader
+OVR::DML::TouchManager::onTouchCalibrationBlock.InvalidLength
+OVR::DML::TouchManager::onTouchCalibrationBlock.NotProgrammed
+OVR::DML::TouchManager::onTouchCalibrationBlock.UnknownFormat
+OVR::HAL::CameraCommonInterface::GetExposure
+OVR::HAL::CameraCommonInterface::NrfSpiTransaction
+OVR::HAL::CameraCommonInterface::SetExposure
+OVR::HAL::NormalHMD::Commands::ReadPositionCalibrationReports
+OVR::HAL::NormalHMD::Commands::ReadPositionCalibrationReports.IncorrectBinCount
+OVR::HAL::NormalHMD::Commands::ReadPositionCalibrationReports.InitialRead
+OVR::HAL::NormalHMD::Commands::ReadPositionCalibrationReports.MissingData
+OVR::HAL::NormalHMD::Commands::SetKeepAlivesEnabled
+OVR::HAL::NormalHMD::Commands::SetUseCalibration
+Object %d using fallback camera %d, cameras %d
+OcusbvidDevice::Open failed
+OpenFailed
+Optimization failed
+Outlier %d: %.3f (imp %.0f%%) %d of %d >%.3f, worst %d %.3f
+Outstanding constant vibration request failed: 
+PBT_APMQUERYSTANDBY
+PBT_APMQUERYSTANDBYFAILED
+PBT_APMQUERYSUSPENDFAILED
+PBT_APMRESUMESTANDBY
+PBT_APMSTANDBY
+PixelSettleTime
+Power mode register readback sanity test failed
+Probable bad calibration for camera %d, visible objects %d
+QueueVideoFrameRequest: Failed to submit driver request: error %i
+RansacMatch: Too many outliers: %d outliers out of %d, allowed %d
+Read failed on temporary file
+Read from EMS failed
+Read from XMS failed
+Reading calibration: 
+Recalibrating camera %d: wasCalibrated %d, wasEstimated %d, wasAligned %d
+ReplayCameraEndpointAdapter::GetCalibration: This should not be called!  GetFullCalibration should be called instead
+ReplayCameraEndpointAdapter::WaitOnFrame: SHOULD NOT BE CALLED!
+ReplayCameraEndpointAdapter::WaitOnMatchingFrame: SHOULD NOT BE CALLED!
+RequestFailed
+ResetToUSB2Mode sanity register check failed: 
+Resetting gravity filter: reliable %d/%d, large %d, wasAligned %d, numAlignmentCameras %d, forced %d
+RetriesFailed
+RiftDML:IMUEndpoint
+RiftDML:LEDEndpoint
+RiftDML:SyncPulseEndpoint
+RiftLEDCalibration
+SPI-NRF-Erase Failed at Addr=%x, Len=%i
+SPI-NRF-Write Failed at Addr=
+SPIRWTransaction failed to read response
+SPIRWTransaction failed to send data
+SPIRWTransaction failed to setup read request
+SPIRWTransaction failed to setup write request
+Saved Calibration Data
+Seek failed on temporary file
+Sensor sync cable disconnected
+Sensors Settled Changed : Was 
+SetFRFailed
+SetFactoryCalibration failed
+SetStandby: 
+SetStandby: HMDRF commands unavailable
+SetStandby: {FRActiveTimeout} 
+SetTimer() failed. LastErr=
+SetUnhandledExceptionFilter
+SetUpInCamera: camera %d, aligned %d
+Setting IMU report rate failed
+Setting LED state: 
+Setting dynamic prediction failed!
+Setting persistence failed!
+Setting rolling/global display illumination failed!
+Setting shutter delay to %f us, exposure: %f us
+Setting wireless retry count failed: 
+Settled after loading calibration data: %d cameras
+SetupAPI error : Failed to destroy USB hub info set.
+SetupAPI error : Failed to enumerate USB hubs.
+SetupDiEnumDeviceInfo failed with error %lu
+SetupDiEnumDeviceInfo failed: 
+SetupDiGetClassDevs failed with error %lu
+SetupDiGetDeviceInterfaceDetailW failed
+SetupDiGetDeviceInterfaceDetailW failed: 
+SetupDiGetDeviceRegistryProperty failed: 
+SimulateCatastrophicFailure
+SimulatedHMD
+Simulates what happens when a camera stops responding
+Simulating catastrophic failure
+Single frame calibration, camera %d, oneChanged %d
+Skipping auto-calibration for data point outside of expected ranges: 
+Skipping hardware health check (disabled)
+Skipping validation of Touch calibration for older hardware
+Soft ResetEkf %d %d
+SoftResetDeviceWithPath: Failed to open a handle to the camera with path: 
+Standby
+Stop recursively called; depth = 
+Successful read: Calibration hash matches the data MD5Hex = 
+Successful reconstruction after %d failures: object %d, cameras %d, used %d %d %d %d
+Sync pulses sent but no frames received
+SyncPulse
+This function cannot be called on a default constructed task
+Time to update the poses of controller LED and cameras %f
+Too many failed frames for %d. Average error: %.3f
+Too many lost IMU samples.  Expected <= %i, actual %i
+Touch SetReport failed: 
+TouchForceReadCalibration
+TouchManager.AsyncSetReport.NotReady
+TrackerFromImu
+Tracking:BlobSegmenter
+Tracking:EKF
+Tuzi camera enumeration failed: 
+USBHUB3_ETW_EVENT_DEVICE_ENUMERATION_FAILED
+USBHUB3_ETW_EVENT_DEVICE_ENUMERATION_MAXIMUM_RETRY_COUNT_REACHED
+UnhandledExceptionFilter
+Unsaturated blob too large: %.1f > %.1f
+Updating Calibration
+Using HasUp alignment: tilt %.2f %.2f (%.2f)
+VK_ERROR_INITIALIZATION_FAILED
+VK_ERROR_MEMORY_MAP_FAILED
+VK_ERROR_VALIDATION_FAILED_EXT
+VersionReadFailed
+Voyager camera enumeration failed: 
+VsyncToFirstScanline
+VsyncToNextVsync
+WaitForFrame request failed
+WaitForFrame wait failed - WAIT_FAILED
+Waiting for initial calibration
+WakeFromStandby: 
+WakeFromStandby: HMDRF commands unavailable
+WakeFromStandby: {FRSetPowerState} 
+Warning: not enough IMU samples: %.5f %.5f (%.5f)  %.5f %.5f (%.5f)
+Warning: too many IMU samples between camera frames for gravity alignment
+Wireless sync timed out
+Write failed on temporary file --- out of disk space?
+Write sync failed: 
+Write to EMS failed
+Write to XMS failed
+WriteFailed.
+Writing Blob SerialFormat_1 not supported
+Writing LED %d position FAILED!
+[HMD::setLEDMode] Failed to get Tracking Report.
+[HMD::setLEDMode] Failed to match trackingSettings.
+[NewBlobSegmenter] SegmenterBlob pool size increased to %d
+[NewBlobSegmenter] Span pool size increased to %d
+] Initialization Failed with error: 
+^^ Previous SET feature report failed! GetLastError() = 
+_blob_avg
+_blob_total
+_calibrated
+alignment_transform_pos
+alignment_transform_rot_ypr
+angular_acceleration
+are_sensors_settled
+assert json failed
+calc_tilt
+calibrated_iad
+calibrationData
+camera %d: pos %7.1f %7.1f %7.1f, was %7.1f %7.1f %7.1f  dt %6.1f %6.1f %6.1f (%.1f, horizontal %.1f)
+delta_tilt
+device,time,        imu_acc_mag,acc_mag,        x,y,z,vx,vy,vz,ax,ay,az,yaw,pitch,roll,        omega_x,omega_y,omega_z,alpha_x,alpha_y,alpha_z,        x_vis,y_vis,z_vis,vx_vis,vy_vis,vz_vis,yaw_vis,pitch_vis,roll_vis,        omega_x_vis,omega_y_vis,omega_z_vis,        g_thresh,is_position_tracked        
+failed_retries
+failed_tracker_bcdusb
+failed_tracker_usb_controller_driver_version
+failed_tracker_usb_controller_pid
+failed_tracker_usb_controller_vid
+false: Default calibration was all invalid - can't realign
+filter_tilt
+gravity error: %.2f: correction %.4g %.4g %.4g, clamped %.4g %.4g %.4g
+hmd_imu_temperature_calibration
+hmd_imu_temperature_calibration_version
+idle_imu_rate
+imu_calibration
+imu_data
+imu_freq
+imu_from_head
+imu_stats
+imu_temp
+in Json::Value::duplicateAndPrefixStringValue(): Failed to allocate string value buffer
+in Json::Value::duplicateStringValue(): Failed to allocate string value buffer
+initReadCalibrationMD5
+initReadCalibrationMD5.InvalidHeader
+is_gravity_aligned
+is_sensor_settled
+is_settled
+led_model
+linear_acceleration
+match_count_accepted
+match_count_rejected
+nRFCommand: Idle command failed
+nRFCommand: Initial SPI write failed
+nRFCommand: SPI command failed
+num_alignment_cameras
+oculus_calibration_alignwithdefault
+oculus_camera_calibration
+oculus_gravity_alignment
+oculus_imu_event
+oculus_touch_calibrated_data
+oculus_touch_imu_event
+onInitCalibrationData.HashMismatch
+operation canceled
+ovrError_DML_BadCalibration
+ovrError_DML_CommandFailed
+ovrError_DML_SyncDisconnected
+ovrError_DML_UserSkippedIMUData
+ovrError_DisabledOrDefaultAdapter
+ovrError_ExternalCameraCaptureFailed
+ovrError_ExternalCameraInitializedFailed
+ovrError_ExternalCameraNotCalibrated
+ovrError_FailedRebootBootloaderDev
+ovrError_HALNordicEnabledNoSync
+ovrError_HALNordicSyncNoFrames
+ovrError_IMURateError
+ovrError_IMUTooManyLostSamples
+ovrError_InvalidBundleAdjustment
+ovrError_NoCalibration
+ovrError_NordicEnabledNoSync
+ovrError_NordicSyncNoFrames
+ovrError_SyncDisconnected
+ovrError_TrackerCalibrationError
+pixel_settle
+reconstruction_error_accepted
+reconstruction_error_rejected
+reconstruction_error_same_match_count_accepted
+residual
+residualH
+samp_cpu_latency
+samp_cpu_latency_p95
+samp_hmd_latency
+samp_hmd_latency_p95
+tilt_accepted
+tilt_rejected
+time,        imu_acc_mag,acc_mag,        x,y,z,vx,vy,vz,ax,ay,az,yaw,pitch,roll,        x_vis,y_vis,z_vis,vx_vis,vy_vis,vz_vis,yaw_vis,pitch_vis,roll_vis,        g_thresh,is_position_tracked        
+timing_calibration_and_gravity_alignment
+tracker_from_imu
+tracking_manager_says_sensors_settled
+true: Accept calibration as-is (can't realign) - pointCount == 0
+was_gravity_aligned
+was_sensor_settled
+was_settled
+{ "TrackedObject": {"JoyXRangeMax": 250, "JsonVersion" : 2, "ImuPosition" : [-0.0036, -0.0075, -0.0033], "TriggerMaxRange" : 246, "GyroCalibration" : [-0.0074137, 1.1586358, -0.0172963, 0.0063712, 0.0166739, -1.1628392, -1.1487557, -0.0072631, 0.0037434, -0.0032466, -0.0019881, 0.0021947], "TriggerMidRange" : 129, "MiddleMaxRange" : 734, "AccCalibration" : [-0.0032142, 0.9898087, -0.0008391, 0.0123902, -0.0043446, -0.9970171, -0.9959708, -0.0057806, -0.0098381, -0.061832, 0.0603003, 0.2282661], "JoyYDeadMin" : 492, "CapSenseMin" : [39620, 33675, 28656, 35952, 0, 0, 0, 20293], "CapSenseTouch" : [42696, 35104, 34470, 37415, 0, 0, 0, 22104], "MiddleMidRange" : 653, "MiddleMinRange" : 522, "JoyYDeadMax" : 506, "JoyYRangeMax" : 380, "TriggerMinRange" : 12, "JoyXDeadMax" : 528, "LedOnTime" : 25, "JoyYRangeMin" : 60, "JoyXRangeMin" : 5, "ModelPoints" : {"Point12": [-0.025809563981367512, -0.0008811212059643426, -0.009994502418906766, -0.604358, -0.689268, -0.399576, 85, 75, 1], "Point11" : [-0.034719431164562, 0.0054087031799021825, 0.0034584315445818385, -0.752601, -0.652254, 0.090312, 85, 75, 0], "Point10" : [-0.041279128780343954, 0.02202024378697317, -0.0016417742042048552, -0.954351, -0.105453, -0.279451, 85, 75, 0], "Point0" : [0.023258298311726246, -0.00192740873220778, -0.012005705969290993, 0.545455, -0.723563, -0.423006, 85, 75, 1], "Point1" : [0.03465673266078156, 0.00492012282509127, 0.003370779805276245, 0.758598, -0.648801, 0.059889, 85, 75, 0], "Point2" : [0.042333865250697794, 0.027582352145659836, 0.0013203092636722372, 0.968047, 0.045663, -0.246578, 85, 75, 0], "Point3" : [0.039481749453639796, 0.03825388611861432, 0.02382008116396541, 0.899376, 0.133241, 0.416378, 85, 75, 0], "Point4" : [0.024927598532425547, 0.06066816732811409, 0.019819719759959192, 0.540351, 0.841404, 0.007719, 85, 75, 0], "Point5" : [0.010432468880134254, 0.06140655096034709, 0.036499894795997266, 0.241701, 0.753538, 0.611361, 85, 75, 0], "Point6" : [-0.005612774091804953, 0.0673541534446998, 0.023515430975241843, -0.127193, 0.99077, 0.046861, 85, 75, 0], "Point7" : [-0.025680237978042735, 0.05514460724790397, 0.032484422787605646, -0.603872, 0.57897, 0.547843, 85, 75, 0], "Point8" : [-0.0371604876816248, 0.04851019745880493, 0.013144053459825299, -0.829972, 0.553315, -0.070636, 85, 75, 0], "Point9" : [-0.04142908941165923, 0.030239545442061228, 0.019308859036277534, -0.9398, -0.055282, 0.337223, 85, 75, 0]}, "Lensing" : {"Model1": [4, -0.000910953, 0.00047117, 0.00123327, 6.80035e-05], "Model0" : [4, 0.00107328, -0.00284878, 0.00272378, -5.26884e-05]}, "JoyXDeadMin" : 515} }
+{'StandbyMode':1}
+{ERR-010} [SensorCalibration] Magnetometer calibration not found!

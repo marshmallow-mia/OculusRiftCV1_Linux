@@ -1,0 +1,150 @@
+# OVR::* RTTI classes recovered from Meta runtime v79 Rift.dll (server-plugins/Rift.dll)
+# demangled with rz-bin -D msvc
+
+class OVR::BufferedFile
+class OVR::CircularBuffer<class OVR::Vector3<double>, struct OVR::ContainerAllocator_POD<class OVR::Vector3<double>>>
+class OVR::CircularBuffer<struct OVR::GyroPackage, struct OVR::ContainerAllocator_POD<struct OVR::GyroPackage>>
+class OVR::CircularBuffer<struct OVR::RiftVision::ComplementaryFusionFilter::ExposureRecord, struct OVR::ContainerAllocator_POD<struct OVR::RiftVision::ComplementaryFusionFilter::ExposureRecord>>
+class OVR::CircularBuffer<struct OVR::Vision::ImuSample, struct OVR::ContainerAllocator<struct OVR::Vision::ImuSample>>
+class OVR::DML::AudioInputImpl
+class OVR::DML::CV1CameraEndpointImpl
+class OVR::DML::CameraEndpointImpl
+class OVR::DML::CameraImpl
+class OVR::DML::CommonEndpointImpl
+class OVR::DML::DK2CameraEndpointImpl
+class OVR::DML::DMLSubsystem
+class OVR::DML::EndpointDetector::Listener
+class OVR::DML::HMDManager
+class OVR::DML::HMDManagerNormalMode
+class OVR::DML::IAudioInputEndpoint
+class OVR::DML::IAudioInputInfoEndpoint
+class OVR::DML::ICameraEndpoint
+class OVR::DML::ICameraEndpoint::FrameMatcher
+class OVR::DML::ICameraHealthMonitor
+class OVR::DML::ICameraInfoEndpoint
+class OVR::DML::INVMEndpoint
+class OVR::DML::StringOutputPlugin
+class OVR::DML::TouchCommands
+class OVR::DML::TouchManager
+class OVR::DML::TuziCameraEndpointImpl
+class OVR::DML::VoyagerCameraEndpointImpl
+class OVR::DebugPageHeap
+class OVR::DefaultHeap
+class OVR::DelegatedFile
+class OVR::Deque<class OVR::Vector3<double>, struct OVR::ContainerAllocator_POD<class OVR::Vector3<double>>>
+class OVR::Deque<struct OVR::GyroPackage, struct OVR::ContainerAllocator_POD<struct OVR::GyroPackage>>
+class OVR::Deque<struct OVR::RiftVision::ComplementaryFusionFilter::ExposureRecord, struct OVR::ContainerAllocator_POD<struct OVR::RiftVision::ComplementaryFusionFilter::ExposureRecord>>
+class OVR::Deque<struct OVR::Vision::ImuSample, struct OVR::ContainerAllocator<struct OVR::Vision::ImuSample>>
+class OVR::FILEFile
+class OVR::File
+class OVR::FileConstants
+class OVR::HAL::CV1Camera
+class OVR::HAL::CV1CameraImpl
+class OVR::HAL::CameraCommonInterface
+class OVR::HAL::DK2Camera
+class OVR::HAL::DK2CameraImpl
+class OVR::HAL::HALSubsystem
+class OVR::HAL::INrf51Accessor
+class OVR::HAL::NormalRF::NormalWirelessDeviceChunkRouter
+class OVR::HAL::NormalTouch::HapticsCommands
+class OVR::HAL::NormalTouch::HapticsThread
+class OVR::HAL::OculusHMDFilter
+class OVR::HAL::TuziCamera
+class OVR::HAL::TuziCameraImpl
+class OVR::HAL::VoyagerCamera
+class OVR::HAL::VoyagerCameraImpl
+class OVR::HMDOverride
+class OVR::HeadsetPlugin::CameraHealthAdapter
+class OVR::HeadsetPlugin::IHeadsetInterface
+class OVR::HeadsetPlugin::OVRInterfaceFactoryRiftPluginAddition
+class OVR::HeadsetPlugin::RiftHeadsetPlugin
+class OVR::HeadsetPlugin::RiftPluginAddition
+class OVR::Heap
+class OVR::InPlaceMutableDeque<class OVR::Vector3<double>, struct OVR::ContainerAllocator_POD<class OVR::Vector3<double>>>
+class OVR::InPlaceMutableDeque<struct OVR::GyroPackage, struct OVR::ContainerAllocator_POD<struct OVR::GyroPackage>>
+class OVR::InPlaceMutableDeque<struct OVR::RiftVision::ComplementaryFusionFilter::ExposureRecord, struct OVR::ContainerAllocator_POD<struct OVR::RiftVision::ComplementaryFusionFilter::ExposureRecord>>
+class OVR::InPlaceMutableDeque<struct OVR::Vision::ImuSample, struct OVR::ContainerAllocator<struct OVR::Vision::ImuSample>>
+class OVR::LastErrorTLS
+class OVR::MessageHandler
+class OVR::OSHeap
+class OVR::OVRError
+class OVR::OVRStringImpl
+class OVR::ProfileManager
+class OVR::RecordedSensorDevice
+class OVR::Recording::Context::RecordHelper
+class OVR::Recording::FileSerializer
+class OVR::Recording::Manager
+class OVR::Recording::MemorySerializer
+class OVR::Recording::Replayer
+class OVR::Recording::Serializer
+class OVR::Rift::HardwareTelemetry
+class OVR::RiftVision::ComplementaryFusionFilter
+class OVR::RiftVision::SensorFusionFilter
+class OVR::Sensor2DeviceImpl
+class OVR::Sensor3DeviceImpl
+class OVR::SensorDevice
+class OVR::SensorDeviceImpl
+class OVR::Service::DeviceEventHandler
+class OVR::SysFile
+class OVR::SystemSingletonBase<class OVR::DML::DMLSubsystem>
+class OVR::SystemSingletonBase<class OVR::HAL::HALSubsystem>
+class OVR::SystemSingletonBase<class OVR::HMDOverride>
+class OVR::SystemSingletonBase<class OVR::LastErrorTLS>
+class OVR::SystemSingletonBase<class OVR::ProfileManager>
+class OVR::SystemSingletonBase<class OVR::Recording::Manager>
+class OVR::SystemSingletonBase<class OVR::Recording::Replayer>
+class OVR::SystemSingletonBase<class OVR::Rift::HardwareTelemetry>
+class OVR::SystemSingletonBase<class OVR::Service::DeviceEventHandler>
+class OVR::SystemSingletonBase<class OVR::Telemetry::Tracking>
+class OVR::SystemSingletonBase<class OVR::Util::LockedDiagnosticState>
+class OVR::SystemSingletonBase<class OVR::Util::LongPollThread>
+class OVR::SystemSingletonBase<class OVR::Util::Settings>
+class OVR::SystemSingletonBase<class OVR::Util::WatchDogObserver>
+class OVR::SystemSingletonBase<class OVR::Vision::ImagePoolAllocator>
+class OVR::SystemSingletonBase<class OVR::Vision::TrackingManager>
+class OVR::SystemSingletonBase<struct OVR::Recording::Context>
+class OVR::SystemSingletonInternal
+class OVR::Telemetry::Tracking
+class OVR::UnopenedFile
+class OVR::Util::ISettingsManager
+class OVR::Util::LockedDiagnosticState
+class OVR::Util::LongPollThread
+class OVR::Util::OutOfVolumeDetection::IOutOfVolumeDetectionListener
+class OVR::Util::OutOfVolumeDetection::OutOfVolumeDetectionManager
+class OVR::Util::OutOfVolumeDetection::TelemetryListener
+class OVR::Util::Settings
+class OVR::Util::SettingsManager
+class OVR::Util::SimpleOAFEventDispatch
+class OVR::Util::WatchDogObserver
+class OVR::Vision::Camera::FrameMatcher
+class OVR::Vision::CameraDriver
+class OVR::Vision::CameraFactoryInterface
+class OVR::Vision::CameraHardwareChangeCallback
+class OVR::Vision::ConstellationTrackable
+class OVR::Vision::ControllerSensor
+class OVR::Vision::ControllerSensorImpl
+class OVR::Vision::EkfFusion
+class OVR::Vision::ExternalTrackingCamera
+class OVR::Vision::HMD
+class OVR::Vision::ImagePoolAllocator
+class OVR::Vision::RecordedCamera
+class OVR::Vision::RecordingCameraFactory
+class OVR::Vision::ReplayCameraEndpointAdapter
+class OVR::Vision::SensorFilter<double>
+class OVR::Vision::SensorFilterBase<class OVR::Vector3<double>, class OVR::Vector3<double>>
+class OVR::Vision::SensorFilterBase<struct OVR::GyroPackage, struct OVR::GyroPackageAccumulator>
+class OVR::Vision::SensorFilterSensorData
+class OVR::Vision::TrackedController
+class OVR::Vision::TrackedHMD
+class OVR::Vision::TrackedObject
+class OVR::Vision::TrackingCamera
+class OVR::Vision::TrackingCameraFrameMatcher
+class OVR::Vision::TrackingManager
+class OVR::WProfileManager
+class `public: class OVR::DML::ICameraHealthMonitor * __ptr64 __cdecl OVR::DML::CameraEndpointManager::GetHealthMonitor(void) __ptr64'::`2'::NoOpCameraHealthMonitor
+struct OVR::HeadsetPlugin::IOVRHeadsetPluginAddition
+struct OVR::Recording::Context
+struct OVR::Vision::IndirectEkf<18, 9>
+struct OVR::bad_alloc
+struct `private: void __cdecl OVR::DML::AudioInputImpl::AttachDeleterToSample(struct OVR::DML::AudioInputSampleData & __ptr64, unsigned char * __ptr64) __ptr64'::`2'::SampleDeleter
+struct `private: void __cdecl OVR::DML::CameraImpl::AttachDeleterToImage(struct OVR::DML::CameraImageData & __ptr64, unsigned char * __ptr64) __ptr64'::`2'::FrameDeleter
