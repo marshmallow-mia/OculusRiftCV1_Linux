@@ -302,10 +302,10 @@ index 0483dd2..bd891c1 100644
  
 diff --git a/src/drv_oculus_rift/rift-fusion-ovr.c b/src/drv_oculus_rift/rift-fusion-ovr.c
 new file mode 100644
-index 0000000..fe48234
+index 0000000..b11690d
 --- /dev/null
 +++ b/src/drv_oculus_rift/rift-fusion-ovr.c
-@@ -0,0 +1,533 @@
+@@ -0,0 +1,554 @@
 +/*
 + * Complementary-filter fusion ported from Oculus SDK 0.3.2
 + * (LibOVR/Src/OVR_SensorFusion.cpp) — see rift-fusion-ovr.h.
@@ -480,8 +480,22 @@ index 0000000..fe48234
 + * world-frame mean/variance for the confidence gate:
 + * confidence = clamp(0.48 - 0.1 ln(stddev), 0, 1) * fill_ratio */
 +static float gravity_filter_update(rift_fusion_ovr *f, const vec3f *accel,
-+	float dt, const quatf *delta_q)
++	float dt, const quatf *delta_q, bool saturated)
 +{
++	if (saturated) {
++		/* Keep the stored estimate in the current body frame, but do not let a
++		 * clipped reading into it - it would poison the low-pass for as long
++		 * as the filter's time constant. */
++		if (f->grav_init) {
++			quatf dq_inv = *delta_q;
++			vec3f rotated;
++			oquatf_inverse(&dq_inv);
++			oquatf_get_rotated(&dq_inv, &f->grav_filter, &rotated);
++			f->grav_filter = rotated;
++		}
++		return 0.0f;
++	}
++
 +	if (!f->grav_init) {
 +		f->grav_filter = *accel;
 +		f->grav_init = true;
@@ -636,7 +650,7 @@ index 0000000..fe48234
 +}
 +
 +void rift_fusion_ovr_imu_update(rift_fusion_ovr *f, uint64_t time,
-+	const vec3f *ang_vel, const vec3f *accel, const vec3f *mag)
++	const vec3f *ang_vel, const vec3f *accel, const vec3f *mag, bool accel_saturated)
 +{
 +	(void)mag; /* vision replaces the magnetometer (SDK: MagCalibrated false) */
 +
@@ -688,9 +702,16 @@ index 0000000..fe48234
 +		ovec3f_set(&f->lin_vel, 0, 0, 0);
 +	}
 +
-+	float confidence = gravity_filter_update(f, accel, dt, &delta_q);
++	float confidence = gravity_filter_update(f, accel, dt, &delta_q, accel_saturated);
 +
-+	apply_tilt_correction(f, dt, confidence);
++	/* A clipped accelerometer reading points the wrong way, so it cannot say
++	 * which way is down. Keep integrating - the gyro is still good - but skip
++	 * the tilt correction entirely. Note it is not enough to drop the
++	 * confidence to zero: apply_tilt_correction's start-up branch snaps to the
++	 * accelerometer regardless of confidence, so a clipped first sample would
++	 * otherwise throw the orientation straight over. */
++	if (!accel_saturated)
++		apply_tilt_correction(f, dt, confidence);
 +	if (vision_recent) {
 +		apply_vision_yaw_correction(f, dt);
 +		apply_position_correction(f, dt);
@@ -841,10 +862,10 @@ index 0000000..fe48234
 +}
 diff --git a/src/drv_oculus_rift/rift-fusion-ovr.h b/src/drv_oculus_rift/rift-fusion-ovr.h
 new file mode 100644
-index 0000000..5b7dfaf
+index 0000000..4435703
 --- /dev/null
 +++ b/src/drv_oculus_rift/rift-fusion-ovr.h
-@@ -0,0 +1,94 @@
+@@ -0,0 +1,96 @@
 +/*
 + * Complementary-filter fusion for the Rift, ported from the algorithm
 + * Oculus shipped as open source in SDK 0.3.2 (LibOVR OVR_SensorFusion.cpp)
@@ -916,8 +937,10 @@ index 0000000..5b7dfaf
 +void rift_fusion_ovr_prepare_delay_slot(rift_fusion_ovr *f, uint64_t time, int delay_slot);
 +void rift_fusion_ovr_release_delay_slot(rift_fusion_ovr *f, int delay_slot);
 +
++/* accel_saturated: the accelerometer clipped, so its DIRECTION is wrong and it
++ * must not be used to correct tilt this sample. */
 +void rift_fusion_ovr_imu_update(rift_fusion_ovr *f, uint64_t time,
-+	const vec3f *ang_vel, const vec3f *accel, const vec3f *mag);
++	const vec3f *ang_vel, const vec3f *accel, const vec3f *mag, bool accel_saturated);
 +
 +/* replace_pending: this fix is a merged re-statement of the current
 + * exposure's earlier fix(es) — it must overwrite the pending vision error
@@ -1412,15 +1435,18 @@ index 0000000..0bd9f56
 +
 +#endif /* RIFT_JOINT_POSE_H */
 diff --git a/src/drv_oculus_rift/rift-kalman-6dof.c b/src/drv_oculus_rift/rift-kalman-6dof.c
-index 8d0666f..7041954 100644
+index 8d0666f..28a9566 100644
 --- a/src/drv_oculus_rift/rift-kalman-6dof.c
 +++ b/src/drv_oculus_rift/rift-kalman-6dof.c
-@@ -25,6 +25,14 @@
+@@ -25,6 +25,17 @@
  #define HYBRID_MOTION_THRESHOLD (3 / 1000.0)
  
  /* IMU biases noise levels */
 +/* Measured accelerometer noise, see the R setup in rift_kalman_6dof_init */
 +#define IMU_ACCEL_NOISE (0.05 * 0.05) /* (m/s^2)^2 */
++/* Saturated: the true value is somewhere past the rail, so this sample says
++ * almost nothing. 10 m/s^2 of sigma is "ignore me". */
++#define IMU_ACCEL_SATURATED_NOISE (10.0 * 10.0)
 +
 +/* Covariance held on a delay slot that is not in use. Its state is pinned to
 + * identity/zero, so the value is arbitrary - it only has to be positive, so
@@ -1430,7 +1456,7 @@ index 8d0666f..7041954 100644
  #define IMU_GYRO_BIAS_NOISE 1e-17 /* gyro bias (rad/s)^2 */
  #define IMU_GYRO_BIAS_NOISE_INITIAL 1e-3 /* gyro bias (rad/s)^2 */
  #define IMU_ACCEL_BIAS_NOISE 1e-16 /* accelerometer bias (m/s^2)^2 */
-@@ -711,9 +719,16 @@ void rift_kalman_6dof_init(rift_kalman_6dof_filter *state, posef *init_pose, int
+@@ -711,9 +722,16 @@ void rift_kalman_6dof_init(rift_kalman_6dof_filter *state, posef *init_pose, int
  	/* m1 is for IMU measurement - accel */
  	ukf_measurement_init(&state->m1, 3, 3, &state->ukf, imu_measurement_func, NULL, NULL, NULL);
  
@@ -1449,7 +1475,7 @@ index 8d0666f..7041954 100644
  
  	/* m2 is for pose measurements - position and orientation. We trust the position more than
  	 * the orientation. */
-@@ -738,6 +753,7 @@ void rift_kalman_6dof_init(rift_kalman_6dof_filter *state, posef *init_pose, int
+@@ -738,11 +756,47 @@ void rift_kalman_6dof_init(rift_kalman_6dof_filter *state, posef *init_pose, int
  
  void rift_kalman_6dof_clear(rift_kalman_6dof_filter *state)
  {
@@ -1457,7 +1483,81 @@ index 8d0666f..7041954 100644
  	ukf_measurement_clear(&state->m2);
  	ukf_measurement_clear(&state->m1);
  	ukf_base_clear(&state->ukf);
-@@ -796,7 +812,24 @@ void rift_kalman_6dof_prepare_delay_slot(rift_kalman_6dof_filter *state, uint64_
+ }
+ 
++static bool rift_kalman_6dof_state_is_finite(rift_kalman_6dof_filter *state)
++{
++	for (int i = 0; i < state->ukf.N_state; i++) {
++		if (!isfinite(MATRIX2D_Y(state->ukf.x_prior, i)))
++			return false;
++	}
++	return true;
++}
++
++/* Last resort when the state itself has gone bad: keep whatever is still
++ * finite, drop everything derived, and re-seed the covariance. */
++static void rift_kalman_6dof_reset_state(rift_kalman_6dof_filter *state)
++{
++	int i;
++
++	for (i = 0; i < state->ukf.N_state; i++) {
++		if (!isfinite(MATRIX2D_Y(state->ukf.x_prior, i)))
++			MATRIX2D_Y(state->ukf.x_prior, i) = 0.0;
++	}
++
++	/* a zeroed quaternion is not a rotation */
++	if (MATRIX2D_Y(state->ukf.x_prior, STATE_ORIENTATION) == 0.0 &&
++	    MATRIX2D_Y(state->ukf.x_prior, STATE_ORIENTATION+1) == 0.0 &&
++	    MATRIX2D_Y(state->ukf.x_prior, STATE_ORIENTATION+2) == 0.0 &&
++	    MATRIX2D_Y(state->ukf.x_prior, STATE_ORIENTATION+3) == 0.0) {
++		MATRIX2D_Y(state->ukf.x_prior, STATE_ORIENTATION+3) = 1.0;
++	}
++
++	for (i = STATE_VELOCITY; i < BASE_STATE_SIZE; i++)
++		MATRIX2D_Y(state->ukf.x_prior, i) = 0.0;
++
++	rift_kalman_6dof_reinit(state);
++	state->first_update = true;
++}
++
+ static void
+ rift_kalman_6dof_update(rift_kalman_6dof_filter *state, uint64_t time, ukf_measurement *m)
+ {
+@@ -760,14 +814,31 @@ rift_kalman_6dof_update(rift_kalman_6dof_filter *state, uint64_t time, ukf_measu
+ 	}
+ 
+ 	if (!ukf_base_predict(&state->ukf, NS_TO_SEC(dt))) {
+-			LOGE ("Failed to compute UKF prediction at time %llu (dt %f)", (unsigned long long) state->current_ts, NS_TO_SEC(dt));
++			/* Almost always a Cholesky failure, i.e. P has stopped being
++			 * positive definite. Carrying on would keep feeding a corrupt
++			 * covariance forward; re-seed it instead. Oculus treats the same
++			 * condition as an event worth naming ("EKF: P not positive
++			 * definite") rather than something to ride through. */
++			LOGE ("Failed to compute UKF prediction at time %llu (dt %f) - resetting covariance",
++				(unsigned long long) state->current_ts, NS_TO_SEC(dt));
++			rift_kalman_6dof_reinit(state);
+ 			return;
+ 	}
+ 
+ 	if (m) {
+ 		if (!ukf_base_update(&state->ukf, m)) {
+-			LOGE ("Failed to perform %s UKF update at time %llu (dt %f)",
++			LOGE ("Failed to perform %s UKF update at time %llu (dt %f) - resetting covariance",
+ 						m == &state->m1 ? "IMU" : "Pose", (unsigned long long) state->current_ts, NS_TO_SEC(dt));
++			rift_kalman_6dof_reinit(state);
++			return;
++		}
++
++		/* A non-finite state cannot be recovered by further updates and would
++		 * propagate into every pose the driver reports. */
++		if (!rift_kalman_6dof_state_is_finite(state)) {
++			LOGE ("UKF state went non-finite after %s update at time %llu - reinitialising",
++						m == &state->m1 ? "IMU" : "Pose", (unsigned long long) state->current_ts);
++			rift_kalman_6dof_reset_state(state);
+ 			return;
+ 		}
+ 	}
+@@ -796,11 +867,35 @@ void rift_kalman_6dof_prepare_delay_slot(rift_kalman_6dof_filter *state, uint64_
  
  void rift_kalman_6dof_release_delay_slot(rift_kalman_6dof_filter *state, int delay_slot)
  {
@@ -1481,8 +1581,20 @@ index 8d0666f..7041954 100644
 +	}
  }
  
- void rift_kalman_6dof_imu_update (rift_kalman_6dof_filter *state, uint64_t time, const vec3f* ang_vel, const vec3f* accel, const vec3f* mag_field)
-@@ -816,11 +849,30 @@ void rift_kalman_6dof_imu_update (rift_kalman_6dof_filter *state, uint64_t time,
+-void rift_kalman_6dof_imu_update (rift_kalman_6dof_filter *state, uint64_t time, const vec3f* ang_vel, const vec3f* accel, const vec3f* mag_field)
++void rift_kalman_6dof_imu_update (rift_kalman_6dof_filter *state, uint64_t time, const vec3f* ang_vel, const vec3f* accel, const vec3f* mag_field, bool accel_saturated)
+ {
++	/* A clipped reading is not a measurement of anything; widen its noise so
++	 * it barely moves the state rather than pulling it to the rail. Oculus
++	 * does the same, logging the inflated sigma while saturation lasts. */
++	const double accel_r = accel_saturated ? IMU_ACCEL_SATURATED_NOISE : IMU_ACCEL_NOISE;
++	for (int i = 0; i < 3; i++)
++		MATRIX2D_XY(state->m1.R, i, i) = accel_r;
++
+ 	ukf_measurement *m;
+ 
+ 	/* Put angular velocity into the input vector to update the orientation */
+@@ -816,11 +911,30 @@ void rift_kalman_6dof_imu_update (rift_kalman_6dof_filter *state, uint64_t time,
  	MATRIX2D_Y(m->z, IMU_MEAS_ACCEL+2) = accel->z;
  
  	rift_kalman_6dof_update(state, time, m);
@@ -1514,7 +1626,7 @@ index 8d0666f..7041954 100644
  
  	/* Use lagged state vector entries to correct for delay */
  	state->pose_slot = delay_slot;
-@@ -847,19 +899,32 @@ void rift_kalman_6dof_pose_update(rift_kalman_6dof_filter *state, uint64_t time,
+@@ -847,19 +961,32 @@ void rift_kalman_6dof_pose_update(rift_kalman_6dof_filter *state, uint64_t time,
  
  	state->saw_pose_update = true;
  	rift_kalman_6dof_update(state, time, m);
@@ -1549,7 +1661,7 @@ index 8d0666f..7041954 100644
  
  	m = &state->m_position;
  	MATRIX2D_Y(m->z, POSE_MEAS_POSITION+0) = pos->x;
-@@ -867,6 +932,7 @@ void rift_kalman_6dof_position_update(rift_kalman_6dof_filter *state, uint64_t t
+@@ -867,6 +994,7 @@ void rift_kalman_6dof_position_update(rift_kalman_6dof_filter *state, uint64_t t
  	MATRIX2D_Y(m->z, POSE_MEAS_POSITION+2) = pos->z;
  
  	rift_kalman_6dof_update(state, time, m);
@@ -1558,7 +1670,7 @@ index 8d0666f..7041954 100644
  
  /* Get the pose info from a delay slot, or the main state
 diff --git a/src/drv_oculus_rift/rift-kalman-6dof.h b/src/drv_oculus_rift/rift-kalman-6dof.h
-index 14012b8..c717a8f 100644
+index 14012b8..4b66358 100644
 --- a/src/drv_oculus_rift/rift-kalman-6dof.h
 +++ b/src/drv_oculus_rift/rift-kalman-6dof.h
 @@ -19,25 +19,28 @@
@@ -1602,12 +1714,16 @@ index 14012b8..c717a8f 100644
    /* ukf_base needs to be the first element in the struct */
    ukf_base ukf;
  
-@@ -82,8 +85,10 @@ void rift_kalman_6dof_prepare_delay_slot(rift_kalman_6dof_filter *state, uint64_
+@@ -81,9 +84,13 @@ void rift_kalman_6dof_clear(rift_kalman_6dof_filter *state);
+ void rift_kalman_6dof_prepare_delay_slot(rift_kalman_6dof_filter *state, uint64_t time, int delay_slot);
  void rift_kalman_6dof_release_delay_slot(rift_kalman_6dof_filter *state, int delay_slot);
  
- void rift_kalman_6dof_imu_update (rift_kalman_6dof_filter *state, uint64_t time, const vec3f* ang_vel, const vec3f* accel, const vec3f* mag_field);
+-void rift_kalman_6dof_imu_update (rift_kalman_6dof_filter *state, uint64_t time, const vec3f* ang_vel, const vec3f* accel, const vec3f* mag_field);
 -void rift_kalman_6dof_pose_update(rift_kalman_6dof_filter *state, uint64_t time, posef *pose, int delay_slot);
 -void rift_kalman_6dof_position_update(rift_kalman_6dof_filter *state, uint64_t time, vec3f *position, int delay_slot);
++/* accel_saturated: the accelerometer clipped; its measurement noise is
++ * inflated for this sample instead of being taken at face value. */
++void rift_kalman_6dof_imu_update (rift_kalman_6dof_filter *state, uint64_t time, const vec3f* ang_vel, const vec3f* accel, const vec3f* mag_field, bool accel_saturated);
 +/* obs_scale scales the observation error std-dev: 1.0 = fully trusted
 + * (1cm position error), larger = weaker correction */
 +void rift_kalman_6dof_pose_update(rift_kalman_6dof_filter *state, uint64_t time, posef *pose, int delay_slot, float obs_scale);
@@ -2466,7 +2582,7 @@ index 0000000..58dc87e
 +#endif
 +
 diff --git a/src/drv_oculus_rift/rift-tracker.c b/src/drv_oculus_rift/rift-tracker.c
-index ad297a1..051065b 100644
+index ad297a1..2ef90e2 100644
 --- a/src/drv_oculus_rift/rift-tracker.c
 +++ b/src/drv_oculus_rift/rift-tracker.c
 @@ -15,17 +15,22 @@
@@ -2546,7 +2662,7 @@ index ad297a1..051065b 100644
  	/* Number of reports we used from the supplied ones */
  	int n_used_reports;
  };
-@@ -101,11 +124,21 @@ struct rift_tracked_device_priv {
+@@ -101,11 +124,22 @@ struct rift_tracked_device_priv {
  	rift_tracked_device base;
  
  	int index; /* Index of this entry in the devices array for the tracker and exposures */
@@ -2558,6 +2674,7 @@ index ad297a1..051065b 100644
 +	int n_led_pos;
 +	/* Joint reconstruction telemetry */
 +	uint32_t joint_solved, joint_rejected, joint_single;
++	uint32_t imu_saturated_samples;
  
  	ohmd_mutex *device_lock;
  
@@ -2568,7 +2685,7 @@ index ad297a1..051065b 100644
  
  	/* Account keeping for UKF fusion slots */
  	int n_delay_slots;
-@@ -124,10 +157,20 @@ struct rift_tracked_device_priv {
+@@ -124,10 +158,20 @@ struct rift_tracked_device_priv {
  	uint32_t last_device_ts;
  	uint64_t device_time_ns;
  
@@ -2589,7 +2706,7 @@ index ad297a1..051065b 100644
  	uint64_t last_acquired_pose_lock_ts;
  
  	/* Reported view pose (to the user) and model pose (for the tracking) respectively */
-@@ -137,10 +180,21 @@ struct rift_tracked_device_priv {
+@@ -137,10 +181,21 @@ struct rift_tracked_device_priv {
  	vec3f reported_lin_vel;
  	vec3f reported_lin_accel;
  
@@ -2611,7 +2728,7 @@ index ad297a1..051065b 100644
  	int num_pending_imu_observations;
  	rift_tracked_device_imu_observation pending_imu_observations[RIFT_MAX_PENDING_IMU_OBSERVATIONS];
  
-@@ -148,12 +202,39 @@ struct rift_tracked_device_priv {
+@@ -148,12 +203,39 @@ struct rift_tracked_device_priv {
  	FILE *debug_file;
  };
  
@@ -2651,7 +2768,7 @@ index ad297a1..051065b 100644
  	ohmd_thread* usb_thread;
  	int usb_completed;
  
-@@ -161,17 +242,260 @@ struct rift_tracker_ctx_s
+@@ -161,17 +243,260 @@ struct rift_tracker_ctx_s
  	int exposure_history_size;
  	rift_tracker_exposure_info exposure_history[NUM_EXPOSURE_HISTORY];
  
@@ -2679,12 +2796,12 @@ index ad297a1..051065b 100644
 +}
 +
 +static void fusion_imu_update(rift_tracked_device_priv *dev, uint64_t time,
-+	const vec3f *ang_vel, const vec3f *accel, const vec3f *mag)
++	const vec3f *ang_vel, const vec3f *accel, const vec3f *mag, bool accel_saturated)
 +{
 +	if (use_ovr_fusion())
-+		rift_fusion_ovr_imu_update(&dev->ovr_fusion, time, ang_vel, accel, mag);
++		rift_fusion_ovr_imu_update(&dev->ovr_fusion, time, ang_vel, accel, mag, accel_saturated);
 +	else
-+		rift_kalman_6dof_imu_update(&dev->ukf_fusion, time, ang_vel, accel, mag);
++		rift_kalman_6dof_imu_update(&dev->ukf_fusion, time, ang_vel, accel, mag, accel_saturated);
 +}
 +
 +static void fusion_pose_update(rift_tracked_device_priv *dev, uint64_t time,
@@ -2914,7 +3031,7 @@ index ad297a1..051065b 100644
  static int rift_tracked_device_exposure_claim(rift_tracked_device_priv *dev, rift_tracked_device_exposure_info *dev_info);
  static void rift_tracked_device_exposure_release_locked(rift_tracked_device_priv *dev, rift_tracked_device_exposure_info *dev_info);
  
-@@ -194,12 +518,19 @@ rift_tracker_add_device (rift_tracker_ctx *ctx, int device_id, posef *imu_pose,
+@@ -194,12 +519,19 @@ rift_tracker_add_device (rift_tracker_ctx *ctx, int device_id, posef *imu_pose,
  	next_dev = ctx->devices + ctx->n_devices;
  
  	next_dev->base.id = device_id;
@@ -2934,7 +3051,7 @@ index ad297a1..051065b 100644
  	/* Init delay slot bookkeeping */
  	for (s = 0; s < next_dev->n_delay_slots; s++) {
  		rift_tracker_pose_delay_slot *slot = next_dev->delay_slots + s;
-@@ -238,6 +569,15 @@ rift_tracker_add_device (rift_tracker_ctx *ctx, int device_id, posef *imu_pose,
+@@ -238,6 +570,15 @@ rift_tracker_add_device (rift_tracker_ctx *ctx, int device_id, posef *imu_pose,
  
  	next_dev->base.leds = leds;
  	next_dev->base.led_search = led_search_model_new (leds);
@@ -2950,7 +3067,7 @@ index ad297a1..051065b 100644
  	ctx->n_devices++;
  	ohmd_unlock_mutex (ctx->tracker_lock);
  
-@@ -276,10 +616,16 @@ rift_tracker_new (ohmd_context* ohmd_ctx,
+@@ -276,10 +617,16 @@ rift_tracker_new (ohmd_context* ohmd_ctx,
  	rift_tracker_ctx *tracker_ctx = NULL;
  	int ret, i;
  	libusb_device **devs;
@@ -2967,7 +3084,7 @@ index ad297a1..051065b 100644
  
  	for (i = 0; i < RIFT_MAX_TRACKED_DEVICES; i++) {
  		rift_tracked_device_priv *dev = tracker_ctx->devices + i;
-@@ -300,7 +646,7 @@ rift_tracker_new (ohmd_context* ohmd_ctx,
+@@ -300,7 +647,7 @@ rift_tracker_new (ohmd_context* ohmd_ctx,
  	for (i = 0; devs[i]; ++i) {
  		struct libusb_device_descriptor desc;
  		libusb_device_handle *usb_devh;
@@ -2976,7 +3093,7 @@ index ad297a1..051065b 100644
  
  		ret = libusb_get_device_descriptor(devs[i], &desc);
  		if (ret < 0)
-@@ -315,7 +661,7 @@ rift_tracker_new (ohmd_context* ohmd_ctx,
+@@ -315,7 +662,7 @@ rift_tracker_new (ohmd_context* ohmd_ctx,
  		}
  
  		sprintf ((char *) serial, "UNKNOWN");
@@ -2985,7 +3102,7 @@ index ad297a1..051065b 100644
  
  		if (desc.iSerialNumber) {
  			ret = libusb_get_string_descriptor_ascii(usb_devh, desc.iSerialNumber, serial, 32);
-@@ -336,10 +682,25 @@ rift_tracker_new (ohmd_context* ohmd_ctx,
+@@ -336,10 +683,25 @@ rift_tracker_new (ohmd_context* ohmd_ctx,
  			continue;
  		}
  
@@ -3013,7 +3130,7 @@ index ad297a1..051065b 100644
  			break;
  		}
  	}
-@@ -428,7 +789,7 @@ void rift_tracker_on_new_exposure (rift_tracker_ctx *ctx, uint32_t hmd_ts, uint1
+@@ -428,7 +790,7 @@ void rift_tracker_on_new_exposure (rift_tracker_ctx *ctx, uint32_t hmd_ts, uint1
  		dev_info->device_index = dev->index;
  
  		ohmd_lock_mutex (dev->device_lock);
@@ -3022,7 +3139,7 @@ index ad297a1..051065b 100644
  
  		rift_tracked_device_send_imu_debug(dev);
  
-@@ -461,15 +822,64 @@ rift_tracker_frame_captured (rift_tracker_ctx *ctx, uint64_t local_ts, uint64_t
+@@ -461,15 +823,64 @@ rift_tracker_frame_captured (rift_tracker_ctx *ctx, uint64_t local_ts, uint64_t
  	int i;
  	ohmd_lock_mutex (ctx->tracker_lock);
  
@@ -3091,7 +3208,7 @@ index ad297a1..051065b 100644
  		}
  	}
  
-@@ -553,6 +963,8 @@ rift_tracker_free (rift_tracker_ctx *tracker_ctx)
+@@ -553,6 +964,8 @@ rift_tracker_free (rift_tracker_ctx *tracker_ctx)
  		rift_tracked_device_priv *dev = tracker_ctx->devices + i;
  		if (dev->base.led_search)
  			led_search_model_free (dev->base.led_search);
@@ -3100,7 +3217,7 @@ index ad297a1..051065b 100644
  		if (dev->debug_metadata != NULL)
  			ohmd_pw_debug_stream_free (dev->debug_metadata);
  
-@@ -568,6 +980,7 @@ rift_tracker_free (rift_tracker_ctx *tracker_ctx)
+@@ -568,10 +981,11 @@ rift_tracker_free (rift_tracker_ctx *tracker_ctx)
  		libusb_exit (tracker_ctx->usb_ctx);
  
  	ohmd_destroy_mutex (tracker_ctx->tracker_lock);
@@ -3108,18 +3225,36 @@ index ad297a1..051065b 100644
  	free (tracker_ctx);
  }
  
-@@ -586,8 +999,9 @@ void rift_tracked_device_imu_update(rift_tracked_device *dev_base, uint64_t loca
+-void rift_tracked_device_imu_update(rift_tracked_device *dev_base, uint64_t local_ts, uint32_t device_ts, float dt, const vec3f* ang_vel, const vec3f* accel, const vec3f* mag_field)
++void rift_tracked_device_imu_update(rift_tracked_device *dev_base, uint64_t local_ts, uint32_t device_ts, float dt, const vec3f* ang_vel, const vec3f* accel, const vec3f* mag_field, rift_imu_sample_flags flags)
+ {
+ 	rift_tracked_device_priv *dev = (rift_tracked_device_priv *) (dev_base);
+ 	rift_tracked_device_imu_observation *obs;
+@@ -586,8 +1000,22 @@ void rift_tracked_device_imu_update(rift_tracked_device *dev_base, uint64_t loca
  		dev->device_time_ns += dt_ns;
  	}
  	dev->last_device_ts = device_ts;
 +	dev->last_imu_local_ts = local_ts;
++
++	if (flags != RIFT_IMU_SAMPLE_OK) {
++		dev->imu_saturated_samples++;
++		if ((dev->imu_saturated_samples % 500) == 1) {
++			LOGI("Device %d: IMU saturation (%s%s), %u samples so far - the reading is "
++				"clipped, so it is being ignored rather than integrated",
++				dev->base.id,
++				(flags & RIFT_IMU_ACCEL_SATURATED) ? "accel" : "",
++				(flags & RIFT_IMU_GYRO_SATURATED) ? " gyro" : "",
++				dev->imu_saturated_samples);
++		}
++	}
  
 -	rift_kalman_6dof_imu_update (&dev->ukf_fusion, dev->device_time_ns, ang_vel, accel, mag_field);
-+	fusion_imu_update(dev, dev->device_time_ns, ang_vel, accel, mag_field);
++	fusion_imu_update(dev, dev->device_time_ns, ang_vel, accel, mag_field,
++		(flags & RIFT_IMU_ACCEL_SATURATED) != 0);
  
  	obs = dev->pending_imu_observations + dev->num_pending_imu_observations;
  	obs->local_ts = local_ts;
-@@ -607,6 +1021,66 @@ void rift_tracked_device_imu_update(rift_tracked_device *dev_base, uint64_t loca
+@@ -607,6 +1035,66 @@ void rift_tracked_device_imu_update(rift_tracked_device *dev_base, uint64_t loca
  	ohmd_unlock_mutex (dev->device_lock);
  }
  
@@ -3186,7 +3321,7 @@ index ad297a1..051065b 100644
  void rift_tracked_device_get_view_pose(rift_tracked_device *dev_base, posef *pose, vec3f *vel, vec3f *accel, vec3f *ang_vel)
  {
  	rift_tracked_device_priv *dev = (rift_tracked_device_priv *) (dev_base);
-@@ -619,7 +1093,53 @@ void rift_tracked_device_get_view_pose(rift_tracked_device *dev_base, posef *pos
+@@ -619,7 +1107,53 @@ void rift_tracked_device_get_view_pose(rift_tracked_device *dev_base, posef *pos
  		vec3f imu_ang_vel = { 0, };
  		vec3f imu_vel = { 0, }, imu_accel = { 0, };
  
@@ -3241,7 +3376,7 @@ index ad297a1..051065b 100644
  
  		/* Take our fusion / IMU global pose back to device pose by
  		 * computing the IMU->device pose and applying the
-@@ -637,34 +1157,127 @@ void rift_tracked_device_get_view_pose(rift_tracked_device *dev_base, posef *pos
+@@ -637,34 +1171,127 @@ void rift_tracked_device_get_view_pose(rift_tracked_device *dev_base, posef *pos
  		exp_filter_pose_run(&dev->pose_output_filter, dev->device_time_ns, &device_pose, &dev->reported_pose);
  		dev->last_reported_pose = dev->device_time_ns;
  
@@ -3385,7 +3520,7 @@ index ad297a1..051065b 100644
  static rift_tracker_pose_delay_slot *get_matching_delay_slot(rift_tracked_device_priv *dev, rift_tracked_device_exposure_info *dev_info);
  
  /* Retrieve the latest model pose estimate from a delay slot into the exposure info.
-@@ -687,7 +1300,7 @@ bool rift_tracked_device_get_latest_exposure_info_pose (rift_tracked_device *dev
+@@ -687,7 +1314,7 @@ bool rift_tracked_device_get_latest_exposure_info_pose (rift_tracked_device *dev
  		posef imu_global_pose;
  		vec3f global_pos_error, global_rot_error;
  
@@ -3394,7 +3529,7 @@ index ad297a1..051065b 100644
  						NULL, NULL, NULL, &global_pos_error, &global_rot_error);
  
  		oposef_apply(&dev->model_from_fusion, &imu_global_pose, &dev_info->capture_pose);
-@@ -715,8 +1328,29 @@ bool rift_tracked_device_get_latest_exposure_info_pose (rift_tracked_device *dev
+@@ -715,8 +1342,29 @@ bool rift_tracked_device_get_latest_exposure_info_pose (rift_tracked_device *dev
  	return res;
  }
  
@@ -3425,7 +3560,7 @@ index ad297a1..051065b 100644
  {
  	rift_tracked_device_priv *dev = (rift_tracked_device_priv *) (dev_base);
  	uint64_t frame_device_time_ns = 0;
-@@ -763,9 +1397,53 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
+@@ -763,9 +1411,53 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
  			pos_error.x, pos_error.y, pos_error.z,
  			source);
  
@@ -3480,7 +3615,7 @@ index ad297a1..051065b 100644
  			update_position = false;
  			LOGI("Ignoring position observation with error %f %f %f (prior stddev was %f %f %f)\n",
  				pos_error.x, pos_error.y, pos_error.z,
-@@ -776,7 +1454,7 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
+@@ -776,7 +1468,7 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
  		}
  
  		/* If we have a strong match, update both position and orientation */
@@ -3489,7 +3624,7 @@ index ad297a1..051065b 100644
  			update_orientation = true;
  			if ((dev->device_time_ns - dev->last_observed_orient_ts) > (POSE_LOST_ORIENT_THRESHOLD * 1000000UL)) {
  				LOGI("Matched orientation after %f sec", (dev->device_time_ns - dev->last_observed_pose_ts) / 1000000000.0);
-@@ -785,7 +1463,8 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
+@@ -785,7 +1477,8 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
  			if (update_position)
  				dev->last_observed_orient_ts = dev->device_time_ns;
  		}
@@ -3499,7 +3634,7 @@ index ad297a1..051065b 100644
  			LOGI("Forcing orientation observation");
  			update_orientation = true;
  			/* Don't update the orientation match time here - only do that on an actual match */
-@@ -799,29 +1478,192 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
+@@ -799,29 +1492,192 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
  			if (dev->last_acquired_pose_lock_ts == 0)
  				dev->last_acquired_pose_lock_ts = dev->last_acquired_pose_lock_ts;
  
@@ -3576,8 +3711,7 @@ index ad297a1..051065b 100644
 +				if (merged && (dev->joint_solved % 300) == 1) {
 +					LOGI("Device %d: joint reconstruction %u solved, %u rejected, %u single-camera",
 +						dev->base.id, dev->joint_solved, dev->joint_rejected, dev->joint_single);
- 				}
--      }
++				}
 +			}
 +
 +			if (!merged && obs_merge_enabled() && slot->n_used_reports > 0) {
@@ -3628,7 +3762,8 @@ index ad297a1..051065b 100644
 +							(update_orientation && qw_sum > 1.0f / (obs_scale * obs_scale)) ? "yes" : "no");
 +						dev->merge_shift_accum = 0;
 +					}
-+				}
+ 				}
+-      }
 +			}
 +
 +			/* While tracking is healthy, fold the discrete correction this
@@ -3699,7 +3834,7 @@ index ad297a1..051065b 100644
  		}
  	}
  
-@@ -859,12 +1701,23 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
+@@ -859,12 +1715,23 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
  }
  
  /* Called with the device lock held */
@@ -3727,7 +3862,7 @@ index ad297a1..051065b 100644
  
  	/* Apply the pose conversion from IMU->model */
  	oposef_apply(&dev->model_from_fusion, &imu_global_pose, &model_pose);
-@@ -1014,10 +1867,23 @@ get_matching_delay_slot(rift_tracked_device_priv *dev, rift_tracked_device_expos
+@@ -1014,10 +1881,23 @@ get_matching_delay_slot(rift_tracked_device_priv *dev, rift_tracked_device_expos
  
  /* Called with the device lock held. Allocate a delay slot and populate the device exposure info */
  static void
@@ -3753,7 +3888,7 @@ index ad297a1..051065b 100644
  
  	if (slot == NULL) {
  		/* We might reclaim a busy delay slot if some frame search is being slow and we already got an observation from another camera */
-@@ -1040,7 +1906,7 @@ rift_tracked_device_on_new_exposure(rift_tracked_device_priv *dev, rift_tracked_
+@@ -1040,7 +1920,7 @@ rift_tracked_device_on_new_exposure(rift_tracked_device_priv *dev, rift_tracked_
  	}
  	dev_info->last_acquired_pose_lock_ts = dev->last_acquired_pose_lock_ts;
  
@@ -3762,7 +3897,7 @@ index ad297a1..051065b 100644
  
  	if (slot) {
  		slot->device_time_ns = dev_info->device_time_ns;
-@@ -1053,7 +1919,7 @@ rift_tracked_device_on_new_exposure(rift_tracked_device_priv *dev, rift_tracked_
+@@ -1053,7 +1933,7 @@ rift_tracked_device_on_new_exposure(rift_tracked_device_priv *dev, rift_tracked_
  		dev_info->fusion_slot = slot->slot_id;
  
  		/* Tell the kalman filter to prepare the delay slot */
@@ -3771,7 +3906,7 @@ index ad297a1..051065b 100644
  
  		/* Clear the last no-free-delay-slot tracking to avoid logging noise */
  		dev->last_no_free_delay_slot = 0;
-@@ -1131,3 +1997,124 @@ void rift_tracked_device_frame_release(rift_tracked_device *dev_base, rift_track
+@@ -1131,3 +2011,124 @@ void rift_tracked_device_frame_release(rift_tracked_device *dev_base, rift_track
  	}
  	ohmd_unlock_mutex (dev->device_lock);
  }
@@ -3897,7 +4032,7 @@ index ad297a1..051065b 100644
 +		rift_tracker_update_sensor_pose(ctx, sensor, &newp);
 +}
 diff --git a/src/drv_oculus_rift/rift-tracker.h b/src/drv_oculus_rift/rift-tracker.h
-index 04ca128..7dc3680 100644
+index 04ca128..7381b70 100644
 --- a/src/drv_oculus_rift/rift-tracker.h
 +++ b/src/drv_oculus_rift/rift-tracker.h
 @@ -9,13 +9,13 @@
@@ -3916,9 +4051,24 @@ index 04ca128..7dc3680 100644
  rift_tracker_ctx *rift_tracker_new (ohmd_context* ohmd_ctx, const uint8_t radio_id[5]);
  
  rift_tracked_device *rift_tracker_add_device (rift_tracker_ctx *ctx, int device_id, posef *imu_pose, posef *model_pose, rift_leds *leds, rift_tracked_device_imu_calibration *calib);
-@@ -29,10 +29,24 @@ void rift_tracker_free (rift_tracker_ctx *ctx);
+@@ -27,12 +27,38 @@ void rift_tracker_frame_release (rift_tracker_ctx *ctx, uint64_t local_ts, uint6
  
- void rift_tracked_device_imu_update(rift_tracked_device *dev, uint64_t local_ts, uint32_t device_ts, float dt, const vec3f* ang_vel, const vec3f* accel, const vec3f* mag_field);
+ void rift_tracker_free (rift_tracker_ctx *ctx);
+ 
+-void rift_tracked_device_imu_update(rift_tracked_device *dev, uint64_t local_ts, uint32_t device_ts, float dt, const vec3f* ang_vel, const vec3f* accel, const vec3f* mag_field);
++/* Per-sample IMU health. A saturated axis is not a measurement - the true
++ * value is somewhere beyond the rail - so the fusion must stop trusting it
++ * rather than integrate the clipped number. Oculus tracks the same two
++ * conditions and inflates the corresponding sigma while they last
++ * ("Begin Gyro saturation: %.4f, orient sigma %.2f", "Acc saturation: %d
++ * samples, pos sigma %.1f"). */
++typedef enum {
++	RIFT_IMU_SAMPLE_OK = 0,
++	RIFT_IMU_ACCEL_SATURATED = (1 << 0),
++	RIFT_IMU_GYRO_SATURATED = (1 << 1),
++} rift_imu_sample_flags;
++
++void rift_tracked_device_imu_update(rift_tracked_device *dev, uint64_t local_ts, uint32_t device_ts, float dt, const vec3f* ang_vel, const vec3f* accel, const vec3f* mag_field, rift_imu_sample_flags flags);
  void rift_tracked_device_get_view_pose(rift_tracked_device *dev, posef *pose, vec3f *vel, vec3f *accel, vec3f *ang_vel);
 +uint64_t rift_tracked_device_get_pose_age_ns(rift_tracked_device *dev, uint64_t now_local_ts);
  
@@ -3943,10 +4093,10 @@ index 04ca128..7dc3680 100644
 +
  #endif
 diff --git a/src/drv_oculus_rift/rift.c b/src/drv_oculus_rift/rift.c
-index a802e93..604f2e5 100644
+index a802e93..c1d2727 100644
 --- a/src/drv_oculus_rift/rift.c
 +++ b/src/drv_oculus_rift/rift.c
-@@ -209,6 +209,61 @@ static void set_coordinate_frame(rift_hmd_t* priv, rift_coordinate_frame coordfr
+@@ -209,6 +209,103 @@ static void set_coordinate_frame(rift_hmd_t* priv, rift_coordinate_frame coordfr
  	}
  }
  
@@ -4005,10 +4155,52 @@ index a802e93..604f2e5 100644
 +	}
 +}
 +
++/* Fraction of a rail at which a reading is treated as clipped. Slightly under
++ * 1 so a value sitting exactly at full scale, or dithering just below it, is
++ * caught too. */
++#define SATURATION_FRACTION 0.98f
++
++/* The HMD packs each axis as 21-bit signed at 1e-4 units, so the wire format
++ * itself rails at +/-(2^20 - 1) counts however the sensor is configured. */
++#define HMD_WIRE_RAIL 1048575
++
++/* Per-axis saturation test for the HMD's raw integer samples. The sensor's own
++ * full-scale range comes from the RANGE feature report, which the driver has
++ * always decoded and never used; fall back to the wire rail if it looks
++ * unset. */
++static rift_imu_sample_flags hmd_sample_saturation(rift_hmd_t *priv, const int32_t accel[3], const int32_t gyro[3])
++{
++	rift_imu_sample_flags flags = RIFT_IMU_SAMPLE_OK;
++	int32_t accel_limit = HMD_WIRE_RAIL, gyro_limit = HMD_WIRE_RAIL;
++	int i;
++
++	if (priv->sensor_range.accel_scale > 0) {
++		/* accel_scale is full scale in g */
++		int32_t l = (int32_t)(priv->sensor_range.accel_scale * OHMD_GRAVITY_EARTH / 1e-4);
++		if (l > 0 && l < accel_limit)
++			accel_limit = l;
++	}
++	if (priv->sensor_range.gyro_scale > 0) {
++		/* gyro_scale is full scale in degrees/sec */
++		int32_t l = (int32_t)(priv->sensor_range.gyro_scale * M_PI / 180.0 / 1e-4);
++		if (l > 0 && l < gyro_limit)
++			gyro_limit = l;
++	}
++
++	for (i = 0; i < 3; i++) {
++		if (abs(accel[i]) >= (int32_t)(SATURATION_FRACTION * accel_limit))
++			flags |= RIFT_IMU_ACCEL_SATURATED;
++		if (abs(gyro[i]) >= (int32_t)(SATURATION_FRACTION * gyro_limit))
++			flags |= RIFT_IMU_GYRO_SATURATED;
++	}
++
++	return flags;
++}
++
  static void handle_tracker_sensor_msg(rift_hmd_t* priv, uint64_t local_ts, unsigned char* buffer, int size)
  {
  	if (buffer[0] == RIFT_IRQ_SENSORS_DK1
-@@ -260,12 +315,10 @@ static void handle_tracker_sensor_msg(rift_hmd_t* priv, uint64_t local_ts, unsig
+@@ -260,19 +357,18 @@ static void handle_tracker_sensor_msg(rift_hmd_t* priv, uint64_t local_ts, unsig
  
  		/* If the rift isn't applying calibration, we should */
  		if (!(priv->sensor_config.flags & RIFT_SCF_USE_CALIBRATION)) {
@@ -4025,7 +4217,16 @@ index a802e93..604f2e5 100644
  		}
  		else {
  				gyro = raw_gyro;
-@@ -287,6 +340,24 @@ static void handle_tracker_sensor_msg(rift_hmd_t* priv, uint64_t local_ts, unsig
+ 				accel = raw_accel;
+ 		}
+ 
+-		rift_tracked_device_imu_update(priv->tracked_dev, local_ts, device_ts, TICK_US_TO_SEC(dt), &gyro, &accel, &raw_mag);
++		rift_tracked_device_imu_update(priv->tracked_dev, local_ts, device_ts, TICK_US_TO_SEC(dt), &gyro, &accel, &raw_mag,
++			hmd_sample_saturation(priv, s->samples[i].accel, s->samples[i].gyro));
+ 
+ 		device_ts += dt;
+ 		local_ts += TICK_US_TO_NS(dt);
+@@ -287,6 +383,24 @@ static void handle_tracker_sensor_msg(rift_hmd_t* priv, uint64_t local_ts, unsig
  	}
  }
  
@@ -4050,7 +4251,7 @@ index a802e93..604f2e5 100644
  static void dump_controller_calibration(rift_touch_controller_t *touch)
  {
  	rift_touch_calibration *c = &touch->calibration;
-@@ -328,6 +399,16 @@ static void handle_touch_controller_message(rift_hmd_t *hmd, uint64_t local_ts,
+@@ -328,6 +442,16 @@ static void handle_touch_controller_message(rift_hmd_t *hmd, uint64_t local_ts,
  	      msg->touch.gyro[0] || msg->touch.gyro[1] || msg->touch.gyro[2]))
  		return;
  
@@ -4067,7 +4268,7 @@ index a802e93..604f2e5 100644
  	if (!touch->have_calibration) {
  		rift_tracked_device_imu_calibration imu_calibration;
  		int i;
-@@ -357,6 +438,8 @@ static void handle_touch_controller_message(rift_hmd_t *hmd, uint64_t local_ts,
+@@ -357,6 +481,8 @@ static void handle_touch_controller_message(rift_hmd_t *hmd, uint64_t local_ts,
  		touch->tracked_dev = rift_tracker_add_device (hmd->tracker_ctx, touch->base.id, &imu_pose, &model_pose, &touch->calibration.leds, &imu_calibration);
  		touch->have_calibration = true;
  		dump_controller_calibration(touch);
@@ -4076,7 +4277,7 @@ index a802e93..604f2e5 100644
  	}
  
  	// time in microseconds
-@@ -369,6 +452,15 @@ static void handle_touch_controller_message(rift_hmd_t *hmd, uint64_t local_ts,
+@@ -369,6 +495,15 @@ static void handle_touch_controller_message(rift_hmd_t *hmd, uint64_t local_ts,
  	uint32_t device_ts = msg->touch.timestamp - dt;
  	local_ts -= TICK_US_TO_NS(dt);
  
@@ -4092,7 +4293,7 @@ index a802e93..604f2e5 100644
  	const double dt_s = 1e-6 * dt;
  	vec3f raw_accel = {{
  		OHMD_GRAVITY_EARTH / 2048 * msg->touch.accel[0],
-@@ -390,13 +482,8 @@ static void handle_touch_controller_message(rift_hmd_t *hmd, uint64_t local_ts,
+@@ -390,15 +525,20 @@ static void handle_touch_controller_message(rift_hmd_t *hmd, uint64_t local_ts,
  	vec3f gyro;
  	vec3f accel;
  
@@ -4105,10 +4306,23 @@ index a802e93..604f2e5 100644
 -	ovec3f_add(&accel, &c->accel_offset, &accel);
 +	apply_imu_calibration(c->gyro_matrix, &c->gyro_offset, &raw_gyro, &gyro);
 +	apply_imu_calibration(c->accel_matrix, &c->accel_offset, &raw_accel, &accel);
++
++	/* Touch reports each axis as int16, so the rail is the type's own limit:
++	 * +/-16 g on the accelerometer and +/-2000 deg/s on the gyro. */
++	rift_imu_sample_flags sat = RIFT_IMU_SAMPLE_OK;
++	for (int a = 0; a < 3; a++) {
++		if (abs(msg->touch.accel[a]) >= (int)(SATURATION_FRACTION * 32767))
++			sat |= RIFT_IMU_ACCEL_SATURATED;
++		if (abs(msg->touch.gyro[a]) >= (int)(SATURATION_FRACTION * 32767))
++			sat |= RIFT_IMU_GYRO_SATURATED;
++	}
  
- 	rift_tracked_device_imu_update(touch->tracked_dev, local_ts, device_ts, dt_s, &gyro, &accel, &mag);
+-	rift_tracked_device_imu_update(touch->tracked_dev, local_ts, device_ts, dt_s, &gyro, &accel, &mag);
++	rift_tracked_device_imu_update(touch->tracked_dev, local_ts, device_ts, dt_s, &gyro, &accel, &mag, sat);
  	touch->last_timestamp = msg->touch.timestamp;
-@@ -556,6 +643,87 @@ static void check_haptics_state(rift_hmd_t *hmd, uint64_t ts, rift_touch_control
+ 	touch->time_valid = true;
+ 
+@@ -556,6 +696,87 @@ static void check_haptics_state(rift_hmd_t *hmd, uint64_t ts, rift_touch_control
  		}
  }
  
@@ -4196,7 +4410,7 @@ index a802e93..604f2e5 100644
  static void update_hmd(rift_hmd_t *priv)
  {
  	unsigned char buffer[FEATURE_BUFFER_SIZE];
-@@ -575,6 +743,10 @@ static void update_hmd(rift_hmd_t *priv)
+@@ -575,6 +796,10 @@ static void update_hmd(rift_hmd_t *priv)
  	check_haptics_state(priv, start, &priv->touch_dev[0]);
  	check_haptics_state(priv, start, &priv->touch_dev[1]);
  
@@ -4207,7 +4421,7 @@ index a802e93..604f2e5 100644
  	// Read all the messages from the device.
  	do {
  		int size;
-@@ -697,6 +869,16 @@ static int getf_hmd(rift_hmd_t *hmd, ohmd_float_value type, float* out)
+@@ -697,6 +922,16 @@ static int getf_hmd(rift_hmd_t *hmd, ohmd_float_value type, float* out)
  		*(vec3f*)out = ang_vel;
  		break;
  	}
@@ -4224,7 +4438,7 @@ index a802e93..604f2e5 100644
  	case OHMD_CONTROLS_STATE:
  		out[0] = (hmd->remote_buttons_state & RIFT_REMOTE_BUTTON_UP) != 0;
  		out[1] = (hmd->remote_buttons_state & RIFT_REMOTE_BUTTON_DOWN) != 0;
-@@ -764,6 +946,16 @@ static int getf_touch_controller(rift_device_priv* dev_priv, ohmd_float_value ty
+@@ -764,6 +999,16 @@ static int getf_touch_controller(rift_device_priv* dev_priv, ohmd_float_value ty
  		*(vec3f*)out = ang_vel;
  		break;
  	}
@@ -4241,7 +4455,7 @@ index a802e93..604f2e5 100644
  	case OHMD_DISTORTION_K:
  		return -1;
  	case OHMD_CONTROLS_STATE:
-@@ -1167,6 +1359,36 @@ static rift_hmd_t *open_hmd(ohmd_driver* driver, ohmd_device_desc* desc)
+@@ -1167,6 +1412,36 @@ static rift_hmd_t *open_hmd(ohmd_driver* driver, ohmd_device_desc* desc)
  		if (send_feature_report(priv, buf, size) == -1)
  			LOGE("error turning the screens on");
  
@@ -4565,10 +4779,10 @@ index 0000000..0cfa1c3
 +}
 diff --git a/tests/unittests/kalman_6dof.c b/tests/unittests/kalman_6dof.c
 new file mode 100644
-index 0000000..6c91d63
+index 0000000..6570ce7
 --- /dev/null
 +++ b/tests/unittests/kalman_6dof.c
-@@ -0,0 +1,136 @@
+@@ -0,0 +1,219 @@
 +/*
 + * Synthetic tests for the 6DOF UKF.
 + *
@@ -4583,6 +4797,7 @@ index 0000000..6c91d63
 +
 +#include "tests.h"
 +#include "drv_oculus_rift/rift-kalman-6dof.h"
++#include "drv_oculus_rift/rift-fusion-ovr.h"
 +
 +#define GRAVITY 9.80665
 +
@@ -4609,7 +4824,7 @@ index 0000000..6c91d63
 +
 +	for (uint64_t i = 1; i <= n; i++) {
 +		t = i * step_ns;
-+		rift_kalman_6dof_imu_update(&f, t, &gyro, &accel, NULL);
++		rift_kalman_6dof_imu_update(&f, t, &gyro, &accel, NULL, false);
 +
 +		if (obs_every > 0 && (i % obs_every) == 0) {
 +			int slot = (int)((i / obs_every) % 3);
@@ -4684,14 +4899,14 @@ index 0000000..6c91d63
 +	uint64_t t = 0;
 +	for (int i = 1; i <= 500; i++) {
 +		t = (uint64_t)i * 1000000ULL;
-+		rift_kalman_6dof_imu_update(&f, t, &gyro, &accel, NULL);
++		rift_kalman_6dof_imu_update(&f, t, &gyro, &accel, NULL, false);
 +	}
 +
 +	/* snapshot a slot 20 ms in the past, then feed the observation late */
 +	rift_kalman_6dof_prepare_delay_slot(&f, t, 0);
 +	for (int i = 501; i <= 520; i++) {
 +		t = (uint64_t)i * 1000000ULL;
-+		rift_kalman_6dof_imu_update(&f, t, &gyro, &accel, NULL);
++		rift_kalman_6dof_imu_update(&f, t, &gyro, &accel, NULL, false);
 +	}
 +	rift_kalman_6dof_position_update(&f, t, &truth.pos, 0, 1.0f);
 +	rift_kalman_6dof_release_delay_slot(&f, 0);
@@ -4705,11 +4920,93 @@ index 0000000..6c91d63
 +
 +	rift_kalman_6dof_clear(&f);
 +}
++
++/* A saturated accelerometer reading points the wrong way, so it must not be
++ * allowed to pull the tilt. The A/B matters: the same bogus reading fed as
++ * UNSATURATED has to move the orientation, or this test proves nothing. */
++void test_rift_fusion_ovr_saturated_accel_ignored()
++{
++	/* a reading that claims "down" is sideways - what a clipped axis looks like */
++	const vec3f bogus = {{ (float)GRAVITY, 0.0f, 0.0f }};
++	const vec3f gyro = {{ 0.0f, 0.0f, 0.0f }};
++	posef init;
++	float tilt[2];
++
++	ovec3f_set(&init.pos, 0.0f, 1.0f, -1.0f);
++	oquatf_set(&init.orient, 0.0f, 0.0f, 0.0f, 1.0f);
++
++	for (int saturated = 0; saturated < 2; saturated++) {
++		rift_fusion_ovr f;
++		rift_fusion_ovr_init(&f, &init, 3);
++
++		for (int i = 1; i <= 4000; i++)
++			rift_fusion_ovr_imu_update(&f, (uint64_t)i * 1000000ULL, &gyro, &bogus,
++				NULL, saturated != 0);
++
++		posef out;
++		vec3f vel, accel, ang_vel;
++		rift_fusion_ovr_get_pose_at(&f, 4000000000ULL, &out, &vel, &accel, &ang_vel,
++			NULL, NULL);
++
++		/* how far the world-up axis has been dragged from vertical */
++		const vec3f up = {{ 0.0f, 1.0f, 0.0f }};
++		vec3f rotated;
++		oquatf_get_rotated(&out.orient, &up, &rotated);
++		tilt[saturated] = ovec3f_get_angle(&rotated, &up);
++
++		rift_fusion_ovr_clear(&f);
++	}
++
++	/* unsaturated: the bogus reading is believed and drags the tilt right over */
++	TAssert(tilt[0] > 1.0f);
++	/* saturated: it is ignored, and the orientation stays put */
++	TAssert(tilt[1] < 0.01f);
++}
++
++/* A non-finite IMU sample must not escape into the reported pose. */
++void test_rift_kalman_rejects_non_finite_imu()
++{
++	rift_kalman_6dof_filter f;
++	posef truth, pose;
++	const vec3f good_accel = {{ 0.0f, (float)GRAVITY, 0.0f }};
++	const vec3f gyro = {{ 0.0f, 0.0f, 0.0f }};
++	const vec3f nan_accel = {{ 0.0f, (float)NAN, 0.0f }};
++
++	ovec3f_set(&truth.pos, 0.0f, 1.0f, -1.0f);
++	oquatf_set(&truth.orient, 0.0f, 0.0f, 0.0f, 1.0f);
++	rift_kalman_6dof_init(&f, &truth, 3);
++
++	uint64_t t = 0;
++	for (int i = 1; i <= 200; i++) {
++		t = (uint64_t)i * 1000000ULL;
++		rift_kalman_6dof_imu_update(&f, t, &gyro, &good_accel, NULL, false);
++	}
++
++	for (int i = 201; i <= 210; i++) {
++		t = (uint64_t)i * 1000000ULL;
++		rift_kalman_6dof_imu_update(&f, t, &gyro, &nan_accel, NULL, false);
++	}
++
++	for (int i = 211; i <= 400; i++) {
++		t = (uint64_t)i * 1000000ULL;
++		rift_kalman_6dof_imu_update(&f, t, &gyro, &good_accel, NULL, false);
++	}
++
++	vec3f vel, accel_out, ang_vel, pos_err;
++	rift_kalman_6dof_get_pose_at(&f, t, &pose, &vel, &accel_out, &ang_vel, &pos_err, NULL);
++
++	TAssert(isfinite(pose.pos.x) && isfinite(pose.pos.y) && isfinite(pose.pos.z));
++	TAssert(isfinite(pose.orient.x) && isfinite(pose.orient.y) &&
++	        isfinite(pose.orient.z) && isfinite(pose.orient.w));
++	TAssert(isfinite(vel.x) && isfinite(vel.y) && isfinite(vel.z));
++
++	rift_kalman_6dof_clear(&f);
++}
 diff --git a/tests/unittests/main.c b/tests/unittests/main.c
-index 378cd83..b3d4a1f 100644
+index 378cd83..2c7cdeb 100644
 --- a/tests/unittests/main.c
 +++ b/tests/unittests/main.c
-@@ -41,6 +41,26 @@ int main()
+@@ -41,6 +41,28 @@ int main()
  	Test(test_oposef_inverse);
  	Test(test_oposef_apply);
  
@@ -4726,6 +5023,8 @@ index 378cd83..b3d4a1f 100644
 +	Test(test_rift_kalman_stationary);
 +	Test(test_rift_kalman_two_sample_rates);
 +	Test(test_rift_kalman_delayed_position_update);
++	Test(test_rift_fusion_ovr_saturated_accel_ignored);
++	Test(test_rift_kalman_rejects_non_finite_imu);
 +	printf("\n");
 +
 +	printf("opencv geometry tests\n");
@@ -4889,10 +5188,10 @@ index 0000000..a70a24e
 +
 +#endif
 diff --git a/tests/unittests/tests.h b/tests/unittests/tests.h
-index 1a7d1c8..2865f3a 100644
+index 1a7d1c8..5dc9816 100644
 --- a/tests/unittests/tests.h
 +++ b/tests/unittests/tests.h
-@@ -49,6 +49,21 @@ void test_oposef_init();
+@@ -49,6 +49,23 @@ void test_oposef_init();
  void test_oposef_inverse();
  void test_oposef_apply();
  
@@ -4906,6 +5205,8 @@ index 1a7d1c8..2865f3a 100644
 +void test_rift_kalman_stationary();
 +void test_rift_kalman_two_sample_rates();
 +void test_rift_kalman_delayed_position_update();
++void test_rift_fusion_ovr_saturated_accel_ignored();
++void test_rift_kalman_rejects_non_finite_imu();
 +
 +// OpenCV geometry regression tests
 +void test_opencv_fisheye_roundtrip();

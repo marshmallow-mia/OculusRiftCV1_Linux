@@ -622,6 +622,49 @@ tests in `tests/unittests/kalman_6dof.c` (`meson test -C build`).
 
 ---
 
+## 7b. IMU saturation and numerical guards (done 2026-07-28)
+
+Oculus treats a clipped IMU axis as a named condition and inflates the
+corresponding sigma while it lasts — `"Begin Gyro saturation: %.4f, orient
+sigma %.2f"`, `"Acc saturation: %d samples, pos sigma %.1f"` **[diag]**. We had
+nothing: `grep -ci saturat` over the driver returned 0, and the sensor's own
+full-scale range (`accel_scale`/`gyro_scale` from the RANGE feature report) was
+decoded once, `LOGD`'d, and never referenced again.
+
+Now detected per sample, against whichever rail binds first — the sensor's
+configured range or the wire format's own limit (HMD: 21-bit at 1e-4 units, so
+±104.86; Touch: int16, so ±16 g and ±2000 °/s) — and reported to the fusion:
+
+- **Complementary filter**: skips the tilt correction entirely for that sample
+  and refuses to let the reading into the low-passed gravity estimate.
+- **UKF**: inflates the accelerometer measurement noise from (0.05 m/s²)² to
+  (10 m/s²)², i.e. "this sample says nothing".
+
+**Zeroing the confidence was not enough, and the test caught it.** The
+complementary filter's `apply_tilt_correction` has a start-up branch that snaps
+straight to the accelerometer *regardless of confidence*, so a clipped first
+sample threw the orientation 90° over anyway. Measured with the same bogus
+reading fed both ways:
+
+| accelerometer claiming "down is sideways" | resulting tilt |
+|---|---|
+| not flagged saturated | **90.00°** |
+| flagged saturated | **0.00°** |
+
+The A/B is the point: if the unsaturated case had not moved, the test would
+prove nothing.
+
+**Numerical guards.** A failed `ukf_base_predict` (a Cholesky failure, i.e. P
+has stopped being positive definite) or a failed update now re-seeds the
+covariance instead of logging and carrying the corrupt state forward, and a
+state that has gone non-finite is caught and reset rather than propagating into
+every reported pose. Covered by a test that injects NaN accelerometer samples
+and asserts the reported pose stays finite.
+
+**Not measured**: how often saturation actually occurs in real use. The one raw
+IMU capture available (`imu_tracking.pcap`) is ordinary seated wear, so this is
+a guard rather than a fix for an observed event.
+
 ## 8b. OpenCV 5 port (was a hard blocker — resolved 2026-07-28)
 
 `pacman` upgraded **OpenCV 4.13 → 5.0.0 on 2026-07-26**, and OpenCV 5 split
