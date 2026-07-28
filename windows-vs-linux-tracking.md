@@ -684,6 +684,49 @@ and asserts the reported pose stays finite.
 IMU capture available (`imu_tracking.pcap`) is ordinary seated wear, so this is
 a guard rather than a fix for an observed event.
 
+## 7c. The back-of-head LEDs are deliberately thrown away (2026-07-28)
+
+Investigating §8 item 7 turned up something more consequential than expected.
+`rift_get_led_info()` in `rift.c` ends with a filter that **discards every LED
+the headset reports at `z < -100 mm`** — the entire headband group — under a
+FIXME reading *"until the positional tracking copes with the device
+articulation. At the moment, a camera that sees the back LEDs will extract the
+wrong position."*
+
+The reasoning is sound: the strap articulates relative to the visor, so visor
+and headband are not one rigid body, and solving headband blobs against the
+visor model gives a wrong pose. But the consequence is that **the headset is
+only trackable from the front** — everything behind the head is thrown away
+before the tracker ever sees it.
+
+Our LED model after filtering is 34 points spanning `z ∈ [-0.009, +0.074]` —
+a visor shell, ~16 cm wide and 8 cm deep, with nothing behind it.
+
+**Oculus keeps them and solves the back group as its own rigid body.** The
+runtime validates the split (`"Expected %d / %d front / back LEDs, but found
+%d / %d"`), tracks its state (`"Back of head tracking status"`), and
+reconstructs it through the *same* routine as the visor — `fcn.180103ff0` calls
+the reconstruction `fcn.18010cac0` a second time and reports
+`"Back of head reconstruction failed. Reprojection error: %f"` **[decomp]**.
+The HMD definition carries `FrontLEDCount` / `BackLEDCount` / `LEDCalibrationPath`
+so the split is configuration, not inference.
+
+**Not implemented, and it cannot be validated here.** Two independent reasons:
+every capture we hold was recorded *after* this filter, so there is not a single
+headband-LED observation to test against; and a second rigid body needs a second
+tracked model, its own correspondence-search entry, and a policy for relating
+the two bodies when both are visible. Building that blind would be guessing.
+
+What was done: the drop is no longer silent. It was a bare `printf` to stdout —
+actively harmful, since OpenHMD's stdout is what `poselog.c` avoids writing CSV
+to for exactly this reason — and is now a single `LOGI` summary naming the
+capability gap, with the per-LED detail at `LOGV`.
+
+**To pick this up**: keep the headband LEDs in a second `rift_leds`, register it
+as its own tracked body, and let the existing joint reconstruction
+(`rift-joint-pose.c`) solve it — the solver is already body-agnostic. Then
+record a capture facing away from the sensors to score it.
+
 ## 8b. OpenCV 5 port (was a hard blocker — resolved 2026-07-28)
 
 `pacman` upgraded **OpenCV 4.13 → 5.0.0 on 2026-07-26**, and OpenCV 5 split
