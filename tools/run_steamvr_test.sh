@@ -1,10 +1,9 @@
 #!/bin/sh
 # Launch SteamVR with the OpenHMD driver's own logging captured.
 #
-# !! This hard-locked the machine once, on 2026-07-29. The preflight below !!
-# !! exists so it cannot happen the same way again. Read this first.       !!
+# !! This hard-locked the machine once, on 2026-07-29. Read this first. !!
 #
-# What happened: starting SteamVR from a KDE *Wayland* session produced
+# What happened: starting SteamVR produced
 #
 #   amdgpu 0000:0b:00.0: [drm] *ERROR* dc_stream_state is NULL for crtc '2'!
 #
@@ -12,25 +11,31 @@
 # CRTC with no stream attached - then seven seconds of display reconfiguration
 # and a hard lockup with no oops, the journal simply stopping.
 #
-# The cause is the session, not the hardware and not the tracking driver:
+# What that was NOT:
 #
-#   * The tracking driver is USB-only (libusb/hidapi) and never touches
-#     DRM/KMS. It cannot produce this.
-#   * The headset's video is healthy. HDMI-A-1 presents EDID "Rift", serial
-#     WMHD316C1006S, one mode 2160x1200@90, and the kernel correctly marks it
-#     non-desktop=1 so the compositor leaves it alone.
-#   * SteamVR needs X11. It acquires a non-desktop display through DRM
-#     leasing, which it does not support under Wayland, and the failed
-#     acquisition is what walks over the display state.
+#   * Not the tracking driver. It is USB-only (libusb/hidapi) and never
+#     touches DRM/KMS.
+#   * Not a missing cable. The headset's video is healthy: HDMI-A-1 presents
+#     EDID "Rift", serial WMHD316C1006S, one mode 2160x1200@90, non-desktop=1.
+#     The CV1 panel just sleeps until something opens the HMD over USB, and
+#     drops again within a second of release - so checking the connector with
+#     nothing running tells you nothing, and there is no window in which to
+#     "pre-wake" it for another process.
+#   * Not Wayland as such. Monado drives this same headset on this same
+#     Wayland session through wp_drm_lease_device_v1 with zero amdgpu errors
+#     (tools/run_monado_test.sh).
 #
-# So: log into "Plasma (X11)" at SDDM before running this.
+# The likely cause, and what changed since: driver_openhmd.cpp claimed
+# IsDisplayOnDesktop() == true while setting Prop_IsOnDesktop_Bool false, and
+# reported window bounds from a hardcoded "m_nWindowX = 1920; //TODO". The CV1
+# is non-desktop, so that pointed SteamVR at a desktop rectangle belonging to a
+# real monitor while the headset's own connector sat outside it. It now returns
+# false, which puts SteamVR in direct mode - the same acquisition Monado does
+# successfully here. OHMD_STEAMVR_EXTENDED=1 restores the old behaviour.
 #
-# One more thing worth knowing, because it makes a healthy headset look
-# unplugged: the CV1 panel sleeps until something opens the HMD over USB.
-# Until then HDMI-A-1 reads "disconnected" with no EDID, and it goes back to
-# "disconnected" a few seconds after the driver exits. Checking the connector
-# with nothing running tells you nothing about the cable. The preflight below
-# therefore wakes the headset itself before deciding.
+# That is a reasoned fix, not a verified one. It may still lock up. Save your
+# work before running this, and prefer tools/run_monado_test.sh when you only
+# need tracking or do not specifically need SteamVR.
 #
 # For anything that only needs TRACKING - calibration behaviour, viewpoint
 # accumulation, joint reconstruction, pose quality - use
@@ -66,22 +71,14 @@ if pgrep -x vrserver >/dev/null 2>&1; then
 	exit 1
 fi
 
-# ---- preflight 1: session must be X11 -------------------------------------
+# ---- preflight 1: report the session, do not block on it ------------------
 session=${XDG_SESSION_TYPE:-}
 [ -n "$session" ] || session=$(loginctl show-session "$(loginctl show-user "$USER" -p Display --value 2>/dev/null)" -p Type --value 2>/dev/null || true)
 
 if [ "$session" = wayland ]; then
-	echo >&2
-	echo "REFUSING TO START: this is a Wayland session." >&2
-	echo >&2
-	echo "  SteamVR acquires the headset display through DRM leasing, which it" >&2
-	echo "  does not support under Wayland. Starting it here is what hard-locked" >&2
-	echo "  this machine on 2026-07-29 (dc_stream_state NULL for crtc, then the" >&2
-	echo "  journal stops)." >&2
-	echo >&2
-	echo "  Log out and pick \"Plasma (X11)\" at the SDDM session menu, then" >&2
-	echo "  re-run this. Everything else about the setup is fine." >&2
-	exit 1
+	echo "session: wayland - SteamVR's display acquisition is least tested here."
+	echo "         Monado's Wayland path works if this misbehaves:"
+	echo "         tools/run_monado_test.sh"
 fi
 
 # ---- preflight 2: the headset's video path actually comes up --------------
