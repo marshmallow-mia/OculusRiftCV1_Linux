@@ -570,6 +570,108 @@ fusion.
 
 ---
 
+## 5b. Zero-interaction camera calibration (done 2026-07-29)
+
+The live test on hardware failed, and the cause was not the parity work: the
+stored `rift-room-config.json` was **9.00° / 214 mm wrong** because a sensor
+had been moved. The driver trusted that file absolutely, so everything
+downstream failed in a way that looks like a tracking bug — cross-camera
+disagreement 596 mm, no pose able to satisfy both cameras (119 px, 0 % inside
+the 2 px bar), the second sensor unable to match its prior and dropping to the
+slow brute-force path (~100 ms late poses), and therefore **the joint
+reconstruction never ran once**.
+
+"Recalibrate" is the wrong response. On Windows tracking works with no
+calibration step at all, so requiring a user to walk the room is a design
+defect on our side, not a fact of the hardware.
+
+### Why no movement is needed
+
+Each camera solves the device's **full 6-DoF pose in its own frame**. So one
+exposure seen by two cameras already determines the transform between them
+outright:
+
+> `cam_b → cam_ref  =  (obj → cam_ref) ∘ (obj → cam_b)⁻¹`
+
+Motion only averages out per-camera PnP bias. It is a refinement, not a
+precondition. This is what the runtime logs as `Single frame calibration,
+camera %d, oneChanged %d` **[diag]**, ahead of `Estimated calibration`,
+`FastCalibrate`, and `Camera Calibration Settled`.
+
+### MEASURED — the driver's own C code, on `captures/lin/2026-07-29/live-joint.jsonl`
+
+A **stationary** headset, no user interaction. `tools/run_calib_check.sh`
+builds `tools/calib_replay.c` against the real `rift-cam-calib.c` and feeds it
+the 1024 co-observed exposures, so these are the accumulator the driver runs,
+not a Python model of it:
+
+| | |
+|---|---|
+| exposures folded in | **1006 / 1024** (18 rejected at 3σ) |
+| per-exposure scatter | **0.104° / 4.59 mm** |
+| settles after | **30 exposures** (~0.6 s at 52 Hz) |
+| recovered baseline | 1050 mm |
+| agreement with the Python bootstrap | **0.0000° / 0.83 mm** |
+| how wrong the stored config was | **9.00° / 214 mm** |
+
+Re-scoring the joint reconstruction on the same data with those extrinsics:
+
+| | stored config | recovered by the C code |
+|---|---|---|
+| cross-camera disagreement | 596.51 mm | **1.67 mm** |
+| joint worst-camera reprojection | 119.23 px | **0.098 px** |
+| inside Oculus's 2 px acceptance | 0.0 % | **100.0 %** |
+
+0.098 px is better than anything else measured offline (0.662 px Touch,
+0.257 px HMD) because the extrinsics are now consistent with the data rather
+than with a three-week-old file.
+
+### What shipped
+
+`rift-cam-calib.{c,h}` holds per-sensor `UNCALIBRATED → ESTIMATED →
+CALIBRATED` plus `settled`, accumulating an incremental quaternion/position
+mean behind a 3σ gate. Deviations are bias-corrected EMAs: read raw they start
+at zero, which made the gate ~1.4σ at n=30 and let the settle test fire before
+the dispersion was known.
+
+Two wiring points matter:
+
+- The observation is handed over in `rift-sensor-pose-search.c` **before** the
+  `have_camera_pose` gate and before the pose is composed into world
+  coordinates. A sensor with no calibration still solves the device fine in its
+  own frame; previously it returned early and delivered nothing, so the only
+  way in was the gravity bootstrap — which needs the HMD's *fused* pose, and a
+  sensor that has never contributed a fix never gets one. **This is why the old
+  code had no way to recover.**
+- Adoption restarts the online refiner's window for that sensor. Every
+  measurement in it was taken against the pose just replaced, so applying it
+  afterwards would drag the sensor straight back.
+
+A stored calibration is now a claim, not truth: the pose in use is compared
+against what co-observation measures, and a settled estimate overrules it when
+they disagree beyond what refinement could explain (`Invalid calibration - high
+error`, `Recalibrating camera %d: wasCalibrated %d, …` **[diag]**). The
+corrected pose is written back, so the file heals.
+
+A sensor knocked **mid-session** needs more than the σ gate, which cannot see
+it: after a knock every incoming sample really is a 3σ outlier against the
+pre-knock mean, so the gate rejects the correct data forever and defends the
+stale geometry. Noise gives scattered rejections; a knock gives an unbroken
+run. A run past `RIFT_CAM_CALIB_BUMP_RUN` (60, ~1.2 s) is taken as evidence the
+history is what is wrong, and it is rebuilt from the sample in hand.
+
+`OHMD_RIFT_NO_AUTO_CALIB=1` disables the path for A/B testing.
+
+### Scope boundary
+
+Relative extrinsics plus gravity give **tracking quality** with zero
+interaction. The room **origin, floor height and forward direction** are
+comfort/room-scale settings, not tracking inputs; they keep their one-time
+anchor step (or SteamVR's recentre). No tracking-quality number above depends
+on them.
+
+---
+
 ## 6. Delta 5 — robustness the estimator has and ours does not
 
 **[diag]** reset taxonomy: `Hard ResetEkf`, `Soft ResetEkf %d %d`, plus causes —

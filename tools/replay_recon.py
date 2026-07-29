@@ -335,6 +335,180 @@ def run_baseline(args):
         print(f"\nwrote {args.json}")
 
 
+def relative_from_pair(cam_ref, cam_other):
+    """cam_other -> cam_ref, in closed form from one exposure.
+
+    Each sensor solves obj->cam in its OWN frame, so with X_camref = Rr X + tr
+    and X_camother = Ro X + to, eliminating X gives
+    R = Rr Ro^T,  t = tr - R to. No movement, no shared frame, no prior.
+    This is the C `single_frame_relative()` in rift-cam-calib.c.
+    """
+    Rr, tr = pose_to_rt(cam_ref)
+    Ro, to = pose_to_rt(cam_other)
+    R = Rr @ Ro.T
+    return R, tr - R @ to
+
+
+def robust_mean_pose(Rs, ts, sigma=3.0):
+    """Chordal quaternion mean + arithmetic position mean, 3-sigma trimmed.
+
+    Matches rift_cam_calib_add()'s accumulation closely enough to compare
+    against: that one is incremental and single-pass, this one is batch.
+    """
+    from scipy.spatial.transform import Rotation
+
+    q = Rotation.from_matrix(Rs).as_quat()
+    q = np.where((q @ q[0])[:, None] < 0, -q, q)
+    ts = np.asarray(ts)
+
+    keep = np.ones(len(q), dtype=bool)
+    for _ in range(3):
+        qm = q[keep].mean(axis=0)
+        qm /= np.linalg.norm(qm)
+        tm = ts[keep].mean(axis=0)
+        d_ang = np.degrees(2.0 * np.arccos(np.clip(np.abs(q @ qm), 0.0, 1.0)))
+        d_pos = np.linalg.norm(ts - tm, axis=1)
+        sa, sp = d_ang[keep].std(), d_pos[keep].std()
+        if sa <= 0 or sp <= 0:
+            break
+        nk = (d_ang <= sigma * sa) & (d_pos <= sigma * sp)
+        if nk.sum() < 10 or (nk == keep).all():
+            break
+        keep = nk
+
+    qm = q[keep].mean(axis=0)
+    qm /= np.linalg.norm(qm)
+    return (Rotation.from_quat(qm).as_matrix(), ts[keep].mean(axis=0),
+            int(keep.sum()), int(len(q)),
+            float(d_ang[keep].std()), float(d_pos[keep].std()))
+
+
+def run_bootstrap(args):
+    """Recover the extrinsics from tracking data alone, and score them.
+
+    The premise: no user calibration step is needed, and the headset does not
+    need to move. Every co-observed exposure independently determines the
+    transform between the two cameras; averaging them only reduces noise.
+    """
+    sensors, leds, observations = load_capture(
+        args.capture, args.min_blobs, {args.device})
+    if args.device not in leds:
+        raise SystemExit(f"no LED model for device {args.device} in capture")
+    led_pos = leds[args.device][0]
+
+    groups = group_by_exposure(observations)
+    stored, cam_src = cam_poses_for(sensors, groups, args.config,
+                                    args.config is not None)
+
+    sids = sorted(sensors)
+    if len(sids) < 2:
+        raise SystemExit("bootstrap needs at least two sensors in the capture")
+    ref, other = sids[0], sids[1]
+
+    Rs, ts, dump = [], [], []
+    for key in sorted(groups):
+        obs = groups[key]
+        if ref not in obs or other not in obs:
+            continue
+        if (len(blob_arrays(obs[ref], led_pos)[0]) < args.min_blobs or
+                len(blob_arrays(obs[other], led_pos)[0]) < args.min_blobs):
+            continue
+        R, t = relative_from_pair(obs[ref]["cam"], obs[other]["cam"])
+        Rs.append(R)
+        ts.append(t)
+        dump.append((obs[ref]["cam"], obs[other]["cam"]))
+
+    if len(Rs) < 10:
+        raise SystemExit(f"only {len(Rs)} co-observed exposures — nothing to do")
+
+    R_rel, t_rel, kept, total, sd_ang, sd_pos = robust_mean_pose(Rs, ts)
+
+    if args.rel:
+        # Score a relative pose computed elsewhere -- specifically by the C
+        # rift_cam_calib_add() over these same exposures, so the driver's own
+        # accumulator is held to the numbers below rather than a Python
+        # reimplementation of it.
+        from scipy.spatial.transform import Rotation
+        v = [float(x) for x in args.rel.split()]
+        if len(v) != 7:
+            raise SystemExit("--rel wants 'px py pz qx qy qz qw'")
+        t_rel = np.asarray(v[0:3])
+        R_rel = Rotation.from_quat(v[3:7]).as_matrix()
+        print("  (scoring an externally supplied relative pose)")
+
+    print(f"\ncapture      {args.capture}")
+    print(f"sensors      {ref}:{sensors[ref]['serial']} (reference), "
+          f"{other}:{sensors[other]['serial']}")
+    print(f"co-observed  {total} exposures, {kept} inliers")
+    print("\nSINGLE-FRAME RELATIVE POSE — one exposure is geometrically enough")
+    print(f"  per-exposure scatter                {sd_ang:.3f} deg / "
+          f"{sd_pos * 1000.0:.2f} mm")
+    print(f"  recovered baseline between sensors  "
+          f"{np.linalg.norm(t_rel) * 1000.0:.0f} mm")
+
+    # anchor keeps whatever pose it already had; the other is placed against it
+    Rc_ref, tc_ref = stored[ref]
+    boot = dict(stored)
+    boot[other] = (Rc_ref @ R_rel, Rc_ref @ t_rel + tc_ref)
+
+    Rs_st, ts_st = stored[other]
+    print(f"\n  vs {cam_src}: "
+          f"{quat_angle_deg(Rs_st, boot[other][0]):.2f} deg / "
+          f"{np.linalg.norm(ts_st - boot[other][1]) * 1000.0:.0f} mm")
+
+    if args.dump:
+        with open(args.dump, "w") as f:
+            f.write(f"# obj->cam pose pairs (px py pz qx qy qz qw) x2, "
+                    f"ref sensor {ref} then sensor {other}\n")
+            for a, b in dump:
+                f.write(" ".join(f"{v:.9g}" for v in list(a) + list(b)) + "\n")
+        print(f"\nwrote {len(dump)} exposure pairs to {args.dump}")
+        print(f"# truth for the C harness: quat/pos of cam{other}->cam{ref}")
+        from scipy.spatial.transform import Rotation
+        q = Rotation.from_matrix(R_rel).as_quat()
+        print(f"REL {' '.join(f'{v:.9g}' for v in list(t_rel) + list(q))}")
+
+    for label, poses in (("stored", stored), ("bootstrapped", boot)):
+        _score_extrinsics(label, groups, sensors, led_pos, poses, args)
+
+
+def _score_extrinsics(label, groups, sensors, led_pos, cam_poses, args):
+    """Cross-camera disagreement and joint reprojection for one set of poses."""
+    disagree, worst_px = [], []
+    keys = sorted(groups)
+    if args.limit:
+        keys = keys[: args.limit]
+
+    for key in keys:
+        entries = []
+        for sid, obs in sorted(groups[key].items()):
+            if sid not in cam_poses:
+                continue
+            pts, uv = blob_arrays(obs, led_pos)
+            if len(pts) < args.min_blobs:
+                continue
+            R, t = world_pose(obs, cam_poses[sid])
+            entries.append({"sid": sid, "R": R, "t": t, "pts": pts, "uv": uv,
+                            "scale": obs_scale(obs["flags"])})
+        if len(entries) < 2:
+            continue
+        disagree.append(np.linalg.norm(entries[0]["t"] - entries[1]["t"]))
+        mR, mt, _ = weighted_merge(entries)
+        jR, jt, ok = solve_joint(entries, cam_poses, sensors, mR, mt)
+        if ok:
+            worst_px.append(max(
+                reproj_px(jR, jt, cam_poses[e["sid"]], sensors[e["sid"]],
+                          e["pts"], e["uv"]).mean() for e in entries))
+
+    print(f"\n{label.upper()} EXTRINSICS")
+    fmt("cross-camera disagreement", stats(disagree, 1000.0), "mm")
+    fmt("reproj: joint pose, WORST camera", stats(worst_px), "px")
+    w = np.asarray(worst_px)
+    if w.size:
+        print(f"  {'inside Oculus 2 px acceptance':<34} "
+              f"{100.0 * (w <= 2.0).mean():.1f}%")
+
+
 def undistort_fisheye(uv, K, D):
     """Pixels -> normalised camera rays, inverse of `project` (OpenCV fisheye)."""
     x = (uv[:, 0] - K[0, 2]) / K[0, 0]
@@ -566,6 +740,20 @@ def main():
     e.add_argument("--min-blobs", type=int, default=6)
     e.add_argument("--limit", type=int, default=200)
     e.set_defaults(func=run_export)
+
+    bo = sub.add_parser("bootstrap",
+                        help="recover extrinsics from tracking data alone and score them")
+    bo.add_argument("capture", type=Path)
+    bo.add_argument("--device", type=int, default=0)
+    bo.add_argument("--config", type=Path, default=None)
+    bo.add_argument("--min-blobs", type=int, default=6)
+    bo.add_argument("--limit", type=int, default=0)
+    bo.add_argument("--rel", type=str, default=None,
+                    help="score this relative pose instead of the computed one "
+                         "(px py pz qx qy qz qw), for cross-checking the C code")
+    bo.add_argument("--dump", type=Path, default=None,
+                    help="write the obj->cam pose pairs for the C cross-check")
+    bo.set_defaults(func=run_bootstrap)
 
     g = sub.add_parser("gravity",
                        help="estimate up-in-camera and each camera's tilt error")
