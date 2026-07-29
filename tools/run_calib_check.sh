@@ -24,10 +24,15 @@ cc -O2 -o "$out/calib_replay" "$here/tools/calib_replay.c" \
 "$here/venv/bin/python" "$here/tools/replay_recon.py" bootstrap "$cap" \
     --dump "$out/pairs.txt" --limit 400 | tee "$out/py.txt"
 
+echo
+echo "=== the C calibrator (rift-cam-calib.c) on the same exposures ==="
+"$out/calib_replay" "$out/pairs.txt"
+
 truth=$(sed -n 's/^REL //p' "$out/py.txt")
 echo
-echo "=== the C accumulator (rift_cam_calib_add) on the same exposures ==="
-"$out/calib_replay" "$out/pairs.txt" $truth
+echo "residual of the Python bootstrap against the same history:"
+echo "  $("$out/calib_replay" "$out/pairs.txt" --score $truth | \
+     awk '{printf "%s px  (camera-moved verdict: %s)", $1, ($2=="1"?"MOVED":"no")}')"
 
 rel=$("$out/calib_replay" "$out/pairs.txt" | sed -n \
     's/^cam1->cam0 *pos \(.*\) quat \(.*\)$/\1 \2/p')
