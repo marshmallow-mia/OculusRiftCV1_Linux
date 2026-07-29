@@ -710,16 +710,91 @@ Both were invisible until it ran on hardware.
    time at `RIFT_CAM_CALIB_REFINED_SAMPLES` and then left alone — the rest is
    the online refiner's job, and each adoption disturbs the fusion.
 
+### CORRECTION — that validation was at ONE headset position (2026-07-29, later)
+
+Everything above was measured with the headset in a single fixed spot. Moving
+it to a **different static place** — not waving it about, just setting it down
+28 cm away and 7° round — broke two assumptions.
+
+**1. The estimate was overfit to its viewpoint.** Per-camera PnP bias is
+viewpoint-dependent, so a fit built from one headset position bakes that
+position's bias in. The same calibration, scored where it was fitted and 28 cm
+away:
+
+| | at the fitted spot | 28 cm away |
+|---|---|---|
+| cross-camera disagreement | 1.89 mm | **7.32 mm** |
+| own solve reprojected into the other camera | 0.20 px | **2.02 px** |
+
+So the headline "1.254 mm" above is the *fitted-viewpoint* number and flatters
+itself. Pooling both positions into one fit halves the worst case:
+
+| fitted on | at A | at B | worst |
+|---|---|---|---|
+| A alone | 1.89 mm / 0.20 px | 7.32 mm / 2.02 px | **7.32 mm / 2.02 px** |
+| A and B pooled | 3.66 mm / 0.88 px | 3.99 mm / 1.02 px | **3.99 mm / 1.02 px** |
+
+Worth recording as a negative result: **the estimator barely matters.** A full
+`scipy` bundle adjustment over the same data scored no better than a robust
+mean (5.16 mm vs 4.51 mm worst case). Conditioning — how many viewpoints the
+history spans — is the whole game.
+
+**2. A σ gate could not tell a moved headset from a moved camera.** Setting the
+headset down elsewhere shifts the single-frame estimate by 13.2 mm. Against a
+converged running mean the 3σ gate fires at ~15 mm. That is a factor of **1.14**
+— no separation. Simulating the real `rift_cam_calib_add()` over the real
+captures: any shift ≥15 mm triggered a false `history was rebuilt — it had been
+moved` exactly 59 exposures (~1.1 s) after the headset was set down. This
+particular pair of positions landed at 13.2 mm, just under, so it did not fire
+in practice — latent, not benign.
+
+The fix is the shape `Rift.dll` already uses: a bounded **history**, re-solved,
+judged by a **reprojection residual**, with camera-moved an *output of the
+solve* (`FastCalibrate: Camera moved`) rather than a threshold on scatter. The
+same two cases then separate by ~600×:
+
+| | residual |
+|---|---|
+| correct extrinsics, fitted viewpoint | 0.2 px |
+| headset set down elsewhere | 2.0 px |
+| camera genuinely knocked 226 mm | **119 px** |
+
+The history is stratified by viewpoint, eviction taking from the fullest
+bucket, so a headset sitting still for an hour cannot crowd out the minute it
+spent somewhere else — Oculus log the same idea as four per-bucket counts,
+`sample counts: %d, %d, %d %d`.
+
+One subtlety cost a round of debugging: the **0.85 improvement gate belongs at
+adoption, not at estimation**. Left inside the module it froze the estimate at
+its first viewpoint's fit — re-fitting after the move was a real gain but only
+11 %, so a 15 % bar rejected it and preserved the very overfitting the history
+exists to remove. It now sits in `rift_tracker_cam_calib_apply()`, which is
+what actually disturbs a running fusion.
+
+`SETTLED` now also requires viewpoint spread, matching the runtime's own split
+between `Estimated calibration: camera %d` and `Camera Calibration Settled
+after calibration.` A single-viewpoint fit scores well against its own
+viewpoint no matter how biased it is, so it stays `ESTIMATED` and says so.
+
+**Live re-validation**, cold start from the stale config at the new position:
+adopted from 30 poses at 0.30 px residual, **1.409 mm** disagreement, 0.112 px
+joint worst-camera, **100 %** inside the 2 px bar, 2701 joint reconstructions
+with 0 rejected, no false camera-moved. Realistic cross-viewpoint expectation
+with two positions pooled is ~4 mm; more viewpoints, accrued from ordinary use,
+tighten it further with nothing asked of the user.
+
 #### Jitter A/B — `OHMD_RIFT_NO_JOINT_SOLVE=1`
 
 Fused **output** pose, stationary, 35 s each after settling, 250 Hz:
 
 | | joint ON | joint OFF | |
 |---|---|---|---|
-| sample-to-sample step, mean | **0.006 mm** | 0.012 mm | 2.09× |
-| sample-to-sample step, p95 | **0.011 mm** | 0.028 mm | 2.56× |
-| shake vs 0.5 s mean, rms | **0.132 mm** | 0.174 mm | 1.32× |
-| shake vs 0.5 s mean, max | 1.403 mm | 1.363 mm | 0.97× |
+| sample-to-sample step, mean | **0.005 mm** | 0.012 mm | 2.45× |
+| sample-to-sample step, p95 | **0.009 mm** | 0.026 mm | 2.82× |
+| shake vs 0.5 s mean, rms | **0.062 mm** | 0.256 mm | 4.12× |
+
+(Re-measured after the history rewrite. The earlier run read 2.09× / 2.56× /
+1.32× against the single-viewpoint extrinsics.)
 
 The output figures are much smaller than the per-exposure ones above because
 the fused pose is IMU-dominated at 250 Hz and correction bleeding smooths
