@@ -662,6 +662,70 @@ history is what is wrong, and it is rebuilt from the sample in hand.
 
 `OHMD_RIFT_NO_AUTO_CALIB=1` disables the path for A/B testing.
 
+### LIVE VALIDATION, 2026-07-29 — zero interaction, on hardware
+
+Cold start from a config **8.63° / 226 mm stale**, headset stationary on the
+desk, no user input of any kind. `captures/lin/2026-07-29/autocalib3.jsonl`:
+
+```
+sensor WMTD3052400VZL: automatic calibration adopted after 39 exposures
+                       (0 rejected, scatter 0.228 deg / 9.9 mm)
+sensor WMTD3052400VZL: the stored calibration was 8.63 deg / 226.3 mm from
+                       what is measured - moving the sensor 226.3 mm / 8.63 deg
+sensor WMTD3052400VZL: automatic calibration adopted after 600 exposures
+                       (0 rejected, scatter 0.085 deg / 3.8 mm)
+Device 0: joint reconstruction 3601 solved, 0 rejected,
+          (0 observations arrived too late to count)
+```
+
+That last line had **never appeared before** — the joint reconstruction had
+run zero times on hardware.
+
+| | stale config (2026-07-29, before) | after, zero interaction |
+|---|---|---|
+| cross-camera disagreement | 596.51 mm | **1.254 mm** |
+| joint worst-camera reprojection | 119.23 px | **0.097 px** |
+| inside Oculus's 2 px acceptance | 0.0 % | **100.0 %** |
+| joint pose frame-to-frame step | — | **0.082 mm** (vs 0.502 mm merged) |
+
+Time to usable tracking: **39 exposures, under a second.**
+
+#### Two defects this found that offline work could not
+
+Both were invisible until it ran on hardware.
+
+1. **The observation gate re-created the chicken-and-egg.** It required
+   `RIFT_POSE_MATCH_STRONG`, which is only granted to a pose that agrees with
+   the *prior* — and the prior comes from the extrinsics being calibrated. A
+   sensor whose stored pose is wrong is therefore denied STRONG **because** it
+   is wrong, and is never allowed to supply the observations that would fix it.
+   Measured: sensor 1 reported flags `0x321` on **all 934** of its observations
+   (LED IDs verified, orientation matching, position rejected) and calibration
+   never ran. The gate now uses LED-ID verification and per-LED reprojection
+   error — properties of the camera's own image, immune to a bad camera pose.
+
+2. **Settling at `MIN_SAMPLES` adopts a 30-sample mean.** Good enough to make
+   tracking work immediately, but it left 4.05 mm of cross-camera disagreement
+   where the same data supports 1.25 mm. The estimate is now adopted a second
+   time at `RIFT_CAM_CALIB_REFINED_SAMPLES` and then left alone — the rest is
+   the online refiner's job, and each adoption disturbs the fusion.
+
+#### Jitter A/B — `OHMD_RIFT_NO_JOINT_SOLVE=1`
+
+Fused **output** pose, stationary, 35 s each after settling, 250 Hz:
+
+| | joint ON | joint OFF | |
+|---|---|---|---|
+| sample-to-sample step, mean | **0.006 mm** | 0.012 mm | 2.09× |
+| sample-to-sample step, p95 | **0.011 mm** | 0.028 mm | 2.56× |
+| shake vs 0.5 s mean, rms | **0.132 mm** | 0.174 mm | 1.32× |
+| shake vs 0.5 s mean, max | 1.403 mm | 1.363 mm | 0.97× |
+
+The output figures are much smaller than the per-exposure ones above because
+the fused pose is IMU-dominated at 250 Hz and correction bleeding smooths
+vision steps. Peak shake is unchanged — it is not set by cross-camera
+disagreement.
+
 ### Scope boundary
 
 Relative extrinsics plus gravity give **tracking quality** with zero
