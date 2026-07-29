@@ -47,6 +47,43 @@ if pgrep -x vrserver >/dev/null 2>&1; then
 	exit 1
 fi
 
+# PREFLIGHT - do not launch into the condition that hard-locked this machine.
+#
+# The CV1 needs HDMI as well as USB. With the video cable out, every USB
+# endpoint still enumerates and tracking works perfectly, so it is easy to
+# believe the headset is fine. SteamVR then finds no HMD display, tries to
+# enable vblank on a free CRTC that has no stream attached, and takes amdgpu
+# down with it. Refuse to start until the display is actually there.
+rift_display=
+for c in /sys/class/drm/card*-*/; do
+	[ "$(cat "$c/status" 2>/dev/null)" = connected ] || continue
+	if cat "$c/edid" 2>/dev/null | strings 2>/dev/null |
+			grep -qiE 'rift|oculus'; then
+		rift_display=$(basename "$c")
+		break
+	fi
+done
+
+if [ -z "$rift_display" ]; then
+	echo >&2
+	echo "REFUSING TO START: no connected display is presenting Rift EDID." >&2
+	echo >&2
+	echo "  The headset's USB side can be entirely healthy - tracking works" >&2
+	echo "  without video - so check the HDMI cable specifically:" >&2
+	echo >&2
+	for c in /sys/class/drm/card*-*/; do
+		printf "    %-22s %s\n" "$(basename "$c")" \
+			"$(cat "$c/status" 2>/dev/null)" >&2
+	done
+	echo >&2
+	echo "  Launching anyway is what produced 'dc_stream_state is NULL for" >&2
+	echo "  crtc' and a hard lockup on 2026-07-29. Plug in HDMI, confirm a" >&2
+	echo "  connector reports Rift EDID, then re-run." >&2
+	exit 1
+fi
+
+echo "display: $rift_display presenting Rift EDID - preflight OK"
+
 echo "driver:  $(cd "$here/../SteamVR-OpenHMD/subprojects/openhmd" && git log --oneline -1)"
 echo "log:     $out/$tag.log"
 echo "capture: $out/$tag.jsonl"
