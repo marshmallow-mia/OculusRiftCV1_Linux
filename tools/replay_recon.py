@@ -456,7 +456,11 @@ def run_gravity(args):
             # from the fused pose. Older captures have no `grav` field.
             g = obs.get("grav")
             if g is not None and np.any(np.asarray(g, dtype=float)):
-                up_dev = -np.asarray(g, dtype=float)   # specific force points up
+                # An accelerometer at rest measures specific force (a - g),
+                # which points UP. The driver stores that vector directly
+                # (rift-fusion-ovr's low-passed accel, rotated into the model
+                # frame), so it is already up-in-device — do not negate it.
+                up_dev = np.asarray(g, dtype=float)
                 up_dev /= np.linalg.norm(up_dev)
                 n_raw += 1
             else:
