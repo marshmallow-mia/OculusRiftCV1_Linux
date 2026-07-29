@@ -783,6 +783,56 @@ with 0 rejected, no false camera-moved. Realistic cross-viewpoint expectation
 with two positions pooled is ~4 mm; more viewpoints, accrued from ordinary use,
 tighten it further with nothing asked of the user.
 
+### THREE positions — the conditioning claim, and a defect it exposed (2026-07-29)
+
+A third static position, 50 cm from both others and **53° round in gaze** (vs
+only 7° for B). Every fit cross-scored at every position, using the driver's own
+C calibrator:
+
+| fitted on | at A | at B | at C | **worst** |
+|---|---|---|---|---|
+| A alone | 0.54 px | 2.72 px | 3.80 px | **3.80** |
+| B alone | 2.28 px | 0.63 px | 1.32 px | **2.28** |
+| C alone | 3.62 px | 1.45 px | 0.20 px | **3.62** |
+| A + B | 1.20 px | 1.54 px | 2.47 px | **2.47** |
+| **A + B + C** | 1.93 px | 1.06 px | 1.67 px | **1.93** |
+
+Confirmed: more viewpoints generalise better, and **the three-viewpoint fit is
+the only one that keeps every position inside the 2 px bar.** Note also that
+each single-viewpoint fit is superb *where it was fitted* (0.2–0.6 px) and poor
+everywhere else — which is precisely what makes it dangerous.
+
+#### The defect: a narrow fit outbids a good one
+
+Because a one-viewpoint fit scores 0.2 px against its own history and a
+well-conditioned fit scores 1–2 px against that same narrow history, **the
+narrow fit wins every acceptance test.** Measured live: a fresh session with the
+headset sitting still at C overwrote the accumulated calibration and moved the
+sensor **20.1 mm**, replacing a better calibration with a worse one. The driver
+converged to "overfit to wherever the headset happens to be right now", and
+every restart threw away the conditioning earned before it.
+
+The runtime persists more than a pose — `Settled after loading calibration
+data: %d cameras`, `Found calibration by serial in cache`. So the room config
+now carries a per-sensor `viewpoints` count, and a calibration fitted over fewer
+viewpoints cannot replace one fitted over more (a genuinely moved camera still
+overrides, since that is decided by the residual). Verified live: with the
+A+B+C fit installed and `viewpoints: 3`, a single-viewpoint session at C logs
+
+```
+sensor WMTD3052400VZL: keeping the stored calibration - it was fitted over
+3 viewpoints and this session has seen 1 (it leaves 1.87 px here)
+```
+
+and leaves the config **byte-identical**. The field is optional; configs without
+it (including everything the offline solver writes) read as 0 and behave as
+before.
+
+At C with the pooled fit: 4.63 mm disagreement, 1.35 px cross-camera, 0.143 px
+joint worst-camera, 100 % inside the 2 px bar. Worse *at C* than a C-only fit
+would be, and that is the correct trade — worst case across the room goes from
+3.80 px to 1.93 px.
+
 #### Jitter A/B — `OHMD_RIFT_NO_JOINT_SOLVE=1`
 
 Fused **output** pose, stationary, 35 s each after settling, 250 Hz:
