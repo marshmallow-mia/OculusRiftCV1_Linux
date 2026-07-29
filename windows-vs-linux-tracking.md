@@ -833,6 +833,72 @@ joint worst-camera, 100 % inside the 2 px bar. Worse *at C* than a C-only fit
 would be, and that is the correct trade — worst case across the room goes from
 3.80 px to 1.93 px.
 
+### WORN, IN THE HEADSET — the whole thing end to end (2026-07-29)
+
+The first session with the headset actually on a head and moving, through
+SteamVR, on Wayland. Reported subjectively as "not laggy or shifting".
+
+The viewpoint machinery did exactly what it was built to do, unprompted:
+
+| event | viewpoints | residual | correction |
+|---|---|---|---|
+| startup | 1 (stored: 3) | 5.10 px | **refused** — narrower than stored |
+| re-solve | 3 | 0.55 px | 16.2 mm |
+| re-solve | 4 | 2.15 px | 6.9 mm |
+| re-solve | 6 | 2.07 px | **1.4 mm** |
+
+`bins_seen` climbed 1 → 3 → 4 → 6 from ordinary head movement, the guard
+refused the narrow startup fit, and the corrections converged — 16.2 mm, then
+6.9 mm, then 1.4 mm. The config persisted at `viewpoints: 6`. **No user
+interaction of any kind, and no calibration step.**
+
+Measured over 3608 co-observed exposures *during motion*:
+
+| | |
+|---|---|
+| joint worst-camera reprojection | **0.184 px** mean, 0.257 p95, 0.915 max |
+| inside Oculus's 2 px acceptance | **100.0 %** |
+| joint reconstruction | 3601 solved, **1** rejected |
+| observations strong + LED-ID verified | 300 / 300 |
+| cross-camera disagreement | 4.71 mm mean (max 93 mm on fast motion) |
+
+The single rejection in 3602 solves, and 100 % inside the 2 px bar while the
+head is moving, is the number this whole program was aimed at.
+
+Note the residual *rising* with viewpoint count (0.55 px over 3, 2.07 px over
+6) is the fit being honest, not degrading: a narrow fit scores well against its
+own narrow history and badly everywhere else, which is precisely the trap
+§5b documents. What matters is the joint reprojection, which stayed at 0.18 px.
+
+#### Getting a picture at all: two bugs of ours, not the kernel's
+
+Neither was visible from tracking work, because tracking never touches video.
+
+**The HMD advertised itself as 3dof.** `rift.c` set only
+`OHMD_DEVICE_FLAGS_ROTATIONAL_TRACKING` on the HMD descriptor while the Touch
+descriptors beside it set `POSITIONAL`. Nothing in this driver reads that flag,
+so it went unnoticed for the whole project — but a runtime that picks a device
+model from it (Monado defaults everything to 3dof) was **discarding the entire
+constellation solve and substituting a neck model.**
+
+**The CV1 was described to SteamVR as a desktop window.**
+`driver_openhmd.cpp` returned `IsDisplayOnDesktop() = true` while setting
+`Prop_IsOnDesktop_Bool = false`, with window bounds from a hardcoded
+`m_nWindowX = 1920; //TODO: real window offset`. The kernel marks this
+connector `non-desktop=1`, so the compositor never lays it out and those
+coordinates belong to whatever real monitor is there. Starting SteamVR that way
+produced seven `dc_stream_state is NULL for crtc '2'` from `dm_set_vblank()`
+and hard-locked the machine — no oops, journal simply stopping. Returning
+`false` puts SteamVR in direct mode, and the same launch then ran clean with
+zero amdgpu errors.
+
+Worth recording what that lockup was *not*, since three plausible theories were
+wrong: not the tracking driver (USB-only, never touches DRM/KMS); not a
+disconnected cable (the CV1 panel sleeps until the HMD is opened over USB and
+drops within one second of release, so an idle connector check says nothing);
+and not Wayland (Monado drives the same headset on the same session through
+`wp_drm_lease_device_v1` with zero errors — `tools/run_monado_test.sh`).
+
 #### Jitter A/B — `OHMD_RIFT_NO_JOINT_SOLVE=1`
 
 Fused **output** pose, stationary, 35 s each after settling, 250 Hz:
