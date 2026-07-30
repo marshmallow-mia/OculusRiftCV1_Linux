@@ -996,6 +996,44 @@ parallax that does not match it. Purely geometric, so it never jitters. That is
 exactly why it survived a project's worth of tracking work: **every measurement
 we take is of the pose, and the pose was never wrong.**
 
+#### What it actually was: corrections were being smeared, not applied
+
+An A/B with `OHMD_RIFT_NO_BLEED=1` came back "feels better", which puts it in
+the output stage, not the pose. `rift-tracker.c` was bleeding each optical
+correction in over `OUT_CORR_TAU` instead of applying it — up to
+`OUT_CORR_MAX_LIN` = **5 cm** of deliberate positional lag, at a rate that
+*scales with head velocity*. So the displayed pose was knowingly wrong exactly
+while moving and settled when still: smooth, never vibrating, and wrong. That
+is the shape of the complaint.
+
+The trade was sound when corrections were large and noisy. It is not now — the
+joint reconstruction and automatic calibration have made them small and
+trustworthy, so smearing one over ~1 s only delays a correct measurement.
+Measured on the stationary output pose:
+
+| | bleed ON | bleed OFF |
+|---|---|---|
+| sample-to-sample step, mean | 0.0229 mm | 0.0289 mm |
+| p95 | 0.081 mm | 0.094 mm |
+| max | 0.174 mm | 0.350 mm |
+| shake vs 0.5 s mean, rms | 0.184 mm | 0.236 mm |
+
+All far below anything visible, against up to 5 cm of lag while moving. Now off
+by default (`OHMD_RIFT_BLEED=1` restores it), and the mode is logged either way
+— the A/B that found this could not be verified from its own log, which is its
+own small lesson about A/B switches.
+
+#### The IPD fix was real but was not the cause, and my claim about it was wrong
+
+Rendering at 61 mm instead of the headset's 63.5 mm is a genuine 4 % baseline
+error and is fixed. It made **no felt difference**, which is the honest result.
+
+I also claimed the reported value tracks the hardware IPD slider. It does not:
+moving the slider and re-opening the device still reports 63.5 mm. It is the
+headset's stored figure, so this is an improvement on a universal default
+rather than a true per-user IPD. The Oculus runtime does display live IPD, so a
+report carrying it exists — finding it is open.
+
 #### A hypothesis that did not survive contact with the data
 
 The first suspect was the render pivot: `driver_openhmd.cpp` has no

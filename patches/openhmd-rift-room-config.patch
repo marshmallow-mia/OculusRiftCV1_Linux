@@ -3641,7 +3641,7 @@ index 0000000..dad6d40
 +
 +#endif
 diff --git a/src/drv_oculus_rift/rift-tracker.c b/src/drv_oculus_rift/rift-tracker.c
-index ad297a1..6d03006 100644
+index ad297a1..02cfba7 100644
 --- a/src/drv_oculus_rift/rift-tracker.c
 +++ b/src/drv_oculus_rift/rift-tracker.c
 @@ -15,17 +15,24 @@
@@ -3882,7 +3882,7 @@ index ad297a1..6d03006 100644
  	ohmd_thread* usb_thread;
  	int usb_completed;
  
-@@ -161,17 +291,291 @@ struct rift_tracker_ctx_s
+@@ -161,17 +291,307 @@ struct rift_tracker_ctx_s
  	int exposure_history_size;
  	rift_tracker_exposure_info exposure_history[NUM_EXPOSURE_HISTORY];
  
@@ -4156,14 +4156,30 @@ index ad297a1..6d03006 100644
 +	}
 +}
 +
-+/* Set OHMD_RIFT_NO_BLEED=1 to disable output correction bleeding (for A/B
-+ * testing): optical corrections then step the displayed pose directly. */
++/* Optical corrections are applied to the displayed pose directly. They used to
++ * be bled in over OUT_CORR_TAU instead, to hide the step each one made, and
++ * that is now OFF by default -- set OHMD_RIFT_BLEED=1 to restore it.
++ *
++ * Bleeding was worth it when corrections were large and noisy. It is not any
++ * more: with the joint reconstruction and automatic calibration in place they
++ * are small and trustworthy, so smearing one over ~1 s only delays a correct
++ * measurement, and does so *while the head is moving* since the rate scales
++ * with velocity. Reported in the headset as movement that "translates weirdly"
++ * while never vibrating - which is exactly the shape of the trade.
++ *
++ * Measured, stationary, on the output pose: turning it off costs 0.023 -> 0.029
++ * mm of sample-to-sample step (max 0.17 -> 0.35 mm) and 0.184 -> 0.236 mm rms
++ * shake. All far below anything visible, against up to OUT_CORR_MAX_LIN = 5 cm
++ * of positional lag while moving. */
 +static bool out_corr_enabled(void)
 +{
 +	static int enabled = -1;
 +	if (enabled == -1) {
-+		const char *e = getenv("OHMD_RIFT_NO_BLEED");
-+		enabled = !(e && e[0] == '1');
++		const char *e = getenv("OHMD_RIFT_BLEED");
++		enabled = (e && e[0] == '1');
++		LOGI("output correction bleeding %s%s",
++			enabled ? "ON" : "OFF",
++			enabled ? " (OHMD_RIFT_BLEED=1)" : " - set OHMD_RIFT_BLEED=1 to restore");
 +	}
 +	return enabled;
 +}
@@ -4176,7 +4192,7 @@ index ad297a1..6d03006 100644
  static int rift_tracked_device_exposure_claim(rift_tracked_device_priv *dev, rift_tracked_device_exposure_info *dev_info);
  static void rift_tracked_device_exposure_release_locked(rift_tracked_device_priv *dev, rift_tracked_device_exposure_info *dev_info);
  
-@@ -194,12 +598,19 @@ rift_tracker_add_device (rift_tracker_ctx *ctx, int device_id, posef *imu_pose,
+@@ -194,12 +614,19 @@ rift_tracker_add_device (rift_tracker_ctx *ctx, int device_id, posef *imu_pose,
  	next_dev = ctx->devices + ctx->n_devices;
  
  	next_dev->base.id = device_id;
@@ -4196,7 +4212,7 @@ index ad297a1..6d03006 100644
  	/* Init delay slot bookkeeping */
  	for (s = 0; s < next_dev->n_delay_slots; s++) {
  		rift_tracker_pose_delay_slot *slot = next_dev->delay_slots + s;
-@@ -238,6 +649,15 @@ rift_tracker_add_device (rift_tracker_ctx *ctx, int device_id, posef *imu_pose,
+@@ -238,6 +665,15 @@ rift_tracker_add_device (rift_tracker_ctx *ctx, int device_id, posef *imu_pose,
  
  	next_dev->base.leds = leds;
  	next_dev->base.led_search = led_search_model_new (leds);
@@ -4212,7 +4228,7 @@ index ad297a1..6d03006 100644
  	ctx->n_devices++;
  	ohmd_unlock_mutex (ctx->tracker_lock);
  
-@@ -276,10 +696,19 @@ rift_tracker_new (ohmd_context* ohmd_ctx,
+@@ -276,10 +712,19 @@ rift_tracker_new (ohmd_context* ohmd_ctx,
  	rift_tracker_ctx *tracker_ctx = NULL;
  	int ret, i;
  	libusb_device **devs;
@@ -4232,7 +4248,7 @@ index ad297a1..6d03006 100644
  
  	for (i = 0; i < RIFT_MAX_TRACKED_DEVICES; i++) {
  		rift_tracked_device_priv *dev = tracker_ctx->devices + i;
-@@ -300,7 +729,7 @@ rift_tracker_new (ohmd_context* ohmd_ctx,
+@@ -300,7 +745,7 @@ rift_tracker_new (ohmd_context* ohmd_ctx,
  	for (i = 0; devs[i]; ++i) {
  		struct libusb_device_descriptor desc;
  		libusb_device_handle *usb_devh;
@@ -4241,7 +4257,7 @@ index ad297a1..6d03006 100644
  
  		ret = libusb_get_device_descriptor(devs[i], &desc);
  		if (ret < 0)
-@@ -315,7 +744,7 @@ rift_tracker_new (ohmd_context* ohmd_ctx,
+@@ -315,7 +760,7 @@ rift_tracker_new (ohmd_context* ohmd_ctx,
  		}
  
  		sprintf ((char *) serial, "UNKNOWN");
@@ -4250,7 +4266,7 @@ index ad297a1..6d03006 100644
  
  		if (desc.iSerialNumber) {
  			ret = libusb_get_string_descriptor_ascii(usb_devh, desc.iSerialNumber, serial, 32);
-@@ -336,10 +765,25 @@ rift_tracker_new (ohmd_context* ohmd_ctx,
+@@ -336,10 +781,25 @@ rift_tracker_new (ohmd_context* ohmd_ctx,
  			continue;
  		}
  
@@ -4278,7 +4294,7 @@ index ad297a1..6d03006 100644
  			break;
  		}
  	}
-@@ -406,6 +850,23 @@ void rift_tracker_on_new_exposure (rift_tracker_ctx *ctx, uint32_t hmd_ts, uint1
+@@ -406,6 +866,23 @@ void rift_tracker_on_new_exposure (rift_tracker_ctx *ctx, uint32_t hmd_ts, uint1
  
  	uint64_t now = ohmd_monotonic_get(ctx->ohmd_ctx);
  
@@ -4302,7 +4318,7 @@ index ad297a1..6d03006 100644
  	info->local_ts = now;
  	info->count = exposure_count;
  	info->hmd_ts = exposure_hmd_ts;
-@@ -428,7 +889,7 @@ void rift_tracker_on_new_exposure (rift_tracker_ctx *ctx, uint32_t hmd_ts, uint1
+@@ -428,7 +905,7 @@ void rift_tracker_on_new_exposure (rift_tracker_ctx *ctx, uint32_t hmd_ts, uint1
  		dev_info->device_index = dev->index;
  
  		ohmd_lock_mutex (dev->device_lock);
@@ -4311,7 +4327,7 @@ index ad297a1..6d03006 100644
  
  		rift_tracked_device_send_imu_debug(dev);
  
-@@ -461,15 +922,81 @@ rift_tracker_frame_captured (rift_tracker_ctx *ctx, uint64_t local_ts, uint64_t
+@@ -461,15 +938,81 @@ rift_tracker_frame_captured (rift_tracker_ctx *ctx, uint64_t local_ts, uint64_t
  	int i;
  	ohmd_lock_mutex (ctx->tracker_lock);
  
@@ -4397,7 +4413,7 @@ index ad297a1..6d03006 100644
  		}
  	}
  
-@@ -553,6 +1080,8 @@ rift_tracker_free (rift_tracker_ctx *tracker_ctx)
+@@ -553,6 +1096,8 @@ rift_tracker_free (rift_tracker_ctx *tracker_ctx)
  		rift_tracked_device_priv *dev = tracker_ctx->devices + i;
  		if (dev->base.led_search)
  			led_search_model_free (dev->base.led_search);
@@ -4406,7 +4422,7 @@ index ad297a1..6d03006 100644
  		if (dev->debug_metadata != NULL)
  			ohmd_pw_debug_stream_free (dev->debug_metadata);
  
-@@ -568,10 +1097,12 @@ rift_tracker_free (rift_tracker_ctx *tracker_ctx)
+@@ -568,10 +1113,12 @@ rift_tracker_free (rift_tracker_ctx *tracker_ctx)
  		libusb_exit (tracker_ctx->usb_ctx);
  
  	ohmd_destroy_mutex (tracker_ctx->tracker_lock);
@@ -4420,7 +4436,7 @@ index ad297a1..6d03006 100644
  {
  	rift_tracked_device_priv *dev = (rift_tracked_device_priv *) (dev_base);
  	rift_tracked_device_imu_observation *obs;
-@@ -586,8 +1117,22 @@ void rift_tracked_device_imu_update(rift_tracked_device *dev_base, uint64_t loca
+@@ -586,8 +1133,22 @@ void rift_tracked_device_imu_update(rift_tracked_device *dev_base, uint64_t loca
  		dev->device_time_ns += dt_ns;
  	}
  	dev->last_device_ts = device_ts;
@@ -4444,7 +4460,7 @@ index ad297a1..6d03006 100644
  
  	obs = dev->pending_imu_observations + dev->num_pending_imu_observations;
  	obs->local_ts = local_ts;
-@@ -607,6 +1152,66 @@ void rift_tracked_device_imu_update(rift_tracked_device *dev_base, uint64_t loca
+@@ -607,6 +1168,66 @@ void rift_tracked_device_imu_update(rift_tracked_device *dev_base, uint64_t loca
  	ohmd_unlock_mutex (dev->device_lock);
  }
  
@@ -4511,7 +4527,7 @@ index ad297a1..6d03006 100644
  void rift_tracked_device_get_view_pose(rift_tracked_device *dev_base, posef *pose, vec3f *vel, vec3f *accel, vec3f *ang_vel)
  {
  	rift_tracked_device_priv *dev = (rift_tracked_device_priv *) (dev_base);
-@@ -619,7 +1224,53 @@ void rift_tracked_device_get_view_pose(rift_tracked_device *dev_base, posef *pos
+@@ -619,7 +1240,53 @@ void rift_tracked_device_get_view_pose(rift_tracked_device *dev_base, posef *pos
  		vec3f imu_ang_vel = { 0, };
  		vec3f imu_vel = { 0, }, imu_accel = { 0, };
  
@@ -4566,7 +4582,7 @@ index ad297a1..6d03006 100644
  
  		/* Take our fusion / IMU global pose back to device pose by
  		 * computing the IMU->device pose and applying the
-@@ -637,34 +1288,127 @@ void rift_tracked_device_get_view_pose(rift_tracked_device *dev_base, posef *pos
+@@ -637,34 +1304,127 @@ void rift_tracked_device_get_view_pose(rift_tracked_device *dev_base, posef *pos
  		exp_filter_pose_run(&dev->pose_output_filter, dev->device_time_ns, &device_pose, &dev->reported_pose);
  		dev->last_reported_pose = dev->device_time_ns;
  
@@ -4710,7 +4726,7 @@ index ad297a1..6d03006 100644
  static rift_tracker_pose_delay_slot *get_matching_delay_slot(rift_tracked_device_priv *dev, rift_tracked_device_exposure_info *dev_info);
  
  /* Retrieve the latest model pose estimate from a delay slot into the exposure info.
-@@ -687,7 +1431,7 @@ bool rift_tracked_device_get_latest_exposure_info_pose (rift_tracked_device *dev
+@@ -687,7 +1447,7 @@ bool rift_tracked_device_get_latest_exposure_info_pose (rift_tracked_device *dev
  		posef imu_global_pose;
  		vec3f global_pos_error, global_rot_error;
  
@@ -4719,7 +4735,7 @@ index ad297a1..6d03006 100644
  						NULL, NULL, NULL, &global_pos_error, &global_rot_error);
  
  		oposef_apply(&dev->model_from_fusion, &imu_global_pose, &dev_info->capture_pose);
-@@ -715,8 +1459,29 @@ bool rift_tracked_device_get_latest_exposure_info_pose (rift_tracked_device *dev
+@@ -715,8 +1475,29 @@ bool rift_tracked_device_get_latest_exposure_info_pose (rift_tracked_device *dev
  	return res;
  }
  
@@ -4750,7 +4766,7 @@ index ad297a1..6d03006 100644
  {
  	rift_tracked_device_priv *dev = (rift_tracked_device_priv *) (dev_base);
  	uint64_t frame_device_time_ns = 0;
-@@ -743,7 +1508,28 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
+@@ -743,7 +1524,28 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
  	rift_tracked_device_exposure_info *dev_info = exposure_info->devices + dev->index;
  	frame_device_time_ns = dev_info->device_time_ns;
  
@@ -4779,7 +4795,7 @@ index ad297a1..6d03006 100644
  	if (slot != NULL) {
  		quatf orient_diff;
  		vec3f pos_error, rot_error;
-@@ -763,9 +1549,53 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
+@@ -763,9 +1565,53 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
  			pos_error.x, pos_error.y, pos_error.z,
  			source);
  
@@ -4834,7 +4850,7 @@ index ad297a1..6d03006 100644
  			update_position = false;
  			LOGI("Ignoring position observation with error %f %f %f (prior stddev was %f %f %f)\n",
  				pos_error.x, pos_error.y, pos_error.z,
-@@ -776,7 +1606,7 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
+@@ -776,7 +1622,7 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
  		}
  
  		/* If we have a strong match, update both position and orientation */
@@ -4843,7 +4859,7 @@ index ad297a1..6d03006 100644
  			update_orientation = true;
  			if ((dev->device_time_ns - dev->last_observed_orient_ts) > (POSE_LOST_ORIENT_THRESHOLD * 1000000UL)) {
  				LOGI("Matched orientation after %f sec", (dev->device_time_ns - dev->last_observed_pose_ts) / 1000000000.0);
-@@ -785,7 +1615,8 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
+@@ -785,7 +1631,8 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
  			if (update_position)
  				dev->last_observed_orient_ts = dev->device_time_ns;
  		}
@@ -4853,7 +4869,7 @@ index ad297a1..6d03006 100644
  			LOGI("Forcing orientation observation");
  			update_orientation = true;
  			/* Don't update the orientation match time here - only do that on an actual match */
-@@ -799,29 +1630,194 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
+@@ -799,29 +1646,194 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
  			if (dev->last_acquired_pose_lock_ts == 0)
  				dev->last_acquired_pose_lock_ts = dev->last_acquired_pose_lock_ts;
  
@@ -5055,7 +5071,7 @@ index ad297a1..6d03006 100644
  		}
  	}
  
-@@ -859,12 +1855,23 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
+@@ -859,12 +1871,23 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
  }
  
  /* Called with the device lock held */
@@ -5083,7 +5099,7 @@ index ad297a1..6d03006 100644
  
  	/* Apply the pose conversion from IMU->model */
  	oposef_apply(&dev->model_from_fusion, &imu_global_pose, &model_pose);
-@@ -1014,10 +2021,23 @@ get_matching_delay_slot(rift_tracked_device_priv *dev, rift_tracked_device_expos
+@@ -1014,10 +2037,23 @@ get_matching_delay_slot(rift_tracked_device_priv *dev, rift_tracked_device_expos
  
  /* Called with the device lock held. Allocate a delay slot and populate the device exposure info */
  static void
@@ -5109,7 +5125,7 @@ index ad297a1..6d03006 100644
  
  	if (slot == NULL) {
  		/* We might reclaim a busy delay slot if some frame search is being slow and we already got an observation from another camera */
-@@ -1040,7 +2060,7 @@ rift_tracked_device_on_new_exposure(rift_tracked_device_priv *dev, rift_tracked_
+@@ -1040,7 +2076,7 @@ rift_tracked_device_on_new_exposure(rift_tracked_device_priv *dev, rift_tracked_
  	}
  	dev_info->last_acquired_pose_lock_ts = dev->last_acquired_pose_lock_ts;
  
@@ -5118,7 +5134,7 @@ index ad297a1..6d03006 100644
  
  	if (slot) {
  		slot->device_time_ns = dev_info->device_time_ns;
-@@ -1053,7 +2073,7 @@ rift_tracked_device_on_new_exposure(rift_tracked_device_priv *dev, rift_tracked_
+@@ -1053,7 +2089,7 @@ rift_tracked_device_on_new_exposure(rift_tracked_device_priv *dev, rift_tracked_
  		dev_info->fusion_slot = slot->slot_id;
  
  		/* Tell the kalman filter to prepare the delay slot */
@@ -5127,7 +5143,7 @@ index ad297a1..6d03006 100644
  
  		/* Clear the last no-free-delay-slot tracking to avoid logging noise */
  		dev->last_no_free_delay_slot = 0;
-@@ -1131,3 +2151,384 @@ void rift_tracked_device_frame_release(rift_tracked_device *dev_base, rift_track
+@@ -1131,3 +2167,384 @@ void rift_tracked_device_frame_release(rift_tracked_device *dev_base, rift_track
  	}
  	ohmd_unlock_mutex (dev->device_lock);
  }
@@ -5583,7 +5599,7 @@ index 04ca128..6fa6461 100644
 +
  #endif
 diff --git a/src/drv_oculus_rift/rift.c b/src/drv_oculus_rift/rift.c
-index a802e93..d9a2a6f 100644
+index a802e93..7c00a43 100644
 --- a/src/drv_oculus_rift/rift.c
 +++ b/src/drv_oculus_rift/rift.c
 @@ -209,6 +209,103 @@ static void set_coordinate_frame(rift_hmd_t* priv, rift_coordinate_frame coordfr
@@ -6035,7 +6051,7 @@ index a802e93..d9a2a6f 100644
  	hmd_dev->base.properties.ratio = ((float)priv->display_info.h_resolution / (float)priv->display_info.v_resolution) / 2.0f;
  
  	if (desc->revision == REV_CV1) {
-@@ -1246,8 +1538,39 @@ static rift_hmd_t *open_hmd(ohmd_driver* driver, ohmd_device_desc* desc)
+@@ -1246,8 +1538,47 @@ static rift_hmd_t *open_hmd(ohmd_driver* driver, ohmd_device_desc* desc)
  			ohmd_set_universal_distortion_k(&(hmd_dev->base.properties), 0.269, -0.25, 0.178, 0.803);
  			ohmd_set_universal_aberration_k(&(hmd_dev->base.properties), 0.9992107, 1.0, 1.0120361);
  			/* CV1 reports IPD, but not lens center, at least not anywhere I could find, so use the manually measured value of 0.054 */
@@ -6045,9 +6061,16 @@ index a802e93..d9a2a6f 100644
 +			 * of the hardware slider - and not the lens centre separation.
 +			 * Nothing was reading it, because ipd stayed at the universal
 +			 * 0.061 default from ohmd_set_default_device_properties(), so
-+			 * every CV1 rendered its stereo pair at 61 mm wherever the slider
-+			 * actually was. This one reports 63.5 mm; the slider spans about
-+			 * 58-72 mm, so the error reaches ~11 mm at the ends.
++			 * every CV1 rendered its stereo pair at 61 mm regardless. This
++			 * one reports 63.5 mm.
++			 *
++			 * CAVEAT, measured: the value does NOT track the hardware slider -
++			 * moving it and re-opening the device still reports 63.5 mm. So
++			 * this is the headset's own stored figure, not the live slider
++			 * position, and it is an improvement on a universal default rather
++			 * than a true per-user IPD. Reading the real slider needs a
++			 * different report than DISPLAY_INFO; the Oculus runtime does
++			 * display it live, so one exists.
 +			 *
 +			 * A stereo baseline that disagrees with the wearer's eyes puts
 +			 * every disparity slightly wrong - the world sits at the wrong
@@ -6057,7 +6080,8 @@ index a802e93..d9a2a6f 100644
 +			if (priv->display_info.lens_separation > 0.050f &&
 +			    priv->display_info.lens_separation < 0.085f) {
 +				hmd_dev->base.properties.ipd = priv->display_info.lens_separation;
-+				LOGI("HMD IPD %.1f mm, from the headset's own slider position",
++				LOGI("HMD IPD %.1f mm, as reported by the headset (note: this "
++					"is its stored figure, not the live slider position)",
 +					priv->display_info.lens_separation * 1000.0f);
 +			} else {
 +				LOGW("HMD reported an implausible IPD of %.4f m - keeping the "
@@ -6075,7 +6099,7 @@ index a802e93..d9a2a6f 100644
  		default:
  			break;
  	}
-@@ -1303,6 +1626,33 @@ static rift_hmd_t *open_hmd(ohmd_driver* driver, ohmd_device_desc* desc)
+@@ -1303,6 +1634,33 @@ static rift_hmd_t *open_hmd(ohmd_driver* driver, ohmd_device_desc* desc)
  		imu_calibration.accel_matrix[i] = priv->imu_calibration.accel_matrix[i/3][i%3];
  		imu_calibration.gyro_matrix[i] = priv->imu_calibration.gyro_matrix[i/3][i%3];
  	}
@@ -6109,7 +6133,7 @@ index a802e93..d9a2a6f 100644
  	priv->tracked_dev = rift_tracker_add_device (priv->tracker_ctx, 0, &imu_pose, &model_pose, &priv->leds, &imu_calibration);
  
  	return priv;
-@@ -1443,7 +1793,19 @@ static void get_device_list(ohmd_driver* driver, ohmd_device_list* list)
+@@ -1443,7 +1801,19 @@ static void get_device_list(ohmd_driver* driver, ohmd_device_list* list)
  				desc->revision = rd[i].rev;
  		
  				desc->device_class = OHMD_DEVICE_CLASS_HMD;
