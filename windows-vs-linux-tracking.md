@@ -1045,6 +1045,60 @@ reported as 39.6 mm. Oculus evidently defines the config frame at the eye plane
 precisely so the tracked pose *is* the head pose, and zero is approximately
 right. Dropped.
 
+### RECONFIGURATION: a fresh install could never calibrate itself (2026-07-31)
+
+Testing "I moved both sensors" exposed that the system could not configure
+itself from nothing at all. With no stored room config it would sit holding a
+converged relative solution — **0.36 px over 3192 paired observations** — and
+no way to place it, because no camera had a world pose and every adoption path
+waits on the anchor having one.
+
+Two faults, both required:
+
+**The fusion reported a permanently useless tilt confidence.**
+`error_estimates()` grew tilt and yaw together from vision age, so a fusion
+that had never had a vision fix reported `0.02 + 0.05×10 = 0.52 rad = 29.8°`
+on *every* axis, forever. But X and Z are tilt, pinned by gravity from the
+accelerometer with or without vision — this filter's whole premise, stated in
+its own header — and only Y is yaw, which vision alone pins. The camera
+bootstrap gates on `max(x, z)`, so it could never be satisfied:
+
+> vision fix → needs a camera pose → needs the bootstrap → needs ≤ 25° → needs a vision fix
+
+**And the gate sat exactly on a clamp.** The bootstrap tested
+`gravity_error <= 25°` while the tracker floors every reported `rot_error`
+component at `MIN_ROT_ERROR`, *also* 25°. The test could therefore only pass by
+exact float equality with that floor. Measured after fixing the fusion, one
+sensor reported **25.49°** and would still never have bootstrapped.
+
+Verified from a genuinely empty config — both sensors place themselves from
+gravity and co-observation, with nothing asked of the user:
+
+| | |
+|---|---|
+| cross-camera disagreement | **1.453 mm** |
+| joint worst-camera reprojection | **0.108 px** |
+| joint reconstructions | **1801 solved, 0 rejected** |
+| calibration residual | 0.25 → **0.17 px** |
+
+#### A gate that can silently disable a subsystem must say so
+
+This same gate has now halted calibration twice in a way indistinguishable from
+healthy convergence — both produce total silence. Once from
+`RIFT_POSE_MATCH_STRONG` (a real bug, §5b). Once from the blob floor, with the
+headset turned away so only 9 LEDs were visible — the gate working correctly on
+unusable data. Telling those apart from outside is impossible, so the feed now
+reports what it rejected and why:
+
+```
+sensor 0 calibration feed: 901 offered, 901 passed - rejected
+    0 for LED ids, 0 for too few blobs (<10), 0 for error
+```
+
+Worth recording that the second case cost three rebuild cycles and a wrong
+diagnosis (blamed on sensor placement) before the headset's orientation was
+noticed — a line like that would have answered it immediately.
+
 #### Getting a picture at all: two bugs of ours, not the kernel's
 
 Neither was visible from tracking work, because tracking never touches video.
