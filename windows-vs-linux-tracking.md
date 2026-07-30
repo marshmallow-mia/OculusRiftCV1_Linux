@@ -1422,3 +1422,67 @@ Still unrecovered, worth a third pass: the exact residual form inside
 `fcn.18010cac0` (whether the joint solve is a single Gauss-Newton over pooled
 rays or a chained per-camera refinement), the `1/650` and `1/2043` constants
 there, and the `CameraCalibrator` settle criteria in the 55 KB `fcn.18018d430`.
+
+## 5c. The Touch controllers were drawn 129 mm from where they are (2026-07-30)
+
+Reported as "the controllers are not on the position where they are in real
+life". They were not a tracking failure: in that same session the optics were
+healthy — device 1 solved 1801 joint reconstructions with 0 rejected, device 2
+2101 with 3 rejected. The poses were right and then displaced on the way out.
+
+`driver_openhmd.cpp` carried this since upstream `55e2668` (2022), untouched by
+us:
+
+    const HmdQuaternion_t oculusOffsetQ = { 0.966, 0.259, 0, 0};   // +30 deg about X
+    pose.vecDriverFromHeadTranslation[2] = 0.08;                   // +80 mm on Z
+
+A guess, and never derived from anything. It has to be exact, because OpenHMD
+reports the pose of the **LED-model frame** (`rift.c` registers the controller
+with an identity `model_pose`, the IMU living at `ImuPosition` inside it) while
+SteamVR draws `oculus_cv1_controller_left/right` — and derives the OpenXR grip
+and aim poses — in **Valve's render-model frame**. `driverFromHead` is exactly
+`device <- rendermodel`, per openvr_driver.h's `AFromB` naming and the
+composition `world <- head = worldFromDriver . driverPose . driverFromHead`.
+
+**Neither frame had to be guessed at, so the constant is measured.** Oculus's
+own 24-LED model, read out of the controller's flash and dumped by `rift.c`,
+sits physically on the tracking ring; Valve's mesh models that same ring. A
+rigid ICP of the LED cloud onto the mesh recovers the transform. It validates
+itself three ways:
+
+  * the two controllers are solved **independently** and converge to
+    mirror-image transforms (X ∓8.5/+7.8 mm, Y +31.8/+32.2, Z −45.8/−43.3);
+  * the residual is **2.1 mm**, which is the depth the LEDs sit below the shell,
+    not a fit that wandered off onto the handle;
+  * mapping the render model's own landmarks back through it puts `openxr_aim`
+    and `tip` at negative Z — the ring's outward side, where the controller
+    points — and `openxr_grip`, `body` and `base` at positive Z, the hand side.
+
+Result, symmetrised because the hardware is:
+
+    qDriverFromHeadRotation        { 0.958669, 0.284523, 0, 0 }   // +33.06 deg about X
+    vecDriverFromHeadTranslation   left  [ -0.00813, +0.03201, -0.04453 ]
+                                   right [ +0.00813, +0.03201, -0.04453 ]
+
+So the **rotation was nearly right** (30 deg guessed vs 33.06 deg measured) and
+the **translation was badly wrong**: it pushed +80 mm along Z where the correct
+offset pulls 44.5 mm the other way, and dropped the ±8 mm X term entirely —
+129 mm of error in total. That the eyeballed rotation landed within 3 deg of the
+measurement, *with the same sign*, is itself a check on the transform direction:
+had the derivation been inverted it would have come out −33 deg.
+
+Re-derive with `tools/touch_pose_offset.py <capture>.log`, which reads the LED
+dump straight out of a driver log and re-runs the registration. It warns if the
+residual exceeds 4 mm or the two controllers disagree beyond fit noise.
+`OHMD_TOUCH_LEGACY_OFFSET=1` restores the old constants for A/B comparison.
+
+**The HMD is a separate and much smaller question.** Its `driverFromHead` is
+identity with zero translation, so SteamVR treats OpenHMD's reported origin as
+the eye midpoint — and since the driver implements no `GetEyeToHeadTransform`,
+SteamVR synthesises the eyes from the IPD property alone (±IPD/2 in X, no Z).
+The HMD's `model_pose` is a 180 deg Y rotation with **zero** translation, so the
+reported origin is the LED-model origin, which sits at the back of the LED cloud
+(the cloud spans z −8.8..74.4 mm), i.e. approximately the eye plane. It cannot
+be pinned the same way: SteamVR ships no CV1 *HMD* render model to register
+against. Any error there is at most a couple of cm and pivots the view slightly;
+it is an order of magnitude below what the controllers had.
