@@ -916,6 +916,35 @@ The 8 mm residual is the single-viewpoint bias of §5b, not an error in the
 recovery: the rebuilt fit necessarily starts from one viewpoint and tightens as
 coverage returns.
 
+#### CONFIRMED ON HARDWARE — a sensor physically moved 132 mm
+
+```
+sensor WMTD3052400VZL: camera moved - the calibration in use leaves 95.6 px
+                       over 30 observations (>16 px). Resetting history and
+                       re-deriving it from what is seen now.
+sensor WMTD3052400VZL: re-derived calibration from 30 poses over 1 viewpoints
+                       (stored: 6), residual 0.69 px
+sensor WMTD3052400VZL: the pre-move calibration left 95.66 px; moving the
+                       sensor 132.2 mm / 6.72 deg
+```
+
+**Exactly one reset in the session**, recovery inside 30 observations (~0.6 s),
+then ordinary refinement: 7.2 mm, then 3.4 mm, residual 0.69 → 0.49 → 0.37 px.
+Scored over 4427 co-observed exposures with the recovered calibration: **1.205
+mm** cross-camera disagreement, **0.106 px** joint worst-camera, **100 %**
+inside the 2 px bar.
+
+Both fixes were load-bearing, and the log shows it. `(stored: 6)` against
+`1 viewpoints` is precisely the case the viewpoint guard exists to refuse —
+without the `recovering` short-circuit it would have blocked the only correct
+calibration available, and without the history-turnover fix the re-derived fit
+could not have refined afterwards.
+
+Note `viewpoints` drops 6 → 1 on recovery. That is honest rather than a
+regression: the new fit genuinely has one viewpoint behind it and is overfit to
+wherever the headset happens to be, exactly as §5b describes. It re-conditions
+from ordinary use — the worn session climbed 1 → 3 → 4 → 6 on its own.
+
 #### Bands, because the threshold is ~40 mm at 2 m
 
 | sensor moved by | behaviour |
