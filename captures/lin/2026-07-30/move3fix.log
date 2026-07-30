@@ -1,0 +1,462 @@
+OpenHMD version: 0.3.0
+num devices: 8
+
+device 0
+  vendor:  Oculus VR, Inc.
+  product: Rift (CV1)
+  path:    5-3.1:1.0
+  class:   HMD
+  flags:   06
+    null device:         no
+    rotational tracking: yes
+    positional tracking: yes
+    left controller:     no
+    right controller:    no
+
+device 1
+  vendor:  Oculus VR, Inc.
+  product: Rift (CV1): Remote Control
+  path:    5-3.1:1.0
+  class:   Controller
+  flags:   00
+    null device:         no
+    rotational tracking: no
+    positional tracking: no
+    left controller:     no
+    right controller:    no
+
+device 2
+  vendor:  Oculus VR, Inc.
+  product: Rift (CV1): Right Controller
+  path:    5-3.1:1.0
+  class:   Controller
+  flags:   36
+    null device:         no
+    rotational tracking: yes
+    positional tracking: yes
+    left controller:     no
+    right controller:    yes
+
+device 3
+  vendor:  Oculus VR, Inc.
+  product: Rift (CV1): Left Controller
+  path:    5-3.1:1.0
+  class:   Controller
+  flags:   2e
+    null device:         no
+    rotational tracking: yes
+    positional tracking: yes
+    left controller:     yes
+    right controller:    no
+
+device 4
+  vendor:  OpenHMD
+  product: External Device
+  path:    (none)
+  class:   HMD
+  flags:   06
+    null device:         no
+    rotational tracking: yes
+    positional tracking: yes
+    left controller:     no
+    right controller:    no
+
+device 5
+  vendor:  OpenHMD
+  product: HMD Null Device
+  path:    (none)
+  class:   HMD
+  flags:   05
+    null device:         yes
+    rotational tracking: yes
+    positional tracking: no
+    left controller:     no
+    right controller:    no
+
+device 6
+  vendor:  OpenHMD
+  product: Left Controller Null Device
+  path:    (none)
+  class:   Controller
+  flags:   0f
+    null device:         yes
+    rotational tracking: yes
+    positional tracking: yes
+    left controller:     yes
+    right controller:    no
+
+device 7
+  vendor:  OpenHMD
+  product: Right Controller Null Device
+  path:    (none)
+  class:   Controller
+  flags:   17
+    null device:         yes
+    rotational tracking: yes
+    positional tracking: yes
+    left controller:     no
+    right controller:    yes
+
+opening device: 0
+[II] HMD IMU calibration  gyro_offset [ -0.003900, 0.001300, 0.001100 ]  accel_offset [ 0.108000, -0.305600, 0.024900 ]
+[II]   gyro_calib = 
+[II]   [    0.999,    0.005,   -0.021 ]
+[II]   [    0.004,    1.000,   -0.007 ]
+[II]   [    0.008,    0.038,    0.999 ]
+[II]   accel_calib = 
+[II]   [    1.021,    0.001,   -0.018 ]
+[II]   [    0.001,    1.037,    0.022 ]
+[II]   [    0.004,   -0.005,    0.963 ]
+[II] CV1 display config: brightness=0 flags=0x400 persistence=273/1472 rows
+[II] Using 34 visor LEDs; dropped 10 headband LEDs (not tracked as a separate body yet - the headset is only trackable from the front)
+LED model: HMD LEDs
+{ .pos = {0.062939,-0.032042,0.067541}, .dir={0.181956,-0.102972,0.977900}, .pattern=0x1 },
+{ .pos = {0.077151,0.000993,0.065562}, .dir={0.299055,0.001984,0.954234}, .pattern=0x6 },
+{ .pos = {0.028983,-0.019018,0.073518}, .dir={0.082983,-0.096960,0.991823}, .pattern=0x1a },
+{ .pos = {-0.000097,-0.033045,0.072449}, .dir={0.000000,-0.188028,0.982164}, .pattern=0x1d },
+{ .pos = {-0.028998,-0.019144,0.073384}, .dir={-0.082983,-0.096960,0.991823}, .pattern=0x28 },
+{ .pos = {-0.063022,-0.032156,0.067359}, .dir={-0.181956,-0.102972,0.977900}, .pattern=0x2f },
+{ .pos = {-0.077078,0.000964,0.065342}, .dir={-0.299055,0.001984,0.954234}, .pattern=0x33 },
+{ .pos = {-0.054039,0.034440,0.068623}, .dir={-0.140969,0.134957,0.980772}, .pattern=0x4b },
+{ .pos = {-0.020202,0.017950,0.074224}, .dir={-0.056979,0.095951,0.993754}, .pattern=0x4c },
+{ .pos = {0.053973,0.034595,0.069160}, .dir={0.140969,0.134957,0.980772}, .pattern=0x57 },
+{ .pos = {0.020062,0.018061,0.074368}, .dir={0.056979,0.095951,0.993754}, .pattern=0x62 },
+{ .pos = {-0.078856,-0.011904,0.028395}, .dir={-0.993057,-0.099980,-0.061984}, .pattern=0x65 },
+{ .pos = {-0.077293,-0.012335,-0.008668}, .dir={-0.981566,-0.188915,-0.028963}, .pattern=0x79 },
+{ .pos = {-0.070740,-0.031349,0.010284}, .dir={-0.734056,-0.668042,-0.121987}, .pattern=0x7e },
+{ .pos = {-0.059124,-0.040984,0.036314}, .dir={-0.153997,-0.983099,-0.099003}, .pattern=0x90 },
+{ .pos = {0.058835,-0.040830,0.035942}, .dir={0.153997,-0.983099,-0.099003}, .pattern=0xa4 },
+{ .pos = {0.028165,-0.043453,0.061352}, .dir={-0.004975,-0.998636,-0.051974}, .pattern=0x114 },
+{ .pos = {-0.080319,-0.024476,0.053355}, .dir={-0.947594,-0.225904,-0.225904}, .pattern=0x151 },
+{ .pos = {-0.027992,-0.043610,0.061432}, .dir={0.004975,-0.998636,-0.051974}, .pattern=0x183 },
+{ .pos = {0.070561,-0.031850,0.009988}, .dir={0.734056,-0.668042,-0.121987}, .pattern=0x18c },
+{ .pos = {0.077672,-0.012729,-0.008828}, .dir={0.981566,-0.188915,-0.028963}, .pattern=0x199 },
+{ .pos = {0.079252,-0.012425,0.027945}, .dir={0.993057,-0.099980,-0.061984}, .pattern=0x1aa },
+{ .pos = {0.080678,-0.024862,0.053475}, .dir={0.947594,-0.225904,-0.225904}, .pattern=0x1b5 },
+{ .pos = {-0.029139,0.043728,0.057487}, .dir={-0.004975,0.999980,0.003998}, .pattern=0x1c0 },
+{ .pos = {-0.078382,0.029385,0.053600}, .dir={-0.871752,0.428856,-0.236921}, .pattern=0x1cf },
+{ .pos = {0.072131,0.030937,0.000022}, .dir={0.816019,0.577024,-0.033998}, .pattern=0x1d6 },
+{ .pos = {0.067042,0.037833,0.030095}, .dir={0.526908,0.847875,-0.058962}, .pattern=0x1e9 },
+{ .pos = {0.078260,0.029513,0.053292}, .dir={0.871752,0.428856,-0.236921}, .pattern=0x1f3 },
+{ .pos = {0.028896,0.043669,0.057676}, .dir={0.004975,0.999980,0.003998}, .pattern=0x1fc },
+{ .pos = {-0.067240,0.037555,0.029876}, .dir={-0.526908,0.847875,-0.058962}, .pattern=0x230 },
+{ .pos = {-0.072200,0.030241,0.000120}, .dir={-0.816019,0.577024,-0.033998}, .pattern=0x252 },
+{ .pos = {-0.041120,0.043276,0.023325}, .dir={-0.041995,0.999110,-0.003998}, .pattern=0x282 },
+{ .pos = {0.000159,0.043811,0.033423}, .dir={0.005982,0.999932,0.009980}, .pattern=0x285 },
+{ .pos = {0.041085,0.043260,0.023553}, .dir={0.041995,0.999110,-0.003998}, .pattern=0x29b },
+[II] HMD IPD 63.5 mm, as reported by the headset (note: this is its stored figure, not the live slider position)
+Opened Rift Sensor 0 w/ Serial WMTD306Q701DEK. Connecting to Radio address 0x11563cc989
+[II] camera width 1280 height 960
+[II] f = [ 716.935 716.935 ], c = [ 661.864 469.517 ]
+[II] k = [  0.070819 -0.023264  0.005108 -0.000523 ]
+[II] Calibration capture enabled -> /home/mia/git/rift-cv1-center/captures/lin/2026-07-30/move3fix.jsonl
+stream state: "connecting"
+stream state: "connecting"
+[II] Loaded pose for sensor WMTD306Q701DEK from room store: "pos" : [ 0.487753, 1.558727, -1.620581 ], "orient" : [ -0.073309, -0.090091, 0.992933, -0.024366 ]
+[II] Set sensor 0 pose to orient -0.073309 -0.090091 0.992933 -0.024366  pos 0.487753 1.558727 -1.620581
+stream state: "paused"
+stream state: "paused"
+Opened Rift Sensor 1 w/ Serial WMTD3052400VZL. Connecting to Radio address 0x11563cc989
+[II] camera width 1280 height 960
+[II] f = [ 716.734 716.734 ], c = [ 647.399 478.498 ]
+[II] k = [  0.071847 -0.025176  0.006398 -0.000817 ]
+stream state: "connecting"
+stream state: "connecting"
+[II] Loaded pose for sensor WMTD3052400VZL from room store: "pos" : [ -0.573807, 1.838731, -1.495749 ], "orient" : [ 0.120026, -0.145773, 0.982002, -0.003988 ]
+[II] Set sensor 1 pose to orient 0.120026 -0.145773 0.982002 -0.003988  pos -0.573807 1.838731 -1.495749
+Opened 2 Rift Sensor cameras
+stream state: "paused"
+stream state: "paused"
+UVC PTS changed in-frame at 16372 bytes. Lost 93 ms
+UVC Dropping short frame: 16372 < 1228800 (1212428 lost)
+Temperature: 33.6 °C
+UVC PTS changed in-frame at 16372 bytes. Lost 77 ms
+UVC Dropping short frame: 16372 < 1228800 (1212428 lost)
+Temperature: 32.0 °C
+[II] HMD device frame: IMU at [-0.0166 0.0345 0.0331] m; screen 0.1193 x 0.0663 m; lens separation 0.0540 m, v-centre 0.0308 m, eye-to-screen 0.0396/0.0396 m
+[II] HMD LED model spans z -0.0088..0.0744, y -0.0436..0.0438 m (34 LEDs, before the 180 deg model rotation)
+[II] Device 0 using OVR-SDK complementary fusion backend
+stream state: "connecting"
+device 0 online. Now tracking.
+resolution:              2160 x 1200
+hsize:                   0.119340 
+vsize:                   0.066300 
+lens separation:         0.054000 
+stream state: "paused"
+[WW] Exposure timestamp 2276025600 was more than 1.5 IMU samples earlier than IMU ts 2276034025 by 8425 µS
+lens vcenter:            0.030840 
+left eye fov:            1.379104 
+right eye fov:           1.379104 
+left eye aspect:         0.900000 
+right eye aspect:        0.900000 
+distortion k:            0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+control count:           9 
+controls:                button-y (digital), button-a (digital), button-x (digital), button-b (digital), generic (digital), volume-up (digital), volume-down (digital), menu (digital), home (digital)
+
+[II] output correction bleeding OFF - set OHMD_RIFT_BLEED=1 to restore
+rotation quat:           0.030499 0.998605 -0.043104 0.000016 
+position vec:            0.000000 0.000000 0.000000 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.030497 0.998605 -0.043098 0.000016 
+position vec:            0.000000 0.000000 0.000000 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.030486 0.998606 -0.043095 0.000012 
+position vec:            0.000000 0.000000 0.000000 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.030475 0.998607 -0.043067 0.000011 
+position vec:            0.000000 0.000000 0.000000 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           -0.030466 -0.998608 0.043059 0.000000 
+position vec:            0.000000 0.000000 0.000000 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.030477 0.998608 -0.043059 0.000001 
+position vec:            0.000000 0.000000 0.000000 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           -0.030478 -0.998608 0.043050 0.000006 
+position vec:            0.000000 0.000000 0.000000 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.030501 0.998607 -0.043049 0.000006 
+position vec:            0.000000 0.000000 0.000000 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.030519 0.998607 -0.043051 0.000016 
+position vec:            0.000000 0.000000 0.000000 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.030534 0.998606 -0.043052 0.000022 
+position vec:            0.000000 0.000000 0.000000 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+[II] calib feed: 1 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 1 obs, 0 paired, history 0 over 0 viewpoints, 0 solves, residual -1.00 px, uncalibrated
+[WW] Device 0: late pose time 4121.507 ms from WMTD306Q701DEK (1 so far, worst 4121.507 ms)
+[II] Forcing orientation observation
+rotation quat:           0.045814 0.834144 -0.021746 0.549210 
+position vec:            0.141722 0.094963 0.097331 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.050092 0.726737 -0.011668 0.684987 
+position vec:            0.184604 0.123729 0.126798 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.051667 0.678437 -0.007326 0.732803 
+position vec:            0.201621 0.135186 0.138492 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.052133 0.662684 -0.005934 0.747059 
+position vec:            0.206982 0.138848 0.142171 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.052272 0.657184 -0.005458 0.751896 
+position vec:            0.208850 0.140193 0.143444 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.052289 0.655274 -0.005305 0.753561 
+position vec:            0.209514 0.140753 0.143883 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.052263 0.654617 -0.005259 0.754134 
+position vec:            0.209765 0.141059 0.144033 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+[II] Forcing orientation observation
+rotation quat:           0.052028 0.502848 0.004336 0.862797 
+position vec:            0.221794 0.141378 0.135048 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+[II] Matched orientation after 0.003050 sec
+[II] Device 0: joint reconstruction 1 solved, 0 rejected, 3 single-camera (0 observations arrived too late to count)
+rotation quat:           0.050453 0.360608 0.012445 0.931269 
+position vec:            0.287770 0.179897 0.167337 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+[II] Ignoring position observation with error 0.150134 0.080459 0.071466 (prior stddev was 0.100000 0.100000 0.100000)
+
+rotation quat:           0.049598 0.309425 0.015251 0.949507 
+position vec:            0.313139 0.195015 0.179944 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+[II] sensor WMTD3052400VZL calibration SETTLED
+rotation quat:           0.049087 0.291552 0.016152 0.955158 
+position vec:            0.324354 0.201964 0.185692 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.048721 0.285349 0.016405 0.957044 
+position vec:            0.330573 0.206029 0.189020 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.048377 0.283132 0.016431 0.957719 
+position vec:            0.335315 0.209292 0.191661 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.048117 0.282465 0.016384 0.957930 
+position vec:            0.338602 0.211626 0.193533 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.047804 0.282208 0.016298 0.958023 
+position vec:            0.342185 0.214224 0.195615 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.047537 0.282131 0.016225 0.958060 
+position vec:            0.344936 0.216248 0.197231 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.047211 0.282119 0.016122 0.958082 
+position vec:            0.348056 0.218573 0.199090 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.046957 0.282116 0.016039 0.958096 
+position vec:            0.350483 0.220404 0.200547 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.046622 0.282133 0.015940 0.958109 
+position vec:            0.353240 0.222507 0.202230 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.046352 0.282138 0.015864 0.958122 
+position vec:            0.355370 0.224149 0.203545 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.046045 0.282143 0.015762 0.958137 
+position vec:            0.357781 0.226034 0.205057 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.045738 0.282144 0.015657 0.958153 
+position vec:            0.359999 0.227790 0.206475 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.045477 0.282139 0.015576 0.958169 
+position vec:            0.361691 0.229147 0.207568 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.045170 0.282139 0.015484 0.958184 
+position vec:            0.363602 0.230699 0.208825 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.044917 0.282146 0.015406 0.958196 
+position vec:            0.365049 0.231888 0.209790 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.044594 0.282153 0.015300 0.958210 
+position vec:            0.366643 0.233212 0.210889 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.044331 0.282163 0.015214 0.958221 
+position vec:            0.367851 0.234236 0.211726 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.044046 0.282171 0.015115 0.958233 
+position vec:            0.369054 0.235269 0.212588 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.043747 0.282174 0.015007 0.958248 
+position vec:            0.370277 0.236339 0.213476 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.043506 0.282170 0.014922 0.958261 
+position vec:            0.371104 0.237078 0.214114 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.043227 0.282176 0.014849 0.958273 
+position vec:            0.371979 0.237886 0.214787 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.042955 0.282180 0.014763 0.958286 
+position vec:            0.372674 0.238544 0.215365 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.042676 0.282186 0.014669 0.958298 
+position vec:            0.373311 0.239168 0.215904 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.042402 0.282189 0.014583 0.958310 
+position vec:            0.373792 0.239651 0.216366 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.042140 0.282208 0.014497 0.958318 
+position vec:            0.374198 0.240082 0.216780 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.041878 0.282211 0.014404 0.958330 
+position vec:            0.374488 0.240419 0.217130 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.041604 0.282206 0.014326 0.958344 
+position vec:            0.374745 0.240742 0.217448 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.041322 0.282212 0.014234 0.958356 
+position vec:            0.374901 0.240980 0.217706 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.041055 0.282215 0.014148 0.958368 
+position vec:            0.374995 0.241174 0.217916 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.040784 0.282221 0.014075 0.958379 
+position vec:            0.375007 0.241300 0.218072 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.040516 0.282232 0.013988 0.958388 
+position vec:            0.374960 0.241379 0.218183 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.040197 0.282235 0.013896 0.958402 
+position vec:            0.374840 0.241404 0.218252 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.039957 0.282244 0.013817 0.958411 
+position vec:            0.374685 0.241368 0.218268 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.039682 0.282251 0.013721 0.958421 
+position vec:            0.374466 0.241306 0.218254 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.039426 0.282256 0.013626 0.958432 
+position vec:            0.374213 0.241199 0.218198 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.039156 0.282269 0.013546 0.958440 
+position vec:            0.373947 0.241086 0.218113 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.038911 0.282267 0.013467 0.958452 
+position vec:            0.373630 0.240920 0.217988 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.038664 0.282274 0.013383 0.958461 
+position vec:            0.373307 0.240753 0.217841 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.038430 0.282282 0.013287 0.958469 
+position vec:            0.372924 0.240513 0.217657 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.038191 0.282281 0.013199 0.958480 
+position vec:            0.372555 0.240289 0.217457 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.037940 0.282275 0.013122 0.958493 
+position vec:            0.372136 0.239993 0.217222 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.037689 0.282281 0.013026 0.958503 
+position vec:            0.371725 0.239712 0.216975 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.037443 0.282280 0.012936 0.958514 
+position vec:            0.371276 0.239383 0.216695 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.037202 0.282271 0.012850 0.958527 
+position vec:            0.370797 0.239048 0.216366 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.036996 0.282264 0.012799 0.958538 
+position vec:            0.370383 0.238743 0.216075 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.036725 0.282259 0.012708 0.958551 
+position vec:            0.369880 0.238373 0.215707 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.036505 0.282252 0.012630 0.958562 
+position vec:            0.369456 0.238054 0.215387 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.036213 0.282257 0.012525 0.958573 
+position vec:            0.368955 0.237682 0.214986 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.035978 0.282266 0.012450 0.958581 
+position vec:            0.368539 0.237364 0.214642 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.035717 0.282260 0.012363 0.958593 
+position vec:            0.368044 0.236988 0.214209 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.035488 0.282268 0.012285 0.958600 
+position vec:            0.367590 0.236630 0.213807 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.035254 0.282269 0.012222 0.958609 
+position vec:            0.367139 0.236261 0.213399 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.035020 0.282279 0.012164 0.958616 
+position vec:            0.366697 0.235895 0.212982 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+[II] sensor WMTD3052400VZL: adopted calibration from 30 poses over 1 viewpoints (stored: 1), residual 0.79 px (estimated)
+[II] sensor WMTD3052400VZL: the stored calibration left 0.38 px; moving the sensor 18.5 mm / 0.43 deg
+[II] Set sensor 1 pose to orient 0.117434 -0.143174 0.982699 -0.003741  pos -0.564388 1.830980 -1.509654
+rotation quat:           0.034778 0.282274 0.012089 0.958627 
+position vec:            0.362605 0.229845 0.211652 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.034560 0.282273 0.012019 0.958636 
+position vec:            0.361277 0.228113 0.210975 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.034333 0.282283 0.011949 0.958642 
+position vec:            0.360898 0.227851 0.210523 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.034107 0.282284 0.011868 0.958651 
+position vec:            0.360844 0.228096 0.210138 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+[II] sensor WMTD3052400VZL: re-solved calibration from 32 poses over 1 viewpoints (stored: 1), residual 0.26 px (estimated)
+[II] sensor WMTD3052400VZL: its previous calibration left 0.79 px; moving the sensor 17.1 mm / 0.39 deg
+[II] Set sensor 1 pose to orient 0.120192 -0.145146 0.982075 -0.003947  pos -0.574467 1.835850 -1.496686
+rotation quat:           0.033880 0.282289 0.011793 0.958658 
+position vec:            0.360638 0.226917 0.210905 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.033663 0.282297 0.011713 0.958665 
+position vec:            0.360666 0.226938 0.210877 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.033403 0.282300 0.011633 0.958674 
+position vec:            0.360772 0.227371 0.210552 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+[II] sensor WMTD3052400VZL calibration SETTLED
+rotation quat:           0.033170 0.282300 0.011560 0.958683 
+position vec:            0.360894 0.227901 0.210149 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.032977 0.282299 0.011501 0.958690 
+position vec:            0.361000 0.228368 0.209769 
+controls state:          0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+rotation quat:           0.032740 0.282298 0.011424 0.958700 
+position vec:            0.361128 0.228943 0.209277 
+controls state:      
