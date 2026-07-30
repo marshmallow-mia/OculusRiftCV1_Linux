@@ -962,6 +962,51 @@ recentre covers the comfort side.
 The decision itself now lives in `rift_cam_calib_decide()`, which is pure and
 therefore testable — the livelock hid inside the side-effecting version of it.
 
+### THE STEREO BASELINE WAS NEVER THE HEADSET'S (2026-07-30)
+
+Reported symptom: tracking works and the image never vibrates, but movement
+"translates weirdly", "not 100% accurate". The session it came from was
+healthy — 8701 joint solves against 2 rejected, 300/300 strong + LED-ID, 0
+missed exposures, 0.252 px joint worst-camera, 100 % inside the 2 px bar, and a
+*smoother* frame-to-frame step than the session that felt fine (0.556 mm vs
+2.709 mm). So the pose was not the problem, which is what "systematic, never
+jitters" already implied.
+
+`ohmd_set_default_device_properties()` sets `props->ipd = 0.061f` as a
+universal default and the Rift driver never replaced it. **Every CV1 rendered
+its stereo pair at 61 mm regardless of the hardware IPD slider.** This headset
+reports 63.5 mm; the slider spans roughly 58–72 mm, so the error reaches ~11 mm
+at the ends.
+
+The value was present the whole time. The `REV_CV1` case already carried:
+
+```c
+/* CV1 reports IPD, but not lens center, ... so use the manually measured value of 0.054 */
+priv->display_info.lens_separation = 0.054;
+```
+
+— the field was *known* to hold the IPD, and was then overwritten with the lens
+centre spacing the distortion mesh needs, discarding it. Nothing noticed,
+because nothing read `ipd`. It is now taken out before the overwrite, which
+still happens, so the distortion maths is unchanged.
+
+A stereo baseline that disagrees with the wearer's eyes puts every disparity
+slightly wrong — the world sits at the wrong scale and head movement produces
+parallax that does not match it. Purely geometric, so it never jitters. That is
+exactly why it survived a project's worth of tracking work: **every measurement
+we take is of the pose, and the pose was never wrong.**
+
+#### A hypothesis that did not survive contact with the data
+
+The first suspect was the render pivot: `driver_openhmd.cpp` has no
+`GetEyeToHeadTransform()` and leaves `vecDriverFromHeadTranslation` at zero, so
+SteamVR places both eyes exactly on OpenHMD's tracked origin. Measured from the
+LED model in the capture, though, that origin sits **74 mm behind the visor
+face** — about where a CV1 wearer's eye actually is, with `eye_to_screen`
+reported as 39.6 mm. Oculus evidently defines the config frame at the eye plane
+precisely so the tracked pose *is* the head pose, and zero is approximately
+right. Dropped.
+
 #### Getting a picture at all: two bugs of ours, not the kernel's
 
 Neither was visible from tracking work, because tracking never touches video.

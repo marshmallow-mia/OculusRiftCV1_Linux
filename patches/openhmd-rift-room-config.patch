@@ -5583,7 +5583,7 @@ index 04ca128..6fa6461 100644
 +
  #endif
 diff --git a/src/drv_oculus_rift/rift.c b/src/drv_oculus_rift/rift.c
-index a802e93..31ae22e 100644
+index a802e93..d9a2a6f 100644
 --- a/src/drv_oculus_rift/rift.c
 +++ b/src/drv_oculus_rift/rift.c
 @@ -209,6 +209,103 @@ static void set_coordinate_frame(rift_hmd_t* priv, rift_coordinate_frame coordfr
@@ -6027,7 +6027,89 @@ index a802e93..31ae22e 100644
  		rift_send_tracking_config (priv, false, RIFT_TRACKING_EXPOSURE_US_CV1,
  				RIFT_TRACKING_PERIOD_US_CV1);
  
-@@ -1443,7 +1734,19 @@ static void get_device_list(ohmd_driver* driver, ohmd_device_list* list)
+@@ -1202,6 +1493,7 @@ static rift_hmd_t *open_hmd(ohmd_driver* driver, ohmd_device_desc* desc)
+ 	hmd_dev->base.properties.vres = priv->display_info.v_resolution;
+ 	hmd_dev->base.properties.lens_sep = priv->display_info.lens_separation;
+ 	hmd_dev->base.properties.lens_vpos = priv->display_info.v_center;
++
+ 	hmd_dev->base.properties.ratio = ((float)priv->display_info.h_resolution / (float)priv->display_info.v_resolution) / 2.0f;
+ 
+ 	if (desc->revision == REV_CV1) {
+@@ -1246,8 +1538,39 @@ static rift_hmd_t *open_hmd(ohmd_driver* driver, ohmd_device_desc* desc)
+ 			ohmd_set_universal_distortion_k(&(hmd_dev->base.properties), 0.269, -0.25, 0.178, 0.803);
+ 			ohmd_set_universal_aberration_k(&(hmd_dev->base.properties), 0.9992107, 1.0, 1.0120361);
+ 			/* CV1 reports IPD, but not lens center, at least not anywhere I could find, so use the manually measured value of 0.054 */
++
++			/* Take the IPD out of that field BEFORE overwriting it. As the
++			 * comment above says, on CV1 this reports the IPD - the position
++			 * of the hardware slider - and not the lens centre separation.
++			 * Nothing was reading it, because ipd stayed at the universal
++			 * 0.061 default from ohmd_set_default_device_properties(), so
++			 * every CV1 rendered its stereo pair at 61 mm wherever the slider
++			 * actually was. This one reports 63.5 mm; the slider spans about
++			 * 58-72 mm, so the error reaches ~11 mm at the ends.
++			 *
++			 * A stereo baseline that disagrees with the wearer's eyes puts
++			 * every disparity slightly wrong - the world sits at the wrong
++			 * scale and head movement produces parallax that does not match
++			 * it - and because it is purely geometric it never jitters, which
++			 * is what makes it so hard to name. */
++			if (priv->display_info.lens_separation > 0.050f &&
++			    priv->display_info.lens_separation < 0.085f) {
++				hmd_dev->base.properties.ipd = priv->display_info.lens_separation;
++				LOGI("HMD IPD %.1f mm, from the headset's own slider position",
++					priv->display_info.lens_separation * 1000.0f);
++			} else {
++				LOGW("HMD reported an implausible IPD of %.4f m - keeping the "
++					"default %.1f mm. Stereo will be rendered at the wrong "
++					"separation if that is not your IPD.",
++					priv->display_info.lens_separation,
++					hmd_dev->base.properties.ipd * 1000.0f);
++			}
++
++			/* and only now replace it with the measured lens centre spacing,
++			 * which is what the distortion mesh below needs */
+ 			priv->display_info.lens_separation = 0.054;
+ 			hmd_dev->base.properties.lens_sep = priv->display_info.lens_separation;
++			break;
+ 		default:
+ 			break;
+ 	}
+@@ -1303,6 +1626,33 @@ static rift_hmd_t *open_hmd(ohmd_driver* driver, ohmd_device_desc* desc)
+ 		imu_calibration.accel_matrix[i] = priv->imu_calibration.accel_matrix[i/3][i%3];
+ 		imu_calibration.gyro_matrix[i] = priv->imu_calibration.gyro_matrix[i/3][i%3];
+ 	}
++	/* The frame everything below is expressed in, reported once because it is
++	 * otherwise invisible (the packet dumps are LOGD, compiled out by default)
++	 * and because the pose handed to a VR runtime is in THIS frame - so where
++	 * its origin sits relative to the wearer's eyes decides what the rendered
++	 * view pivots about. */
++	LOGI("HMD device frame: IMU at [%.4f %.4f %.4f] m; screen %.4f x %.4f m; "
++		"lens separation %.4f m, v-centre %.4f m, eye-to-screen %.4f/%.4f m",
++		priv->imu.pos.x, priv->imu.pos.y, priv->imu.pos.z,
++		priv->display_info.h_screen_size, priv->display_info.v_screen_size,
++		priv->display_info.lens_separation, priv->display_info.v_center,
++		priv->display_info.eye_to_screen_distance[0],
++		priv->display_info.eye_to_screen_distance[1]);
++	{
++		int li;
++		float zmin = 1e9f, zmax = -1e9f, ymin = 1e9f, ymax = -1e9f;
++		for (li = 0; li < priv->leds.num_points; li++) {
++			vec3f *p = &priv->leds.points[li].pos;
++			if (p->z < zmin) zmin = p->z;
++			if (p->z > zmax) zmax = p->z;
++			if (p->y < ymin) ymin = p->y;
++			if (p->y > ymax) ymax = p->y;
++		}
++		LOGI("HMD LED model spans z %.4f..%.4f, y %.4f..%.4f m (%d LEDs, before "
++			"the 180 deg model rotation)", zmin, zmax, ymin, ymax,
++			priv->leds.num_points);
++	}
++
+ 	priv->tracked_dev = rift_tracker_add_device (priv->tracker_ctx, 0, &imu_pose, &model_pose, &priv->leds, &imu_calibration);
+ 
+ 	return priv;
+@@ -1443,7 +1793,19 @@ static void get_device_list(ohmd_driver* driver, ohmd_device_list* list)
  				desc->revision = rd[i].rev;
  		
  				desc->device_class = OHMD_DEVICE_CLASS_HMD;
