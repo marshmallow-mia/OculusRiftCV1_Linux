@@ -726,4 +726,67 @@ stream state: "paused"
 [II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.94 min -4.13 max 1.49 ms
 [II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
 [II] Device 0: joint reconstruction 15001 solved, 4 rejected, 15617 single-camera (0 observations arrived too late to count)
-[WW] Exposure timestamp 1197419008 was more than 1.5 IMU sam
+[WW] Exposure timestamp 1197419008 was more than 1.5 IMU samples earlier than IMU ts 1197420929 by 1921 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.90 min -3.39 max 1.67 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.87 min -4.64 max 1.75 ms
+[WW] Exposure timestamp 1200337408 was more than 1.5 IMU samples earlier than IMU ts 1200339033 by 1625 µS
+[WW] Exposure timestamp 1202180608 was more than 1.5 IMU samples earlier than IMU ts 1202182286 by 1678 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 15301 solved, 4 rejected, 15917 single-camera (0 observations arrived too late to count)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.90 min -3.84 max 1.52 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 1205540608 was more than 1.5 IMU samples earlier than IMU ts 1205542218 by 1610 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.90 min -4.54 max 1.80 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 15601 solved, 4 rejected, 16217 single-camera (0 observations arrived too late to count)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.90 min -3.66 max 1.36 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.94 min -3.89 max 1.70 ms
+[WW] Exposure timestamp 1212932608 was more than 1.5 IMU samples earlier than IMU ts 1212934272 by 1664 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 15901 solved, 4 rejected, 16517 single-camera (0 observations arrived too late to count)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.86 min -4.70 max 1.83 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.86 min -4.08 max 1.69 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 16201 solved, 4 rejected, 16817 single-camera (0 observations arrived too late to count)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.84 min -4.06 max 1.33 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.86 min -3.79 max 1.57 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 16501 solved, 4 rejected, 17117 single-camera (0 observations arrived too late to count)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.93 min -3.96 max 1.65 ms
+[WW] Exposure timestamp 1228081408 was more than 1.5 IMU samples earlier than IMU ts 1228083042 by 1634 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.92 min -3.95 max 1.57 ms
+[WW] Exposure timestamp 1229137408 was more than 1.5 IMU samples earlier than IMU ts 1229138909 by 1501 µS
+[WW] Exposure timestamp 1229233408 was more than 1.5 IMU samples earlier than IMU ts 1229235079 by 1671 µS
+[WW] Exposure timestamp 1229713408 was more than 1.5 IMU samples earlier than IMU ts 1229714928 by 1520 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 16801 solved, 4 rejected, 17417 single-camera (0 observations arrived too late to count)
+[WW] Exposure timestamp 1232593408 was more than 1.5 IMU samples earlier than IMU ts 1232595020 by 1612 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.90 min -3.45 max 1.56 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.84 min -3.64 max 1.67 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 17101 solved, 4 rejected, 17717 single-camera (0 observations arrived too late to count)
+[WW] Exposure timestamp 1237911808 was more than 1.5 IMU samples earlier than IMU ts 1237913427 by 1619 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.89 min -3.81 max 1.56 ms
+[WW] Exposure timestamp 1240081408 was more than 1.5 IMU samples earlier than IMU ts 1240083266 by 1858 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.95 min -4.27 max 1.51 ms
+[WW] Exposure timestamp 1241367808 was more than 1.5 IMU samples earlier than IMU ts 1241369542 by 1734 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 17401 solved, 4 rejected, 18017 single-camera (0 observations arrived too late to count)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.89 min -4.57 max 1.63 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.91 min -3.83 max 1.77 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 17701 solved, 4 rejected, 18317 single-camera (0 observations arrived too late to count)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.93 min -3.58 max 1.26 ms
+stream state: "unconnected"
+stream state: "unconnected"
+stream state: "unconnected"
+stream state: "unconnected"
+stream state: "unconnected"
