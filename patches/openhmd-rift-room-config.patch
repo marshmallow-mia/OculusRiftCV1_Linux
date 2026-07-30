@@ -308,10 +308,10 @@ index 0483dd2..bd891c1 100644
  
 diff --git a/src/drv_oculus_rift/rift-cam-calib.c b/src/drv_oculus_rift/rift-cam-calib.c
 new file mode 100644
-index 0000000..deafc52
+index 0000000..0e6f98d
 --- /dev/null
 +++ b/src/drv_oculus_rift/rift-cam-calib.c
-@@ -0,0 +1,385 @@
+@@ -0,0 +1,463 @@
 +/*
 + * Automatic camera extrinsic calibration - see rift-cam-calib.h
 + *
@@ -579,17 +579,31 @@ index 0000000..deafc52
 +		idx = c->n_hist++;
 +	} else {
 +		uint16_t fullest = 0, i, victim = 0;
++		uint32_t oldest = 0;
++		bool have_victim = false;
 +
 +		for (i = 0; i < RIFT_CAM_CALIB_BINS; i++) {
 +			if (c->bin_count[i] > c->bin_count[fullest])
 +				fullest = i;
 +		}
++		/* The OLDEST entry of that bucket, not the lowest-indexed one.
++		 * Taking the first match by index means a freshly written sample -
++		 * which lands in whichever low slot was just freed - is the first
++		 * thing found next time and is immediately evicted again, so the
++		 * window never turns over: measured 191 of 192 entries still stale
++		 * after 1100 newer samples, leaving the calibration unable to follow
++		 * a sensor that moved while running. */
 +		for (i = 0; i < c->n_hist; i++) {
-+			if (c->hist[i].bin == fullest) {
++			if (c->hist[i].bin != fullest)
++				continue;
++			if (!have_victim || c->hist[i].seq < oldest) {
++				oldest = c->hist[i].seq;
 +				victim = i;
-+				break;
++				have_victim = true;
 +			}
 +		}
++		if (!have_victim)
++			return;
 +		c->bin_count[fullest]--;
 +		idx = victim;
 +	}
@@ -597,6 +611,7 @@ index 0000000..deafc52
 +	c->hist[idx].obj_cam_ref = *ref;
 +	c->hist[idx].obj_cam_other = *other;
 +	c->hist[idx].bin = bin;
++	c->hist[idx].seq = c->seq++;
 +	if (c->bin_count[bin] == 0)
 +		c->bins_seen++;
 +	c->bin_count[bin]++;
@@ -692,6 +707,69 @@ index 0000000..deafc52
 +	return true;
 +}
 +
++rift_cam_calib_action rift_cam_calib_decide(const rift_cam_calib *c,
++	const posef *rel_in_use, bool adopted, bool recovering,
++	int stored_viewpoints, float *out_r_in_use, float *out_r_est)
++{
++	posef rel;
++	float r_in_use = -1.0f, r_est = -1.0f;
++
++	if (c->n_hist >= RIFT_CAM_CALIB_MIN_SAMPLES && rift_cam_calib_get(c, &rel)) {
++		r_est = rift_cam_calib_residual_px(c, &rel);
++		if (rel_in_use != NULL)
++			r_in_use = rift_cam_calib_residual_px(c, rel_in_use);
++	}
++	if (out_r_in_use != NULL)
++		*out_r_in_use = r_in_use;
++	if (out_r_est != NULL)
++		*out_r_est = r_est;
++
++	if (r_est < 0.0f)
++		return RIFT_CAM_CALIB_WAIT;
++
++	/* Nothing to weigh against: the sensor has no pose at all, so any estimate
++	 * beats none. */
++	if (rel_in_use == NULL)
++		return RIFT_CAM_CALIB_ADOPT;
++
++	/* Recovering from a move the caller has already acted on. The history was
++	 * rebuilt from observations taken AFTER it, so the two tests below are not
++	 * merely unnecessary here, they are actively wrong:
++	 *
++	 *  - camera-moved would compare the fresh history against the same stale
++	 *    pose that triggered the reset, exceed the threshold again, and reset
++	 *    again - forever, at roughly one reset per MIN_SAMPLES exposures. The
++	 *    sensor would keep its wrong pose and never be corrected.
++	 *  - the viewpoint guard would weigh the rebuilt history against a stored
++	 *    viewpoint count describing geometry that no longer exists.
++	 */
++	if (recovering)
++		return RIFT_CAM_CALIB_ADOPT;
++
++	/* A pose that cannot describe the observed history AT ALL means the camera
++	 * itself moved, not that the headset did - the two differ by ~600x in this
++	 * measure. The history straddles the move, so it is worthless. */
++	if (rift_cam_calib_camera_moved(c, rel_in_use))
++		return RIFT_CAM_CALIB_RESET;
++
++	/* A calibration fitted over MORE viewpoints must not be replaced by one
++	 * fitted over fewer, however good the newcomer looks. It looks good
++	 * precisely because it is scored against the narrow history it came from:
++	 * measured over three real headset positions, a one-viewpoint fit scores
++	 * 0.2-0.6 px at its own spot and 2.3-3.8 px at the others, while the
++	 * three-viewpoint fit stays under 2 px everywhere. */
++	if ((int) c->bins_seen < stored_viewpoints)
++		return RIFT_CAM_CALIB_KEEP;
++
++	/* Otherwise only replace it for a real improvement, on the runtime's own
++	 * 15% bar. Setting the headset down somewhere new does not clear this,
++	 * which is the point. */
++	if (adopted && !(r_est < r_in_use * RIFT_CAM_CALIB_IMPROVE_GATE))
++		return RIFT_CAM_CALIB_KEEP;
++
++	return RIFT_CAM_CALIB_ADOPT;
++}
++
 +void rift_cam_calib_to_world(const posef *ref_world, const posef *rel,
 +	posef *out_world)
 +{
@@ -699,10 +777,10 @@ index 0000000..deafc52
 +}
 diff --git a/src/drv_oculus_rift/rift-cam-calib.h b/src/drv_oculus_rift/rift-cam-calib.h
 new file mode 100644
-index 0000000..6695ebd
+index 0000000..56a9536
 --- /dev/null
 +++ b/src/drv_oculus_rift/rift-cam-calib.h
-@@ -0,0 +1,187 @@
+@@ -0,0 +1,214 @@
 +/*
 + * Automatic camera extrinsic calibration for the Rift constellation tracker.
 + *
@@ -828,6 +906,7 @@ index 0000000..6695ebd
 +	posef obj_cam_ref;    /* device pose in the reference camera's frame */
 +	posef obj_cam_other;  /* the same exposure, in this camera's frame */
 +	uint16_t bin;         /* viewpoint bucket, for stratified eviction */
++	uint32_t seq;         /* arrival order, so eviction can take the oldest */
 +} rift_cam_calib_sample;
 +
 +typedef struct {
@@ -844,6 +923,8 @@ index 0000000..6695ebd
 +	uint16_t n_hist;
 +	uint16_t bin_count[RIFT_CAM_CALIB_BINS];
 +	uint16_t bins_seen;      /* distinct viewpoint buckets represented */
++
++	uint32_t seq;            /* monotonic sample counter for eviction order */
 +
 +	uint32_t n_seen;         /* co-observed exposures ever fed in */
 +	uint32_t n_solves;
@@ -883,6 +964,30 @@ index 0000000..6695ebd
 +/* Throw away the accumulated history ("Invalid calibration: resetting
 + * history"). */
 +void rift_cam_calib_reset(rift_cam_calib *c);
++
++typedef enum {
++	RIFT_CAM_CALIB_WAIT = 0,  /* not enough history to say anything */
++	RIFT_CAM_CALIB_KEEP,      /* what is in use is fine, or better conditioned */
++	RIFT_CAM_CALIB_RESET,     /* the camera moved - drop history and recover */
++	RIFT_CAM_CALIB_ADOPT,     /* take the current estimate */
++} rift_cam_calib_action;
++
++/* What to do about the calibration currently in use. Pure: it changes nothing,
++ * so the whole policy can be tested without a tracker or hardware -- which is
++ * the point, because the livelock this exists to prevent hid inside the
++ * side-effecting version of it.
++ *
++ *   rel_in_use   what the sensor poses in use imply, or NULL if the sensor has
++ *                no pose yet (then there is nothing to weigh against)
++ *   adopted      whether this session has already adopted an estimate
++ *   recovering   set after a RESET, until the next ADOPT
++ *   stored_viewpoints  viewpoint count recorded with the stored calibration
++ *
++ * out_r_in_use / out_r_est receive the two residuals in pixels (-1 when not
++ * applicable); either may be NULL. */
++rift_cam_calib_action rift_cam_calib_decide(const rift_cam_calib *c,
++	const posef *rel_in_use, bool adopted, bool recovering,
++	int stored_viewpoints, float *out_r_in_use, float *out_r_est);
 +
 +/* Compose a camera's world pose from the reference camera's world pose and a
 + * relative pose. */
@@ -3536,7 +3641,7 @@ index 0000000..dad6d40
 +
 +#endif
 diff --git a/src/drv_oculus_rift/rift-tracker.c b/src/drv_oculus_rift/rift-tracker.c
-index ad297a1..2bf6a1e 100644
+index ad297a1..6d03006 100644
 --- a/src/drv_oculus_rift/rift-tracker.c
 +++ b/src/drv_oculus_rift/rift-tracker.c
 @@ -15,17 +15,24 @@
@@ -3705,7 +3810,7 @@ index ad297a1..2bf6a1e 100644
  	int num_pending_imu_observations;
  	rift_tracked_device_imu_observation pending_imu_observations[RIFT_MAX_PENDING_IMU_OBSERVATIONS];
  
-@@ -148,12 +219,68 @@ struct rift_tracked_device_priv {
+@@ -148,12 +219,71 @@ struct rift_tracked_device_priv {
  	FILE *debug_file;
  };
  
@@ -3769,12 +3874,15 @@ index ad297a1..2bf6a1e 100644
 +	int calib_exp_next;
 +	rift_cam_calib cam_calib[RIFT_MAX_SENSORS];
 +	bool cam_calib_adopted[RIFT_MAX_SENSORS];
++	/* set when a camera move was detected and the history dropped; cleared
++	 * once the rebuilt estimate has been adopted */
++	bool cam_calib_recovering[RIFT_MAX_SENSORS];
 +	uint32_t cam_calib_pairs;
 +
  	ohmd_thread* usb_thread;
  	int usb_completed;
  
-@@ -161,17 +288,291 @@ struct rift_tracker_ctx_s
+@@ -161,17 +291,291 @@ struct rift_tracker_ctx_s
  	int exposure_history_size;
  	rift_tracker_exposure_info exposure_history[NUM_EXPOSURE_HISTORY];
  
@@ -4068,7 +4176,7 @@ index ad297a1..2bf6a1e 100644
  static int rift_tracked_device_exposure_claim(rift_tracked_device_priv *dev, rift_tracked_device_exposure_info *dev_info);
  static void rift_tracked_device_exposure_release_locked(rift_tracked_device_priv *dev, rift_tracked_device_exposure_info *dev_info);
  
-@@ -194,12 +595,19 @@ rift_tracker_add_device (rift_tracker_ctx *ctx, int device_id, posef *imu_pose,
+@@ -194,12 +598,19 @@ rift_tracker_add_device (rift_tracker_ctx *ctx, int device_id, posef *imu_pose,
  	next_dev = ctx->devices + ctx->n_devices;
  
  	next_dev->base.id = device_id;
@@ -4088,7 +4196,7 @@ index ad297a1..2bf6a1e 100644
  	/* Init delay slot bookkeeping */
  	for (s = 0; s < next_dev->n_delay_slots; s++) {
  		rift_tracker_pose_delay_slot *slot = next_dev->delay_slots + s;
-@@ -238,6 +646,15 @@ rift_tracker_add_device (rift_tracker_ctx *ctx, int device_id, posef *imu_pose,
+@@ -238,6 +649,15 @@ rift_tracker_add_device (rift_tracker_ctx *ctx, int device_id, posef *imu_pose,
  
  	next_dev->base.leds = leds;
  	next_dev->base.led_search = led_search_model_new (leds);
@@ -4104,7 +4212,7 @@ index ad297a1..2bf6a1e 100644
  	ctx->n_devices++;
  	ohmd_unlock_mutex (ctx->tracker_lock);
  
-@@ -276,10 +693,19 @@ rift_tracker_new (ohmd_context* ohmd_ctx,
+@@ -276,10 +696,19 @@ rift_tracker_new (ohmd_context* ohmd_ctx,
  	rift_tracker_ctx *tracker_ctx = NULL;
  	int ret, i;
  	libusb_device **devs;
@@ -4124,7 +4232,7 @@ index ad297a1..2bf6a1e 100644
  
  	for (i = 0; i < RIFT_MAX_TRACKED_DEVICES; i++) {
  		rift_tracked_device_priv *dev = tracker_ctx->devices + i;
-@@ -300,7 +726,7 @@ rift_tracker_new (ohmd_context* ohmd_ctx,
+@@ -300,7 +729,7 @@ rift_tracker_new (ohmd_context* ohmd_ctx,
  	for (i = 0; devs[i]; ++i) {
  		struct libusb_device_descriptor desc;
  		libusb_device_handle *usb_devh;
@@ -4133,7 +4241,7 @@ index ad297a1..2bf6a1e 100644
  
  		ret = libusb_get_device_descriptor(devs[i], &desc);
  		if (ret < 0)
-@@ -315,7 +741,7 @@ rift_tracker_new (ohmd_context* ohmd_ctx,
+@@ -315,7 +744,7 @@ rift_tracker_new (ohmd_context* ohmd_ctx,
  		}
  
  		sprintf ((char *) serial, "UNKNOWN");
@@ -4142,7 +4250,7 @@ index ad297a1..2bf6a1e 100644
  
  		if (desc.iSerialNumber) {
  			ret = libusb_get_string_descriptor_ascii(usb_devh, desc.iSerialNumber, serial, 32);
-@@ -336,10 +762,25 @@ rift_tracker_new (ohmd_context* ohmd_ctx,
+@@ -336,10 +765,25 @@ rift_tracker_new (ohmd_context* ohmd_ctx,
  			continue;
  		}
  
@@ -4170,7 +4278,7 @@ index ad297a1..2bf6a1e 100644
  			break;
  		}
  	}
-@@ -406,6 +847,23 @@ void rift_tracker_on_new_exposure (rift_tracker_ctx *ctx, uint32_t hmd_ts, uint1
+@@ -406,6 +850,23 @@ void rift_tracker_on_new_exposure (rift_tracker_ctx *ctx, uint32_t hmd_ts, uint1
  
  	uint64_t now = ohmd_monotonic_get(ctx->ohmd_ctx);
  
@@ -4194,7 +4302,7 @@ index ad297a1..2bf6a1e 100644
  	info->local_ts = now;
  	info->count = exposure_count;
  	info->hmd_ts = exposure_hmd_ts;
-@@ -428,7 +886,7 @@ void rift_tracker_on_new_exposure (rift_tracker_ctx *ctx, uint32_t hmd_ts, uint1
+@@ -428,7 +889,7 @@ void rift_tracker_on_new_exposure (rift_tracker_ctx *ctx, uint32_t hmd_ts, uint1
  		dev_info->device_index = dev->index;
  
  		ohmd_lock_mutex (dev->device_lock);
@@ -4203,7 +4311,7 @@ index ad297a1..2bf6a1e 100644
  
  		rift_tracked_device_send_imu_debug(dev);
  
-@@ -461,15 +919,81 @@ rift_tracker_frame_captured (rift_tracker_ctx *ctx, uint64_t local_ts, uint64_t
+@@ -461,15 +922,81 @@ rift_tracker_frame_captured (rift_tracker_ctx *ctx, uint64_t local_ts, uint64_t
  	int i;
  	ohmd_lock_mutex (ctx->tracker_lock);
  
@@ -4289,7 +4397,7 @@ index ad297a1..2bf6a1e 100644
  		}
  	}
  
-@@ -553,6 +1077,8 @@ rift_tracker_free (rift_tracker_ctx *tracker_ctx)
+@@ -553,6 +1080,8 @@ rift_tracker_free (rift_tracker_ctx *tracker_ctx)
  		rift_tracked_device_priv *dev = tracker_ctx->devices + i;
  		if (dev->base.led_search)
  			led_search_model_free (dev->base.led_search);
@@ -4298,7 +4406,7 @@ index ad297a1..2bf6a1e 100644
  		if (dev->debug_metadata != NULL)
  			ohmd_pw_debug_stream_free (dev->debug_metadata);
  
-@@ -568,10 +1094,12 @@ rift_tracker_free (rift_tracker_ctx *tracker_ctx)
+@@ -568,10 +1097,12 @@ rift_tracker_free (rift_tracker_ctx *tracker_ctx)
  		libusb_exit (tracker_ctx->usb_ctx);
  
  	ohmd_destroy_mutex (tracker_ctx->tracker_lock);
@@ -4312,7 +4420,7 @@ index ad297a1..2bf6a1e 100644
  {
  	rift_tracked_device_priv *dev = (rift_tracked_device_priv *) (dev_base);
  	rift_tracked_device_imu_observation *obs;
-@@ -586,8 +1114,22 @@ void rift_tracked_device_imu_update(rift_tracked_device *dev_base, uint64_t loca
+@@ -586,8 +1117,22 @@ void rift_tracked_device_imu_update(rift_tracked_device *dev_base, uint64_t loca
  		dev->device_time_ns += dt_ns;
  	}
  	dev->last_device_ts = device_ts;
@@ -4336,7 +4444,7 @@ index ad297a1..2bf6a1e 100644
  
  	obs = dev->pending_imu_observations + dev->num_pending_imu_observations;
  	obs->local_ts = local_ts;
-@@ -607,6 +1149,66 @@ void rift_tracked_device_imu_update(rift_tracked_device *dev_base, uint64_t loca
+@@ -607,6 +1152,66 @@ void rift_tracked_device_imu_update(rift_tracked_device *dev_base, uint64_t loca
  	ohmd_unlock_mutex (dev->device_lock);
  }
  
@@ -4403,7 +4511,7 @@ index ad297a1..2bf6a1e 100644
  void rift_tracked_device_get_view_pose(rift_tracked_device *dev_base, posef *pose, vec3f *vel, vec3f *accel, vec3f *ang_vel)
  {
  	rift_tracked_device_priv *dev = (rift_tracked_device_priv *) (dev_base);
-@@ -619,7 +1221,53 @@ void rift_tracked_device_get_view_pose(rift_tracked_device *dev_base, posef *pos
+@@ -619,7 +1224,53 @@ void rift_tracked_device_get_view_pose(rift_tracked_device *dev_base, posef *pos
  		vec3f imu_ang_vel = { 0, };
  		vec3f imu_vel = { 0, }, imu_accel = { 0, };
  
@@ -4458,7 +4566,7 @@ index ad297a1..2bf6a1e 100644
  
  		/* Take our fusion / IMU global pose back to device pose by
  		 * computing the IMU->device pose and applying the
-@@ -637,34 +1285,127 @@ void rift_tracked_device_get_view_pose(rift_tracked_device *dev_base, posef *pos
+@@ -637,34 +1288,127 @@ void rift_tracked_device_get_view_pose(rift_tracked_device *dev_base, posef *pos
  		exp_filter_pose_run(&dev->pose_output_filter, dev->device_time_ns, &device_pose, &dev->reported_pose);
  		dev->last_reported_pose = dev->device_time_ns;
  
@@ -4602,7 +4710,7 @@ index ad297a1..2bf6a1e 100644
  static rift_tracker_pose_delay_slot *get_matching_delay_slot(rift_tracked_device_priv *dev, rift_tracked_device_exposure_info *dev_info);
  
  /* Retrieve the latest model pose estimate from a delay slot into the exposure info.
-@@ -687,7 +1428,7 @@ bool rift_tracked_device_get_latest_exposure_info_pose (rift_tracked_device *dev
+@@ -687,7 +1431,7 @@ bool rift_tracked_device_get_latest_exposure_info_pose (rift_tracked_device *dev
  		posef imu_global_pose;
  		vec3f global_pos_error, global_rot_error;
  
@@ -4611,7 +4719,7 @@ index ad297a1..2bf6a1e 100644
  						NULL, NULL, NULL, &global_pos_error, &global_rot_error);
  
  		oposef_apply(&dev->model_from_fusion, &imu_global_pose, &dev_info->capture_pose);
-@@ -715,8 +1456,29 @@ bool rift_tracked_device_get_latest_exposure_info_pose (rift_tracked_device *dev
+@@ -715,8 +1459,29 @@ bool rift_tracked_device_get_latest_exposure_info_pose (rift_tracked_device *dev
  	return res;
  }
  
@@ -4642,7 +4750,7 @@ index ad297a1..2bf6a1e 100644
  {
  	rift_tracked_device_priv *dev = (rift_tracked_device_priv *) (dev_base);
  	uint64_t frame_device_time_ns = 0;
-@@ -743,7 +1505,28 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
+@@ -743,7 +1508,28 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
  	rift_tracked_device_exposure_info *dev_info = exposure_info->devices + dev->index;
  	frame_device_time_ns = dev_info->device_time_ns;
  
@@ -4671,7 +4779,7 @@ index ad297a1..2bf6a1e 100644
  	if (slot != NULL) {
  		quatf orient_diff;
  		vec3f pos_error, rot_error;
-@@ -763,9 +1546,53 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
+@@ -763,9 +1549,53 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
  			pos_error.x, pos_error.y, pos_error.z,
  			source);
  
@@ -4726,7 +4834,7 @@ index ad297a1..2bf6a1e 100644
  			update_position = false;
  			LOGI("Ignoring position observation with error %f %f %f (prior stddev was %f %f %f)\n",
  				pos_error.x, pos_error.y, pos_error.z,
-@@ -776,7 +1603,7 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
+@@ -776,7 +1606,7 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
  		}
  
  		/* If we have a strong match, update both position and orientation */
@@ -4735,7 +4843,7 @@ index ad297a1..2bf6a1e 100644
  			update_orientation = true;
  			if ((dev->device_time_ns - dev->last_observed_orient_ts) > (POSE_LOST_ORIENT_THRESHOLD * 1000000UL)) {
  				LOGI("Matched orientation after %f sec", (dev->device_time_ns - dev->last_observed_pose_ts) / 1000000000.0);
-@@ -785,7 +1612,8 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
+@@ -785,7 +1615,8 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
  			if (update_position)
  				dev->last_observed_orient_ts = dev->device_time_ns;
  		}
@@ -4745,7 +4853,7 @@ index ad297a1..2bf6a1e 100644
  			LOGI("Forcing orientation observation");
  			update_orientation = true;
  			/* Don't update the orientation match time here - only do that on an actual match */
-@@ -799,29 +1627,194 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
+@@ -799,29 +1630,194 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
  			if (dev->last_acquired_pose_lock_ts == 0)
  				dev->last_acquired_pose_lock_ts = dev->last_acquired_pose_lock_ts;
  
@@ -4824,8 +4932,7 @@ index ad297a1..2bf6a1e 100644
 +						"%u single-camera (%u observations arrived too late to count)",
 +						dev->base.id, dev->joint_solved, dev->joint_rejected,
 +						dev->joint_single, dev->reports_dropped_late);
- 				}
--      }
++				}
 +			}
 +
 +			if (!merged && obs_merge_enabled() && slot->n_used_reports > 0) {
@@ -4853,7 +4960,8 @@ index ad297a1..2bf6a1e 100644
 +						oquatf_normalize_me(&q_acc);
 +						qw_sum += w;
 +					}
-+				}
+ 				}
+-      }
 +
 +				if (merged) {
 +					ovec3f_multiply_scalar(&p_acc, 1.0f / w_sum, &fusion_target.pos);
@@ -4947,7 +5055,7 @@ index ad297a1..2bf6a1e 100644
  		}
  	}
  
-@@ -859,12 +1852,23 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
+@@ -859,12 +1855,23 @@ bool rift_tracked_device_model_pose_update(rift_tracked_device *dev_base, uint64
  }
  
  /* Called with the device lock held */
@@ -4975,7 +5083,7 @@ index ad297a1..2bf6a1e 100644
  
  	/* Apply the pose conversion from IMU->model */
  	oposef_apply(&dev->model_from_fusion, &imu_global_pose, &model_pose);
-@@ -1014,10 +2018,23 @@ get_matching_delay_slot(rift_tracked_device_priv *dev, rift_tracked_device_expos
+@@ -1014,10 +2021,23 @@ get_matching_delay_slot(rift_tracked_device_priv *dev, rift_tracked_device_expos
  
  /* Called with the device lock held. Allocate a delay slot and populate the device exposure info */
  static void
@@ -5001,7 +5109,7 @@ index ad297a1..2bf6a1e 100644
  
  	if (slot == NULL) {
  		/* We might reclaim a busy delay slot if some frame search is being slow and we already got an observation from another camera */
-@@ -1040,7 +2057,7 @@ rift_tracked_device_on_new_exposure(rift_tracked_device_priv *dev, rift_tracked_
+@@ -1040,7 +2060,7 @@ rift_tracked_device_on_new_exposure(rift_tracked_device_priv *dev, rift_tracked_
  	}
  	dev_info->last_acquired_pose_lock_ts = dev->last_acquired_pose_lock_ts;
  
@@ -5010,7 +5118,7 @@ index ad297a1..2bf6a1e 100644
  
  	if (slot) {
  		slot->device_time_ns = dev_info->device_time_ns;
-@@ -1053,7 +2070,7 @@ rift_tracked_device_on_new_exposure(rift_tracked_device_priv *dev, rift_tracked_
+@@ -1053,7 +2073,7 @@ rift_tracked_device_on_new_exposure(rift_tracked_device_priv *dev, rift_tracked_
  		dev_info->fusion_slot = slot->slot_id;
  
  		/* Tell the kalman filter to prepare the delay slot */
@@ -5019,7 +5127,7 @@ index ad297a1..2bf6a1e 100644
  
  		/* Clear the last no-free-delay-slot tracking to avoid logging noise */
  		dev->last_no_free_delay_slot = 0;
-@@ -1131,3 +2148,393 @@ void rift_tracked_device_frame_release(rift_tracked_device *dev_base, rift_track
+@@ -1131,3 +2151,384 @@ void rift_tracked_device_frame_release(rift_tracked_device *dev_base, rift_track
  	}
  	ohmd_unlock_mutex (dev->device_lock);
  }
@@ -5125,9 +5233,13 @@ index ad297a1..2bf6a1e 100644
 +{
 +	posef rel, rel_in_use, anchor_world, newp, cur;
 +	rift_cam_calib snapshot;
-+	int idx;
-+	int stored_views = 0;
-+	bool adopted;
++	rift_cam_calib_action action;
++	const posef *in_use = NULL;
++	float r_in_use = -1.0f, r_est = -1.0f;
++	int idx, stored_views = 0;
++	bool adopted, recovering, had_pose;
++	vec3f d = {{ 0, 0, 0 }};
++	float dang = 0.0f;
 +
 +	if (!auto_calib_enabled() || ctx->n_sensors < 2)
 +		return;
@@ -5139,12 +5251,8 @@ index ad297a1..2bf6a1e 100644
 +	ohmd_lock_mutex(ctx->calib_lock);
 +	snapshot = ctx->cam_calib[idx];
 +	adopted = ctx->cam_calib_adopted[idx];
++	recovering = ctx->cam_calib_recovering[idx];
 +	ohmd_unlock_mutex(ctx->calib_lock);
-+
-+	if (snapshot.n_hist < RIFT_CAM_CALIB_MIN_SAMPLES)
-+		return;
-+	if (!rift_cam_calib_get(&snapshot, &rel))
-+		return;
 +
 +	/* The anchor has to know where IT is before anything can be placed
 +	 * against it. It gets that from the existing gravity bootstrap in
@@ -5153,81 +5261,69 @@ index ad297a1..2bf6a1e 100644
 +		return;
 +	rift_sensor_get_pose(ctx->sensors[0], &anchor_world);
 +
-+	bool had_pose = rift_sensor_have_pose(sensor);
-+	vec3f d = {{ 0, 0, 0 }};
-+	float dang = 0.0f;
-+	float r_in_use = -1.0f;
-+	float r_est = rift_cam_calib_residual_px(&snapshot, &rel);
-+
++	had_pose = rift_sensor_have_pose(sensor);
 +	if (had_pose) {
 +		/* What the poses currently in use claim the relative geometry is.
-+		 * On the first pass that IS the stored room config, so this is
-+		 * where a stale file is caught; afterwards it is the pose we
-+		 * adopted ourselves, so a knocked sensor is caught the same way. */
++		 * On the first pass that IS the stored room config, so this is where
++		 * a stale file is caught; afterwards it is the pose we adopted
++		 * ourselves, so a knocked sensor is caught the same way. */
 +		posef ref_inv = anchor_world;
 +		rift_sensor_get_pose(sensor, &cur);
 +		oposef_inverse(&ref_inv);
 +		oposef_apply(&cur, &ref_inv, &rel_in_use);
-+		r_in_use = rift_cam_calib_residual_px(&snapshot, &rel_in_use);
++		in_use = &rel_in_use;
 +
-+		/* A pose that cannot describe the observed history AT ALL means the
-+		 * camera itself moved, not that the headset did - the two differ by
-+		 * ~600x in this measure. The history now straddles the move, so it
-+		 * is worthless; drop it and rebuild ("Invalid calibration:
-+		 * resetting history"). */
-+		if (rift_cam_calib_camera_moved(&snapshot, &rel_in_use)) {
-+			LOGI("sensor %s: camera moved - the calibration in use leaves "
-+				"%.1f px over %u observations (>%.0f px). Resetting history.",
-+				rift_sensor_serial_no(sensor), r_in_use, snapshot.n_hist,
-+				(double) RIFT_CAM_CALIB_MOVED_PX);
-+			ohmd_lock_mutex(ctx->calib_lock);
-+			rift_cam_calib_reset(ctx->cam_calib + idx);
-+			ctx->cam_calib[idx].n_resets++;
-+			ctx->cam_calib_adopted[idx] = false;
-+			ohmd_unlock_mutex(ctx->calib_lock);
-+			return;
-+		}
-+
-+		/* A calibration fitted over MORE viewpoints must not be replaced by
-+		 * one fitted over fewer, however good the newcomer looks. It looks
-+		 * good precisely because it is being scored against the single
-+		 * narrow history it came from: measured over three real headset
-+		 * positions, a one-viewpoint fit scores 0.2-0.6 px at its own spot
-+		 * and 2.3-3.8 px at the others, while the three-viewpoint fit stays
-+		 * under 2 px everywhere. Without this, every restart with the
-+		 * headset sitting still would overwrite an accumulated calibration
-+		 * with an overfit one - measured doing exactly that, by 20 mm. */
 +		ohmd_lock_mutex(ctx->tracker_lock);
 +		stored_views = rift_tracker_config_get_sensor_viewpoints(&ctx->config,
 +			rift_sensor_serial_no(sensor));
 +		ohmd_unlock_mutex(ctx->tracker_lock);
-+
-+		if (snapshot.bins_seen < stored_views) {
-+			if (!adopted) {
-+				LOGI("sensor %s: keeping the stored calibration - it was fitted "
-+					"over %d viewpoints and this session has seen %u "
-+					"(it leaves %.2f px here)",
-+					rift_sensor_serial_no(sensor), stored_views,
-+					snapshot.bins_seen, r_in_use);
-+				ohmd_lock_mutex(ctx->calib_lock);
-+				ctx->cam_calib_adopted[idx] = true;
-+				ohmd_unlock_mutex(ctx->calib_lock);
-+			}
-+			return;
-+		}
-+
-+		/* Otherwise only replace it for a real improvement, on the runtime's
-+		 * own 15% bar. Setting the headset down somewhere new does not clear
-+		 * this, which is the point. */
-+		if (adopted && !(r_est < r_in_use * RIFT_CAM_CALIB_IMPROVE_GATE))
-+			return;
 +	}
 +
++	action = rift_cam_calib_decide(&snapshot, in_use, adopted, recovering,
++		stored_views, &r_in_use, &r_est);
++
++	switch (action) {
++	case RIFT_CAM_CALIB_WAIT:
++		return;
++
++	case RIFT_CAM_CALIB_KEEP:
++		if (!adopted) {
++			LOGI("sensor %s: keeping the stored calibration - it was fitted "
++				"over %d viewpoints and this session has seen %u "
++				"(it leaves %.2f px here)",
++				rift_sensor_serial_no(sensor), stored_views,
++				snapshot.bins_seen, r_in_use);
++			ohmd_lock_mutex(ctx->calib_lock);
++			ctx->cam_calib_adopted[idx] = true;
++			ohmd_unlock_mutex(ctx->calib_lock);
++		}
++		return;
++
++	case RIFT_CAM_CALIB_RESET:
++		LOGI("sensor %s: camera moved - the calibration in use leaves %.1f px "
++			"over %u observations (>%.0f px). Resetting history and "
++			"re-deriving it from what is seen now.",
++			rift_sensor_serial_no(sensor), r_in_use, snapshot.n_hist,
++			(double) RIFT_CAM_CALIB_MOVED_PX);
++		ohmd_lock_mutex(ctx->calib_lock);
++		rift_cam_calib_reset(ctx->cam_calib + idx);
++		ctx->cam_calib[idx].n_resets++;
++		ctx->cam_calib_adopted[idx] = false;
++		ctx->cam_calib_recovering[idx] = true;
++		ohmd_unlock_mutex(ctx->calib_lock);
++		return;
++
++	case RIFT_CAM_CALIB_ADOPT:
++		break;
++	}
++
++	if (!rift_cam_calib_get(&snapshot, &rel))
++		return;
 +	rift_cam_calib_to_world(&anchor_world, &rel, &newp);
 +
 +	if (had_pose) {
-+		ovec3f_subtract(&newp.pos, &cur.pos, &d);
 +		quatf inv = cur.orient, dq;
++		ovec3f_subtract(&newp.pos, &cur.pos, &d);
 +		oquatf_inverse(&inv);
 +		oquatf_mult(&newp.orient, &inv, &dq);
 +		dang = 2.0f * acosf(OHMD_MIN(1.0f, fabsf(dq.w)));
@@ -5235,16 +5331,18 @@ index ad297a1..2bf6a1e 100644
 +
 +	LOGI("sensor %s: %s calibration from %u poses over %u viewpoints "
 +		"(stored: %d), residual %.2f px%s",
-+		rift_sensor_serial_no(sensor), adopted ? "re-solved" : "adopted",
++		rift_sensor_serial_no(sensor),
++		recovering ? "re-derived" : (adopted ? "re-solved" : "adopted"),
 +		snapshot.n_hist, snapshot.bins_seen, stored_views, r_est,
 +		snapshot.settled ? " - SETTLED" : " (estimated)");
 +	if (had_pose) {
 +		LOGI("sensor %s: %s calibration left %.2f px; moving the sensor "
 +			"%.1f mm / %.2f deg",
 +			rift_sensor_serial_no(sensor),
-+			adopted ? "its previous" : "the stored", r_in_use,
-+			ovec3f_get_length(&d) * 1000.0f, RAD_TO_DEG(dang));
++			recovering ? "the pre-move" : (adopted ? "its previous" : "the stored"),
++			r_in_use, ovec3f_get_length(&d) * 1000.0f, RAD_TO_DEG(dang));
 +	}
++
 +	rift_sensor_set_pose(sensor, &newp);
 +	rift_tracker_update_sensor_pose(ctx, sensor, &newp);
 +	ohmd_lock_mutex(ctx->tracker_lock);
@@ -5267,6 +5365,7 @@ index ad297a1..2bf6a1e 100644
 +
 +	ohmd_lock_mutex(ctx->calib_lock);
 +	ctx->cam_calib_adopted[idx] = true;
++	ctx->cam_calib_recovering[idx] = false;
 +	ohmd_unlock_mutex(ctx->calib_lock);
 +}
 +
@@ -5484,7 +5583,7 @@ index 04ca128..6fa6461 100644
 +
  #endif
 diff --git a/src/drv_oculus_rift/rift.c b/src/drv_oculus_rift/rift.c
-index a802e93..a26f274 100644
+index a802e93..31ae22e 100644
 --- a/src/drv_oculus_rift/rift.c
 +++ b/src/drv_oculus_rift/rift.c
 @@ -209,6 +209,103 @@ static void set_coordinate_frame(rift_hmd_t* priv, rift_coordinate_frame coordfr
@@ -5928,6 +6027,27 @@ index a802e93..a26f274 100644
  		rift_send_tracking_config (priv, false, RIFT_TRACKING_EXPOSURE_US_CV1,
  				RIFT_TRACKING_PERIOD_US_CV1);
  
+@@ -1443,7 +1734,19 @@ static void get_device_list(ohmd_driver* driver, ohmd_device_list* list)
+ 				desc->revision = rd[i].rev;
+ 		
+ 				desc->device_class = OHMD_DEVICE_CLASS_HMD;
+-				desc->device_flags = OHMD_DEVICE_FLAGS_ROTATIONAL_TRACKING;
++				/* Constellation tracking gives this HMD position as well as
++				 * orientation - the Touch descriptors below already say so,
++				 * and the HMD's own solve is the better of the two. Runtimes
++				 * that pick a 3dof or 6dof device model from these flags
++				 * (Monado's ohmd driver does, and defaults everything to 3dof
++				 * otherwise) would throw the positional solve away.
++				 *
++				 * This is a capability, not a claim that position is being
++				 * tracked right now: with no sensors connected the driver
++				 * reports a zero position, and OHMD_POSITION_VECTOR readers
++				 * are expected to treat that as untracked. */
++				desc->device_flags = OHMD_DEVICE_FLAGS_ROTATIONAL_TRACKING |
++					OHMD_DEVICE_FLAGS_POSITIONAL_TRACKING;
+ 
+ 				strcpy(desc->path, cur_dev->path);
+ 
 diff --git a/src/drv_oculus_rift/rift.h b/src/drv_oculus_rift/rift.h
 index f953cde..7152e2c 100644
 --- a/src/drv_oculus_rift/rift.h
@@ -5983,10 +6103,10 @@ index de9bd1b..392b882 100644
        return false;
 diff --git a/tests/unittests/cam_calib.c b/tests/unittests/cam_calib.c
 new file mode 100644
-index 0000000..3b59eba
+index 0000000..41d1778
 --- /dev/null
 +++ b/tests/unittests/cam_calib.c
-@@ -0,0 +1,357 @@
+@@ -0,0 +1,519 @@
 +/*
 + * Tests for automatic camera extrinsic calibration.
 + *
@@ -6115,13 +6235,16 @@ index 0000000..3b59eba
 + * by an amount that DEPENDS ON THE VIEWPOINT, which is exactly what makes a
 + * single-viewpoint calibration overfit. Measured on real hardware at ~7 mm for
 + * 28 cm of headset movement (windows-vs-linux-tracking.md §5b). */
-+static void exposure_at(int v, int i, float bias_m, float noise_m,
-+	posef *ocr, posef *oco)
++static void exposure_at_cams(int v, int i, float bias_m, float noise_m,
++	const posef *cam_other_in, posef *ocr, posef *oco)
 +{
 +	posef cam_ref, cam_other, obj, at;
 +
 +	pose_make(&cam_ref, 0.49f, 1.56f, -1.62f, 0.0f, 1.0f, 0.0f, 0.10f);
-+	pose_make(&cam_other, -0.74f, 1.84f, -1.54f, 0.0f, 1.0f, 0.0f, -0.40f);
++	if (cam_other_in != NULL)
++		cam_other = *cam_other_in;
++	else
++		pose_make(&cam_other, -0.74f, 1.84f, -1.54f, 0.0f, 1.0f, 0.0f, -0.40f);
 +
 +	/* place the object so that, seen from cam_ref, it sits at VIEWPOINTS[v] */
 +	pose_make(&at, VIEWPOINTS[v][0], VIEWPOINTS[v][1], VIEWPOINTS[v][2],
@@ -6137,6 +6260,12 @@ index 0000000..3b59eba
 +
 +	perturb(ocr, i, noise_m, noise_m);
 +	perturb(oco, i + 7, noise_m, noise_m);
++}
++
++static void exposure_at(int v, int i, float bias_m, float noise_m,
++	posef *ocr, posef *oco)
++{
++	exposure_at_cams(v, i, bias_m, noise_m, NULL, ocr, oco);
 +}
 +
 +/* Averaging noise down must work, and settling must require the estimate to be
@@ -6343,6 +6472,159 @@ index 0000000..3b59eba
 +
 +	rift_cam_calib_get(&c, &after);
 +	TAssert(pose_pos_err(&before, &after) < 0.005f);
++}
++
++/* THE LIVELOCK REGRESSION.
++ *
++ * A sensor moved while the driver was NOT running is the case that bites. On
++ * the next start the history is built entirely from post-move observations and
++ * compared against the stored pre-move pose, so the move is correctly detected
++ * and the history dropped - but the history then rebuilds from post-move data
++ * again, is tested against the SAME stale pose, exceeds the threshold again,
++ * and resets again. Forever, at roughly one reset per MIN_SAMPLES exposures,
++ * with the sensor keeping its wrong pose throughout. Nothing else rescues it:
++ * the online extrinsic refiner needs RIFT_POSE_MATCH_STRONG, which is withheld
++ * from exactly the sensor whose extrinsics are wrong.
++ *
++ * (A sensor moved WHILE running does not hit this - the bounded history
++ * transitions gradually, so the improvement gate re-adopts along the way and
++ * the pose in use never diverges far enough to trigger a reset. That case is
++ * checked at the end.)
++ *
++ * This drives the real decision function and asserts it resets ONCE and then
++ * adopts, rather than resetting forever. */
++void test_rift_cam_calib_decide_recovers_from_a_moved_camera()
++{
++	rift_cam_calib c;
++	posef cam_ref, cam_before, cam_after, ocr, oco;
++	posef stale, rel_in_use, truth_after, got;
++	bool adopted = true, recovering = false;
++	int i, resets = 0, adopts = 0, consecutive_resets = 0;
++
++	pose_make(&cam_ref, 0.49f, 1.56f, -1.62f, 0.0f, 1.0f, 0.0f, 0.10f);
++	pose_make(&cam_before, -0.74f, 1.84f, -1.54f, 0.0f, 1.0f, 0.0f, -0.40f);
++	/* somebody moves it between sessions: 22 cm along and 6 deg round */
++	pose_make(&cam_after, -0.52f, 1.83f, -1.51f, 0.0f, 1.0f, 0.0f, -0.295f);
++
++	relative_truth(&cam_ref, &cam_before, &stale);   /* what the config says */
++	relative_truth(&cam_ref, &cam_after, &truth_after);
++	TAssert(pose_pos_err(&stale, &truth_after) > 0.15f);
++	rel_in_use = stale;
++
++	/* a fresh session: every observation is from after the move */
++	rift_cam_calib_init(&c);
++	for (i = 0; i < 900; i++) {
++		rift_cam_calib_action a;
++
++		exposure_at_cams(i % 3, i, 0.0f, 0.002f, &cam_after, &ocr, &oco);
++		rift_cam_calib_add(&c, &ocr, &oco);
++
++		a = rift_cam_calib_decide(&c, &rel_in_use, adopted, recovering, 3,
++			NULL, NULL);
++		if (a == RIFT_CAM_CALIB_RESET) {
++			resets++;
++			consecutive_resets++;
++			/* the bug: resetting over and over, never adopting */
++			TAssert(consecutive_resets < 2);
++			rift_cam_calib_reset(&c);
++			recovering = true;
++			adopted = false;
++		} else if (a == RIFT_CAM_CALIB_ADOPT) {
++			consecutive_resets = 0;
++			adopts++;
++			/* the caller moves the sensor to where the estimate says */
++			TAssert(rift_cam_calib_get(&c, &rel_in_use));
++			recovering = false;
++			adopted = true;
++		}
++	}
++
++	TAssert(resets >= 1);       /* the move was noticed... */
++	TAssert(adopts >= 1);       /* ...and recovered from */
++	TAssert(!recovering);       /* not left stuck mid-recovery */
++	TAssert(pose_pos_err(&rel_in_use, &stale) > 0.15f);  /* actually moved */
++
++	/* and it converged on where the camera actually is now */
++	TAssert(rift_cam_calib_get(&c, &got));
++	TAssert(pose_pos_err(&got, &truth_after) < 0.01f);
++	TAssert(pose_ang_err(&got, &truth_after) < 0.02f);
++
++	/* settled there, the pose in use must stop looking "moved" */
++	TAssert(rift_cam_calib_decide(&c, &rel_in_use, true, false, 3,
++		NULL, NULL) != RIFT_CAM_CALIB_RESET);
++
++	/* A sensor nudged only slightly - under the camera-moved threshold, which
++	 * is ~40 mm at this distance - is tracked by the improvement gate as the
++	 * bounded history turns over, without any reset at all. (A larger knock
++	 * while running does trip the threshold, and is handled by the same
++	 * recovery path exercised above.) */
++	{
++		posef cam_nudged;
++		int resets_running = 0;
++
++		pose_make(&cam_nudged, -0.505f, 1.83f, -1.50f, 0.0f, 1.0f, 0.0f, -0.288f);
++		for (i = 900; i < 2000; i++) {
++			rift_cam_calib_action a;
++
++			exposure_at_cams(i % 3, i, 0.0f, 0.002f, &cam_nudged, &ocr, &oco);
++			rift_cam_calib_add(&c, &ocr, &oco);
++			a = rift_cam_calib_decide(&c, &rel_in_use, true, false, 3,
++				NULL, NULL);
++			if (a == RIFT_CAM_CALIB_RESET)
++				resets_running++;
++			else if (a == RIFT_CAM_CALIB_ADOPT)
++				TAssert(rift_cam_calib_get(&c, &rel_in_use));
++		}
++		TAssert(resets_running == 0);
++
++		relative_truth(&cam_ref, &cam_nudged, &truth_after);
++		TAssert(rift_cam_calib_get(&c, &got));
++		TAssert(pose_pos_err(&got, &truth_after) < 0.01f);
++	}
++}
++
++/* The guards the recovery path deliberately skips must still hold normally. */
++void test_rift_cam_calib_decide_guards_and_gates()
++{
++	rift_cam_calib narrow;
++	posef ocr, oco, rel, truth, cam_ref, cam_other;
++	int i;
++
++	pose_make(&cam_ref, 0.49f, 1.56f, -1.62f, 0.0f, 1.0f, 0.0f, 0.10f);
++	pose_make(&cam_other, -0.74f, 1.84f, -1.54f, 0.0f, 1.0f, 0.0f, -0.40f);
++	relative_truth(&cam_ref, &cam_other, &truth);
++
++	/* nothing yet */
++	rift_cam_calib_init(&narrow);
++	TAssert(rift_cam_calib_decide(&narrow, &truth, false, false, 0,
++		NULL, NULL) == RIFT_CAM_CALIB_WAIT);
++
++	/* one viewpoint only */
++	for (i = 0; i < 200; i++) {
++		exposure_at(0, i, 0.007f, 0.002f, &ocr, &oco);
++		rift_cam_calib_add(&narrow, &ocr, &oco);
++	}
++	TAssert(narrow.bins_seen == 1);
++	rift_cam_calib_get(&narrow, &rel);
++
++	/* a sensor with no pose at all takes whatever there is */
++	TAssert(rift_cam_calib_decide(&narrow, NULL, false, false, 0,
++		NULL, NULL) == RIFT_CAM_CALIB_ADOPT);
++
++	/* a narrower session must not overwrite a better-conditioned stored fit */
++	TAssert(rift_cam_calib_decide(&narrow, &rel, false, false, 6,
++		NULL, NULL) == RIFT_CAM_CALIB_KEEP);
++	/* ...but may once its own coverage matches */
++	TAssert(rift_cam_calib_decide(&narrow, &rel, false, false, 1,
++		NULL, NULL) == RIFT_CAM_CALIB_ADOPT);
++
++	/* already adopted and nothing better on offer: leave it alone */
++	TAssert(rift_cam_calib_decide(&narrow, &rel, true, false, 0,
++		NULL, NULL) == RIFT_CAM_CALIB_KEEP);
++
++	/* and recovering short-circuits to adopt, whatever the stored count */
++	TAssert(rift_cam_calib_decide(&narrow, &rel, false, true, 99,
++		NULL, NULL) == RIFT_CAM_CALIB_ADOPT);
 +}
 diff --git a/tests/unittests/joint_pose.c b/tests/unittests/joint_pose.c
 new file mode 100644
@@ -6903,10 +7185,10 @@ index 0000000..3604600
 +	TAssert(with < 1.0f);
 +}
 diff --git a/tests/unittests/main.c b/tests/unittests/main.c
-index 378cd83..b1d0272 100644
+index 378cd83..a1c06ba 100644
 --- a/tests/unittests/main.c
 +++ b/tests/unittests/main.c
-@@ -41,6 +41,47 @@ int main()
+@@ -41,6 +41,49 @@ int main()
  	Test(test_oposef_inverse);
  	Test(test_oposef_apply);
  
@@ -6936,6 +7218,8 @@ index 378cd83..b1d0272 100644
 +	Test(test_rift_cam_calib_rejects_outliers);
 +	Test(test_rift_cam_calib_headset_move_is_not_a_camera_move);
 +	Test(test_rift_cam_calib_history_spans_viewpoints);
++	Test(test_rift_cam_calib_decide_recovers_from_a_moved_camera);
++	Test(test_rift_cam_calib_decide_guards_and_gates);
 +	printf("\n");
 +
 +	printf("sync monitor tests\n");
@@ -7221,10 +7505,10 @@ index 0000000..23dff89
 +	TAssert(m.worst_pose_age_ns == 80000000ULL);
 +}
 diff --git a/tests/unittests/tests.h b/tests/unittests/tests.h
-index 1a7d1c8..bb1925c 100644
+index 1a7d1c8..8ebf002 100644
 --- a/tests/unittests/tests.h
 +++ b/tests/unittests/tests.h
-@@ -49,6 +49,40 @@ void test_oposef_init();
+@@ -49,6 +49,42 @@ void test_oposef_init();
  void test_oposef_inverse();
  void test_oposef_apply();
  
@@ -7250,6 +7534,8 @@ index 1a7d1c8..bb1925c 100644
 +void test_rift_cam_calib_rejects_outliers();
 +void test_rift_cam_calib_headset_move_is_not_a_camera_move();
 +void test_rift_cam_calib_history_spans_viewpoints();
++void test_rift_cam_calib_decide_recovers_from_a_moved_camera();
++void test_rift_cam_calib_decide_guards_and_gates();
 +
 +// exposure/frame/pose timing monitor
 +void test_rift_sync_monitor_clean_stream();

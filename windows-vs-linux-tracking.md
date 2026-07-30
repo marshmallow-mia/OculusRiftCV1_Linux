@@ -870,6 +870,69 @@ Note the residual *rising* with viewpoint count (0.55 px over 3, 2.07 px over
 own narrow history and badly everywhere else, which is precisely the trap
 §5b documents. What matters is the joint reprojection, which stayed at 0.18 px.
 
+### MOVING A SENSOR (2026-07-29)
+
+Asking what happens if the sensors are repositioned turned up two defects, the
+second worse than the case being asked about.
+
+**A sensor moved while the driver was stopped livelocked.** On the next start
+the history is built entirely from post-move observations and compared against
+the stored pre-move pose, so the move was detected and the history dropped —
+but the history then rebuilt from post-move data, was tested against the *same
+stale pose*, exceeded the threshold again, and reset again. Roughly one reset
+per `MIN_SAMPLES` exposures, forever, with the sensor keeping its wrong pose.
+Nothing else would have rescued it: `extrinsic_refine_measure()` requires
+`RIFT_POSE_MATCH_STRONG`, which is withheld from exactly the sensor whose
+extrinsics are wrong — the same chicken-and-egg as §5b, still present in the
+refiner. A `recovering` state now short-circuits both the camera-moved test and
+the viewpoint guard after a reset, so the rebuilt estimate is adopted rather
+than re-litigated against a pose already known to be wrong.
+
+**The stratified history never turned over.** Eviction took the first entry of
+the fullest bucket *by index*, so a freshly written sample — which lands in
+whichever low slot was just freed — was the first match found next time and was
+immediately evicted again, while old high-index entries were never touched.
+Measured: **191 of 192 entries still stale after 1100 newer samples.** The
+window was frozen after its initial fill, so a nudged sensor could not be
+followed at all (estimate stayed 63 mm out). Entries now carry an arrival
+sequence and the *oldest* of the fullest bucket is evicted: 0 of 192 stale over
+the same run, and the estimate converges to **0.27 mm**.
+
+The worn-session results above stand — that history filled with diverse
+viewpoints during the first seconds of movement, before the freeze mattered.
+
+#### Verified on real capture data
+
+A known 216 mm / 7° move injected into `autocalib3.jsonl` by transforming one
+camera's `obj→cam` poses (`tools/calib_replay.c` reads those pairs directly):
+
+| | |
+|---|---|
+| stored pre-move calibration, scored on post-move data | **149.7 px** → `MOVED` |
+| camera-moved threshold | 16 px (9.4× margin) |
+| recovered extrinsic vs the injected transform | **8.09 mm / 0.366°** |
+
+The 8 mm residual is the single-viewpoint bias of §5b, not an error in the
+recovery: the rebuilt fit necessarily starts from one viewpoint and tightens as
+coverage returns.
+
+#### Bands, because the threshold is ~40 mm at 2 m
+
+| sensor moved by | behaviour |
+|---|---|
+| **> ~40 mm** | detected, history dropped, re-derived and adopted within ~30 exposures |
+| **< ~40 mm** | no reset; the rolling history turns over and the 0.85 improvement gate walks the pose across |
+
+**The anchor is the exception.** `idx <= 0` returns early — sensor 0 defines the
+frame and is never adopted. Move it and every other sensor is still re-solved
+correctly *relative* to it, so tracking stays self-consistent, but the whole
+room frame is displaced by however far the anchor went. Detecting that needs an
+absolute reference this stack does not have (gravity gives tilt only). SteamVR's
+recentre covers the comfort side.
+
+The decision itself now lives in `rift_cam_calib_decide()`, which is pure and
+therefore testable — the livelock hid inside the side-effecting version of it.
+
 #### Getting a picture at all: two bugs of ours, not the kernel's
 
 Neither was visible from tracking work, because tracking never touches video.
