@@ -142,8 +142,8 @@ in a commit. A fresh context should be able to resume from this table alone.
 
 | # | item | status | notes |
 |---|---|---|---|
-| W1 | RTTI → COL → vftable → **constructor** for `IndirectEkf<18,9>` and `EkfFusion`; object size and layout | **open** | TD at `0x180526208`; mangling `$0BC@`=18, `$08`=9 confirms the template args |
-| W2 | **Q and initial P** from the constructor and its callers | open | blocked on W1 |
+| W1 | RTTI → COL → vftable → **constructor** for `IndirectEkf<18,9>` and `EkfFusion`; object size and layout | **DONE** | see "W1 result" below |
+| W2 | **Q and initial P** from the constructor and its callers | **open, unblocked** | decompile `fcn.18012bbb0` and `fcn.18012c1d0`; the EKF subobject is at `+0x200` |
 | W3 | **Propagation model** — predict step off the IMU path | open | `fcn.180134cd0` → core |
 | W4 | **Measurement model and per-observation R** | open | `fcn.18013a920`; should also settle what the `9` is |
 | W5 | **Reset policy** — triggers and thresholds | open | `fcn.180138780`, `fcn.180132a20`; 11 named causes, only sigmas known |
@@ -153,6 +153,74 @@ in a commit. A fresh context should be able to resume from this table alone.
 
 Stop when the queue is empty or every remaining item is blocked — and say which,
 rather than looping on a blocked item.
+
+## W1 result: the class hierarchy, the EKF's offset, and the constructor
+
+**Recovered.** The RTTI walk, done with the new `--rva` / `--ptr` modes of
+`tools/rip_xref.py`:
+
+```
+TypeDescriptor .?AU?$IndirectEkf@$0BC@$08@Vision@OVR@@   name 0x180526208, TD 0x1805261f8
+TypeDescriptor .?AVEkfFusion@Vision@OVR@@                name 0x1805261d8, TD 0x1805261c8
+TypeDescriptor .?AVSensorFusionFilter@RiftVision@OVR@@   TD 0x180525f40
+CompleteObjectLocator (EkfFusion)                        0x18049de88
+vftable (EkfFusion)                                      0x180453170
+```
+
+The COL validates: signature 1 (x64), offset 0, cdOffset 0, TD RVA `0x5261c8`
+(EkfFusion), CHD `0x49deb0`, and `pSelf` equal to its own RVA `0x49de88`.
+
+### `IndirectEkf<18,9>` is not polymorphic
+
+**Recovered.** Both RVA references to its TypeDescriptor decode as
+**BaseClassDescriptors**, not COLs — the COL reading gives signature 0 and an
+implausible `pSelf`, while the BCD reading is coherent (`pdisp = 0xffffffff`, the
+standard non-virtual-base marker, `attributes = 0x40`).
+
+So it has no vftable and no constructor of its own to find. It exists only as a
+subobject of classes that do carry RTTI. That kills the "find the IndirectEkf
+constructor" phrasing of the plan: the initialisation happens in the *containing*
+class's constructor.
+
+### The hierarchy and the offset that matters
+
+**Recovered**, by walking the BaseClassArray at `0x18049decc`:
+
+```
+OVR::RiftVision::SensorFusionFilter          mdisp 0
+  <- OVR::Vision::EkfFusion                  mdisp 0
+       <- OVR::Vision::IndirectEkf<18,9>     mdisp 512  (0x200)
+```
+
+**The EKF subobject begins at byte offset `0x200` within an `EkfFusion`.** That is
+the anchor everything else hangs off: state, covariance, Q and R are all at fixed
+displacements from `this + 0x200`, so field offsets seen in the decompiled
+predict/update code can now be attributed.
+
+The second BCD (`0x18049df60`, mdisp 0) is `IndirectEkf`'s own self-entry, which
+every class lists first.
+
+### Where construction happens
+
+**Recovered.** Exactly two functions store the `EkfFusion` vftable:
+
+| function | size | reading |
+|---|---|---|
+| `fcn.18012bbb0` | 1557 | constructor or destructor |
+| `fcn.18012c1d0` | 1703 | the other |
+
+**Inferred:** one is the constructor and one the destructor (MSVC writes the
+vftable in both). W2 starts by decompiling both and taking whichever initialises
+memory at `+0x200`.
+
+### Correction to the method notes
+
+**The section deltas are not uniform**, contrary to what the plan asserted.
+`.text` and `.rdata` share `0x180000c00`, but `.data` is `0x180000e00` and
+`.pdata` onward diverge further. The TypeDescriptors live in `.data`, so any
+script using a single global delta misreads them. `tools/rip_xref.py` maps
+per-section via the section table; the ad-hoc constant-dump scripts in pass 1 did
+not, and were only correct because they happened to touch `.rdata` alone.
 
 ### Scratch state worth preserving
 

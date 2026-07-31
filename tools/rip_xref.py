@@ -19,11 +19,26 @@ The second form is what matters for pulling float constants out of .rdata and
 attributing them to the function that uses them - the EKF's Q, R and gains live
 there as raw doubles with no symbol attached.
 
-Sections in this image map with a single uniform delta (vaddr = paddr +
-0x180000C00), which the loader below derives rather than assumes.
+Section deltas are NOT uniform in this image - .text and .rdata share
+0x180000c00 but .data is 0x180000e00 and .pdata onwards diverge further - so
+every conversion here goes through the section table rather than a constant. An
+earlier ad-hoc script that assumed one delta silently misread .data.
+
+RTTI needs two more reference kinds, because MSVC x64 stores those links as
+image-relative RVAs and absolute pointers rather than RIP-relative operands, so
+the instruction scan above cannot see them:
+
+  --rva 0x...   find 4-byte image-relative references (RTTI COL -> TypeDescriptor)
+  --ptr 0x...   find 8-byte absolute references       (vftable -> COL)
+
+The walk to a constructor is: TypeDescriptor (16 bytes before its .?A name
+string) -> --rva finds the CompleteObjectLocator at hit-12 -> --ptr finds the
+vftable at hit+8 -> the plain reference scan finds the code storing it.
 
   tools/rip_xref.py Rift.dll 0x180453500           what references this address
   tools/rip_xref.py Rift.dll --const 0x180134cd0   float constants a function reads
+  tools/rip_xref.py Rift.dll --rva 0x1805261f8     RVA references to a TypeDescriptor
+  tools/rip_xref.py Rift.dll --ptr 0x18044a000     absolute pointers to an address
 """
 import argparse
 import struct
@@ -82,6 +97,8 @@ def main():
     ap.add_argument("dll")
     ap.add_argument("target", nargs="?", help="address referenced, e.g. 0x180453500")
     ap.add_argument("--const", help="function address: report the constants it reads")
+    ap.add_argument("--rva", help="find 4-byte image-relative references to this vaddr")
+    ap.add_argument("--ptr", help="find 8-byte absolute references to this vaddr")
     ap.add_argument("--span", type=lambda x: int(x, 0), default=0x2000,
                     help="bytes of the function to scan with --const")
     a = ap.parse_args()
@@ -111,6 +128,32 @@ def main():
         print("float constants referenced by 0x%x (first %d bytes):" % (fn, a.span))
         for tgt, (f32, f64) in sorted(seen.items()):
             print("  0x%x  f32 %-18.9g  f64 %.9g" % (tgt, f32, f64))
+        return
+
+    if a.rva or a.ptr:
+        want = int(a.rva or a.ptr, 0)
+        if a.rva:
+            IMAGE_BASE = 0x180000000
+            needle = struct.pack("<I", want - IMAGE_BASE)
+            kind = "RVA"
+        else:
+            needle = struct.pack("<Q", want)
+            kind = "absolute pointer"
+        print("%s references to 0x%x:" % (kind, want))
+        found = False
+        for s in secs:
+            data = blob[s["paddr"]:s["paddr"] + s["size"]]
+            off = data.find(needle)
+            while off != -1:
+                # 4-byte RVAs are only meaningful when aligned; unaligned hits in
+                # this image are overwhelmingly coincidental byte runs inside code
+                # or strings, and reporting them buries the real ones.
+                if off % 4 == 0:
+                    print("  0x%x  in %s" % (s["vaddr"] + off, s["name"]))
+                    found = True
+                off = data.find(needle, off + 1)
+        if not found:
+            print("  none found")
         return
 
     tgt = int(a.target, 0)
