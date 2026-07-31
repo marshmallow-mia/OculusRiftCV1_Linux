@@ -108,12 +108,11 @@ logging. The `1e-06` and `1e-05` in the core are plausibly covariance
 regularisation or a positive-definiteness epsilon (that function carries the "P
 not positive definite" string) — **inferred, not confirmed**.
 
-Notably absent: the `9.80667, 750, 0.01` previously attributed to `180134cd0`,
-and the `2.5e-5, 9e-6` reset sigmas attributed to `180132a20`. Those readings
-came from a different extraction method and one of the two is wrong; this pass
-scanned rizin's resolved `data.*` operands over the whole function body, which
-should be a superset of a manual scan. **Unresolved — flagging rather than
-silently overwriting the earlier note.**
+~~Notably absent: the `9.80667, 750, 0.01` previously attributed to
+`180134cd0`, and the `2.5e-5, 9e-6` reset sigmas attributed to `180132a20`.~~
+**RESOLVED in W8 — this paragraph was wrong.** Those constants are present; the
+`data.*` scan used here is not a superset of a manual scan, because it misses
+everything the decompiler folds into an expression. See "W8 result".
 
 The structural conclusion stands regardless: **there is no inline Q or R.** The
 process and measurement noise are object members, set at construction or from
@@ -127,8 +126,10 @@ matrices fall out".
 `tools/rip_xref.py`. rizin's `axt` resolves nothing in this binary, which is why
 only ~15 of 5585 functions have ever been named. The script scans `.text` for
 RIP-relative operands (`modrm & 0xC7 == 0x05`) and maps them to targets; that is
-how the `dump_csv` gate was found. Sections in this image map with a uniform
-delta of `0x180000C00` (vaddr = paddr + delta), which the script derives.
+how the `dump_csv` gate was found. It maps addresses **per section** via the
+section table — the deltas are not uniform (`.text`/`.rdata` are `0x180000c00`,
+`.data` is `0x180000e00`, `.pdata` onward diverge further), and the
+TypeDescriptors live in `.data`. See the correction under W1.
 
 Caveat learned this pass: a scanner limited to `movss`/`movsd` loads misses most
 constants, because MSVC folds them into arithmetic (`mulsd xmm,[rip+d32]`).
