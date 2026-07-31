@@ -144,11 +144,11 @@ in a commit. A fresh context should be able to resume from this table alone.
 | # | item | status | notes |
 |---|---|---|---|
 | W1 | RTTI → COL → vftable → **constructor** for `IndirectEkf<18,9>` and `EkfFusion`; object size and layout | **DONE** | see "W1 result" below |
-| W2 | **Q and initial P** from the constructor and its callers | **partly done** | ctor found and it only allocates/zeroes; P0 formula located in the reset path; **Q still open** — look for the propagation-time noise injection in W3 |
+| W2 | **Q and initial P** | **P0 done; Q EXHAUSTED** | Q excluded from six paths; see "Q: exhausted" below |
 | W3 | **Propagation model** — predict step off the IMU path | **partly done** | P proven 18x18 row-major; per-state covariance FLOOR found; "EKF core" mislabelling corrected. Propagation math and Q still open — next look at `fcn.1801386a0` (8602 B) and the second 18 inline doubles at `+0xa0` |
-| W4 | **Measurement model and per-observation R** | **started** | real function is `fcn.18013a840` (4408 B, 13 args, matrix-heavy); no inline constants, so R arrives as an argument — tracing which one needs the driver's argument setup |
-| W5 | **Reset policy** — triggers and thresholds | **partly done** | all 10 reset-cause strings are in `fcn.1801386a0`; "Too few matches" threshold recovered (< 5). Other guards obscured by logging boilerplate |
-| W6 | **Gravity aligner → EKF coupling** | **partly done** | gravity magnitude is an accumulated scalar at `EkfFusion+0x598`, hard-clamped to [9.71, 9.91] — NOT Kalman-updated. Direction states still to trace |
+| W4 | **Measurement model and per-observation R** | **structure done; R value EXHAUSTED** | R confirmed passed per call, not stored; identifying *which* argument needs dataflow the decompiler does not give |
+| W5 | **Reset policy** — triggers and thresholds | **one threshold done; rest EXHAUSTED** | `< 5` matches recovered; remaining guards need control-flow analysis under heavy logging boilerplate |
+| W6 | **Gravity aligner → EKF coupling** | **DONE** | magnitude is an accumulated scalar at `EkfFusion+0x598` clamped to [9.71, 9.91], never Kalman-updated |
 | W7 | **`dump_csv` plumbing** — config source, settable under Wine?, buffer depth | **BLOCKED** | registry path recovered; **not exercisable here** — Rift.dll is in `server-plugins/disabled/` and the runtime has never tracked in this prefix. Recipe recorded for a real Windows install |
 | W8 | **Reconcile the constant discrepancy** vs `rift-dll-functions.md` | **DONE** | resolved against me: the earlier note was right, my pass-1 scan was incomplete. See "W8 result" |
 
@@ -566,6 +566,66 @@ so the states stay responsive.
 Constants recovered in the aligner chain (`fcn.1801375d0`, `fcn.180146860`,
 `fcn.18011ab20`): **9.71 / 9.91** the acceptance band, **0.0076** rad (0.435 deg),
 **0.0005**, plus 0.1, 3.0, 5.0, 9.0 whose roles are unassigned.
+
+## Q: exhausted for static analysis
+
+**Q was not found, and this records where it is not.** Six independent paths were
+checked:
+
+1. the `IndirectEkf` initialiser (`fcn.18012b9b0`) — allocates and zeroes only
+2. the `EkfFusion` constructor (`fcn.18012bbb0`) — no noise values
+3. the reset path (`fcn.180132a20`) — builds P0 from a formula, no Q
+4. the covariance floor path (`fcn.18013b980`) — copy and clamp only
+5. the second 18-double inline vector (`+0xa0`..`+0x128`) — written by nothing
+6. the IMU driver's own P access (`fcn.180134bf0`) — the 18x18 loop there is a
+   **diagnostic dump of P on vision-update failure**, not an injection
+
+**Inferred, and offered as the most likely explanation rather than a finding:**
+there may be no Q object at all. The reset path builds covariance from a
+motion-dependent variance model —
+
+```c
+((|v|^2) * 2.5e-05) / 3.0  +  (field@0x440)^2  +  x * 9e-06
+```
+
+— with coefficients in m^2 (5 mm and 3 mm squared). A filter that computes
+covariance contributions from current motion this way would have no stored
+process-noise matrix to find. **Not established:** those constants appear only in
+the reset path, not in the propagation, so whether propagation uses the same model
+is unknown.
+
+Settling this needs either real dataflow analysis through `fcn.180134bf0`
+(10709 B, heavily interleaved with logging), or the `dump_csv` capture — which is
+blocked (W7).
+
+## Closing state of the extraction
+
+**Recovered, and enough to constrain a reimplementation:**
+
+| property | value |
+|---|---|
+| filter | error-state EKF, `IndirectEkf<18,9>` |
+| state / measurement dimension | 18 / **9** |
+| covariance P | 18x18 doubles, row-major, at `IndirectEkf+0x00` |
+| measurement Jacobian H | 9x18 doubles, at `+0x08` |
+| covariance floor | per-state minimum variance, `+0x10`..`+0x98`, applied as `P[i][i] = max(P[i][i], floor[i])` across all 18 states |
+| initial covariance | computed from a motion-dependent formula, not tabulated |
+| measurement noise R | supplied per observation, never stored |
+| update form | state space; six 18x18 temporaries, no 9x9 anywhere |
+| reset trigger | fewer than **5** matches in a vision fix |
+| gravity magnitude | accumulated scalar at `EkfFusion+0x598`, hard-clamped to **[9.71, 9.91]** m/s^2, never Kalman-updated |
+| object layout | `IndirectEkf` subobject at `EkfFusion+0x200`; hierarchy `SensorFusionFilter <- EkfFusion <- IndirectEkf<18,9>` |
+
+**Not recovered:** Q, the numeric R rule, the propagation Jacobian, most reset
+thresholds, and the roles of the second inline vector and several aligner
+constants.
+
+**The two findings that change what a reimplementation looks like** are the
+per-state variance floor and the externally-fed gravity. This project previously
+added gravity states to its own filter and reverted them as inert because the
+covariance collapsed and froze them. Oculus avoids that by doing neither thing
+the obvious way: gravity is held up from outside the estimator, and the
+covariance is floored so states cannot collapse.
 
 ### Scratch state worth preserving
 
