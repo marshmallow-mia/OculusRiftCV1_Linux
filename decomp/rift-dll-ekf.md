@@ -145,7 +145,7 @@ in a commit. A fresh context should be able to resume from this table alone.
 | W1 | RTTI → COL → vftable → **constructor** for `IndirectEkf<18,9>` and `EkfFusion`; object size and layout | **DONE** | see "W1 result" below |
 | W2 | **Q and initial P** from the constructor and its callers | **partly done** | ctor found and it only allocates/zeroes; P0 formula located in the reset path; **Q still open** — look for the propagation-time noise injection in W3 |
 | W3 | **Propagation model** — predict step off the IMU path | **partly done** | P proven 18x18 row-major; per-state covariance FLOOR found; "EKF core" mislabelling corrected. Propagation math and Q still open — next look at `fcn.1801386a0` (8602 B) and the second 18 inline doubles at `+0xa0` |
-| W4 | **Measurement model and per-observation R** | open | `fcn.18013a920`; should also settle what the `9` is |
+| W4 | **Measurement model and per-observation R** | **started** | real function is `fcn.18013a840` (4408 B, 13 args, matrix-heavy); no inline constants, so R arrives as an argument — tracing which one needs the driver's argument setup |
 | W5 | **Reset policy** — triggers and thresholds | open | `fcn.180138780`, `fcn.180132a20`; 11 named causes, only sigmas known |
 | W6 | **Gravity aligner → EKF coupling** | open | `fcn.18011ab20`, `fcn.180146860`, `fcn.1801376b0`; a prior attempt at gravity states was inert for want of this |
 | W7 | **`dump_csv` plumbing** — config source, settable under Wine?, buffer depth | open | empirical ground truth; may short-circuit later items, but can be blocked by the Wine install so it is not first |
@@ -369,15 +369,45 @@ the first few samples and the state is frozen thereafter". Oculus prevents
 exactly that failure with a per-state variance floor. The mechanism our attempt
 lacked is now recovered, and it is not a tuning value but a structural feature.
 
-**Inferred:** the second 18 inline doubles (`+0xa0`..`+0x128`) are the obvious
-counterpart — a process-noise vector or an upper clamp — but nothing observed so
-far writes or reads them, so the role is unassigned.
+The floor's extent is exact: the last clamp is `arg2 + 0x98` against
+`P[0x143]`, and `0x143 = 323 = 19 x 17`, i.e. `P[17][17]`. So it covers states
+0..17 and no further.
+
+**The second 18 inline doubles (`+0xa0`..`+0x128`) are written by nothing.**
+Searched across every function decompiled so far — the EkfFusion constructor, the
+IndirectEkf initialiser, the IMU driver, the reset path, the floor path and the
+vision update — the only code that touches that range is the constructor's
+zeroing. Recorded as a **negative result**: it is not the process noise in any
+path examined, and it may be reserved or dead. Assigning it a role would need
+either a caller not yet reached or the `dump_csv` route.
 
 ### Q is still not located
 
 Not in the constructor (W2), not in the reset path (W2), and not in the floor
 path. Remaining candidate is injection during propagation, inside
 `fcn.1801386a0` (8602 B) or the driver itself. That is where W3 resumes.
+
+## W4 start: the vision update takes its noise as an argument
+
+**Recovered.** The recorded `fcn.18013a920` is inside `fcn.18013a840` (4408 B),
+which is the actual function. The driver calls it as
+
+```c
+fcn.18013a840(ctx + 0x56be8, ctx + 0x200, &stack, iVar20, ...9 more stack args)
+```
+
+so arg2 is the EKF subobject, arg1 is a per-device observation block, and the
+remaining eleven arguments carry the measurement.
+
+**Recovered:** the body is matrix work over 18-sized loops (`0x12` trip counts,
+strides of `0x12`) and contains **no numeric literals at all** beyond `0.0`.
+There is therefore no tabulated R anywhere in the update: the measurement noise
+is passed in per call. That is direct confirmation of the "per-observation R"
+reading in `windows-vs-linux-tracking.md:345`, which until now was qualitative.
+
+**Still open:** which of the eleven trailing arguments is R, and the rule the
+driver uses to build it (reprojection error, camera count, distance). That needs
+the driver's argument setup rather than the update itself.
 
 ### Scratch state worth preserving
 
