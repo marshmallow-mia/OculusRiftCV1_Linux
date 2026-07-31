@@ -213,3 +213,86 @@ measure the post-motion catch-up distance and duration against dropout length.
 The in-headset logs support the premise — `settle.log` recorded 26 "Matched
 orientation after" gaps with a median of 0.19 s and a max of 0.87 s, i.e. vision
 outages far longer than the 70 ms gate.
+
+---
+
+## Iteration 3 — 2026-07-31 — **CAUSE FOUND**
+
+### H5 — freezing position during a vision outage, then reading the accumulated error as velocity
+
+**CONFIRMED. This is the cause.** `--dropout-ms` in the harness, `translate`
+profile (1.2 m/s), vision suppressed through the deceleration:
+
+| vision dropout | post-stop travel | settling |
+|---|---|---|
+| 0 ms | 2.40 mm | 390 ms |
+| 70 ms | 2.38 mm | 988 ms |
+| 120 ms | 3.87 mm | 754 ms |
+| **200 ms** | **59.32 mm** | **1608 ms** |
+| **300 ms** | **178.43 mm** | **1222 ms** |
+| 500 ms | 424.16 mm | 66 ms (snaps) |
+| 900 ms | 600.00 mm | 68 ms (snaps) |
+
+A 200–300 ms gap yields **6–18 cm of travel after the head has stopped**, over
+1.2–1.6 s. Measured gaps in the wearer's own session: 0.19 s median, 0.87 s max.
+
+### The mechanism, from the 200 ms trace
+
+| t (s) | true (mm) | estimate (mm) | error (mm) | fusion \|v\| |
+|---|---|---|---|---|
+| 0.55 | 538.0 | 532.9 | −5.1 | 1.04 |
+| 0.60 | 578.8 | **540.7** | −38.1 | **0.0000** |
+| 0.70 | 600.0 | **540.7** | −59.3 | **0.0000** |
+| 0.75 | 600.0 | 548.1 | −51.9 | 0.050 |
+| 1.00 | 600.0 | **626.1** | **+26.1** | 0.216 |
+| 1.30 | 600.0 | 610.9 | +10.9 | 0.000 |
+| 2.30 | 600.0 | 601.0 | +1.0 | 0.004 |
+
+Three compounding faults, all in `rift_fusion_ovr_imu_update()` /
+`apply_position_correction()`:
+
+1. **Position freezes.** With no vision fix newer than `VISION_RECENT_NS`
+   (70 ms), the `else` branch sets `lin_vel` to zero and stops integrating. The
+   head keeps moving; the estimate does not. Error grows to 59 mm.
+2. **The accumulated error is then read as velocity.** On re-acquisition the
+   position error is fed into `GAIN_VEL` (50/s) and `GAIN_ACCEL` (25/s) as well
+   as `GAIN_POS`. The estimator interprets "59 mm behind" as "moving fast",
+   injects phantom velocity, and **overshoots 26 mm past the truth**, then rings
+   for ~2 s.
+3. **The phantom velocity is exported.** 0.216 m/s is reported while the head is
+   completely still, and SteamVR multiplies it by its prediction horizon.
+
+### Why this explains everything the earlier hypotheses could not
+
+- **only under fast motion** — dropouts are caused by motion blur, which needs
+  speed; the pose search needs 10 matched LEDs
+- **correct at rest** — no dropouts, no accumulated error, no phantom velocity
+- **`OHMD_STEAMVR_NO_PREDICT=1` felt better** — it stops the phantom velocity
+  being extrapolated, at the cost of latency, exactly as observed
+- **velocity smoothing and vision gains changed nothing** — wrong subsystem
+- **the 500 ms+ rows snap instead of drifting** (`VISION_REACQUIRE_NS`), so the
+  damaging band is roughly **120–500 ms**, which is precisely where the measured
+  gaps sit
+
+### Next — fix, and prove it on this same sweep
+
+Candidate fixes to test in the harness, choosing on measurement:
+
+- **A**: keep dead-reckoning position from the IMU through short outages instead
+  of freezing. This is what the accelerometer is for, and over 200–300 ms its
+  drift is far below the 59 mm the freeze costs.
+- **B**: on re-acquisition after a gap, apply the position correction without
+  feeding it into the velocity and bias states — the error is stale, not
+  evidence of motion. Optionally scale the velocity/bias gains by outage length.
+- **C**: do not export a velocity the estimator has synthesised from a stale
+  position error.
+
+Windows precedent to check on Track B: `Ekf Freeze`, `Gyro saturation: %d
+samples, orient sigma %.2f`, and `Ekf Reset after large pose update` suggest the
+runtime has an explicit outage policy, and an EKF would grow covariance during
+the gap and weight the returning fix accordingly rather than converting a stale
+error into velocity.
+
+Regression test: the dropout sweep above becomes the acceptance criterion —
+post-stop travel must stay near the 2.4 mm no-dropout figure across
+120–500 ms gaps.

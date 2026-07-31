@@ -109,6 +109,7 @@ int main(int argc, char **argv)
 	double vision_latency_ms = 30.0;
 	double hold_override = -1.0;
 	double vision_bias_mm = 0.0;
+	double dropout_ms = 0.0;
 	const profile *pr = NULL;
 	int i;
 
@@ -123,6 +124,8 @@ int main(int argc, char **argv)
 			hold_override = atof(argv[++i]);
 		else if (!strcmp(argv[i], "--vision-bias") && i + 1 < argc)
 			vision_bias_mm = atof(argv[++i]);
+		else if (!strcmp(argv[i], "--dropout-ms") && i + 1 < argc)
+			dropout_ms = atof(argv[++i]);
 		else if (!strcmp(argv[i], "--no-euro"))
 			use_euro = false;
 		else if (!strcmp(argv[i], "--noise"))
@@ -253,7 +256,14 @@ int main(int argc, char **argv)
 		/* Expose at 60 Hz: claim a delay slot now, deliver the solved pose
 		 * one vision latency later. Feeding exact truth means any residual
 		 * that shows up is the estimator's own, not measurement error. */
-		if (ts >= next_vision) {
+		/* Vision drops out under fast motion: blur costs blobs and the
+		 * pose search needs 10 matched LEDs. Suppress it through the end
+		 * of the movement, which is when it really fails, and let it
+		 * resume once the head is still. */
+		bool vision_blind = dropout_ms > 0.0 &&
+			t > motion_end - dropout_ms / 1000.0 && t < motion_end;
+
+		if (ts >= next_vision && !vision_blind) {
 			int s;
 			for (s = 0; s < RIFT_FUSION_OVR_MAX_SLOTS; s++) {
 				if (!pending[s].used)
