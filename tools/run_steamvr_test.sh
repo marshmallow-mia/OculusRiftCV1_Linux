@@ -71,6 +71,33 @@ if pgrep -x vrserver >/dev/null 2>&1; then
 	exit 1
 fi
 
+# ---- preflight 0: SteamVR must load the driver we just built --------------
+# SteamVR loads <driver-dir>/bin/linux64/driver_openhmd.so, but meson builds
+# driver_openhmd.so.0.0.1 in the build root and has NO rule to copy it there -
+# the bin/linux64 copy was placed by hand once and then went stale. A rebuilt
+# driver therefore does nothing, silently, and every A/B run against it
+# compares a build to itself. That is exactly what happened on 2026-07-31:
+# two runs of a prediction on/off experiment came back "both feel the same"
+# because both were the same 18:14 binary.
+svr_build=$here/../SteamVR-OpenHMD/build
+svr_fresh=$svr_build/driver_openhmd.so.0.0.1
+svr_loaded=$svr_build/bin/linux64/driver_openhmd.so
+
+if [ -f "$svr_fresh" ]; then
+	if [ ! -f "$svr_loaded" ] || [ "$svr_fresh" -nt "$svr_loaded" ]; then
+		echo "driver: bin/linux64 copy is stale - refreshing it"
+		mkdir -p "$(dirname "$svr_loaded")"
+		cp -f "$svr_fresh" "$svr_loaded" || {
+			echo "REFUSING TO START: could not update $svr_loaded" >&2
+			exit 1
+		}
+	fi
+	echo "driver:  $(date -r "$svr_loaded" +%m-%d\ %H:%M) $svr_loaded"
+else
+	echo "note: $svr_fresh not built - SteamVR will load whatever is in" >&2
+	echo "      bin/linux64, which may be arbitrarily old" >&2
+fi
+
 # ---- preflight 1: report the session, do not block on it ------------------
 session=${XDG_SESSION_TYPE:-}
 [ -n "$session" ] || session=$(loginctl show-session "$(loginctl show-user "$USER" -p Display --value 2>/dev/null)" -p Type --value 2>/dev/null || true)

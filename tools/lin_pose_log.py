@@ -22,6 +22,23 @@ Two backends:
                      correction-bleed offset. This is the apples-to-apples
                      comparison point against the Oculus runtime output.
 
+                     READ --predict-ms BEFORE TRUSTING A CAPTURE. The horizon
+                     passed to getDeviceToAbsoluteTrackingPose decides WHICH
+                     pose you get, and the two are not interchangeable:
+
+                       --predict-ms 0   the pose SteamVR RECEIVED from us
+                       --predict-ms 30  the pose SteamVR RENDERS with, after
+                                        extrapolating over the velocity and
+                                        acceleration our driver hands it
+
+                     A capture at 0 says nothing about SteamVR's extrapolation,
+                     because at horizon 0 there is none. That distinction cost a
+                     whole evening: osc.csv was logged at 0, read 0.64 mm
+                     residual with no dominant frequency, and was taken as
+                     exonerating the entire stack — while the artifact the user
+                     was reporting lives in a term that capture cannot contain.
+                     Default stays 0 so older captures remain comparable.
+
   --backend openhmd  Parse the stdout of openhmd_simple_example, like
                      riftcv1/pose_test.py does. Catches the pose BEFORE the
                      SteamVR driver layer. Velocities are finite-differenced
@@ -90,7 +107,7 @@ def mat34_to_pq(m):
     return (px, py, pz), (qx, qy, qz, qw)
 
 
-def run_openvr(out_path, duration):
+def run_openvr(out_path, duration, predict_ms=(0.0,)):
     try:
         import openvr
     except ImportError:
@@ -114,11 +131,78 @@ def run_openvr(out_path, duration):
     if hmd_i is None:
         sys.exit("No HMD visible to OpenVR — is SteamVR running with our driver?")
 
-    prev = {}  # device -> (t, v) for accel finite-diff
+    prev = {}  # (stream, device) -> (t, v, omega) for accel finite-diff
 
-    with open(out_path, "w", newline="") as f:
-        w = csv.writer(f)
-        w.writerow(HEADER)
+    def dev_fields(poses, i):
+        if i is None or not poses[i].bDeviceIsConnected:
+            return [0.0] * 7 + [0]
+        p = poses[i]
+        pos, q = mat34_to_pq(
+            [list(p.mDeviceToAbsoluteTracking[r]) for r in range(3)])
+        status = 0
+        if p.bPoseIsValid:
+            status |= FLAG_ORIENT | FLAG_POS
+        return list(pos) + list(q) + [status]
+
+    def hmd_fields(poses, stream, t_mono):
+        p = poses[hmd_i]
+        pos, q = mat34_to_pq(
+            [list(p.mDeviceToAbsoluteTracking[r]) for r in range(3)])
+        v = list(p.vVelocity.v)
+        omega = list(p.vAngularVelocity.v)
+        # accel by finite difference on velocity
+        a = [0.0, 0.0, 0.0]
+        al = [0.0, 0.0, 0.0]
+        key = (stream, hmd_i)
+        if key in prev:
+            pt, pv, pw = prev[key]
+            dt = t_mono - pt
+            if dt > 0:
+                a = [(v[k] - pv[k]) / dt for k in range(3)]
+                al = [(omega[k] - pw[k]) / dt for k in range(3)]
+        prev[key] = (t_mono, v, omega)
+        status = FLAG_FDIFF
+        if p.bPoseIsValid:
+            status |= FLAG_ORIENT | FLAG_POS
+        return list(pos) + list(q) + v + omega + a + al + [status]
+
+    def sample(horizon_s, stream, t_mono, t_wall):
+        poses = poses_t()
+        vr.getDeviceToAbsoluteTrackingPose(
+            openvr.TrackingUniverseStanding, horizon_s, poses)
+        # A predicted row is stamped with the time it was predicted FOR, not the
+        # time it was taken — analyze_prediction.py recovers the horizon as
+        # median(pred.t_ovr - now.t_ovr), so stamping both with the sample time
+        # would collapse the horizon to zero and score the predictor against
+        # itself. Same convention as tools/win/ovr_pose_log.c.
+        t_stamp = t_mono + horizon_s
+        row = [f"{t_stamp:.6f}", f"{t_wall + horizon_s:.6f}"]
+        row += [f"{x:.9f}" if isinstance(x, float) else x
+                for x in hmd_fields(poses, stream, t_stamp)]
+        for ci in ctrl_i:
+            row += [f"{x:.9f}" if isinstance(x, float) else x
+                    for x in dev_fields(poses, ci)]
+        return row
+
+    # Every horizon is sampled in the SAME loop iteration. The human cannot
+    # repeat a head turn twice, so separate runs would not be comparable;
+    # sampling back to back makes the motion identical by construction and the
+    # only difference between the files is how far SteamVR extrapolated. A
+    # sweep rather than a single horizon turns the result from a point into a
+    # curve: prediction error should fall then rise, and where it starts rising
+    # is the horizon past which SteamVR is overshooting on our data.
+    stem = out_path[:-4] if out_path.endswith(".csv") else out_path
+    horizons = [h for h in predict_ms if h > 0.0]
+    now_path = stem + "_now.csv" if horizons else out_path
+    pred_paths = [f"{stem}_pred{h:g}.csv" for h in horizons]
+
+    files = [open(now_path, "w", newline="")]
+    files += [open(p, "w", newline="") for p in pred_paths]
+    try:
+        writers = [csv.writer(f) for f in files]
+        for w in writers:
+            w.writerow(HEADER)
+
         t0 = time.monotonic()
         n = 0
         while True:
@@ -127,55 +211,22 @@ def run_openvr(out_path, duration):
             if t_mono - t0 >= duration:
                 break
 
-            poses = poses_t()
-            vr.getDeviceToAbsoluteTrackingPose(
-                openvr.TrackingUniverseStanding, 0.0, poses)
-
-            def dev_fields(i):
-                if i is None or not poses[i].bDeviceIsConnected:
-                    return [0.0] * 7 + [0]
-                p = poses[i]
-                pos, q = mat34_to_pq(
-                    [list(p.mDeviceToAbsoluteTracking[r]) for r in range(3)])
-                status = 0
-                if p.bPoseIsValid:
-                    status |= FLAG_ORIENT | FLAG_POS
-                return list(pos) + list(q) + [status]
-
-            def hmd_fields():
-                p = poses[hmd_i]
-                pos, q = mat34_to_pq(
-                    [list(p.mDeviceToAbsoluteTracking[r]) for r in range(3)])
-                v = list(p.vVelocity.v)
-                omega = list(p.vAngularVelocity.v)
-                # accel by finite difference on velocity
-                a = [0.0, 0.0, 0.0]
-                al = [0.0, 0.0, 0.0]
-                key = ("hmd", hmd_i)
-                if key in prev:
-                    pt, pv, pw = prev[key]
-                    dt = t_mono - pt
-                    if dt > 0:
-                        a = [(v[k] - pv[k]) / dt for k in range(3)]
-                        al = [(omega[k] - pw[k]) / dt for k in range(3)]
-                prev[key] = (t_mono, v, omega)
-                status = FLAG_FDIFF
-                if p.bPoseIsValid:
-                    status |= FLAG_ORIENT | FLAG_POS
-                return list(pos) + list(q) + v + omega + a + al + [status]
-
-            row = [f"{t_mono:.6f}", f"{t_wall:.6f}"]
-            row += [f"{x:.9f}" if isinstance(x, float) else x
-                    for x in hmd_fields()]
-            for ci in ctrl_i:
-                row += [f"{x:.9f}" if isinstance(x, float) else x
-                        for x in dev_fields(ci)]
-            w.writerow(row)
+            writers[0].writerow(sample(0.0, "now", t_mono, t_wall))
+            for w, h in zip(writers[1:], horizons):
+                w.writerow(sample(h / 1000.0, f"pred{h:g}", t_mono, t_wall))
             n += 1
             time.sleep(0.001)  # ~1 kHz ceiling; actual rate limited by runtime
+    finally:
+        for f in files:
+            f.close()
 
     openvr.shutdown()
-    print(f"wrote {n} rows to {out_path}", file=sys.stderr)
+    print(f"wrote {n} rows to {now_path}", file=sys.stderr)
+    for p, h in zip(pred_paths, horizons):
+        print(f"  + {p}  (horizon {h:g} ms)", file=sys.stderr)
+    for p in pred_paths:
+        print(f"  score: venv/bin/python tools/analyze_prediction.py "
+              f"{now_path} {p}", file=sys.stderr)
 
 
 def run_openhmd(out_path, duration, cmd):
@@ -249,10 +300,21 @@ def main():
     ap.add_argument("--cmd", nargs=argparse.REMAINDER,
                     help="(openhmd backend) command to run, e.g. "
                          "--cmd ./openhmd_simple_example")
+    ap.add_argument("--predict-ms", default="0",
+                    help="(openvr backend) comma-separated prediction horizons "
+                         "handed to getDeviceToAbsoluteTrackingPose, e.g. "
+                         "'11,22,33'. Horizon 0 is always logged as <stem>_now."
+                         " 0 alone logs the pose as SteamVR received it; a real "
+                         "horizon logs the pose it renders with. See the note at "
+                         "the top of this file.")
     args = ap.parse_args()
 
     if args.backend == "openvr":
-        run_openvr(args.out, args.duration)
+        try:
+            horizons = [float(x) for x in args.predict_ms.split(",") if x.strip()]
+        except ValueError:
+            sys.exit(f"--predict-ms: not a number list: {args.predict_ms!r}")
+        run_openvr(args.out, args.duration, horizons)
     else:
         if not args.cmd:
             sys.exit("--backend openhmd requires --cmd <example binary> ...")
