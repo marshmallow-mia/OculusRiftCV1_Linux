@@ -1,0 +1,1264 @@
++++ dirname /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/vrmonitor.sh
+++ cd /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/
+++ pwd
++ VRBINDIR=/home/mia/.local/share/Steam/steamapps/common/SteamVR/bin
++ [[ -n '' ]]
++ exec /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/vrenv.sh /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/vrmonitor.sh
+vrenv.sh[314584]: VRCOMPOSITOR_LD_LIBRARY_PATH=/home/mia/git/rift-cv1-center:/home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/linux64/qt/lib:/home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/linux64
+vrenv.sh[314584]: exec /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/vrmonitor.sh
++++ dirname /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/vrmonitor.sh
+++ cd /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/
+++ pwd
++ VRBINDIR=/home/mia/.local/share/Steam/steamapps/common/SteamVR/bin
++ [[ -n /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/vrenv.sh ]]
++ case $(uname) in
+++ uname
++ VRMONITOR=/home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/linux64/vrmonitor
++ exec /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/linux64/vrmonitor
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 21:59:27 minidumps folder is set to /tmp/dumps
+07/31 21:59:27 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(314584)
+static QPlatformTheme* QKdeTheme::createKdeTheme(): Unable to determine KDE dirs
+sh: line 1: steamxdg-icon-resource: command not found
+sh: line 1: steam-runtime-launch-client: command not found
+QObject::connect: No such slot CQVRMonitorController::OnStartRecordingAction() in /data/src/vrmonitor/qvrmonitorcontroller.cpp:1112
+QObject::connect: No such slot CQVRMonitorController::OnStopRecordingAction() in /data/src/vrmonitor/qvrmonitorcontroller.cpp:1115
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+CQVRMonitorHeadsetWarning(0x55e7c21bb800)  does not have a property named  "green_color"
+CQVRMonitorHeadsetWarning(0x55e7c21bb800)  does not have a property named  "red_color"
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 21:59:27 minidumps folder is set to /tmp/dumps
+07/31 21:59:27 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(314705)
+[S_API] SteamAPI_Init(): Loaded '/home/mia/.local/share/Steam/linux64/steamclient.so' OK.
+VR Server (v1781734990)
+
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+SteamInternal_SetMinidumpSteamID:  Caching Steam ID:  76561198428899653 [API loaded yes]
+SteamInternal_SetMinidumpSteamID:  Setting Steam ID:  76561198428899653
+[II] HMD IMU calibration  gyro_offset [ -0.003900, 0.001300, 0.001100 ]  accel_offset [ 0.108000, -0.305600, 0.024900 ]
+[II]   gyro_calib = 
+[II]   [    0.999,    0.005,   -0.021 ]
+[II]   [    0.004,    1.000,   -0.007 ]
+[II]   [    0.008,    0.038,    0.999 ]
+[II]   accel_calib = 
+[II]   [    1.021,    0.001,   -0.018 ]
+[II]   [    0.001,    1.037,    0.022 ]
+[II]   [    0.004,   -0.005,    0.963 ]
+[II] HMD accel calibration matrix: mean row norm 1.0072 -> 1.0000 (scale removed 0.72%)
+[II] HMD gyro calibration matrix: mean row norm 0.9994 -> 1.0000 (scale removed -0.06%)
+[II] CV1 display config: brightness=0 flags=0x400 persistence=273/1472 rows
+[II] Using 34 visor LEDs; dropped 10 headband LEDs (not tracked as a separate body yet - the headset is only trackable from the front)
+LED model: HMD LEDs
+{ .pos = {0.062939,-0.032042,0.067541}, .dir={0.181956,-0.102972,0.977900}, .pattern=0x1 },
+{ .pos = {0.077151,0.000993,0.065562}, .dir={0.299055,0.001984,0.954234}, .pattern=0x6 },
+{ .pos = {0.028983,-0.019018,0.073518}, .dir={0.082983,-0.096960,0.991823}, .pattern=0x1a },
+{ .pos = {-0.000097,-0.033045,0.072449}, .dir={0.000000,-0.188028,0.982164}, .pattern=0x1d },
+{ .pos = {-0.028998,-0.019144,0.073384}, .dir={-0.082983,-0.096960,0.991823}, .pattern=0x28 },
+{ .pos = {-0.063022,-0.032156,0.067359}, .dir={-0.181956,-0.102972,0.977900}, .pattern=0x2f },
+{ .pos = {-0.077078,0.000964,0.065342}, .dir={-0.299055,0.001984,0.954234}, .pattern=0x33 },
+{ .pos = {-0.054039,0.034440,0.068623}, .dir={-0.140969,0.134957,0.980772}, .pattern=0x4b },
+{ .pos = {-0.020202,0.017950,0.074224}, .dir={-0.056979,0.095951,0.993754}, .pattern=0x4c },
+{ .pos = {0.053973,0.034595,0.069160}, .dir={0.140969,0.134957,0.980772}, .pattern=0x57 },
+{ .pos = {0.020062,0.018061,0.074368}, .dir={0.056979,0.095951,0.993754}, .pattern=0x62 },
+{ .pos = {-0.078856,-0.011904,0.028395}, .dir={-0.993057,-0.099980,-0.061984}, .pattern=0x65 },
+{ .pos = {-0.077293,-0.012335,-0.008668}, .dir={-0.981566,-0.188915,-0.028963}, .pattern=0x79 },
+{ .pos = {-0.070740,-0.031349,0.010284}, .dir={-0.734056,-0.668042,-0.121987}, .pattern=0x7e },
+{ .pos = {-0.059124,-0.040984,0.036314}, .dir={-0.153997,-0.983099,-0.099003}, .pattern=0x90 },
+{ .pos = {0.058835,-0.040830,0.035942}, .dir={0.153997,-0.983099,-0.099003}, .pattern=0xa4 },
+{ .pos = {0.028165,-0.043453,0.061352}, .dir={-0.004975,-0.998636,-0.051974}, .pattern=0x114 },
+{ .pos = {-0.080319,-0.024476,0.053355}, .dir={-0.947594,-0.225904,-0.225904}, .pattern=0x151 },
+{ .pos = {-0.027992,-0.043610,0.061432}, .dir={0.004975,-0.998636,-0.051974}, .pattern=0x183 },
+{ .pos = {0.070561,-0.031850,0.009988}, .dir={0.734056,-0.668042,-0.121987}, .pattern=0x18c },
+{ .pos = {0.077672,-0.012729,-0.008828}, .dir={0.981566,-0.188915,-0.028963}, .pattern=0x199 },
+{ .pos = {0.079252,-0.012425,0.027945}, .dir={0.993057,-0.099980,-0.061984}, .pattern=0x1aa },
+{ .pos = {0.080678,-0.024862,0.053475}, .dir={0.947594,-0.225904,-0.225904}, .pattern=0x1b5 },
+{ .pos = {-0.029139,0.043728,0.057487}, .dir={-0.004975,0.999980,0.003998}, .pattern=0x1c0 },
+{ .pos = {-0.078382,0.029385,0.053600}, .dir={-0.871752,0.428856,-0.236921}, .pattern=0x1cf },
+{ .pos = {0.072131,0.030937,0.000022}, .dir={0.816019,0.577024,-0.033998}, .pattern=0x1d6 },
+{ .pos = {0.067042,0.037833,0.030095}, .dir={0.526908,0.847875,-0.058962}, .pattern=0x1e9 },
+{ .pos = {0.078260,0.029513,0.053292}, .dir={0.871752,0.428856,-0.236921}, .pattern=0x1f3 },
+{ .pos = {0.028896,0.043669,0.057676}, .dir={0.004975,0.999980,0.003998}, .pattern=0x1fc },
+{ .pos = {-0.067240,0.037555,0.029876}, .dir={-0.526908,0.847875,-0.058962}, .pattern=0x230 },
+{ .pos = {-0.072200,0.030241,0.000120}, .dir={-0.816019,0.577024,-0.033998}, .pattern=0x252 },
+{ .pos = {-0.041120,0.043276,0.023325}, .dir={-0.041995,0.999110,-0.003998}, .pattern=0x282 },
+{ .pos = {0.000159,0.043811,0.033423}, .dir={0.005982,0.999932,0.009980}, .pattern=0x285 },
+{ .pos = {0.041085,0.043260,0.023553}, .dir={0.041995,0.999110,-0.003998}, .pattern=0x29b },
+[II] HMD IPD 63.5 mm, as reported by the headset (note: this is its stored figure, not vrcompositor-launcher.sh[314765]: Relaunch under scout LDLP runtime.
+vrcompositor-launcher.sh[314765]: exec /home/mia/.steam/root/ubuntu12_32/steam-runtime/run.sh /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/linux64/vrcompositor-launcher.sh
+vrcompositor-launcher.sh[314765]: Detected scout LDLP runtime.
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 21:59:32 minidumps folder is set to /tmp/dumps
+07/31 21:59:32 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(314808)
+[S_API] SteamAPI_Init(): Loaded '/home/mia/.local/share/Steam/linux64/steamclient.so' OK.
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+SteamInternal_SetMinidumpSteamID:  Caching Steam ID:  76561198428899653 [API loaded yes]
+SteamInternal_SetMinidumpSteamID:  Setting Steam ID:  76561198428899653
+Initialize() is failed!!!
+qt.network.ssl: QSslSocket: cannot resolve CRYPTO_num_locks
+qt.network.ssl: QSslSocket: cannot resolve CRYPTO_set_id_callback
+qt.network.ssl: QSslSocket: cannot resolve CRYPTO_set_locking_callback
+qt.network.ssl: QSslSocket: cannot resolve ERR_free_strings
+qt.network.ssl: QSslSocket: cannot resolve sk_new_null
+qt.network.ssl: QSslSocket: cannot resolve sk_push
+qt.network.ssl: QSslSocket: cannot resolve sk_free
+qt.network.ssl: QSslSocket: cannot resolve sk_num
+qt.network.ssl: QSslSocket: cannot resolve sk_pop_free
+qt.network.ssl: QSslSocket: cannot resolve sk_value
+qt.network.ssl: QSslSocket: cannot resolve SSL_get_peer_certificate
+qt.network.ssl: QSslSocket: cannot resolve SSL_library_init
+qt.network.ssl: QSslSocket: cannot resolve SSL_load_error_strings
+qt.network.ssl: QSslSocket: cannot resolve SSL_get_ex_new_index
+qt.network.ssl: QSslSocket: cannot resolve SSLv2_client_method
+qt.network.ssl: QSslSocket: cannot resolve SSLv3_client_method
+qt.network.ssl: QSslSocket: cannot resolve SSLv23_client_method
+qt.network.ssl: QSslSocket: cannot resolve SSLv2_server_method
+qt.network.ssl: QSslSocket: cannot resolve SSLv3_server_method
+qt.network.ssl: QSslSocket: cannot resolve SSLv23_server_method
+qt.network.ssl: QSslSocket: cannot resolve X509_STORE_CTX_get_chain
+qt.network.ssl: QSslSocket: cannot resolve OPENSSL_add_all_algorithms_noconf
+qt.network.ssl: QSslSocket: cannot resolve OPENSSL_add_all_algorithms_conf
+qt.network.ssl: QSslSocket: cannot resolve SSLeay
+qt.network.ssl: QSslSocket: cannot resolve SSLeay_version
+qt.network.ssl: QSslSocket: cannot call unresolved function SSLeay
+qt.network.ssl: QSslSocket: cannot call unresolved function CRYPTO_num_locks
+qt.network.ssl: QSslSocket: cannot call unresolved function CRYPTO_set_id_callback
+qt.network.ssl: QSslSocket: cannot call unresolved function CRYPTO_set_locking_callback
+qt.network.ssl: QSslSocket: cannot call unresolved function SSL_library_init
+qt.network.ssl: QSslSocket: cannot call unresolved function SSLv23_client_method
+qt.network.ssl: QSslSocket: cannot call unresolved function sk_num
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+[S_API] SteamAPI_Init(): Loaded '/home/mia/.local/share/Steam/linux64/steamclient.so' OK.
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 21:59:32 minidumps folder is set to /tmp/dumps
+07/31 21:59:32 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(314810)
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+SteamInternal_SetMinidumpSteamID:  Caching Steam ID:  76561198428899653 [API loaded yes]
+SteamInternal_SetMinidumpSteamID:  Setting Steam ID:  76561198428899653
+[0731/215932.752138:ERROR:check.cc(376)] Check failed: false. NOTREACHED log messages are omitted in official builds. Sorry!
+Using breakpad crash handler
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+Forcing breakpad minidump interfaces to load
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 21:59:32 minidumps folder is set to /tmp/dumps
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 21:59:32 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(314846)
+[0731/215932.790516:ERROR:check.cc(376)] Check failed: false. NOTREACHED log messages are omitted in official builds. Sorry!
+07/31 21:59:32 minidumps folder is set to /tmp/dumps
+07/31 21:59:32 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(314844)
+[0731/215932.790951:ERROR:check.cc(376)] Check failed: false. NOTREACHED log messages are omitted in official builds. Sorry!
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 19: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 20: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 23: invalid constant used : monospace
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 42: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 43: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 46: invalid constant used : sans-serif
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 68: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 69: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 72: invalid constant used : serif
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 88: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 89: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 92: invalid constant used : emoji
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 108: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 109: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 112: invalid constant used : math
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 120: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 121: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 124: invalid constant used : system-ui
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 132: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 133: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 136: invalid constant used : cursive
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 144: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 145: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 148: invalid constant used : fantasy
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 156: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 157: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 160: invalid constant used : ui-sans-serif
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 168: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 169: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 172: invalid constant used : ui-serif
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 180: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 181: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 184: invalid constant used : ui-monospace
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 192: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 193: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 196: invalid constant used : ui-rounded
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 204: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 205: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 208: invalid constant used : fangsong
+Fontconfig warning: "/etc/fonts/conf.d/48-spacing.conf", line 14: invalid constant used : monospace
+Fontconfig warning: "/etc/fonts/conf.d/49-sansserif.conf", line 10: invalid constant used : serif
+Fontconfig warning: "/etc/fonts/conf.d/49-sansserif.conf", line 18: invalid constant used : sans-serif
+Fontconfig warning: "/etc/fonts/conf.d/49-sansserif.conf", line 26: invalid constant used : monospace
+Fontconfig warning: "/etc/fonts/conf.d/49-sansserif.conf", line 34: invalid constant used : emoji
+Fontconfig warning: "/etc/fonts/conf.d/49-sansserif.conf", line 42: invalid constant used : math
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 19: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 20: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 23: invalid constant used : monospace
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 42: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 43: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 46: invalid constant used : sans-serif
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 68: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 69: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 72: invalid constant used : serif
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 88: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 89: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 92: invalid constant used : emoji
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 108: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 109: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 112: invalid constant used : math
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 120: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 121: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 124: invalid constant used : system-ui
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 132: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 133: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 136: invalid constant used : cursive
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 144: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 145: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 148: invalid constant used : fantasy
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 156: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 157: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 160: invalid constant used : ui-sans-serif
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 168: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 169: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 172: invalid constant used : ui-serif
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 180: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 181: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 184: invalid constant used : ui-monospace
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 192: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 193: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 196: invalid constant used : ui-rounded
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 204: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 205: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 208: invalid constant used : fangsong
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-spacing.conf", line 14: invalid constant used : monospace
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/49-sansserif.conf", line 10: invalid constant used : serif
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/49-sansserif.conf", line 18: invalid constant used : sans-serif
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/49-sansserif.conf", line 26: invalid constant used : monospace
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/49-sansserif.conf", line 34: invalid constant used : emoji
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/49-sansserif.conf", line 42: invalid constant used : math
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 21:59:33 minidumps folder is set to /tmp/dumps
+07/31 21:59:33 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(314909)
+[0731/215933.069332:ERROR:check.cc(376)] Check failed: false. NOTREACHED log messages are omitted in official builds. Sorry!
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 21:59:33 minidumps folder is set to /tmp/dumps
+07/31 21:59:33 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(315056)
+[0731/215933.484637:ERROR:check.cc(376)] Check failed: false. NOTREACHED log messages are omitted in official builds. Sorry!
+the live slider position)
+Opened Rift Sensor 0 w/ Serial WMTD306Q701DEK. Connecting to Radio address 0x11563cc989
+[II] camera width 1280 height 960
+[II] f = [ 716.935 716.935 ], c = [ 661.864 469.517 ]
+[II] k = [  0.070819 -0.023264  0.005108 -0.000523 ]
+[II] Calibration capture enabled -> /home/mia/git/rift-cv1-center/captures/lin/2026-07-31/final.jsonl
+stream state: "connecting"
+stream state: "connecting"
+[II] Loaded pose for sensor WMTD306Q701DEK from room store: "pos" : [ -1.080223, 1.242403, -0.743242 ], "orient" : [ 0.602096, -0.067780, 0.792231, 0.072504 ]
+[II] Set sensor 0 pose to orient 0.602096 -0.067780 0.792231 0.072504  pos -1.080223 1.242403 -0.743242
+stream state: "paused"
+stream state: "paused"
+Opened Rift Sensor 1 w/ Serial WMTD3052400VZL. Connecting to Radio address 0x11563cc989
+[II] camera width 1280 height 960
+[II] f = [ 716.734 716.734 ], c = [ 647.399 478.498 ]
+[II] k = [  0.071847 -0.025176  0.006398 -0.000817 ]
+stream state: "connecting"
+stream state: "connecting"
+[II] Loaded pose for sensor WMTD3052400VZL from room store: "pos" : [ -1.209307, 1.576178, 0.301854 ], "orient" : [ 0.690484, -0.084382, 0.713746, 0.081721 ]
+[II] Set sensor 1 pose to orient 0.690484 -0.084382 0.713746 0.081721  pos -1.209307 1.576178 0.301854
+Opened 2 Rift Sensor cameras
+stream state: "paused"
+stream state: "paused"
+Temperature: 39.1 °C
+Temperature: 36.0 °C
+[II] HMD device frame: IMU at [-0.0166 0.0345 0.0331] m; screen 0.1193 x 0.0663 m; lens separation 0.0540 m, v-centre 0.0308 m, eye-to-screen 0.0396/0.0396 m
+[II] HMD LED model spans z -0.0088..0.0744, y -0.0436..0.0438 m (34 LEDs, before the 180 deg model rotation)
+[II] position observer gains pos [10 10 8] vel [50 50 32] accel [25 25 16]
+[II] Device 0 using UKF fusion backend
+stream state: "connecting"
+device 0 online. Now tracking.
+stream state: "paused"
+[WW] Exposure timestamp 3593651712 was more than 1.5 IMU samples earlier than IMU ts 3593664169 by 12457 µS
+[WW] Sensor WMTD306Q701DEK: predicted exposure-to-frame latency of -4.1 ms differed from measured 1.3 ms (1 so far) - check the sensor sync cable
+[II] calib feed: 1 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 1 obs, 0 paired, history 0 over 0 viewpoints, 0 solves, residual -1.00 px, uncalibrated
+[WW] Device 0: late pose time 3218.799 ms from WMTD306Q701DEK (1 so far, worst 3218.799 ms)
+[II] Forcing orientation observation
+[II] output correction bleeding ON
+[II] Matched orientation after 0.013977 sec
+[II] Device 0: joint reconstruction 1 solved, 0 rejected, 16 single-camera (0 observations arrived too late to count)
+[II] sensor WMTD3052400VZL calibration SETTLED
+[II] sensor WMTD3052400VZL: keeping the stored calibration - it was fitted over 4 viewpoints and this session has seen 1 (it leaves 1.25 px here)
+[II] output correction bleed tau 0.100 s
+[II] angular velocity exported in the device-local frame
+[II] velocity smoothing: tau 25 ms, speed-adaptive
+[II] HMD obs quality: full(strong+ids) 299 ids-verified 1 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 299
+[II] frame-timing WMTD306Q701DEK: 300 frames, 62 missed exposure, diff avg -0.64 min -4.34 max 6.31 ms
+[WW] Exposure timestamp 3599680512 was more than 1.5 IMU samples earlier than IMU ts 3599682138 by 1626 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.69 min -4.84 max 1.98 ms
+[II] Device 0: joint reconstruction 301 solved, 0 rejected, 316 single-camera (0 observations arrived too late to count)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] calib feed: 901 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 901 obs, 443 paired, history 192 over 1 viewpoints, 26 solves, residual 0.22 px, estimated
+[II] accelerometer scale check: |accel| at rest mean 9.7350 m/s^2 (-0.73% vs 9.8067), range 9.486..9.966, 10016 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -3.24 max 1.66 ms
+[II] pose export over 10 s: age mean 1.9 ms max 4.2 ms | speed mean 0.13 max 0.22 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.7 mm (880 samples)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.71 min -3.46 max 2.09 ms
+[II] Device 0: joint reconstruction 601 solved, 0 rejected, 616 single-camera (0 observations arrived too late to count)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.89 min -4.04 max 1.45 ms
+[II] sensor 0 calibration feed: 901 offered, 901 passed - rejected 0 for LED ids, 0 for too few blobs (<10), 0 for error
+[WW] Exposure timestamp 3611104512 was more than 1.5 IMU samples earlier than IMU ts 3611106126 by 1614 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] calib feed: 1801 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 1801 obs, 893 paired, history 192 over 1 viewpoints, 54 solves, residual 0.21 px, estimated
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.73 min -5.09 max 1.39 ms
+[II] sensor 1 calibration feed: 901 offered, 901 passed - rejected 0 for LED ids, 0 for too few blobs (<10), 0 for error
+[II] Device 0: joint reconstruction 901 solved, 0 rejected, 916 single-camera (0 observations arrived too late to count)
+[WW] Exposure timestamp 3612467712 was more than 1.5 IMU samples earlier than IMU ts 3612469402 by 1690 µS
+[II] accelerometer scale check: |accel| at rest mean 9.7346 m/s^2 (-0.74% vs 9.8067), range 9.467..9.968, 9982 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 3614426112 was more than 1.5 IMU samples earlier than IMU ts 3614427675 by 1563 µS
+[II] pose export over 10 s: age mean 1.9 ms max 3.9 ms | speed mean 0.06 max 0.08 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.3 mm (855 samples)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.84 min -3.48 max 1.93 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.70 min -3.21 max 2.03 ms
+[II] Device 0: joint reconstruction 1201 solved, 0 rejected, 1216 single-camera (0 observations arrived too late to count)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] calib feed: 2701 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 2701 obs, 1343 paired, history 192 over 1 viewpoints, 82 solves, residual 0.25 px, estimated
+[WW] Exposure timestamp 3620378112 was more than 1.5 IMU samples earlier than IMU ts 3620379647 by 1535 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.86 min -4.12 max 1.58 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.71 min -3.24 max 1.82 ms
+[II] Device 0: joint reconstruction 1501 solved, 0 rejected, 1516 single-camera (0 observations arrived too late to count)
+[II] accelerometer scale check: |accel| at rest mean 9.7354 m/s^2 (-0.73% vs 9.8067), range 8.955..10.172, 8211 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] pose export over 10 s: age mean 1.9 ms max 4.1 ms | speed mean 0.12 max 0.91 m/s, ang mean 39 max 278 deg/s | age*speed worst 2.5 mm (872 samples)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.87 min -5.14 max 1.51 ms
+[WW] Exposure timestamp 3628595712 was more than 1.5 IMU samples earlier than IMU ts 3628597476 by 1764 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.66 min -4.86 max 1.71 ms
+[II] sensor 1 calibration feed: 1801 offered, 1744 passed - rejected 0 for LED ids, 57 for too few blobs (<10), 0 for error
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] sensor 0 calibration feed: 1801 offered, 1779 passed - rejected 0 for LED ids, 22 for too few blobs (<10), 0 for error
+[II] Device 0: joint reconstruction 1801 solved, 0 rejected, 1866 single-camera (0 observations arrived too late to count)
+[II] calib feed: 3601 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 3601 obs, 1783 paired, history 192 over 2 viewpoints, 110 solves, residual 1.63 px, estimated
+[WW] Exposure timestamp 3631686912 was more than 1.5 IMU samples earlier than IMU ts 3631688694 by 1782 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 3632262912 was more than 1.5 IMU samples earlier than IMU ts 3632264668 by 1756 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.82 min -3.93 max 1.78 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7454 m/s^2 (-0.63% vs 9.8067), range 7.352..10.124, 586 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.63 min -4.45 max 2.15 ms
+[II] pose export over 10 s: age mean 1.9 ms max 4.2 ms | speed mean 0.13 max 0.62 m/s, ang mean 48 max 260 deg/s | age*speed worst 1.5 mm (858 samples)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 2101 solved, 0 rejected, 2166 single-camera (0 observations arrived too late to count)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] calib feed: 4501 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 4501 obs, 2233 paired, history 192 over 2 viewpoints, 138 solves, residual 1.48 px, estimated
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.77 min -4.64 max 2.20 ms
+[WW] Exposure timestamp 3638579712 was more than 1.5 IMU samples earlier than IMU ts 3638581405 by 1693 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.43 min -3.44 max 2.37 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 2401 solved, 0 rejected, 2466 single-camera (0 observations arrived too late to count)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] accelerometer scale check: |accel| at rest mean 9.7145 m/s^2 (-0.94% vs 9.8067), range 9.338..10.096, 2502 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.79 min -3.36 max 1.61 ms
+[II] pose export over 10 s: age mean 1.9 ms max 3.9 ms | speed mean 0.20 max 1.44 m/s, ang mean 62 max 579 deg/s | age*speed worst 3.7 mm (835 samples)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.57 min -4.08 max 2.11 ms
+UVC PTS changed in-frame at 1041712 bytes. Lost 19 ms
+UVC Dropping short frame: 1041712 < 1228800 (187088 lost)
+UVC PTS changed in-frame at 1221616 bytes. Lost 19 ms
+UVC Dropping short frame: 1221616 < 1228800 (7184 lost)
+[II] sensor 1 calibration feed: 2701 offered, 2644 passed - rejected 0 for LED ids, 57 for too few blobs (<10), 0 for error
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] sensor 0 calibration feed: 2701 offered, 2552 passed - rejected 0 for LED ids, 149 for too few blobs (<10), 0 for error
+[II] Device 0: joint reconstruction 2701 solved, 0 rejected, 2766 single-camera (0 observations arrived too late to count)
+[II] calib feed: 5401 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 5401 obs, 2620 paired, history 192 over 2 viewpoints, 162 solves, residual 1.40 px, estimated
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.84 min -4.00 max 1.80 ms
+[WW] Exposure timestamp 3650867712 was more than 1.5 IMU samples earlier than IMU ts 3650869253 by 1541 µS
+[WW] Exposure timestamp 3651078912 was more than 1.5 IMU samples earlier than IMU ts 3651080614 by 1702 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.90 min -4.43 max 1.65 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 3001 solved, 0 rejected, 3066 single-camera (0 observations arrived too late to count)
+[II] accelerometer scale check: |accel| at rest mean 9.6105 m/s^2 (-2.00% vs 9.8067), range 9.347..10.000, 790 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] pose export over 10 s: age mean 1.9 ms max 10.0 ms | speed mean 0.19 max 0.68 m/s, ang mean 58 max 221 deg/s | age*speed worst 4.9 mm (842 samples)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.67 min -3.64 max 1.84 ms
+[WW] Exposure timestamp 3656109312 was more than 1.5 IMU samples earlier than IMU ts 3656111248 by 1936 µS
+[WW] Exposure timestamp 3657030912 was more than 1.5 IMU samples earlier than IMU ts 3657032830 by 1918 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.83 min -4.50 max 1.51 ms
+[II] calib feed: 6301 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 6301 obs, 3027 paired, history 192 over 2 viewpoints, 188 solves, residual 1.42 px, estimated
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 3301 solved, 0 rejected, 3366 single-camera (0 observations arrived too late to count)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.79 min -3.97 max 2.05 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.87 min -4.26 max 1.99 ms
+[II] sensor 1 calibration feed: 3601 offered, 3544 passed - rejected 0 for LED ids, 57 for too few blobs (<10), 0 for error
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] sensor 0 calibration feed: 3601 offered, 3367 passed - rejected 0 for LED ids, 234 for too few blobs (<10), 0 for error
+[II] Device 0: joint reconstruction 3601 solved, 0 rejected, 3666 single-camera (0 observations arrived too late to count)
+[II] pose export over 10 s: age mean 1.9 ms maxsteamtours.sh[316210]: Relaunch under scout LDLP runtime.
+steamtours.sh[316210]: exec /home/mia/.steam/bin/steam-runtime/run.sh /home/mia/.local/share/Steam/steamapps/common/SteamVR/tools/steamvr_environments/game/steamtours.sh -vr -retail -vulkan -useappid SteamVRAppID -nowindow -vconport 29009
+steamtours.sh[316210]: Detected scout LDLP runtime.
+ 4.2 ms | speed mean 0.15 max 0.86 m/s, ang mean 59 max 324 deg/s | age*speed worst 1.8 mm (836 samples)
+[II] calib feed: 7201 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 7201 obs, 3476 paired, history 192 over 3 viewpoints, 216 solves, residual 1.77 px, CALIBRATED
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.66 min -3.99 max 1.93 ms
+[II] Device 0: IMU saturation (accel), 1 samples so far - the reading is clipped, so it is being ignored rather than integrated
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.71 min -4.28 max 1.77 ms
+[WW] Exposure timestamp 3670931712 was more than 1.5 IMU samples earlier than IMU ts 3670933596 by 1884 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.66 min -4.60 max 1.87 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7481 m/s^2 (-0.60% vs 9.8067), range 9.532..10.032, 5483 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.79 min -3.39 max 1.87 ms
+[II] pose export over 10 s: age mean 1.9 ms max 4.1 ms | speed mean 0.36 max 1.71 m/s, ang mean 45 max 393 deg/s | age*speed worst 4.0 mm (858 samples)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 3677267712 was more than 1.5 IMU samples earlier than IMU ts 3677269493 by 1781 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.84 min -4.23 max 1.69 ms
+[WW] Exposure timestamp 3680262912 was more than 1.5 IMU samples earlier than IMU ts 3680264655 by 1743 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.88 min -3.91 max 1.85 ms
+[II] sensor 0 calibration feed: 4501 offered, 4253 passed - rejected 0 for LED ids, 248 for too few blobs (<10), 0 for error
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] accelerometer scale check: |accel| at rest mean 9.7506 m/s^2 (-0.57% vs 9.8067), range 9.520..9.997, 9981 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] calib feed: 8101 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 8101 obs, 3490 paired, history 192 over 3 viewpoints, 217 solves, residual 1.74 px, CALIBRATED
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.74 min -3.93 max 1.91 ms
+[II] pose export over 10 s: age mean 1.9 ms max 3.7 ms | speed mean 0.26 max 0.27 m/s, ang mean 0 max 1 deg/s | age*speed worst 1.0 mm (881 samples)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.83 min -4.00 max 1.84 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.77 min -4.13 max 1.67 ms
+[WW] Exposure timestamp 3690611712 was more than 1.5 IMU samples earlier than IMU ts 3690613528 by 1816 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.80 min -3.89 max 1.68 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7505 m/s^2 (-0.57% vs 9.8067), range 9.515..10.014, 9982 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] pose export over 10 s: age mean 1.8 ms max 3.5 ms | speed mean 0.23 max 0.25 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.8 mm (901 samples)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.80 min -3.81 max 1.58 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -3.91 max 1.82 ms
+[II] sensor 0 calibration feed: 5401 offered, 5153 passed - rejected 0 for LED ids, 248 for too few blobs (<10), 0 for error
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] calib feed: 9001 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 9001 obs, 3490 paired, history 192 over 3 viewpoints, 217 solves, residual 1.74 px, CALIBRATED
+[WW] Exposure timestamp 3701555712 was more than 1.5 IMU samples earlier than IMU ts 3701557494 by 1782 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.78 min -4.08 max 1.66 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.86 min -4.72 max 1.68 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7494 m/s^2 (-0.58% vs 9.8067), range 9.518..9.990, 9984 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] pose export over 10 s: age mean 1.8 ms max 3.7 ms | speed mean 0.21 max 0.22 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.8 mm (905 samples)
+[WW] Exposure timestamp 3704915712 was more than 1.5 IMU samples earlier than IMU ts 3704917330 by 1618 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.90 min -4.67 max 1.64 ms
+[WW] Exposure timestamp 3708582912 was more than 1.5 IMU samples earlier than IMU ts 3708584726 by 1814 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.88 min -3.74 max 1.65 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 3711712512 was more than 1.5 IMU samples earlier than IMU ts 3711714158 by 1646 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.85 min -4.87 max 1.79 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7521 m/s^2 (-0.56% vs 9.8067), range 9.496..10.069, 9983 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] pose export over 10 s: age mean 1.8 ms max 3.4 ms | speed mean 0.19 max 0.20 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.7 mm (898 samples)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.79 min -4.02 max 1.57 ms
+[II] sensor 0 calibration feed: 6301 offered, 6053 passed - rejected 0 for LED ids, 248 for too few blobs (<10), 0 for error
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 3717818112 was more than 1.5 IMU samples earlier than IMU ts 3717819788 by 1676 µS
+[II] calib feed: 9901 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 9901 obs, 3490 paired, history 192 over 3 viewpoints, 217 solves, residual 1.74 px, CALIBRATED
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.78 min -4.10 max 1.99 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.83 min -3.64 max 1.58 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 3723578112 was more than 1.5 IMU samples earlier than IMU ts 3723579839 by 1727 µS
+[II] accelerometer scale check: |accel| at rest mean 9.7523 m/s^2 (-0.56% vs 9.8067), range 9.476..10.016, 9983 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] pose export over 10 s: age mean 1.8 ms max 3.7 ms | speed mean 0.17 max 0.18 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.6 mm (903 samples)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.87 min -3.71 max 1.85 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.88 min -3.27 max 1.47 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.79 min -4.07 max 1.79 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.80 min -3.81 max 1.57 ms
+[II] sensor 0 calibration feed: 7201 offered, 6953 passed - rejected 0 for LED ids, 248 for too few blobs (<10), 0 for error
+[II] accelerometer scale check: |accel| at rest mean 9.7525 m/s^2 (-0.55% vs 9.8067), range 9.533..10.040, 9984 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] pose export over 10 s: age mean 1.8 ms max 3.4 ms | speed mean 0.16 max 0.17 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.6 mm (906 samples)
+[WW] Exposure timestamp 3735117312 was more than 1.5 IMU samples earlier than IMU ts 3735119016 by 1704 µS
+[II] calib feed: 10801 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 10801 obs, 3490 paired, history 192 over 3 viewpoints, 217 solves, residual 1.74 px, CALIBRATED
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.82 min -4.00 max 1.56 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.81 min -3.51 max 1.51 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.75 min -3.92 max 1.78 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7532 m/s^2 (-0.55% vs 9.8067), range 9.436..10.035, 9982 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.74 min -4.70 max 1.51 ms
+[II] pose export over 10 s: age mean 1.8 ms max 3.4 ms | speed mean 0.15 max 0.16 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.5 mm (898 samples)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -4.21 max 1.46 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.82 min -4.78 max 1.53 ms
+[II] sensor 0 calibration feed: 8101 offered, 7853 passed - rejected 0 for LED ids, 248 for too few blobs (<10), 0 for error
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] calib feed: 11701 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 11701 obs, 3490 paired, history 192 over 3 viewpoints, 217 solves, residual 1.74 px, CALIBRATED
+[II] accelerometer scale check: |accel| at rest mean 9.7522 m/s^2 (-0.56% vs 9.8067), range 9.516..9.976, 9982 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.84 min -4.18 max 2.15 ms
+[II] pose export over 10 s: age mean 1.9 ms max 3.7 ms | speed mean 0.14 max 0.15 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.5 mm (895 samples)
+[WW] Exposure timestamp 3755315712 was more than 1.5 IMU samples earlier than IMU ts 3755317458 by 1746 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.83 min -3.94 max 1.44 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.78 min -3.98 max 1.41 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.76 min -3.56 max 1.96 ms
+[WW] Exposure timestamp 3762611712 was more than 1.5 IMU samples earlier than IMU ts 3762613296 by 1584 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] accelerometer scale check: |accel| at rest mean 9.7540 m/s^2 (-0.54% vs 9.8067), range 9.499..9.981, 9983 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] pose export over 10 s: age mean 1.8 ms max 3.5 ms | speed mean 0.13 max 0.14 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.5 mm (893 samples)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.77 min -4.37 max 1.44 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.80 min -3.90 max 1.47 ms
+[WW] Exposure timestamp 3767411712 was more than 1.5 IMU samples earlier than IMU ts 3767413753 by 2041 µS
+[II] sensor 0 calibration feed: 9001 offered, 8753 passed - rejected 0 for LED ids, 248 for too few blobs (<10), 0 for error
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 3769658112 was more than 1.5 IMU samples earlier than IMU ts 3769659712 by 1600 µS
+[II] calib feed: 12601 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 12601 obs, 3490 paired, history 192 over 3 viewpoints, 217 solves, residual 1.74 px, CALIBRATED
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.84 min -4.60 max 1.76 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.85 min -4.08 max 1.64 ms
+[WW] Exposure timestamp 3772883712 was more than 1.5 IMU samples earlier than IMU ts 3772885401 by 1689 µS
+[II] accelerometer scale check: |accel| at rest mean 9.7519 m/s^2 (-0.56% vs 9.8067), range 9.517..9.996, 9983 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] pose export over 10 s: age mean 1.8 ms max 3.4 ms | speed mean 0.12 max 0.13 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.4 mm (899 samples)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 3776685312 was more than 1.5 IMU samples earlier than IMU ts 3776687111 by 1799 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.85 min -3.82 max 1.28 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.87 min -3.29 max 1.40 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 3782138112 was more than 1.5 IMU samples earlier than IMU ts 3782139742 by 1630 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.82 min -3.78 max 1.76 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7544 m/s^2 (-0.53% vs 9.8067), range 9.480..9.995, 9982 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.83 min -3.55 max 1.76 ms
+[II] pose export over 10 s: age mean 1.8 ms max 3.7 ms | speed mean 0.12 max 0.12 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.4 mm (895 samples)
+[II] sensor 0 calibration feed: 9901 offered, 9653 passed - rejected 0 for LED ids, 248 for too few blobs (<10), 0 for error
+[WW] Exposure timestamp 3785594112 was more than 1.5 IMU samples earlier than IMU ts 3785595852 by 1740 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] calib feed: 13501 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 13501 obs, 3490 paired, history 192 over 3 viewpoints, 217 solves, residual 1.74 px, CALIBRATED
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.82 min -4.45 max 1.31 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.79 min -3.26 max 1.74 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] accelerometer scale check: |accel| at rest mean 9.7544 m/s^2 (-0.53% vs 9.8067), range 9.483..9.978, 9982 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.74 min -3.56 max 1.88 ms
+[WW] Exposure timestamp 3794272512 was more than 1.5 IMU samples earlier than IMU ts 3794274207 by 1695 µS
+[II] pose export over 10 s: age mean 1.8 ms max 3.4 ms | speed mean 0.11 max 0.12 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.4 mm (888 samples)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.75 min -4.23 max 1.73 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.82 min -4.32 max 1.85 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.79 min -3.61 max 1.92 ms
+[II] sensor 0 calibration feed: 10801 offered, 10553 passed - rejected 0 for LED ids, 248 for too few blobs (<10), 0 for error
+[WW] Exposure timestamp 3802355712 was more than 1.5 IMU samples earlier than IMU ts 3802357531 by 1819 µS
+[WW] Exposure timestamp 3802931712 was more than 1.5 IMU samples earlier than IMU ts 3802933552 by 1840 µS
+[II] accelerometer scale check: |accel| at rest mean 9.7557 m/s^2 (-0.52% vs 9.8067), range 9.394..10.108, 9982 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] calib feed: 14401 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 14401 obs, 3490 paired, history 192 over 3 viewpoints, 217 solves, residual 1.74 px, CALIBRATED
+[II] pose export over 10 s: age mean 1.9 ms max 3.3 ms | speed mean 0.11 max 0.11 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.3 mm (900 samples)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.80 min -4.04 max 1.70 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.75 min -3.23 max 1.64 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.77 min -4.79 max 1.63 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.69 min -4.41 max 1.84 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7549 m/s^2 (-0.53% vs 9.8067), range 9.493..10.036, 9981 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] pose export over 10 s: age mean 1.8 ms max 3.4 ms | speed mean 0.10 max 0.11 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.3 mm (892 samples)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -4.64 max 1.83 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.87 min -4.03 max 1.67 ms
+[II] sensor 0 calibration feed: 11701 offered, 11453 passed - rejected 0 for LED ids, 248 for too few blobs (<10), 0 for error
+[WW] Exposure timestamp 3819482112 was more than 1.5 IMU samples earlier than IMU ts 3819483937 by 1825 µS
+[WW] Exposure timestamp 3819501312 was more than 1.5 IMU samples earlier than IMU ts 3819502971 by 1659 µS
+[WW] Exposure timestamp 3819923712 was more than 1.5 IMU samples earlier than IMU ts 3819925722 by 2010 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] calib feed: 15301 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 15301 obs, 3490 paired, history 192 over 3 viewpoints, 217 solves, residual 1.74 px, CALIBRATED
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.86 min -3.30 max 1.44 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7547 m/s^2 (-0.53% vs 9.8067), range 9.520..9.978, 9982 quiet samples | hw calibration NOT requested (driver applies its own)
+[WW] Exposure timestamp 3823917312 was more than 1.5 IMU samples earlier than IMU ts 3823918823 by 1511 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.83 min -3.51 max 1.73 ms
+[II] pose export over 10 s: age mean 1.8 ms max 3.3 ms | speed mean 0.10 max 0.10 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.3 mm (898 samples)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.85 min -3.73 max 2.23 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.82 min -4.06 max 1.76 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] accelerometer scale check: |accel| at rest mean 9.7541 m/s^2 (-0.54% vs 9.8067), range 9.500..10.032, 9983 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.87 min -3.90 max 1.51 ms
+[II] pose export over 10 s: age mean 1.9 ms max 3.6 ms | speed mean 0.09 max 0.10 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.3 mm (901 samples)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.81 min -3.79 max 1.55 ms
+[II] sensor 0 calibration feed: 12601 offered, 12353 passed - rejected 0 for LED ids, 248 for too few blobs (<10), 0 for error
+[WW] Exposure timestamp 3837664512 was more than 1.5 IMU samples earlier than IMU ts 3837666300 by 1788 µS
+[WW] Exposure timestamp 3837875712 was more than 1.5 IMU samples earlier than IMU ts 3837877677 by 1965 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] calib feed: 16201 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 16201 obs, 3490 paired, history 192 over 3 viewpoints, 217 solves, residual 1.74 px, CALIBRATED
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.80 min -4.11 max 1.74 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.80 min -4.04 max 1.41 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7585 m/s^2 (-0.49% vs 9.8067), range 9.482..10.014, 9982 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] pose export over 10 s: age mean 1.8 ms max 3.7 ms | speed mean 0.09 max 0.09 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.3 mm (892 samples)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.79 min -4.78 max 1.71 ms
+[WW] Exposure timestamp 3846957312 was more than 1.5 IMU samples earlier than IMU ts 3846958872 by 1560 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.81 min -4.01 max 1.48 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.79 min -4.12 max 1.54 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -4.69 max 1.45 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7554 m/s^2 (-0.52% vs 9.8067), range 9.495..9.995, 9983 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] sensor 0 calibration feed: 13501 offered, 13253 passed - rejected 0 for LED ids, 248 for too few blobs (<10), 0 for error
+[II] pose export over 10 s: age mean 1.8 ms max 3.7 ms | speed mean 0.08 max 0.09 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.3 mm (898 samples)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] calib feed: 17101 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 17101 obs, 3490 paired, history 192 over 3 viewpoints, 217 solves, residual 1.74 px, CALIBRATED
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.81 min -3.91 max 1.55 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.82 min -4.09 max 1.78 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.84 min -4.51 max 1.62 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7558 m/s^2 (-0.52% vs 9.8067), range 9.519..9.996, 9982 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -3.57 max 1.99 ms
+[II] pose export over 10 s: age mean 1.8 ms max 3.4 ms | speed mean 0.08 max 0.08 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.3 mm (895 samples)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.81 min -3.82 max 1.71 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.78 min -4.01 max 1.80 ms
+[WW] Exposure timestamp 3870592512 was more than 1.5 IMU samples earlier than IMU ts 3870594108 by 1596 µS
+[II] sensor 0 calibration feed: 14401 offered, 14153 passed - rejected 0 for LED ids, 248 for too few blobs (<10), 0 for error
+[WW] Exposure timestamp 3872646912 was more than 1.5 IMU samples earlier than IMU ts 3872648788 by 1876 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] accelerometer scale check: |accel| at rest mean 9.7568 m/s^2 (-0.51% vs 9.8067), range 9.473..9.999, 9983 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] calib feed: 18001 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 18001 obs, 3490 paired, history 192 over 3 viewpoints, 217 solves, residual 1.74 px, CALIBRATED
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.87 min -4.14 max 1.55 ms
+[II] pose export over 10 s: age mean 1.8 ms max 3.3 ms | speed mean 0.08 max 0.08 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.3 mm (899 samples)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.88 min -3.74 max 1.24 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.84 min -3.74 max 1.62 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.76 min -3.22 max 1.72 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7586 m/s^2 (-0.49% vs 9.8067), range 9.500..9.996, 9982 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] pose export over 10 s: age mean 1.8 ms max 3.5 ms | speed mean 0.08 max 0.08 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.3 mm (898 samples)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.85 min -4.89 max 1.66 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -4.28 max 1.77 ms
+[II] sensor 0 calibration feed: 15301 offered, 15053 passed - rejected 0 for LED ids, 248 for too few blobs (<10), 0 for error
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] calib feed: 18901 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 18901 obs, 3490 paired, history 192 over 3 viewpoints, 217 solves, residual 1.74 px, CALIBRATED
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.78 min -5.18 max 1.43 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.74 min -4.97 max 1.46 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7564 m/s^2 (-0.51% vs 9.8067), range 9.495..9.981, 9984 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] pose export over 10 s: age mean 1.8 ms max 3.9 ms | speed mean 0.07 max 0.07 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.3 mm (889 samples)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.82 min -4.06 max 1.56 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.70 min -4.20 max 1.84 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.81 min -3.74 max 1.31 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7570 m/s^2 (-0.51% vs 9.8067), range 9.496..9.981, 9981 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] pose export over 10 s: age mean 1.8 ms max 3.4 ms | speed mean 0.07 max 0.07 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.2 mm (899 samples)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.68 min -5.06 max 1.88 ms
+[II] sensor 0 calibration feed: 16201 offered, 15953 passed - rejected 0 for LED ids, 248 for too few blobs (<10), 0 for error
+[WW] Exposure timestamp 3907475712 was more than 1.5 IMU samples earlier than IMU ts 3907477254 by 1542 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] calib feed: 19801 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 19801 obs, 3490 paired, history 192 over 3 viewpoints, 217 solves, residual 1.74 px, CALIBRATED
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.81 min -3.77 max 1.73 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.68 min -3.70 max 2.35 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] accelerometer scale check: |accel| at rest mean 9.7588 m/s^2 (-0.49% vs 9.8067), range 9.516..10.014, 9980 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] pose export over 10 s: age mean 1.8 ms max 3.6 ms | speed mean 0.07 max 0.07 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.2 mm (885 samples)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.80 min -3.68 max 1.79 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.69 min -3.73 max 1.84 ms
+[WW] Exposure timestamp 3918496512 was more than 1.5 IMU samples earlier than IMU ts 3918498069 by 1557 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.79 min -3.55 max 1.57 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.64 min -3.84 max 1.64 ms
+[II] sensor 0 calibration feed: 17101 offered, 16853 passed - rejected 0 for LED ids, 248 for too few blobs (<10), 0 for error
+[II] accelerometer scale check: |accel| at rest mean 9.7563 m/s^2 (-0.51% vs 9.8067), range 9.499..10.018, 9983 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] pose export over 10 s: age mean 1.8 ms max 3.8 ms | speed mean 0.07 max 0.07 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.2 mm (891 samples)
+[II] calib feed: 20701 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 20701 obs, 3490 paired, history 192 over 3 viewpoints, 217 solves, residual 1.74 px, CALIBRATED
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.81 min -4.08 max 1.97 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.64 min -3.79 max 2.31 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 3930899712 was more than 1.5 IMU samples earlier than IMU ts 3930901450 by 1738 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.85 min -4.12 max 1.54 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7581 m/s^2 (-0.50% vs 9.8067), range 9.519..9.994, 9982 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.64 min -3.85 max 2.08 ms
+[II] pose export over 10 s: age mean 1.8 ms max 3.7 ms | speed mean 0.06 max 0.07 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.2 mm (895 samples)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.83 min -3.63 max 1.45 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.69 min -3.84 max 1.67 ms
+[II] sensor 0 calibration feed: 18001 offered, 17753 passed - rejected 0 for LED ids, 248 for too few blobs (<10), 0 for error
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] calib feed: 21601 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 21601 obs, 3490 paired, history 192 over 3 viewpoints, 217 solves, residual 1.74 px, CALIBRATED
+[II] accelerometer scale check: |accel| at rest mean 9.7566 m/s^2 (-0.51% vs 9.8067), range 9.477..10.018, 9982 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.80 min -3.76 max 1.37 ms
+[II] pose export over 10 s: age mean 1.8 ms max 3.5 ms | speed mean 0.06 max 0.06 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.2 mm (893 samples)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.60 min -3.52 max 1.66 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.82 min -4.14 max 1.59 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.61 min -4.46 max 2.16 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] accelerometer scale check: |accel| at rest mean 9.7590 m/s^2 (-0.49% vs 9.8067), range 9.475..10.013, 9982 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] pose export over 10 s: age mean 1.8 ms max 3.9 ms | speed mean 0.06 max 0.06 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.2 mm (884 samples)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.81 min -4.13 max 1.52 ms
+[WW] Exposure timestamp 3956550912 was more than 1.5 IMU samples earlier than IMU ts 3956552704 by 1792 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.45 min -4.00 max 1.87 ms
+[II] sensor 0 calibration feed: 18901 offered, 18653 passed - rejected 0 for LED ids, 248 for too few blobs (<10), 0 for error
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] calib feed: 22501 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 22501 obs, 3490 paired, history 192 over 3 viewpoints, 217 solves, residual 1.74 px, CALIBRATED
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.65 min -3.52 max 2.05 ms
+[WW] Exposure timestamp 3962694912 was more than 1.5 IMU samples earlier than IMU ts 3962696759 by 1847 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.69 min -3.55 max 2.13 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7598 m/s^2 (-0.48% vs 9.8067), range 9.534..9.988, 9979 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] pose export over 10 s: age mean 1.9 ms max 3.9 ms | speed mean 0.06 max 0.06 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.2 mm (894 samples)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.47 min -3.34 max 2.04 ms
+[WW] Exposure timestamp 3968416512 was more than 1.5 IMU samples earlier than IMU ts 3968418094 by 1582 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.75 min -3.40 max 1.74 ms
+[WW] Exposure timestamp 3968954112 was more than 1.5 IMU samples earlier than IMU ts 3968956066 by 1954 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.53 min -3.45 max 1.98 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7569 m/s^2 (-0.51% vs 9.8067), range 9.496..9.977, 9982 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.76 min -3.56 max 1.75 ms
+[II] pose export over 10 s: age mean 1.8 ms max 4.6 ms | speed mean 0.06 max 0.06 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.3 mm (882 samples)
+[II] sensor 0 calibration feed: 19801 offered, 19553 passed - rejected 0 for LED ids, 248 for too few blobs (<10), 0 for error
+[WW] Exposure timestamp 3975366912 was more than 1.5 IMU samples earlier than IMU ts 3975368661 by 1749 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] calib feed: 23401 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 23401 obs, 3490 paired, history 192 over 3 viewpoints, 217 solves, residual 1.74 px, CALIBRATED
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.57 min -4.14 max 2.28 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.79 min -4.79 max 1.47 ms
+[WW] Exposure timestamp 3980493312 was more than 1.5 IMU samples earlier than IMU ts 3980494934 by 1622 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] accelerometer scale check: |accel| at rest mean 9.7588 m/s^2 (-0.49% vs 9.8067), range 9.533..9.997, 9982 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.59 min -4.84 max 1.83 ms
+[II] pose export over 10 s: age mean 1.9 ms max 3.8 ms | speed mean 0.05 max 0.06 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.2 mm (886 samples)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.80 min -5.05 max 1.77 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.64 min -4.87 max 1.60 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.78 min -4.35 max 1.39 ms
+[II] sensor 0 calibration feed: 20701 offered, 20453 passed - rejected 0 for LED ids, 248 for too few blobs (<10), 0 for error
+[II] accelerometer scale check: |accel| at rest mean 9.7584 m/s^2 (-0.49% vs 9.8067), range 9.515..9.998, 9980 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] calib feed: 24301 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 24301 obs, 3490 paired, history 192 over 3 viewpoints, 217 solves, residual 1.74 px, CALIBRATED
+[II] pose export over 10 s: age mean 1.8 ms max 3.7 ms | speed mean 0.05 max 0.06 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.2 mm (890 samples)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.60 min -4.05 max 2.13 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.78 min -3.19 max 1.25 ms
+[WW] Exposure timestamp 3997331712 was more than 1.5 IMU samples earlier than IMU ts 3997333423 by 1711 µS
+[WW] Exposure timestamp 3998022912 was more than 1.5 IMU samples earlier than IMU ts 3998024675 by 1763 µS
+[WW] Exposure timestamp 3998598912 was more than 1.5 IMU samples earlier than IMU ts 3998600719 by 1807 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.65 min -3.90 max 1.99 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.76 min -3.56 max 1.92 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7589 m/s^2 (-0.49% vs 9.8067), range 9.536..10.038, 9982 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] pose export over 10 s: age mean 1.8 ms max 3.4 ms | speed mean 0.05 max 0.05 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.2 mm (892 samples)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.70 min -3.83 max 1.78 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -3.50 max 1.78 ms
+[WW] Exposure timestamp 4009062912 was more than 1.5 IMU samples earlier than IMU ts 4009064688 by 1776 µS
+[II] sensor 0 calibration feed: 21601 offered, 21353 passed - rejected 0 for LED ids, 248 for too few blobs (<10), 0 for error
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] calib feed: 25201 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 25201 obs, 3490 paired, history 192 over 3 viewpoints, 217 solves, residual 1.74 px, CALIBRATED
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.70 min -3.82 max 1.70 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7581 m/s^2 (-0.50% vs 9.8067), range 9.516..10.053, 9982 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.80 min -4.02 max 1.56 ms
+[II] pose export over 10 s: age mean 1.8 ms max 4.3 ms | speed mean 0.05 max 0.05 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.2 mm (891 samples)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -4.01 max 1.72 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.75 min -4.36 max 1.24 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] accelerometer scale check: |accel| at rest mean 9.7601 m/s^2 (-0.48% vs 9.8067), range 9.514..10.011, 9982 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -4.75 max 1.63 ms
+[II] pose export over 10 s: age mean 1.8 ms max 3.7 ms | speed mean 0.05 max 0.05 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.2 mm (893 samples)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.80 min -5.24 max 1.18 ms
+[WW] Exposure timestamp 4026170112 was more than 1.5 IMU samples earlier than IMU ts 4026171731 by 1619 µS
+[II] sensor 0 calibration feed: 22501 offered, 22253 passed - rejected 0 for LED ids, 248 for too few blobs (<10), 0 for error
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] calib feed: 26101 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 26101 obs, 3490 paired, history 192 over 3 viewpoints, 217 solves, residual 1.74 px, CALIBRATED
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.81 min -4.66 max 1.56 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.80 min -3.85 max 1.49 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7588 m/s^2 (-0.49% vs 9.8067), range 9.531..10.037, 9983 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] pose export over 10 s: age mean 1.8 ms max 4.3 ms | speed mean 0.05 max 0.05 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.2 mm (899 samples)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.77 min -4.32 max 1.68 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.82 min -3.58 max 1.90 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -3.44 max 1.57 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.80 min -4.08 max 1.58 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7584 m/s^2 (-0.49% vs 9.8067), range 9.522..9.977, 9982 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] sensor 0 calibration feed: 23401 offered, 23153 passed - rejected 0 for LED ids, 248 for too few blobs (<10), 0 for error
+[II] pose export over 10 s: age mean 1.8 ms max 3.6 ms | speed mean 0.05 max 0.05 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.2 mm (905 samples)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] calib feed: 27001 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 27001 obs, 3490 paired, history 192 over 3 viewpoints, 217 solves, residual 1.74 px, CALIBRATED
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -4.07 max 1.67 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.81 min -3.85 max 1.79 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.83 min -4.09 max 1.30 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7607 m/s^2 (-0.47% vs 9.8067), range 9.532..10.037, 9982 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.86 min -4.02 max 1.36 ms
+[II] pose export over 10 s: age mean 1.8 ms max 3.8 ms | speed mean 0.04 max 0.05 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.2 mm (891 samples)
+[WW] Exposure timestamp 4056851712 was more than 1.5 IMU samples earlier than IMU ts 4056853501 by 1789 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -4.04 max 1.57 ms
+[WW] Exposure timestamp 4059654912 was more than 1.5 IMU samples earlier than IMU ts 4059656607 by 1695 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.78 min -3.52 max 1.53 ms
+[II] sensor 0 calibration feed: 24301 offered, 24053 passed - rejected 0 for LED ids, 248 for too few blobs (<10), 0 for error
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] accelerometer scale check: |accel| at rest mean 9.7588 m/s^2 (-0.49% vs 9.8067), range 9.535..10.010, 9983 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] calib feed: 27901 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 27901 obs, 3490 paired, history 192 over 3 viewpoints, 217 solves, residual 1.74 px, CALIBRATED
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.85 min -3.71 max 1.84 ms
+[II] pose export over 10 s: age mean 1.8 ms max 3.6 ms | speed mean 0.04 max 0.05 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.2 mm (903 samples)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.88 min -3.81 max 1.56 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.82 min -4.00 max 1.56 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.76 min -4.60 max 1.43 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7590 m/s^2 (-0.49% vs 9.8067), range 9.445..10.029, 9982 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] pose export over 10 s: age mean 1.8 ms max 4.0 ms | speed mean 0.04 max 0.05 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.2 mm (893 samples)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -4.41 max 1.84 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.78 min -4.04 max 1.38 ms
+[II] sensor 0 calibration feed: 25201 offered, 24953 passed - rejected 0 for LED ids, 248 for too few blobs (<10), 0 for error
+[WW] Exposure timestamp 4079315712 was more than 1.5 IMU samples earlier than IMU ts 4079317410 by 1698 µS
+[WW] Exposure timestamp 4079891712 was more than 1.5 IMU samples earlier than IMU ts 4079893460 by 1748 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] calib feed: 28801 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 28801 obs, 3490 paired, history 192 over 3 viewpoints, 217 solves, residual 1.74 px, CALIBRATED
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.90 min -4.52 max 1.57 ms
+[WW] Exposure timestamp 4083270912 was more than 1.5 IMU samples earlier than IMU ts 4083272665 by 1753 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.90 min -3.59 max 1.73 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7603 m/s^2 (-0.47% vs 9.8067), range 9.501..10.013, 9981 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] pose export over 10 s: age mean 1.8 ms max 3.5 ms | speed mean 0.04 max 0.04 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.2 mm (903 samples)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.84 min -4.00 max 1.69 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.89 min -3.26 max 1.62 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.87 min -3.61 max 1.60 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7608 m/s^2 (-0.47% vs 9.8067), range 9.496..10.070, 9982 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] pose export over 10 s: age mean 1.8 ms max 3.2 ms | speed mean 0.04 max 0.04 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.1 mm (901 samples)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.84 min -3.84 max 1.40 ms
+[II] sensor 0 calibration feed: 26101 offered, 25853 passed - rejected 0 for LED ids, 248 for too few blobs (<10), 0 for error
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] calib feed: 29701 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 29701 obs, 3490 paired, history 192 over 3 viewpoints, 217 solves, residual 1.74 px, CALIBRATED
+[WW] Exposure timestamp 4099206912 was more than 1.5 IMU samples earlier than IMU ts 4099208685 by 1773 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.79 min -4.24 max 2.05 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.80 min -3.29 max 1.65 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] accelerometer scale check: |accel| at rest mean 9.7600 m/s^2 (-0.48% vs 9.8067), range 9.521..10.034, 9982 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] pose export over 10 s: age mean 1.8 ms max 3.5 ms | speed mean 0.04 max 0.04 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.1 mm (897 samples)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.78 min -4.19 max 1.75 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.81 min -4.41 max 1.75 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.82 min -4.08 max 1.18 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.80 min -3.88 max 1.58 ms
+[II] sensor 0 calibration feed: 27001 offered, 26753 passed - rejected 0 for LED ids, 248 for too few blobs (<10), 0 for error
+[II] accelerometer scale check: |accel| at rest mean 9.7613 m/s^2 (-0.46% vs 9.8067), range 9.477..9.993, 9983 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] pose export over 10 s: age mean 1.8 ms max 3.6 ms | speed mean 0.04 max 0.04 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.1 mm (906 samples)
+[II] calib feed: 30601 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 30601 obs, 3490 paired, history 192 over 3 viewpoints, 217 solves, residual 1.74 px, CALIBRATED
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.78 min -4.33 max 1.86 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -3.29 max 1.92 ms
+[WW] Exposure timestamp 4119347712 was more than 1.5 IMU samples earlier than IMU ts 4119349461 by 1749 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 4120768512 was more than 1.5 IMU samples earlier than IMU ts 4120770056 by 1544 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.89 min -4.11 max 1.46 ms
+[WW] Exposure timestamp 4122515712 was more than 1.5 IMU samples earlier than IMU ts 4122517249 by 1537 µS
+[II] accelerometer scale check: |accel| at rest mean 9.7593 m/s^2 (-0.48% vs 9.8067), range 9.383..10.020, 9981 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.89 min -4.46 max 1.60 ms
+[II] pose export over 10 s: age mean 1.8 ms max 4.2 ms | speed mean 0.04 max 0.04 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.2 mm (906 samples)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.80 min -4.30 max 1.79 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.80 min -3.44 max 1.53 ms
+[II] sensor 0 calibration feed: 27901 offered, 27653 passed - rejected 0 for LED ids, 248 for too few blobs (<10), 0 for error
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] calib feed: 31501 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 31501 obs, 3490 paired, history 192 over 3 viewpoints, 217 solves, residual 1.74 px, CALIBRATED
+[II] accelerometer scale check: |accel| at rest mean 9.7623 m/s^2 (-0.45% vs 9.8067), range 9.495..10.075, 9982 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.85 min -4.97 max 1.58 ms
+[WW] Exposure timestamp 4134362112 was more than 1.5 IMU samples earlier than IMU ts 4134363911 by 1799 µS
+[II] pose export over 10 s: age mean 1.8 ms max 3.4 ms | speed mean 0.04 max 0.04 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.1 mm (902 samples)
+[WW] Exposure timestamp 4135418112 was more than 1.5 IMU samples earlier than IMU ts 4135419837 by 1725 µS
+[WW] Exposure timestamp 4135437312 was more than 1.5 IMU samples earlier than IMU ts 4135438872 by 1560 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.85 min -3.27 max 1.73 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.87 min -4.18 max 1.79 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.87 min -3.93 max 1.41 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] accelerometer scale check: |accel| at rest mean 9.7621 m/s^2 (-0.46% vs 9.8067), range 9.515..10.000, 9982 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] pose export over 10 s: age mean 1.8 ms max 3.9 ms | speed mean 0.04 max 0.04 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.1 mm (903 samples)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.94 min -4.06 max 1.39 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.87 min -5.73 max 1.54 ms
+[II] sensor 0 calibration feed: 28801 offered, 28553 passed - rejected 0 for LED ids, 248 for too few blobs (<10), 0 for error
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] calib feed: 32401 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 32401 obs, 3490 paired, history 192 over 3 viewpoints, 217 solves, residual 1.74 px, CALIBRATED
+[WW] Exposure timestamp 4150547712 was more than 1.5 IMU samples earlier than IMU ts 4150549518 by 1806 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.79 min -4.10 max 1.83 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.78 min -4.43 max 1.76 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7651 m/s^2 (-0.42% vs 9.8067), range 9.530..10.076, 9982 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] pose export over 10 s: age mean 1.8 ms max 3.2 ms | speed mean 0.04 max 0.04 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.1 mm (904 samples)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 4155443712 was more than 1.5 IMU samples earlier than IMU ts 4155445481 by 1769 µS
+[WW] Exposure timestamp 4155923712 was more than 1.5 IMU samples earlier than IMU ts 4155925405 by 1693 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.88 min -3.00 max 1.48 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.79 min -3.93 max 1.83 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 4162547712 was more than 1.5 IMU samples earlier than IMU ts 4162549490 by 1778 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.80 min -3.91 max 1.76 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7648 m/s^2 (-0.43% vs 9.8067), range 9.531..10.015, 9982 quiet samples | hw calibration NOT requested (driver applies its own)
+[WW] Exposure timestamp 4164294912 was more than 1.5 IMU samples earlier than IMU ts 4164296690 by 1778 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.83 min -3.92 max 1.61 ms
+[II] sensor 0 calibration feed: 29701 offered, 29453 passed - rejected 0 for LED ids, 248 for too few blobs (<10), 0 for error
+[II] pose export over 10 s: age mean 1.8 ms max 3.6 ms | speed mean 0.04 max 0.04 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.1 mm (899 samples)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] calib feed: 33301 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 33301 obs, 3490 paired, history 192 over 3 viewpoints, 217 solves, residual 1.74 px, CALIBRATED
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.81 min -4.01 max 1.90 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.81 min -3.60 max 1.73 ms
+[WW] Exposure timestamp 4170822912 was more than 1.5 IMU samples earlier than IMU ts 4170824651 by 1739 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] accelerometer scale check: |accel| at rest mean 9.7628 m/s^2 (-0.45% vs 9.8067), range 9.495..10.014, 9982 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.80 min -4.41 max 1.47 ms
+[WW] Exposure timestamp 4174547712 was more than 1.5 IMU samples earlier than IMU ts 4174549523 by 1811 µS
+[II] pose export over 10 s: age mean 1.8 ms max 3.6 ms | speed mean 0.04 max 0.04 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.1 mm (902 samples)
+[WW] Exposure timestamp 4175738112 was more than 1.5 IMU samples earlier than IMU ts 4175739659 by 1547 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.82 min -4.37 max 1.41 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.77 min -4.23 max 1.90 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -3.13 max 1.32 ms
+[II] sensor 0 calibration feed: 30601 offered, 30353 passed - rejected 0 for LED ids, 248 for too few blobs (<10), 0 for error
+[II] accelerometer scale check: |accel| at rest mean 9.7618 m/s^2 (-0.46% vs 9.8067), range 9.495..10.012, 9982 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] calib feed: 34201 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 34201 obs, 3490 paired, history 192 over 3 viewpoints, 217 solves, residual 1.74 px, CALIBRATED
+[II] pose export over 10 s: age mean 1.8 ms max 3.6 ms | speed mean 0.03 max 0.04 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.1 mm (904 samples)
+[WW] Exposure timestamp 4185606912 was more than 1.5 IMU samples earlier than IMU ts 4185608755 by 1843 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.88 min -3.56 max 1.52 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.80 min -4.56 max 1.52 ms
+[WW] Exposure timestamp 4189485312 was more than 1.5 IMU samples earlier than IMU ts 4189486912 by 1600 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.80 min -4.05 max 1.53 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.81 min -4.14 max 1.38 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7608 m/s^2 (-0.47% vs 9.8067), range 9.487..9.996, 9981 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] pose export over 10 s: age mean 1.8 ms max 3.7 ms | speed mean 0.03 max 0.04 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.1 mm (903 samples)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.85 min -4.01 max 1.64 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.83 min -4.45 max 1.38 ms
+[II] sensor 0 calibration feed: 31501 offered, 31253 passed - rejected 0 for LED ids, 248 for too few blobs (<10), 0 for error
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] calib feed: 35101 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 35101 obs, 3490 paired, history 192 over 3 viewpoints, 217 solves, residual 1.74 px, CALIBRATED
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -4.82 max 1.63 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7606 m/s^2 (-0.47% vs 9.8067), range 9.478..10.036, 9982 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.73 min -3.61 max 1.91 ms
+[II] pose export over 10 s: age mean 1.8 ms max 3.6 ms | speed mean 0.03 max 0.04 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.1 mm (902 samples)
+[WW] Exposure timestamp 4206707712 was more than 1.5 IMU samples earlier than IMU ts 4206709472 by 1760 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.87 min -4.18 max 1.69 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.81 min -4.20 max 1.71 ms
+[WW] Exposure timestamp 4212179712 was more than 1.5 IMU samples earlier than IMU ts 4212181519 by 1807 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 4213581312 was more than 1.5 IMU samples earlier than IMU ts 4213583093 by 1781 µS
+[II] accelerometer scale check: |accel| at rest mean 9.7607 m/s^2 (-0.47% vs 9.8067), range 9.501..10.020, 9983 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.79 min -4.02 max 1.80 ms
+[II] pose export over 10 s: age mean 1.8 ms max 3.3 ms | speed mean 0.03 max 0.04 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.1 mm (901 samples)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.76 min -3.72 max 1.65 ms
+[II] sensor 0 calibration feed: 32401 offered, 32153 passed - rejected 0 for LED ids, 248 for too few blobs (<10), 0 for error
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] calib feed: 36001 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 36001 obs, 3490 paired, history 192 over 3 viewpoints, 217 solves, residual 1.74 px, CALIBRATED
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.84 min -3.91 max 1.38 ms
+[WW] Exposure timestamp 4220934912 was more than 1.5 IMU samples earlier than IMU ts 4220936600 by 1688 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.80 min -4.26 max 1.81 ms
+[WW] Exposure timestamp 4222355712 was more than 1.5 IMU samples earlier than IMU ts 4222357256 by 1544 µS
+[II] accelerometer scale check: |accel| at rest mean 9.7611 m/s^2 (-0.46% vs 9.8067), range 9.204..10.757, 9964 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] pose export over 10 s: age mean 1.8 ms max 3.8 ms | speed mean 0.03 max 0.04 m/s, ang mean 0 max 2 deg/s | age*speed worst 0.1 mm (902 samples)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.89 min -3.97 max 1.41 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.81 min -3.33 max 1.61 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 4230611712 was more than 1.5 IMU samples earlier than IMU ts 4230613381 by 1669 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.81 min -3.87 max 1.51 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.81 min -4.10 max 1.65 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7622 m/s^2 (-0.45% vs 9.8067), range 9.497..9.995, 9983 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] sensor 0 calibration feed: 33301 offered, 33051 passed - rejected 0 for LED ids, 250 for too few blobs (<10), 0 for error
+[II] pose export over 10 s: age mean 1.8 ms max 3.7 ms | speed mean 0.03 max 0.03 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.1 mm (903 samples)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] calib feed: 36901 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 36901 obs, 3490 paired, history 192 over 3 viewpoints, 217 solves, residual 1.74 px, CALIBRATED
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.87 min -4.00 max 1.50 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.85 min -4.34 max 1.40 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.81 min -4.59 max 1.54 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7689 m/s^2 (-0.39% vs 9.8067), range 9.520..10.018, 9981 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.72 min -3.86 max 1.83 ms
+[II] pose export over 10 s: age mean 1.8 ms max 3.3 ms | speed mean 0.03 max 0.03 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.1 mm (905 samples)
+[WW] Exposure timestamp 4246451712 was more than 1.5 IMU samples earlier than IMU ts 4246453503 by 1791 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.89 min -4.47 max 1.55 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.80 min -3.54 max 2.01 ms
+[II] sensor 0 calibration feed: 34201 offered, 33951 passed - rejected 0 for LED ids, 250 for too few blobs (<10), 0 for error
+[WW] Exposure timestamp 4252614912 was more than 1.5 IMU samples earlier than IMU ts 4252616839 by 1927 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] accelerometer scale check: |accel| at rest mean 9.7702 m/s^2 (-0.37% vs 9.8067), range 9.532..10.032, 9982 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] calib feed: 37801 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 37801 obs, 3490 paired, history 192 over 3 viewpoints, 217 solves, residual 1.74 px, CALIBRATED
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.85 min -4.06 max 1.32 ms
+[II] pose export over 10 s: age mean 1.8 ms max 3.4 ms | speed mean 0.03 max 0.03 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.1 mm (906 samples)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.75 min -3.89 max 1.87 ms
+[WW] Exposure timestamp 4258355712 was more than 1.5 IMU samples earlier than IMU ts 4258357400 by 1688 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -4.15 max 1.51 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.69 min -4.12 max 1.65 ms
+[WW] Exposure timestamp 4262771712 was more than 1.5 IMU samples earlier than IMU ts 4262773527 by 1815 µS
+[II] accelerometer scale check: |accel| at rest mean 9.7643 m/s^2 (-0.43% vs 9.8067), range 9.534..9.997, 9981 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] pose export over 10 s: age mean 1.8 ms max 3.4 ms | speed mean 0.03 max 0.03 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.1 mm (908 samples)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.77 min -3.78 max 1.43 ms
+[WW] Exposure timestamp 4267091712 was more than 1.5 IMU samples earlier than IMU ts 4267093478 by 1766 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.71 min -3.65 max 1.85 ms
+[II] sensor 0 calibration feed: 35101 offered, 34851 passed - rejected 0 for LED ids, 250 for too few blobs (<10), 0 for error
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] calib feed: 38701 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 38701 obs, 3490 paired, history 192 over 3 viewpoints, 217 solves, residual 1.74 px, CALIBRATED
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.82 min -4.93 max 1.32 ms
+[WW] Exposure timestamp 4273523712 was more than 1.5 IMU samples earlier than IMU ts 4273525318 by 1606 µS
+[II] accelerometer scale check: |accel| at rest mean 9.7630 m/s^2 (-0.45% vs 9.8067), range 9.500..10.009, 9981 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.70 min -4.55 max 1.62 ms
+[WW] Exposure timestamp 4274099712 was more than 1.5 IMU samples earlier than IMU ts 4274101378 by 1666 µS
+[II] pose export over 10 s: age mean 1.8 ms max 3.3 ms | speed mean 0.03 max 0.03 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.1 mm (906 samples)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.84 min -4.44 max 2.00 ms
+[WW] Exposure timestamp 4278861312 was more than 1.5 IMU samples earlier than IMU ts 4278863146 by 1834 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.65 min -3.70 max 1.89 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] accelerometer scale check: |accel| at rest mean 9.7624 m/s^2 (-0.45% vs 9.8067), range 9.537..10.014, 9982 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.82 min -3.94 max 1.30 ms
+[II] pose export over 10 s: age mean 1.8 ms max 3.4 ms | speed mean 0.03 max 0.03 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.1 mm (906 samples)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.70 min -4.49 max 2.30 ms
+[II] sensor 0 calibration feed: 36001 offered, 35751 passed - rejected 0 for LED ids, 250 for too few blobs (<10), 0 for error
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] calib feed: 39601 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 39601 obs, 3490 paired, history 192 over 3 viewpoints, 217 solves, residual 1.74 px, CALIBRATED
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.79 min -4.03 max 1.55 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.67 min -3.72 max 1.85 ms
+[WW] Exposure timestamp 4291091712 was more than 1.5 IMU samples earlier than IMU ts 4291093720 by 2008 µS
+[WW] Exposure timestamp 4291706112 was more than 1.5 IMU samples earlier than IMU ts 4291707805 by 1693 µS
+[WW] Exposure timestamp 4293338112 was more than 1.5 IMU samples earlier than IMU ts 4293339812 by 1700 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] accelerometer scale check: |accel| at rest mean 9.7651 m/s^2 (-0.42% vs 9.8067), range 9.507..9.993, 9981 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] pose export over 10 s: age mean 1.8 ms max 3.2 ms | speed mean 0.03 max 0.03 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.1 mm (903 samples)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.80 min -3.76 max 1.66 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.65 min -3.35 max 1.83 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.85 min -4.01 max 1.57 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.60 min -3.87 max 1.93 ms
+[II] sensor 0 calibration feed: 36901 offered, 36651 passed - rejected 0 for LED ids, 250 for too few blobs (<10), 0 for error
+[II] accelerometer scale check: |accel| at rest mean 9.7686 m/s^2 (-0.39% vs 9.8067), range 9.532..10.037, 9982 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] pose export over 10 s: age mean 1.8 ms max 4.1 ms | speed mean 0.03 max 0.03 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.1 mm (910 samples)
+[II] calib feed: 40501 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 40501 obs, 3490 paired, history 192 over 3 viewpoints, 217 solves, residual 1.74 px, CALIBRATED
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.77 min -3.58 max 1.75 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.57 min -3.94 max 2.02 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.77 min -4.59 max 1.49 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7637 m/s^2 (-0.44% vs 9.8067), range 9.503..10.003, 9983 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.51 min -4.54 max 2.15 ms
+[II] pose export over 10 s: age mean 1.8 ms max 3.8 ms | speed mean 0.03 max 0.03 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.1 mm (905 samples)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 22524416 was more than 1.5 IMU samples earlier than IMU ts 22526039 by 1623 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.63 min -4.30 max 1.74 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.60 min -4.24 max 1.67 ms
+[II] sensor 0 calibration feed: 37801 offered, 37551 passed - rejected 0 for LED ids, 250 for too few blobs (<10), 0 for error
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] calib feed: 41401 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 41401 obs, 3490 paired, history 192 over 3 viewpoints, 217 solves, residual 1.74 px, CALIBRATED
+[II] accelerometer scale check: |accel| at rest mean 9.7650 m/s^2 (-0.43% vs 9.8067), range 9.483..10.010, 9981 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.51 min -4.48 max 2.00 ms
+[II] pose export over 10 s: age mean 1.8 ms max 3.5 ms | speed mean 0.03 max 0.03 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.1 mm (892 samples)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.87 min -4.88 max 1.56 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.71 min -4.15 max 2.21 ms
+[WW] Exposure timestamp 35484416 was more than 1.5 IMU samples earlier than IMU ts 35485951 by 1535 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.88 min -3.15 max 1.47 ms
+[WW] Exposure timestamp 36847616 was more than 1.5 IMU samples earlier than IMU ts 36849463 by 1847 µS
+[II] accelerometer scale check: |accel| at rest mean 9.7634 m/s^2 (-0.44% vs 9.8067), range 9.515..9.979, 9981 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] pose export over 10 s: age mean 1.8 ms max 3.6 ms | speed mean 0.03 max 0.03 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.1 mm (905 samples)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.63 min -3.15 max 1.89 ms
+[WW] Exposure timestamp 40841216 was more than 1.5 IMU samples earlier than IMU ts 40842829 by 1613 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -3.90 max 1.74 ms
+[II] sensor 0 calibration feed: 38701 offered, 38451 passed - rejected 0 for LED ids, 250 for too few blobs (<10), 0 for error
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] calib feed: 42301 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 42301 obs, 3490 paired, history 192 over 3 viewpoints, 217 solves, residual 1.74 px, CALIBRATED
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.69 min -3.81 max 2.37 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.87 min -3.80 max 1.29 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7628 m/s^2 (-0.45% vs 9.8067), range 9.515..10.035, 9983 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] pose export over 10 s: age mean 1.8 ms max 3.5 ms | speed mean 0.02 max 0.03 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.1 mm (903 samples)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.68 min -4.16 max 2.07 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.84 min -3.77 max 1.35 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.71 min -3.93 max 1.83 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7629 m/s^2 (-0.45% vs 9.8067), range 9.496..9.997, 9981 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.85 min -3.18 max 2.07 ms
+[II] pose export over 10 s: age mean 1.8 ms max 4.5 ms | speed mean 0.03 max 0.03 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.1 mm (897 samples)
+[II] sensor 0 calibration feed: 39601 offered, 39351 passed - rejected 0 for LED ids, 250 for too few blobs (<10), 0 for error
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] calib feed: 43201 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 43201 obs, 3490 paired, history 192 over 3 viewpoints, 217 solves, residual 1.74 px, CALIBRATED
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.71 min -3.17 max 1.80 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.79 min -3.67 max 1.48 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] accelerometer scale check: |accel| at rest mean 9.7647 m/s^2 (-0.43% vs 9.8067), range 9.517..10.092, 9981 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.71 min -4.24 max 1.67 ms
+[II] pose export over 10 s: age mean 1.8 ms max 3.8 ms | speed mean 0.02 max 0.03 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.1 mm (898 samples)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.80 min -4.39 max 1.65 ms
+[WW] Exposure timestamp 72790016 was more than 1.5 IMU samples earlier than IMU ts 72791820 by 1804 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.73 min -4.13 max 1.54 ms
+[WW] Exposure timestamp 75247616 was more than 1.5 IMU samples earlier than IMU ts 75249361 by 1745 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.85 min -4.23 max 1.54 ms
+[II] sensor 0 calibration feed: 40501 offered, 40251 passed - rejected 0 for LED ids, 250 for too few blobs (<10), 0 for error
+[II] accelerometer scale check: |accel| at rest mean 9.7642 m/s^2 (-0.43% vs 9.8067), range 9.534..9.984, 9981 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] calib feed: 44101 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 44101 obs, 3490 paired, history 192 over 3 viewpoints, 217 solves, residual 1.74 px, CALIBRATED
+[WW] Exposure timestamp 80028416 was more than 1.5 IMU samples earlier than IMU ts 80030194 by 1778 µS
+[II] pose export over 10 s: age mean 1.8 ms max 3.5 ms | speed mean 0.02 max 0.03 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.1 mm (900 samples)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.81 min -4.15 max 1.95 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.85 min -3.69 max 1.44 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -3.29 max 2.05 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.81 min -3.68 max 1.98 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7634 m/s^2 (-0.44% vs 9.8067), range 9.517..9.978, 9981 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] pose export over 10 s: age mean 1.8 ms max 3.5 ms | speed mean 0.02 max 0.03 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.1 mm (898 samples)
+[WW] Exposure timestamp 90415616 was more than 1.5 IMU samples earlier than IMU ts 90417392 by 1776 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.77 min -3.52 max 1.62 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -4.13 max 1.52 ms
+[II] sensor 0 calibration feed: 41401 offered, 41151 passed - rejected 0 for LED ids, 250 for too few blobs (<10), 0 for error
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] calib feed: 45001 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 45001 obs, 3490 paired, history 192 over 3 viewpoints, 217 solves, residual 1.74 px, CALIBRATED
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.73 min -3.97 max 1.61 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7642 m/s^2 (-0.43% vs 9.8067), range 9.481..10.011, 9981 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.79 min -4.43 max 1.24 ms
+[II] pose export over 10 s: age mean 1.8 ms max 3.4 ms | speed mean 0.02 max 0.03 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.1 mm (899 samples)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.78 min -3.94 max 1.47 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.87 min -3.71 max 1.63 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] accelerometer scale check: |accel| at rest mean 9.7687 m/s^2 (-0.39% vs 9.8067), range 9.518..10.019, 9982 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.84 min -4.07 max 1.86 ms
+[II] pose export over 10 s: age mean 1.8 ms max 3.7 ms | speed mean 0.02 max 0.03 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.1 mm (904 samples)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.83 min -3.81 max 1.57 ms
+[II] sensor 0 calibration feed: 42301 offered, 42051 passed - rejected 0 for LED ids, 250 for too few blobs (<10), 0 for error
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] calib feed: 45901 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 45901 obs, 3490 paired, history 192 over 3 viewpoints, 217 solves, residual 1.74 px, CALIBRATED
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.75 min -4.64 max 1.75 ms
+[WW] Exposure timestamp 116796416 was more than 1.5 IMU samples earlier than IMU ts 116798178 by 1762 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -5.29 max 1.91 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7694 m/s^2 (-0.38% vs 9.8067), range 9.535..10.051, 9981 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] pose export over 10 s: age mean 1.8 ms max 3.5 ms | speed mean 0.02 max 0.02 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.1 mm (904 samples)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.78 min -4.48 max 1.35 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -4.84 max 1.58 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 126607616 was more than 1.5 IMU samples earlier than IMU ts 126609332 by 1716 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.79 min -4.47 max 1.50 ms
+[WW] Exposure timestamp 127068416 was more than 1.5 IMU samples earlier than IMU ts 127070185 by 1769 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.84 min -3.92 max 1.35 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7705 m/s^2 (-0.37% vs 9.8067), range 9.546..10.037, 9982 quiet samples | hw calibration NOT requested (driver applies its own)
+[WW] Exposure timestamp 128815616 was more than 1.5 IMU samples earlier than IMU ts 128817418 by 1802 µS
+[II] sensor 0 calibration feed: 43201 offered, 42951 passed - rejected 0 for LED ids, 250 for too few blobs (<10), 0 for error
+[II] pose export over 10 s: age mean 1.8 ms max 3.4 ms | speed mean 0.02 max 0.02 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.1 mm (902 samples)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] calib feed: 46801 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 46801 obs, 3490 paired, history 192 over 3 viewpoints, 217 solves, residual 1.74 px, CALIBRATED
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.80 min -6.81 max 2.07 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.83 min -4.66 max 1.88 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.79 min -4.31 max 1.77 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7627 m/s^2 (-0.45% vs 9.8067), range 9.520..9.997, 9982 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.79 min -3.50 max 1.63 ms
+[II] pose export over 10 s: age mean 1.8 ms max 3.7 ms | speed mean 0.02 max 0.02 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.1 mm (899 samples)
+[WW] Exposure timestamp 141449216 was more than 1.5 IMU samples earlier than IMU ts 141450804 by 1588 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.82 min -3.28 max 1.84 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.79 min -3.28 max 1.29 ms
+[II] sensor 0 calibration feed: 44101 offered, 43851 passed - rejected 0 for LED ids, 250 for too few blobs (<10), 0 for error
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] accelerometer scale check: |accel| at rest mean 9.7638 m/s^2 (-0.44% vs 9.8067), range 9.522..10.018, 9982 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] calib feed: 47701 observations offered (auto_c

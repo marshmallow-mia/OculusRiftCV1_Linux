@@ -1,0 +1,1476 @@
++++ dirname /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/vrmonitor.sh
+++ cd /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/
+++ pwd
++ VRBINDIR=/home/mia/.local/share/Steam/steamapps/common/SteamVR/bin
++ [[ -n '' ]]
++ exec /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/vrenv.sh /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/vrmonitor.sh
+vrenv.sh[301993]: VRCOMPOSITOR_LD_LIBRARY_PATH=/home/mia/git/rift-cv1-center:/home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/linux64/qt/lib:/home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/linux64
+vrenv.sh[301993]: exec /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/vrmonitor.sh
++++ dirname /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/vrmonitor.sh
+++ cd /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/
+++ pwd
++ VRBINDIR=/home/mia/.local/share/Steam/steamapps/common/SteamVR/bin
++ [[ -n /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/vrenv.sh ]]
++ case $(uname) in
+++ uname
++ VRMONITOR=/home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/linux64/vrmonitor
++ exec /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/linux64/vrmonitor
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 21:39:05 minidumps folder is set to /tmp/dumps
+07/31 21:39:05 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(301993)
+static QPlatformTheme* QKdeTheme::createKdeTheme(): Unable to determine KDE dirs
+sh: line 1: steamxdg-icon-resource: command not found
+sh: line 1: steam-runtime-launch-client: command not found
+QObject::connect: No such slot CQVRMonitorController::OnStartRecordingAction() in /data/src/vrmonitor/qvrmonitorcontroller.cpp:1112
+QObject::connect: No such slot CQVRMonitorController::OnStopRecordingAction() in /data/src/vrmonitor/qvrmonitorcontroller.cpp:1115
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+CQVRMonitorHeadsetWarning(0x55ae3bb02540)  does not have a property named  "green_color"
+CQVRMonitorHeadsetWarning(0x55ae3bb02540)  does not have a property named  "red_color"
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 21:39:06 minidumps folder is set to /tmp/dumps
+07/31 21:39:06 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(302118)
+[S_API] SteamAPI_Init(): Loaded '/home/mia/.local/share/Steam/linux64/steamclient.so' OK.
+VR Server (v1781734990)
+
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+SteamInternal_SetMinidumpSteamID:  Caching Steam ID:  76561198428899653 [API loaded yes]
+SteamInternal_SetMinidumpSteamID:  Setting Steam ID:  76561198428899653
+[II] HMD IMU calibration  gyro_offset [ -0.003900, 0.001300, 0.001100 ]  accel_offset [ 0.108000, -0.305600, 0.024900 ]
+[II]   gyro_calib = 
+[II]   [    0.999,    0.005,   -0.021 ]
+[II]   [    0.004,    1.000,   -0.007 ]
+[II]   [    0.008,    0.038,    0.999 ]
+[II]   accel_calib = 
+[II]   [    1.021,    0.001,   -0.018 ]
+[II]   [    0.001,    1.037,    0.022 ]
+[II]   [    0.004,   -0.005,    0.963 ]
+[II] HMD accel calibration matrix: mean row norm 1.0072 -> 1.0000 (scale removed 0.72%)
+[II] HMD gyro calibration matrix: mean row norm 0.9994 -> 1.0000 (scale removed -0.06%)
+[II] CV1 display config: brightness=0 flags=0x400 persistence=273/1472 rows
+[II] Using 34 visor LEDs; dropped 10 headband LEDs (not tracked as a separate body yet - the headset is only trackable from the front)
+LED model: HMD LEDs
+{ .pos = {0.062939,-0.032042,0.067541}, .dir={0.181956,-0.102972,0.977900}, .pattern=0x1 },
+{ .pos = {0.077151,0.000993,0.065562}, .dir={0.299055,0.001984,0.954234}, .pattern=0x6 },
+{ .pos = {0.028983,-0.019018,0.073518}, .dir={0.082983,-0.096960,0.991823}, .pattern=0x1a },
+{ .pos = {-0.000097,-0.033045,0.072449}, .dir={0.000000,-0.188028,0.982164}, .pattern=0x1d },
+{ .pos = {-0.028998,-0.019144,0.073384}, .dir={-0.082983,-0.096960,0.991823}, .pattern=0x28 },
+{ .pos = {-0.063022,-0.032156,0.067359}, .dir={-0.181956,-0.102972,0.977900}, .pattern=0x2f },
+{ .pos = {-0.077078,0.000964,0.065342}, .dir={-0.299055,0.001984,0.954234}, .pattern=0x33 },
+{ .pos = {-0.054039,0.034440,0.068623}, .dir={-0.140969,0.134957,0.980772}, .pattern=0x4b },
+{ .pos = {-0.020202,0.017950,0.074224}, .dir={-0.056979,0.095951,0.993754}, .pattern=0x4c },
+{ .pos = {0.053973,0.034595,0.069160}, .dir={0.140969,0.134957,0.980772}, .pattern=0x57 },
+{ .pos = {0.020062,0.018061,0.074368}, .dir={0.056979,0.095951,0.993754}, .pattern=0x62 },
+{ .pos = {-0.078856,-0.011904,0.028395}, .dir={-0.993057,-0.099980,-0.061984}, .pattern=0x65 },
+{ .pos = {-0.077293,-0.012335,-0.008668}, .dir={-0.981566,-0.188915,-0.028963}, .pattern=0x79 },
+{ .pos = {-0.070740,-0.031349,0.010284}, .dir={-0.734056,-0.668042,-0.121987}, .pattern=0x7e },
+{ .pos = {-0.059124,-0.040984,0.036314}, .dir={-0.153997,-0.983099,-0.099003}, .pattern=0x90 },
+{ .pos = {0.058835,-0.040830,0.035942}, .dir={0.153997,-0.983099,-0.099003}, .pattern=0xa4 },
+{ .pos = {0.028165,-0.043453,0.061352}, .dir={-0.004975,-0.998636,-0.051974}, .pattern=0x114 },
+{ .pos = {-0.080319,-0.024476,0.053355}, .dir={-0.947594,-0.225904,-0.225904}, .pattern=0x151 },
+{ .pos = {-0.027992,-0.043610,0.061432}, .dir={0.004975,-0.998636,-0.051974}, .pattern=0x183 },
+{ .pos = {0.070561,-0.031850,0.009988}, .dir={0.734056,-0.668042,-0.121987}, .pattern=0x18c },
+{ .pos = {0.077672,-0.012729,-0.008828}, .dir={0.981566,-0.188915,-0.028963}, .pattern=0x199 },
+{ .pos = {0.079252,-0.012425,0.027945}, .dir={0.993057,-0.099980,-0.061984}, .pattern=0x1aa },
+{ .pos = {0.080678,-0.024862,0.053475}, .dir={0.947594,-0.225904,-0.225904}, .pattern=0x1b5 },
+{ .pos = {-0.029139,0.043728,0.057487}, .dir={-0.004975,0.999980,0.003998}, .pattern=0x1c0 },
+{ .pos = {-0.078382,0.029385,0.053600}, .dir={-0.871752,0.428856,-0.236921}, .pattern=0x1cf },
+{ .pos = {0.072131,0.030937,0.000022}, .dir={0.816019,0.577024,-0.033998}, .pattern=0x1d6 },
+{ .pos = {0.067042,0.037833,0.030095}, .dir={0.526908,0.847875,-0.058962}, .pattern=0x1e9 },
+{ .pos = {0.078260,0.029513,0.053292}, .dir={0.871752,0.428856,-0.236921}, .pattern=0x1f3 },
+{ .pos = {0.028896,0.043669,0.057676}, .dir={0.004975,0.999980,0.003998}, .pattern=0x1fc },
+{ .pos = {-0.067240,0.037555,0.029876}, .dir={-0.526908,0.847875,-0.058962}, .pattern=0x230 },
+{ .pos = {-0.072200,0.030241,0.000120}, .dir={-0.816019,0.577024,-0.033998}, .pattern=0x252 },
+{ .pos = {-0.041120,0.043276,0.023325}, .dir={-0.041995,0.999110,-0.003998}, .pattern=0x282 },
+{ .pos = {0.000159,0.043811,0.033423}, .dir={0.005982,0.999932,0.009980}, .pattern=0x285 },
+{ .pos = {0.041085,0.043260,0.023553}, .dir={0.041995,0.999110,-0.003998}, .pattern=0x29b },
+[II] HMD IPD 63.5 mm, as reported by the headset (note: this is its stored figure, not the live slider position)
+Opened Rift Sensor 0 w/ Serial WMTD306Q701DEK. Connecting to Radio address 0x11563cc989
+[II] camera width 1280 height 960
+[II] f = [ 716.935 716.935 ], c = [ 661.864 469.517 ]
+[II] k = [  0.070819 -0.023264  0.005108 -0.000523 ]
+[II] Calibration capture enabled -> /home/mia/git/rift-cv1-center/captures/lin/2026-07-31/jitter.jsonl
+stream state: "connecting"
+stream state: "connecting"
+[II] Loaded pose for sensor WMTD306Q701DEK from room store: "pos" : [ -1.080223, 1.242403, -0.743242 ], "orient" : [ 0.602096, -0.067780, 0.792231, 0.072504 ]
+[II] Set sensor 0 pose to orient 0.602096 -0.067780 0.792231 0.072504  pos -1.080223 1.242403 -0.743242
+stream state: "paused"
+stream state: "paused"
+Opened Rift Sensor 1 w/ Serial WMTD3052400VZL. Connecting to Radio address 0x11563cc989
+[II] camera width 1280 height 960
+[II] f = [ 716.734 716.734 ], c = [ 647.399 478.498 ]
+[II] k = [  0.071847 -0.025176  0.006398 -0.000817 ]
+stream state: "connecting"
+stream state: "connecting"
+[II] Loaded pose for sensor WMTD3052400VZL from room store: "pos" : [ -1.212256, 1.568732, 0.301071 ], "orient" : [ 0.690856, -0.082278, 0.713779, 0.080428 ]
+[II] Set sensor 1 pose to orient 0.690856 -0.082278 0.713779 0.080428  pos -1.212256 1.568732 0.301071
+Opened 2 Rift Sensor cameras
+stream state: "paused"
+stream state: "paused"
+UVC PTS changed in-frame at 16372 bytes. Lost 82 ms
+UVC Dropping short frame: 16372 < 1228800 (1212428 lost)
+Temperature: 39.1 °C
+Temperature: 36.0 °C
+[II] HMD device frame: IMU at [-0.0166 0.0345 0.0331] m; screen 0.1193 x 0.0663 m; lens separation 0.0540 m, v-centre 0.0308 m, eye-to-screen 0.0396/0.0396 m
+[II] HMD LED model spans z -0.0088..0.0744, y -0.0436..0.0438 m (34 LEDs, before the 180 deg model rotation)
+[II] position observer gains pos [10 10 8] vel [50 50 32] accel [25 25 16]
+[II] Device 0 using UKF fusion backend
+stream state: "connecting"
+device 0 online. Now tracking.
+stream state: "paused"
+[WW] Exposure timestamp 2371878912 was more than 1.5 IMU samples earlier than IMU ts 2371894399 by 15487 µS
+[WW] Device 0: late pose time 1113.498 ms from WMTD3052400VZL (1 so far, worst 1113.498 ms)
+[II] Matched orientation after 1.113498 sec
+[II] output correction bleeding OFF - set OHMD_RIFT_BLEED=1 to restore
+[WW] Sensor WMTD3052400VZL: predicted exposure-to-frame latency of -8.7 ms differed from measured -1.7 ms (1 so far) - check the sensor sync cable
+[II] sensor WMTD3052400VZL calibration SETTLED
+[II] calib feed: 1 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 1 obs, 0 paired, history 0 over 0 viewpoints, 0 solves, residual -1.00 px, uncalibrated
+[II] Ignoring position observation with error -0.198645 0.207352 -0.037270 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195574 0.203398 -0.034554 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.197852 0.206424 -0.033954 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193425 0.201001 -0.034596 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.197281 0.205717 -0.033952 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.198600 0.207164 -0.033767 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.197853 0.206537 -0.033980 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195230 0.203002 -0.034413 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194491 0.202004 -0.034706 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.198434 0.207079 -0.033913 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.197365 0.205556 -0.034059 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] angular velocity exported in the device-local frame
+[II] velocity smovrcompositor-launcher.sh[302174]: Relaunch under scout LDLP runtime.
+vrcompositor-launcher.sh[302174]: exec /home/mia/.steam/root/ubuntu12_32/steam-runtime/run.sh /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/linux64/vrcompositor-launcher.sh
+vrcompositor-launcher.sh[302174]: Detected scout LDLP runtime.
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 21:39:10 minidumps folder is set to /tmp/dumps
+07/31 21:39:10 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(302218)
+[S_API] SteamAPI_Init(): Loaded '/home/mia/.local/share/Steam/linux64/steamclient.so' OK.
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+SteamInternal_SetMinidumpSteamID:  Caching Steam ID:  76561198428899653 [API loaded yes]
+SteamInternal_SetMinidumpSteamID:  Setting Steam ID:  76561198428899653
+Initialize() is failed!!!
+qt.network.ssl: QSslSocket: cannot resolve CRYPTO_num_locks
+qt.network.ssl: QSslSocket: cannot resolve CRYPTO_set_id_callback
+qt.network.ssl: QSslSocket: cannot resolve CRYPTO_set_locking_callback
+qt.network.ssl: QSslSocket: cannot resolve ERR_free_strings
+qt.network.ssl: QSslSocket: cannot resolve sk_new_null
+qt.network.ssl: QSslSocket: cannot resolve sk_push
+qt.network.ssl: QSslSocket: cannot resolve sk_free
+qt.network.ssl: QSslSocket: cannot resolve sk_num
+qt.network.ssl: QSslSocket: cannot resolve sk_pop_free
+qt.network.ssl: QSslSocket: cannot resolve sk_value
+qt.network.ssl: QSslSocket: cannot resolve SSL_get_peer_certificate
+qt.network.ssl: QSslSocket: cannot resolve SSL_library_init
+qt.network.ssl: QSslSocket: cannot resolve SSL_load_error_strings
+qt.network.ssl: QSslSocket: cannot resolve SSL_get_ex_new_index
+qt.network.ssl: QSslSocket: cannot resolve SSLv2_client_method
+qt.network.ssl: QSslSocket: cannot resolve SSLv3_client_method
+qt.network.ssl: QSslSocket: cannot resolve SSLv23_client_method
+qt.network.ssl: QSslSocket: cannot resolve SSLv2_server_method
+qt.network.ssl: QSslSocket: cannot resolve SSLv3_server_method
+qt.network.ssl: QSslSocket: cannot resolve SSLv23_server_method
+qt.network.ssl: QSslSocket: cannot resolve X509_STORE_CTX_get_chain
+qt.network.ssl: QSslSocket: cannot resolve OPENSSL_add_all_algorithms_noconf
+qt.network.ssl: QSslSocket: cannot resolve OPENSSL_add_all_algorithms_conf
+qt.network.ssl: QSslSocket: cannot resolve SSLeay
+qt.network.ssl: QSslSocket: cannot resolve SSLeay_version
+qt.network.ssl: QSslSocket: cannot call unresolved function SSLeay
+qt.network.ssl: QSslSocket: cannot call unresolved function CRYPTO_num_locks
+qt.network.ssl: QSslSocket: cannot call unresolved function CRYPTO_set_id_callback
+qt.network.ssl: QSslSocket: cannot call unresolved function CRYPTO_set_locking_callback
+qt.network.ssl: QSslSocket: cannot call unresolved function SSL_library_init
+qt.network.ssl: QSslSocket: cannot call unresolved function SSLv23_client_method
+qt.network.ssl: QSslSocket: cannot call unresolved function sk_num
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+[S_API] SteamAPI_Init(): Loaded '/home/mia/.local/share/Steam/linux64/steamclient.so' OK.
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+SteamInternal_SetMinidumpSteamID:  Caching Steam ID:  76561198428899653 [API loaded yes]
+SteamInternal_SetMinidumpSteamID:  Setting Steam ID:  76561198428899653
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 21:39:10 minidumps folder is set to /tmp/dumps
+07/31 21:39:10 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(302220)
+[0731/213910.989957:ERROR:check.cc(376)] Check failed: false. NOTREACHED log messages are omitted in official builds. Sorry!
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 21:39:11 minidumps folder is set to /tmp/dumps
+07/31 21:39:11 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(302258)
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 21:39:11 minidumps folder is set to /tmp/dumps
+[0731/213911.031126:ERROR:check.cc(376)] Check failed: false. NOTREACHED log messages are omitted in official builds. Sorry!
+07/31 21:39:11 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(302257)
+[0731/213911.031338:ERROR:check.cc(376)] Check failed: false. NOTREACHED log messages are omitted in official builds. Sorry!
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 19: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 20: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 23: invalid constant used : monospace
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 42: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 43: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 46: invalid constant used : sans-serif
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 68: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 69: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 72: invalid constant used : serif
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 88: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 89: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 92: invalid constant used : emoji
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 108: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 109: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 112: invalid constant used : math
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 120: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 121: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 124: invalid constant used : system-ui
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 132: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 133: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 136: invalid constant used : cursive
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 144: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 145: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 148: invalid constant used : fantasy
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 156: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 157: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 160: invalid constant used : ui-sans-serif
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 168: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 169: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 172: invalid constant used : ui-serif
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 180: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 181: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 184: invalid constant used : ui-monospace
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 192: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 193: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 196: invalid constant used : ui-rounded
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 204: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 205: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 208: invalid constant used : fangsong
+Fontconfig warning: "/etc/fonts/conf.d/48-spacing.conf", line 14: invalid constant used : monospace
+Fontconfig warning: "/etc/fonts/conf.d/49-sansserif.conf", line 10: invalid constant used : serif
+Fontconfig warning: "/etc/fonts/conf.d/49-sansserif.conf", line 18: invalid constant used : sans-serif
+Fontconfig warning: "/etc/fonts/conf.d/49-sansserif.conf", line 26: invalid constant used : monospace
+Fontconfig warning: "/etc/fonts/conf.d/49-sansserif.conf", line 34: invalid constant used : emoji
+Fontconfig warning: "/etc/fonts/conf.d/49-sansserif.conf", line 42: invalid constant used : math
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 19: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 20: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 23: invalid constant used : monospace
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 42: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 43: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 46: invalid constant used : sans-serif
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 68: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 69: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 72: invalid constant used : serif
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 88: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 89: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 92: invalid constant used : emoji
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 108: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 109: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 112: invalid constant used : math
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 120: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 121: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 124: invalid constant used : system-ui
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 132: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 133: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 136: invalid constant used : cursive
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 144: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 145: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 148: invalid constant used : fantasy
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 156: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 157: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 160: invalid constant used : ui-sans-serif
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 168: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 169: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 172: invalid constant used : ui-serif
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 180: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 181: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 184: invalid constant used : ui-monospace
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 192: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 193: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 196: invalid constant used : ui-rounded
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 204: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 205: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 208: invalid constant used : fangsong
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-spacing.conf", line 14: invalid constant used : monospace
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/49-sansserif.conf", line 10: invalid constant used : serif
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/49-sansserif.conf", line 18: invalid constant used : sans-serif
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/49-sansserif.conf", line 26: invalid constant used : monospace
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/49-sansserif.conf", line 34: invalid constant used : emoji
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/49-sansserif.conf", line 42: invalid constant used : math
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 21:39:11 minidumps folder is set to /tmp/dumps
+07/31 21:39:11 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(302322)
+[0731/213911.328588:ERROR:check.cc(376)] Check failed: false. NOTREACHED log messages are omitted in official builds. Sorry!
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 21:39:11 minidumps folder is set to /tmp/dumps
+07/31 21:39:11 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(302469)
+[0731/213911.764264:ERROR:check.cc(376)] Check failed: false. NOTREACHED log messages are omitted in official builds. Sorry!
+othing: tau 25 ms, speed-adaptive
+[WW] Sensor WMTD3052400VZL: predicted exposure-to-frame latency of -8.6 ms differed from measured -0.0 ms (101 so far) - check the sensor sync cable
+[II] Ignoring position observation with error -0.203118 0.213453 -0.032743 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.197019 0.205626 -0.034104 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194613 0.202354 -0.034412 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194925 0.202590 -0.034489 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193611 0.201107 -0.034350 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195306 0.203140 -0.034273 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.197826 0.206500 -0.033776 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.197007 0.205324 -0.033707 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195333 0.203098 -0.034322 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193859 0.201486 -0.034254 (prior stddev was 0.100000 0.100000 0.100000)
+
+[WW] Sensor WMTD3052400VZL: predicted exposure-to-frame latency of -8.5 ms differed from measured -0.7 ms (201 so far) - check the sensor sync cable
+[II] Ignoring position observation with error -0.197502 0.206264 -0.033866 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195292 0.202970 -0.034269 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193313 0.200897 -0.034665 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194019 0.201424 -0.034540 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194929 0.202651 -0.034382 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.197741 0.206343 -0.033859 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.198238 0.206859 -0.033767 (prior stddev was 0.100000 0.100000 0.100000)
+
+[WW] Exposure timestamp 2374605312 was more than 1.5 IMU samples earlier than IMU ts 2374606821 by 1509 µS
+[II] Ignoring position observation with error -0.194743 0.202426 -0.034262 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195044 0.202872 -0.033993 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195693 0.203533 -0.034244 (prior stddev was 0.100000 0.100000 0.100000)
+
+[WW] Sensor WMTD306Q701DEK: predicted exposure-to-frame latency of -8.5 ms differed from measured -0.0 ms (301 so far) - check the sensor sync cable
+[II] Ignoring position observation with error -0.194233 0.201846 -0.034188 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194699 0.202464 -0.034259 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194266 0.202074 -0.034524 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194903 0.202575 -0.034490 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194112 0.201551 -0.034101 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.196560 0.205033 -0.034150 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194671 0.202081 -0.034288 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194714 0.202445 -0.034224 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193590 0.200741 -0.034201 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.203880 0.214407 -0.032566 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.197455 0.205621 -0.033575 (prior stddev was 0.100000 0.100000 0.100000)
+
+[WW] Sensor WMTD306Q701DEK: predicted exposure-to-frame latency of -8.4 ms differed from measured -0.0 ms (401 so far) - check the sensor sync cable
+[II] Ignoring position observation with error -0.197249 0.205860 -0.033700 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194791 0.202435 -0.034389 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195142 0.202635 -0.034471 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193833 0.201269 -0.034650 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.198879 0.207863 -0.033579 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.197838 0.206498 -0.033735 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194873 0.202619 -0.034337 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195075 0.202794 -0.034361 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194145 0.201946 -0.034460 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] HMD obs quality: full(strong+ids) 249 ids-verified 51 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 249
+[II] Ignoring position observation with error -0.198003 0.206433 -0.033611 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.196015 0.203983 -0.033973 (prior stddev was 0.100000 0.100000 0.100000)
+
+[WW] Sensor WMTD3052400VZL: predicted exposure-to-frame latency of -8.2 ms differed from measured 1.1 ms (501 so far) - check the sensor sync cable
+[II] frame-timing WMTD306Q701DEK: 300 frames, 41 missed exposure, diff avg -0.62 min -8.27 max 2.85 ms
+[II] Ignoring position observation with error -0.193422 0.200868 -0.034684 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194578 0.202155 -0.034427 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194804 0.202565 -0.034194 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194771 0.202859 -0.034221 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195322 0.203185 -0.034270 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195532 0.203304 -0.034254 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.196150 0.203917 -0.034017 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.198099 0.206715 -0.033800 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] frame-timing WMTD3052400VZL: 300 frames, 2 missed exposure, diff avg -0.74 min -8.81 max 5.16 ms
+[II] Ignoring position observation with error -0.195364 0.203127 -0.034288 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194863 0.202396 -0.034245 (prior stddev was 0.100000 0.100000 0.100000)
+
+[WW] Sensor WMTD3052400VZL: predicted exposure-to-frame latency of -8.2 ms differed from measured -1.6 ms (601 so far) - check the sensor sync cable
+[II] Ignoring position observation with error -0.201028 0.210609 -0.032783 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.199261 0.208362 -0.033511 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194112 0.201711 -0.034514 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194405 0.201893 -0.034487 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194284 0.201653 -0.034469 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.197728 0.206514 -0.033672 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.197687 0.206525 -0.033627 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194729 0.202421 -0.034418 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194942 0.202465 -0.034237 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.197183 0.205624 -0.033872 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.197352 0.206001 -0.033963 (prior stddev was 0.100000 0.100000 0.100000)
+
+[WW] Sensor WMTD3052400VZL: predicted exposure-to-frame latency of -8.2 ms differed from measured -1.0 ms (701 so far) - check the sensor sync cable
+[II] Ignoring position observation with error -0.195808 0.203749 -0.034064 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194649 0.202187 -0.034189 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.197436 0.205943 -0.033720 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193840 0.201373 -0.034183 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.196416 0.204329 -0.034397 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.203149 0.213371 -0.032515 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195690 0.203573 -0.034290 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.197879 0.206328 -0.033580 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.197950 0.206617 -0.033920 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195074 0.202983 -0.034258 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.201040 0.210754 -0.033135 (prior stddev was 0.100000 0.100000 0.100000)
+
+[WW] Sensor WMTD306Q701DEK: predicted exposure-to-frame latency of -7.9 ms differed from measured 0.8 ms (801 so far) - check the sensor sync cable
+[II] Ignoring position observation with error -0.194623 0.202163 -0.034282 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195185 0.203084 -0.034079 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193969 0.201725 -0.034212 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194946 0.202640 -0.034229 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.197679 0.206243 -0.033957 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194094 0.201444 -0.034163 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194937 0.202663 -0.033998 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.197283 0.205589 -0.033795 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.198687 0.206899 -0.033438 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193983 0.201632 -0.034625 (prior stddev was 0.100000 0.100000 0.100000)
+
+[WW] Sensor WMTD3052400VZL: predicted exposure-to-frame latency of -7.5 ms differed from measured -0.5 ms (901 so far) - check the sensor sync cable
+[II] Ignoring position observation with error -0.194934 0.202539 -0.034428 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194338 0.202021 -0.034140 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.196758 0.205288 -0.033766 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.196104 0.203587 -0.034067 (prior stddev was 0.100000 0.100000 0.100000)
+
+[WW] Device 0: late pose time 99.410 ms from WMTD306Q701DEK (101 so far, worst 1191.626 ms)
+[II] Ignoring position observation with error -0.194059 0.201652 -0.034346 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.198114 0.206557 -0.033610 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194036 0.201746 -0.034545 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193381 0.200890 -0.034605 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] HMD obs quality: full(strong+ids) 248 ids-verified 52 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 248
+[II] Ignoring position observation with error -0.198078 0.206765 -0.033633 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193985 0.201822 -0.034464 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194917 0.202759 -0.034218 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.199501 0.208367 -0.033358 (prior stddev was 0.100000 0.100000 0.100000)
+
+[WW] Sensor WMTD3052400VZL: predicted exposure-to-frame latency of -7.0 ms differed from measured -1.0 ms (1001 so far) - check the sensor sync cable
+[II] Ignoring position observation with error -0.197105 0.205407 -0.033888 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] accelerometer scale check: |accel| at rest mean 9.7718 m/s^2 (-0.36% vs 9.8067), range 9.484..10.039, 10014 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] Ignoring position observation with error -0.194337 0.202076 -0.034474 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194410 0.202245 -0.034369 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195086 0.202882 -0.034215 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193437 0.200777 -0.034554 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194403 0.202297 -0.034269 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194820 0.202430 -0.034141 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.197360 0.205913 -0.033627 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.196700 0.205142 -0.033883 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.70 min -4.05 max 1.93 ms
+[II] Ignoring position observation with error -0.193469 0.201006 -0.034436 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.196817 0.205336 -0.033987 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.197563 0.205683 -0.033717 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195713 0.203731 -0.034109 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] pose export over 10 s: age mean 1.9 ms max 3.8 ms | speed mean 1.08 max 1.30 m/s, ang mean 0 max 1 deg/s | age*speed worst 4.4 mm (885 samples)
+[II] Ignoring position observation with error -0.196527 0.205120 -0.033981 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195575 0.203588 -0.034235 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.201433 0.211306 -0.033094 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193713 0.201170 -0.034309 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.82 min -4.10 max 1.81 ms
+[II] Ignoring position observation with error -0.196899 0.205436 -0.033838 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.197267 0.205650 -0.033742 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.196303 0.204789 -0.033862 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194029 0.201576 -0.034386 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193221 0.200577 -0.034681 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.197885 0.206357 -0.033298 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.197914 0.206605 -0.033669 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194388 0.202152 -0.034241 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194021 0.201507 -0.034547 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194936 0.202641 -0.034096 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195302 0.203217 -0.034208 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194530 0.201880 -0.034379 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195550 0.203571 -0.034165 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195283 0.203070 -0.034219 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.196030 0.204158 -0.034003 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194539 0.202402 -0.034338 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.200143 0.209974 -0.032972 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194146 0.201825 -0.034127 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.196459 0.204774 -0.033542 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195991 0.204148 -0.034026 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193405 0.200978 -0.034515 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194379 0.202151 -0.034282 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194188 0.201840 -0.034351 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194775 0.202278 -0.034485 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.197288 0.205724 -0.033884 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194551 0.202217 -0.034473 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193601 0.201304 -0.034462 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.198049 0.206518 -0.033857 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193986 0.201600 -0.033934 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193606 0.201139 -0.034105 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.198666 0.207283 -0.033734 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195139 0.203413 -0.034099 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] HMD obs quality: full(strong+ids) 246 ids-verified 54 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 246
+[II] Ignoring position observation with error -0.197744 0.206483 -0.033799 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195358 0.203131 -0.033965 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195892 0.203566 -0.034256 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.197947 0.206725 -0.033655 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.196544 0.205301 -0.033893 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195588 0.203738 -0.033952 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193863 0.201306 -0.034020 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.192914 0.200269 -0.034433 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194624 0.202212 -0.034498 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.200048 0.209776 -0.032992 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.197289 0.205963 -0.033305 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.196409 0.204726 -0.033988 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.196189 0.204585 -0.033949 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.192514 0.199853 -0.034844 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193728 0.201313 -0.034500 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194717 0.202632 -0.034321 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.198509 0.207021 -0.033616 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194499 0.202100 -0.034034 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.203806 0.214698 -0.032541 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.196515 0.204972 -0.033930 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195183 0.202841 -0.034267 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194635 0.202316 -0.034218 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193555 0.201229 -0.034498 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195447 0.203249 -0.034138 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.70 min -3.81 max 1.87 ms
+[II] Ignoring position observation with error -0.198638 0.207310 -0.033466 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.203541 0.214338 -0.032443 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194765 0.202534 -0.034260 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194045 0.201545 -0.034464 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195122 0.202894 -0.034150 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.197290 0.205920 -0.033922 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.197704 0.206331 -0.033731 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193810 0.201478 -0.034389 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194172 0.201786 -0.034403 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.75 min -4.09 max 1.97 ms
+[II] Ignoring position observation with error -0.195018 0.202967 -0.034203 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] sensor 1 calibration feed: 901 offered, 0 passed - rejected 0 for LED ids, 901 for too few blobs (<10), 0 for error
+[II] Ignoring position observation with error -0.197097 0.205587 -0.033371 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193260 0.200530 -0.034682 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194599 0.202369 -0.034322 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194462 0.202279 -0.034344 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194603 0.202486 -0.034371 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194188 0.201763 -0.034422 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194196 0.201577 -0.034131 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.200646 0.210597 -0.033131 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193729 0.201468 -0.034305 (prior stddev was 0.100000 0.100000 0.100000)
+
+[WW] Device 0: late pose time 97.409 ms from WMTD306Q701DEK (201 so far, worst 1191.626 ms)
+[II] Ignoring position observation with error -0.193538 0.200943 -0.034504 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193999 0.201529 -0.034258 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194093 0.201704 -0.034496 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.200718 0.210656 -0.032665 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194377 0.202057 -0.034359 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195363 0.203340 -0.034162 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194869 0.202548 -0.034266 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193487 0.200897 -0.034336 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.192756 0.200208 -0.034126 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194594 0.202429 -0.034057 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] HMD obs quality: full(strong+ids) 248 ids-verified 52 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 248
+[II] Ignoring position observation with error -0.195050 0.203018 -0.034331 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194580 0.202286 -0.034316 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.196477 0.204464 -0.034117 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193088 0.200345 -0.034119 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195370 0.203395 -0.033972 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194444 0.202225 -0.034210 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.192874 0.200471 -0.034554 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194251 0.201668 -0.034218 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194014 0.201425 -0.034103 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193157 0.200317 -0.033385 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] accelerometer scale check: |accel| at rest mean 9.7712 m/s^2 (-0.36% vs 9.8067), range 9.545..10.004, 9984 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] Ignoring position observation with error -0.193454 0.200744 -0.034408 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194415 0.202079 -0.034278 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194538 0.202096 -0.034305 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194097 0.201933 -0.033885 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.200682 0.210514 -0.032815 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194017 0.201733 -0.034406 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193730 0.201399 -0.034281 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193317 0.200686 -0.034464 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194972 0.202809 -0.034286 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193603 0.201247 -0.033945 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194426 0.202206 -0.034221 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193937 0.201665 -0.034395 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] pose export over 10 s: age mean 1.9 ms max 4.3 ms | speed mean 1.04 max 1.08 m/s, ang mean 0 max 1 deg/s | age*speed worst 4.5 mm (861 samples)
+[II] Ignoring position observation with error -0.199875 0.209473 -0.033081 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.201105 0.210955 -0.032958 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.200995 0.210871 -0.032919 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195564 0.203544 -0.034030 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193669 0.201187 -0.033965 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195054 0.202893 -0.034126 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194187 0.201837 -0.034467 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193983 0.201347 -0.034208 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194296 0.201920 -0.034251 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194346 0.202177 -0.034246 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.198213 0.206846 -0.033642 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195503 0.203629 -0.034020 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194611 0.202191 -0.034413 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.74 min -5.08 max 1.63 ms
+[II] Ignoring position observation with error -0.193244 0.200752 -0.034516 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.197320 0.205812 -0.033510 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195417 0.203469 -0.034158 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194960 0.202682 -0.034316 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193819 0.201494 -0.034296 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.197312 0.206024 -0.033728 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193779 0.201741 -0.034328 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193613 0.200944 -0.034427 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.78 min -4.26 max 1.63 ms
+[II] Ignoring position observation with error -0.200239 0.209873 -0.033034 (prior stddev was 0.100000 0.100000 0.100000)
+
+[WW] Exposure timestamp 2394995712 was more than 1.5 IMU samples earlier than IMU ts 2394997413 by 1701 µS
+[II] Ignoring position observation with error -0.194423 0.202289 -0.034232 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.196950 0.205575 -0.033704 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194741 0.202472 -0.034234 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.200260 0.209751 -0.033133 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195037 0.203060 -0.034264 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.197463 0.206236 -0.033485 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194549 0.202084 -0.034220 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193685 0.201192 -0.034340 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] HMD obs quality: full(strong+ids) 248 ids-verified 52 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 248
+[II] Ignoring position observation with error -0.195020 0.202996 -0.034137 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.196098 0.203951 -0.033831 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194080 0.201795 -0.034126 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195039 0.202992 -0.034088 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193971 0.201585 -0.034364 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194927 0.202606 -0.034055 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.197415 0.206204 -0.033760 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195511 0.203348 -0.034195 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194861 0.202765 -0.034223 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194775 0.202617 -0.034292 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195006 0.202837 -0.034233 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195320 0.203184 -0.034068 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194429 0.202198 -0.034425 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194486 0.202297 -0.034301 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194322 0.202087 -0.034235 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193558 0.201168 -0.034364 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195159 0.202785 -0.034132 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194546 0.202338 -0.034350 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195494 0.203262 -0.034204 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193857 0.201646 -0.034297 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193737 0.201309 -0.034368 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194232 0.201888 -0.034381 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193772 0.201487 -0.034554 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194965 0.202915 -0.033968 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194300 0.201985 -0.034366 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193552 0.201209 -0.034361 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194199 0.202051 -0.034279 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194008 0.201544 -0.034529 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194875 0.202676 -0.034068 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194006 0.201706 -0.034208 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.192980 0.200593 -0.034180 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194519 0.202312 -0.034536 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194023 0.201637 -0.034161 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195739 0.203423 -0.034198 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194804 0.202509 -0.034319 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194495 0.202187 -0.034450 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195337 0.203271 -0.034131 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193840 0.201524 -0.034479 (prior stddev was 0.100000 0.100000 0.100000)
+
+[WW] Device 0: late pose time 98.483 ms from WMTD306Q701DEK (301 so far, worst 1191.626 ms)
+[II] Ignoring position observation with error -0.194784 0.202713 -0.034187 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194403 0.202155 -0.034241 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194040 0.201620 -0.034407 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.192229 0.199498 -0.034799 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194651 0.202469 -0.034134 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195279 0.203140 -0.034026 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194309 0.201913 -0.034441 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.196574 0.204975 -0.034087 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195467 0.203359 -0.034128 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.75 min -3.90 max 1.59 ms
+[II] Ignoring position observation with error -0.194660 0.202465 -0.034406 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194641 0.202421 -0.034310 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194390 0.202284 -0.034360 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193877 0.201506 -0.034462 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194605 0.202311 -0.034364 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194721 0.202420 -0.034307 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] HMD obs quality: full(strong+ids) 247 ids-verified 53 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 247
+[II] Ignoring position observation with error -0.194185 0.201905 -0.034404 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.192615 0.200166 -0.034716 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.79 min -4.36 max 1.56 ms
+[II] Ignoring position observation with error -0.195070 0.202910 -0.034241 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194120 0.201810 -0.034434 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194228 0.201813 -0.034200 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195630 0.203669 -0.034221 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194177 0.201799 -0.034355 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194047 0.201623 -0.034457 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194348 0.201825 -0.034265 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195010 0.202716 -0.033984 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193579 0.201166 -0.034537 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.200443 0.210261 -0.033058 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193732 0.201435 -0.034413 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193085 0.200419 -0.034710 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194545 0.202224 -0.034417 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193952 0.201623 -0.034400 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] accelerometer scale check: |accel| at rest mean 9.7720 m/s^2 (-0.35% vs 9.8067), range 9.549..10.074, 9983 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] Ignoring position observation with error -0.201759 0.212024 -0.032472 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194020 0.201662 -0.034353 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195374 0.203384 -0.034134 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194578 0.202309 -0.034343 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195209 0.203073 -0.034304 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.201386 0.211330 -0.032996 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194015 0.201725 -0.034344 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194348 0.201978 -0.034401 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195348 0.203195 -0.033707 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194297 0.202045 -0.034299 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.196144 0.203974 -0.034043 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.197622 0.206249 -0.033728 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] pose export over 10 s: age mean 1.9 ms max 4.2 ms | speed mean 1.03 max 1.06 m/s, ang mean 0 max 1 deg/s | age*speed worst 4.3 mm (864 samples)
+[WW] Exposure timestamp 2402982912 was more than 1.5 IMU samples earlier than IMU ts 2402984625 by 1713 µS
+[II] Ignoring position observation with error -0.194065 0.201673 -0.034275 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193673 0.201061 -0.034425 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.201496 0.211479 -0.032973 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193852 0.201269 -0.034530 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195231 0.202994 -0.034344 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.196295 0.204128 -0.034000 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195365 0.203333 -0.034186 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195173 0.203003 -0.034052 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.201344 0.211179 -0.032627 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194157 0.201776 -0.034204 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.192976 0.200395 -0.034635 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.199921 0.209526 -0.033049 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194740 0.202493 -0.034194 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195414 0.203472 -0.034056 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.200511 0.210242 -0.033081 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193884 0.201388 -0.034518 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193328 0.200765 -0.034543 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194201 0.201732 -0.034398 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193473 0.200935 -0.034539 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193597 0.201165 -0.034445 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194518 0.202079 -0.034345 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193603 0.201243 -0.034127 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194639 0.202398 -0.034272 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193461 0.200970 -0.034400 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193663 0.201045 -0.034290 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] HMD obs quality: full(strong+ids) 247 ids-verified 53 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 247
+[II] Ignoring position observation with error -0.195710 0.203640 -0.034025 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.192833 0.200245 -0.034593 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.192670 0.199954 -0.034654 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195529 0.203475 -0.034166 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194543 0.202217 -0.034405 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.82 min -3.62 max 1.81 ms
+[II] Ignoring position observation with error -0.194324 0.201996 -0.034276 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.199992 0.209594 -0.033105 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.200578 0.210562 -0.033169 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194738 0.202459 -0.034061 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194194 0.201817 -0.034302 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.201054 0.210936 -0.032937 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193461 0.200756 -0.034529 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195029 0.203052 -0.034192 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.196252 0.204769 -0.033803 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.82 min -3.88 max 1.76 ms
+[II] Ignoring position observation with error -0.196854 0.205232 -0.033965 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] sensor 1 calibration feed: 1801 offered, 0 passed - rejected 0 for LED ids, 1801 for too few blobs (<10), 0 for error
+[II] Ignoring position observation with error -0.194974 0.202473 -0.034008 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.201725 0.211433 -0.032912 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.200730 0.210696 -0.032833 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194542 0.202257 -0.034388 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193434 0.200835 -0.034500 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194129 0.201784 -0.034167 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194938 0.202896 -0.034337 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193368 0.200877 -0.034425 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.201448 0.211415 -0.032862 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195117 0.202961 -0.034154 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.196794 0.205309 -0.033850 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193872 0.201459 -0.034298 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.195364 0.203166 -0.034096 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193889 0.201566 -0.034250 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.194919 0.202829 -0.034189 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.193425 0.200938 -0.034206 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.200447 0.210217 -0.033356 (prior stddev was 0.100000 0.100000 0.100000)
+
+[WW] Device 0: late pose time 83.545 ms from WMTD306Q701DEK (401 so far, worst 1191.626 ms)
+[II] Ignoring position observation with error -0.194761 0.202371 -0.034993 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.201006 0.211189 -0.032686 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.205700 0.214538 -0.035508 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.216604 0.226738 -0.032410 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.148697 0.146073 -0.038054 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.101724 0.093289 -0.046657 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Forcing orientation observation
+[II] Forcing orientation observation
+[II] Forcing orientation observation
+[II] Forcing orientation observation
+[II] Forcing orientation observation
+[II] Forcing orientation observation
+[II] Device 0: joint reconstruction 1 solved, 0 rejected, 1902 single-camera (0 observations arrived too late to count)
+[II] Forcing orientation observation
+[II] Matched orientation after 0.017027 sec
+[II] sensor WMTD3052400VZL: keeping the stored calibration - it was fitted over 4 viewpoints and this session has seen 1 (it leaves 1.90 px here)
+[II] HMD obs quality: full(strong+ids) 253 ids-verified 47 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 253
+[II] Device 0: IMU saturation (accel), 1 samples so far - the reading is clipped, so it is being ignored rather than integrated
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.77 min -3.91 max 1.76 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7736 m/s^2 (-0.34% vs 9.8067), range 9.082..11.601, 6119 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.83 min -4.28 max 1.57 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] pose export over 10 s: age mean 1.9 ms max 4.0 ms | speed mean 0.94 max 2.20 m/s, ang mean 15 max 167 deg/s | age*speed worst 4.8 mm (877 samples)
+[II] Device 0: joint reconstruction 301 solved, 0 rejected, 2204 single-camera (0 observations arrived too late to count)
+[II] calib feed: 901 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 901 obs, 195 paired, history 192 over 1 viewpoints, 11 solves, residual 1.75 px, estimated
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 2416979712 was more than 1.5 IMU samples earlier than IMU ts 2416982008 by 2296 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.87 min -4.85 max 1.82 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.89 min -5.26 max 1.85 ms
+[II] sensor 0 calibration feed: 901 offered, 775 passed - rejected 0 for LED ids, 126 for too few blobs (<10), 0 for error
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 601 solved, 0 rejected, 2504 single-camera (0 observations arrived too late to count)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] accelerometer scale check: |accel| at rest mean 9.7341 m/s^2 (-0.74% vs 9.8067), range 8.992..11.123, 5834 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.83 min -3.55 max 1.59 ms
+[II] pose export over 10 s: age mean 1.9 ms max 3.9 ms | speed mean 0.68 max 0.87 m/s, ang mean 10 max 95 deg/s | age*speed worst 2.6 mm (867 samples)
+[WW] Exposure timestamp 2423219712 was more than 1.5 IMU samples earlier than IMU ts 2423221484 by 1772 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.81 min -4.02 max 1.21 ms
+[II] calib feed: 1801 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 1801 obs, 645 paired, history 192 over 1 viewpoints, 39 solves, residual 0.22 px, estimated
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] sensor 1 calibration feed: 2701 offered, 765 passed - rejected 0 for LED ids, 1936 for too few blobs (<10), 0 for error
+[WW] Exposure timestamp 2424486912 was more than 1.5 IMU samples earlier than IMU ts 2424488616 by 1704 µS
+[II] Device 0: joint reconstruction 901 solved, 0 rejected, 2804 single-camera (0 observations arrived too late to count)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.83 min -4.78 max 1.30 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.86 min -4.30 max 1.74 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 1201 solved, 0 rejected, 3104 single-camera (0 observations arrived too late to count)
+[II] accelerometer scale check: |accel| at rest mean 9.7309 m/s^2 (-0.77% vs 9.8067), range 9.485..10.001, 9983 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] calib feed: 2701 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 2701 obs, 1095 paired, history 192 over 1 viewpoints, 67 solves, residual 0.19 px, estimated
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] pose export over 10 s: age mean 1.9 ms max 4.5 ms | speed mean 0.67 max 0.69 m/s, ang mean 0 max 1 deg/s | age*speed worst 3.0 mm (871 samples)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.82 min -4.18 max 1.45 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.79 min -4.25 max 1.63 ms
+[II] sensor 0 calibration feed: 1801 offered, 1675 passed - rejected 0 for LED ids, 126 for too few blobs (<10), 0 for error
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 1501 solved, 0 rejected, 3404 single-camera (0 observations arrived too late to count)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.78 min -4.49 max 1.65 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.78 min -3.64 max 2.03 ms
+[II] calib feed: 3601 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 3601 obs, 1545 paired, history 192 over 1 viewpoints, 95 solves, residual 0.17 px, estimated
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] sensor 1 calibration feed: 3601 offered, 1665 passed - rejected 0 for LED ids, 1936 for too few blobs (<10), 0 for error
+[WW] Exposure timestamp 2441555712 was more than 1.5 IMU samples earlier than IMU ts 2441557444 by 1732 µS
+[II] accelerometer scale check: |accel| at rest mean 9.7316 m/s^2 (-0.77% vs 9.8067), range 9.486..9.966, 9984 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] pose export over 10 s: age mean 1.9 ms max 4.3 ms | speed mean 0.66 max 0.68 m/s, ang mean 0 max 1 deg/s | age*speed worst 2.8 mm (853 samples)
+[WW] Exposure timestamp 2443283712 was more than 1.5 IMU samples earlier than IMU ts 2443285374 by 1662 µS
+[II] Device 0: joint reconstruction 1801 solved, 0 rejected, 3704 single-camera (0 observations arrived too late to count)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 2444550912 was more than 1.5 IMU samples earlier than IMU ts 2444552523 by 1611 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.80 min -3.92 max 1.57 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.79 min -3.61 max 1.81 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 2448563712 was more than 1.5 IMU samples earlier than IMU ts 2448565338 by 1626 µS
+[II] Device 0: joint reconstruction 2101 solved, 0 rejected, 4004 single-camera (0 observations arrived too late to count)
+[II] calib feed: 4501 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 4501 obs, 1995 paired, history 192 over 1 viewpoints, 123 solves, residual 0.18 px, estimated
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.80 min -3.52 max 1.83 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7379 m/s^2 (-0.70% vs 9.8067), range 9.484..9.962, 9983 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -3.88 max 1.76 ms
+[II] sensor 0 calibration feed: 2701 offered, 2575 passed - rejected 0 for LED ids, 126 for too few blobs (<10), 0 for error
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] pose export over 10 s: age mean 1.9 ms max 4.3 ms | speed mean 0.65 max 0.67 m/s, ang mean 0 max 1 deg/s | age*speed worst 2.8 mm (860 samples)
+[II] Device 0: joint reconstruction 2401 solved, 0 rejected, 4304 single-camera (0 observations arrived too late to count)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.77 min -4.22 max 2.25 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.80 min -4.21 max 1.50 ms
+[II] calib feed: 5401 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 5401 obs, 2445 paired, history 192 over 1 viewpoints, 151 solves, residual 0.19 px, estimated
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] sensor 1 calibration feed: 4501 offered, 2565 passed - rejected 0 for LED ids, 1936 for too few blobs (<10), 0 for error
+[II] Device 0: joint reconstruction 2701 solved, 0 rejected, 4604 single-camera (0 observations arrived too late to count)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] accelerometer scale check: |accel| at rest mean 9.7322 m/s^2 (-0.76% vs 9.8067), range 9.504..9.946, 9984 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] pose export over 10 s: age mean 1.9 ms max 3.9 ms | speed mean 0.64 max 0.66 m/s, ang mean 0 max 1 deg/s | age*speed worst 2.5 mm (865 samples)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.82 min -3.71 max 1.58 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.83 min -4.16 max 1.88 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 3001 solved, 0 rejected, 4904 single-camera (0 observations arrived too late to count)
+[WW] Exposure timestamp 2466938112 was more than 1.5 IMU samples earlier than IMU ts 2466939662 by 1550 µS
+[II] calib feed: 6301 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 6301 obs, 2895 paired, history 192 over 1 viewpoints, 179 solves, residual 0.19 px, estimated
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.81 min -4.31 max 1.67 ms
+[WW] Exposure timestamp 2469318912 was more than 1.5 IMU samples earlier than IMU ts 2469320735 by 1823 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.76 min -3.58 max 1.88 ms
+[II] sensor 0 calibration feed: 3601 offered, 3475 passed - rejected 0 for LED ids, 126 for too few blobs (<10), 0 for error
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] accelerometer scale check: |accel| at rest mean 9.7335 m/s^2 (-0.75% vs 9.8067), range 9.486..9.967, 9983 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] Device 0: joint reconstruction 3301 solved, 0 rejected, 5204 single-camera (0 observations arrived too late to count)
+[II] pose export over 10 s: age mean 1.9 ms max 4.9 ms | speed mean 0.64 max 0.70 m/s, ang mean 0 max 1 deg/s | age*speed worst 3.0 mm (858 samples)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 1 missed exposure, diff avg -0.82 min -12.00 max 8.19 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 1 missed exposure, diff avg -0.89 min -12.08 max 6.98 ms
+[II] calib feed: 7201 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 7201 obs, 3345 paired, history 192 over 1 viewpoints, 208 solves, residual 0.18 px, estimated
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] sensor 1 calibration feed: 5401 offered, 3465 passed - rejected 0 for LED ids, 1936 for too few blobs (<10), 0 for error
+[II] Device 0: joint reconstruction 3601 solved, 0 rejected, 5504 single-camera (0 observations arrived too late to count)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.85 min -3.93 max 1.76 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.78 min -4.47 max 1.84 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] accelerometer scale check: |accel| at rest mean 9.7335 m/s^2 (-0.75% vs 9.8067), range 9.507..9.966, 9983 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] pose export over 10 s: age mean 1.9 ms max 4.3 ms | speed mean 0.63 max 0.66 m/s, ang mean 0 max 1 deg/s | age*speed worst 2.7 mm (863 samples)
+[II] Device 0: joint reconstruction 3901 solved, 0 rejected, 5804 single-camera (0 observations arrived too late to count)
+[II] calib feed: 8101 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 8101 obs, 3795 paired, history 192 over 1 viewpoints, 236 solves, residual 0.21 px, estimated
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.81 min -3.43 max 1.32 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.78 min -4.38 max 1.47 ms
+[II] sensor 0 calibration feed: 4501 offered, 4375 passed - rejected 0 for LED ids, 126 for too few blobs (<10), 0 for error
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 4201 solved, 0 rejected, 6104 single-camera (0 observations arrived too late to count)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] accelerometer scale check: |accel| at rest mean 9.7387 m/s^2 (-0.69% vs 9.8067), range 9.490..9.964, 9984 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.78 min -4.20 max 1.71 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.78 min -4.29 max 1.95 ms
+[II] calib feed: 9001 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 9001 obs, 4245 paired, history 192 over 1 viewpoints, 264 solves, residual 0.23 px, estimated
+[II] pose export over 10 s: age mean 1.9 ms max 4.1 ms | speed mean 0.63 max 0.64 m/s, ang mean 0 max 1 deg/s | age*speed worst 2.5 mm (865 samples)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] sensor 1 calibration feed: 6301 offered, 4365 passed - rejected 0 for LED ids, 1936 for too few blobs (<10), 0 for error
+[II] Device 0: joint reconstruction 4501 solved, 0 rejected, 6404 single-camera (0 observations arrived too late to count)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 1 missed exposure, diff avg -0.87 min -10.40 max 8.10 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 1 missed exposure, diff avg -0.84 min -8.74 max 10.42 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 4801 solved, 0 rejected, 6704 single-camera (0 observations arrived too late to count)
+[II] calib feed: 9901 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 9901 obs, 4695 paired, history 192 over 1 viewpoints, 292 solves, residual 0.23 px, estimated
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] accelerometer scale check: |accel| at rest mean 9.7340 m/s^2 (-0.74% vs 9.8067), range 9.426..10.002, 9983 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] pose export over 10 s: age mean 1.9 ms max 4.0 ms | speed mean 0.62 max 0.66 m/s, ang mean 0 max 1 deg/s | age*speed worst 2.5 mm (871 samples)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.83 min -4.77 max 1.70 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.82 min -3.96 max 1.63 ms
+[II] sensor 0 calibration feed: 5401 offered, 5275 passed - rejected 0 for LED ids, 126 for too few blobs (<10), 0 for error
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 5101 solved, 0 rejected, 7004 single-camera (0 observations arrived too late to count)
+[WW] Exposure timestamp 2506835712 was more than 1.5 IMU samples earlier than IMU ts 2506837330 by 1618 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.84 min -4.51 max 1.87 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.78 min -4.21 max 1.28 ms
+[II] calib feed: 10801 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 10801 obs, 5145 paired, history 192 over 1 viewpoints, 320 solves, residual 0.23 px, estimated
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] sensor 1 calibration feed: 7201 offered, 5265 passed - rejected 0 for LED ids, 1936 for too few blobs (<10), 0 for error
+[II] accelerometer scale check: |accel| at rest mean 9.7348 m/s^2 (-0.73% vs 9.8067), range 9.465..10.002, 9983 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] Device 0: joint reconstruction 5401 solved, 0 rejected, 7304 single-camera (0 observations arrived too late to count)
+[II] pose export over 10 s: age mean 1.9 ms max 4.1 ms | speed mean 0.62 max 0.63 m/s, ang mean 0 max 1 deg/s | age*speed worst 2.5 mm (875 samples)
+[WW] Exposure timestamp 2513152512 was more than 1.5 IMU samples earlier than IMU ts 2513154215 by 1703 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 2514746112 was more than 1.5 IMU samples earlier than IMU ts 2514747976 by 1864 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.81 min -4.17 max 1.75 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -3.28 max 1.94 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 5701 solved, 0 rejected, 7604 single-camera (0 observations arrived too late to count)
+[II] calib feed: 11701 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 11701 obs, 5595 paired, history 192 over 1 viewpoints, 348 solves, residual 0.19 px, estimated
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.79 min -3.96 max 1.67 ms
+[WW] Exposure timestamp 2520947712 was more than 1.5 IMU samples earlier than IMU ts 2520949729 by 2017 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.80 min -3.64 max 1.75 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7382 m/s^2 (-0.70% vs 9.8067), range 9.467..10.004, 9982 quiet samples | hw calibration NOT requested (driver applies its own)
+[WW] Exposure timestamp 2522003712 was more than 1.5 IMU samples earlier than IMU ts 2522005560 by 1848 µS
+[II] sensor 0 calibration feed: 6301 offered, 6175 passed - rejected 0 for LED ids, 126 for too few blobs (<10), 0 for error
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 2522483712 was more than 1.5 IMU samples earlier than IMU ts 2522485393 by 1681 µS
+[II] pose export over 10 s: age mean 1.9 ms max 5.0 ms | speed mean 0.61 max 0.63 m/s, ang mean 0 max 1 deg/s | age*speed worst 3.1 mm (878 samples)
+[II] Device 0: joint reconstruction 6001 solved, 0 rejected, 7904 single-camera (0 observations arrived too late to count)
+[WW] Exposure timestamp 2524883712 was more than 1.5 IMU samples earlier than IMU ts 2524885562 by 1850 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.86 min -4.03 max 1.76 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.85 min -4.16 max 1.92 ms
+[II] calib feed: 12601 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 12601 obs, 6046 paired, history 192 over 1 viewpoints, 376 solves, residual 0.22 px, estimated
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 2527878912 was more than 1.5 IMU samples earlier than IMU ts 2527880764 by 1852 µS
+[II] sensor 1 calibration feed: 8101 offered, 6165 passed - rejected 0 for LED ids, 1936 for too few blobs (<10), 0 for error
+[WW] Exposure timestamp 2529491712 was more than 1.5 IMU samples earlier than IMU ts 2529493569 by 1857 µS
+[II] Device 0: joint reconstruction 6301 solved, 0 rejected, 8205 single-camera (0 observations arrived too late to count)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] accelerometer scale check: |accel| at rest mean 9.7406 m/s^2 (-0.67% vs 9.8067), range 9.504..10.041, 9984 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 1 missed exposure, diff avg -0.86 min -10.34 max 8.41 ms
+[II] pose export over 10 s: age mean 1.9 ms max 3.9 ms | speed mean 0.61 max 0.63 m/s, ang mean 0 max 1 deg/s | age*speed worst 2.3 mm (869 samples)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.79 min -9.12 max 9.64 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 6601 solved, 0 rejected, 8505 single-camera (0 observations arrived too late to count)
+[II] calib feed: 13501 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 13501 obs, 6495 paired, history 192 over 1 viewpoints, 404 solves, residual 0.23 px, estimated
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.84 min -3.78 max 1.62 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.82 min -3.35 max 1.59 ms
+[II] sensor 0 calibration feed: 7201 offered, 7075 passed - rejected 0 for LED ids, 126 for too few blobs (<10), 0 for error
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 2541030912 was more than 1.5 IMU samples earlier than IMU ts 2541032651 by 1739 µS
+[II] Device 0: joint reconstruction 6901 solved, 0 rejected, 8805 single-camera (0 observations arrived too late to count)
+[II] accelerometer scale check: |accel| at rest mean 9.7369 m/s^2 (-0.71% vs 9.8067), range 9.483..9.983, 9983 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] pose export over 10 s: age mean 1.8 ms max 3.9 ms | speed mean 0.60 max 0.62 m/s, ang mean 0 max 1 deg/s | age*speed worst 2.4 mm (875 samples)
+[WW] Exposure timestamp 2543066112 was more than 1.5 IMU samples earlier than IMU ts 2543068199 by 2087 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.86 min -3.82 max 1.36 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.86 min -4.08 max 1.48 ms
+[II] calib feed: 14401 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 14401 obs, 6945 paired, history 192 over 1 viewpoints, 433 solves, residual 0.23 px, estimated
+[WW] Exposure timestamp 2544947712 was more than 1.5 IMU samples earlier than IMU ts 2544949479 by 1767 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] sensor 1 calibration feed: 9001 offered, 7065 passed - rejected 0 for LED ids, 1936 for too few blobs (<10), 0 for error
+[II] Device 0: joint reconstruction 7201 solved, 0 rejected, 9105 single-camera (0 observations arrived too late to count)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.83 min -3.79 max 1.37 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.78 min -4.11 max 1.48 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] accelerometer scale check: |accel| at rest mean 9.7364 m/s^2 (-0.72% vs 9.8067), range 9.451..10.004, 9982 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] Device 0: joint reconstruction 7501 solved, 0 rejected, 9405 single-camera (0 observations arrived too late to count)
+[II] pose export over 10 s: age mean 1.9 ms max 4.2 ms | speed mean 0.60 max 0.62 m/s, ang mean 0 max 1 deg/s | age*speed worst 2.5 mm (877 samples)
+[II] calib feed: 15301 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 15301 obs, 7395 paired, history 192 over 1 viewpoints, 461 solves, residual 0.21 px, estimated
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.82 min -3.58 max 1.58 ms
+[WW] Exposure timestamp 2555910912 was more than 1.5 IMU samples earlier than IMU ts 2555912668 by 1756 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.79 min -3.90 max 2.05 ms
+[II] sensor 0 calibration feed: 8101 offered, 7975 passed - rejected 0 for LED ids, 126 for too few blobs (<10), 0 for error
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 7801 solved, 0 rejected, 9705 single-camera (0 observations arrived too late to count)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.83 min -4.54 max 1.49 ms
+[WW] Exposure timestamp 2561670912 was more than 1.5 IMU samples earlier than IMU ts 2561672744 by 1832 µS
+[II] accelerometer scale check: |accel| at rest mean 9.7377 m/s^2 (-0.70% vs 9.8067), range 9.467..9.982, 9984 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.76 min -3.59 max 1.72 ms
+[II] calib feed: 16201 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 16201 obs, 7845 paired, history 192 over 1 viewpoints, 489 solves, residual 0.21 px, estimated
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] sensor 1 calibration feed: 9901 offered, 7965 passed - rejected 0 for LED ids, 1936 for too few blobs (<10), 0 for error
+[WW] Exposure timestamp 2563072512 was more than 1.5 IMU samples earlier than IMU ts 2563074149 by 1637 µS
+[II] pose export over 10 s: age mean 1.9 ms max 4.0 ms | speed mean 0.60 max 0.61 m/s, ang mean 0 max 1 deg/s | age*speed worst 2.4 mm (869 samples)
+[II] Device 0: joint reconstruction 8101 solved, 0 rejected, 10005 single-camera (0 observations arrived too late to count)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.78 min -3.59 max 1.48 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.78 min -3.80 max 1.63 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 8401 solved, 0 rejected, 10305 single-camera (0 observations arrived too late to count)
+[II] calib feed: 17101 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 17101 obs, 8295 paired, history 192 over 1 viewpoints, 517 solves, residual 0.23 px, estimated
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] accelerometer scale check: |accel| at rest mean 9.7383 m/s^2 (-0.70% vs 9.8067), range 9.449..10.022, 9982 quiet samples | hw calibration NOT requested (driver applies its own)
+stream state: "unconnected"
+stream state: "unconnected"
+stream state: "unconnected"
+stream state: "unconnected"
+stream state: "unconnected"

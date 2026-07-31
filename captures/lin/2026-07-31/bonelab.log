@@ -1,0 +1,1425 @@
+ INFO [ipc_server_main_common] Monado(XRT) by Collabora et al '945820b' starting up...
+ INFO [print_linux_end_user_started_information] 
+################################################################################
+#                                                                              #
+#                        The Monado service has started.                       #
+#                                                                              #
+################################################################################
+[II] HMD IMU calibration  gyro_offset [ -0.003900, 0.001300, 0.001100 ]  accel_offset [ 0.108000, -0.305600, 0.024900 ]
+[II]   gyro_calib = 
+[II]   [    0.999,    0.005,   -0.021 ]
+[II]   [    0.004,    1.000,   -0.007 ]
+[II]   [    0.008,    0.038,    0.999 ]
+[II]   accel_calib = 
+[II]   [    1.021,    0.001,   -0.018 ]
+[II]   [    0.001,    1.037,    0.022 ]
+[II]   [    0.004,   -0.005,    0.963 ]
+[II] CV1 display config: brightness=0 flags=0x400 persistence=273/1472 rows
+[II] Using 34 visor LEDs; dropped 10 headband LEDs (not tracked as a separate body yet - the headset is only trackable from the front)
+LED model: HMD LEDs
+{ .pos = {0.062939,-0.032042,0.067541}, .dir={0.181956,-0.102972,0.977900}, .pattern=0x1 },
+{ .pos = {0.077151,0.000993,0.065562}, .dir={0.299055,0.001984,0.954234}, .pattern=0x6 },
+{ .pos = {0.028983,-0.019018,0.073518}, .dir={0.082983,-0.096960,0.991823}, .pattern=0x1a },
+{ .pos = {-0.000097,-0.033045,0.072449}, .dir={0.000000,-0.188028,0.982164}, .pattern=0x1d },
+{ .pos = {-0.028998,-0.019144,0.073384}, .dir={-0.082983,-0.096960,0.991823}, .pattern=0x28 },
+{ .pos = {-0.063022,-0.032156,0.067359}, .dir={-0.181956,-0.102972,0.977900}, .pattern=0x2f },
+{ .pos = {-0.077078,0.000964,0.065342}, .dir={-0.299055,0.001984,0.954234}, .pattern=0x33 },
+{ .pos = {-0.054039,0.034440,0.068623}, .dir={-0.140969,0.134957,0.980772}, .pattern=0x4b },
+{ .pos = {-0.020202,0.017950,0.074224}, .dir={-0.056979,0.095951,0.993754}, .pattern=0x4c },
+{ .pos = {0.053973,0.034595,0.069160}, .dir={0.140969,0.134957,0.980772}, .pattern=0x57 },
+{ .pos = {0.020062,0.018061,0.074368}, .dir={0.056979,0.095951,0.993754}, .pattern=0x62 },
+{ .pos = {-0.078856,-0.011904,0.028395}, .dir={-0.993057,-0.099980,-0.061984}, .pattern=0x65 },
+{ .pos = {-0.077293,-0.012335,-0.008668}, .dir={-0.981566,-0.188915,-0.028963}, .pattern=0x79 },
+{ .pos = {-0.070740,-0.031349,0.010284}, .dir={-0.734056,-0.668042,-0.121987}, .pattern=0x7e },
+{ .pos = {-0.059124,-0.040984,0.036314}, .dir={-0.153997,-0.983099,-0.099003}, .pattern=0x90 },
+{ .pos = {0.058835,-0.040830,0.035942}, .dir={0.153997,-0.983099,-0.099003}, .pattern=0xa4 },
+{ .pos = {0.028165,-0.043453,0.061352}, .dir={-0.004975,-0.998636,-0.051974}, .pattern=0x114 },
+{ .pos = {-0.080319,-0.024476,0.053355}, .dir={-0.947594,-0.225904,-0.225904}, .pattern=0x151 },
+{ .pos = {-0.027992,-0.043610,0.061432}, .dir={0.004975,-0.998636,-0.051974}, .pattern=0x183 },
+{ .pos = {0.070561,-0.031850,0.009988}, .dir={0.734056,-0.668042,-0.121987}, .pattern=0x18c },
+{ .pos = {0.077672,-0.012729,-0.008828}, .dir={0.981566,-0.188915,-0.028963}, .pattern=0x199 },
+{ .pos = {0.079252,-0.012425,0.027945}, .dir={0.993057,-0.099980,-0.061984}, .pattern=0x1aa },
+{ .pos = {0.080678,-0.024862,0.053475}, .dir={0.947594,-0.225904,-0.225904}, .pattern=0x1b5 },
+{ .pos = {-0.029139,0.043728,0.057487}, .dir={-0.004975,0.999980,0.003998}, .pattern=0x1c0 },
+{ .pos = {-0.078382,0.029385,0.053600}, .dir={-0.871752,0.428856,-0.236921}, .pattern=0x1cf },
+{ .pos = {0.072131,0.030937,0.000022}, .dir={0.816019,0.577024,-0.033998}, .pattern=0x1d6 },
+{ .pos = {0.067042,0.037833,0.030095}, .dir={0.526908,0.847875,-0.058962}, .pattern=0x1e9 },
+{ .pos = {0.078260,0.029513,0.053292}, .dir={0.871752,0.428856,-0.236921}, .pattern=0x1f3 },
+{ .pos = {0.028896,0.043669,0.057676}, .dir={0.004975,0.999980,0.003998}, .pattern=0x1fc },
+{ .pos = {-0.067240,0.037555,0.029876}, .dir={-0.526908,0.847875,-0.058962}, .pattern=0x230 },
+{ .pos = {-0.072200,0.030241,0.000120}, .dir={-0.816019,0.577024,-0.033998}, .pattern=0x252 },
+{ .pos = {-0.041120,0.043276,0.023325}, .dir={-0.041995,0.999110,-0.003998}, .pattern=0x282 },
+{ .pos = {0.000159,0.043811,0.033423}, .dir={0.005982,0.999932,0.009980}, .pattern=0x285 },
+{ .pos = {0.041085,0.043260,0.023553}, .dir={0.041995,0.999110,-0.003998}, .pattern=0x29b },
+[II] Could not load room config.
+Opened Rift Sensor 0 w/ Serial WMTD306Q701DEK. Connecting to Radio address 0x11563cc989
+[II] camera width 1280 height 960
+[II] f = [ 716.935 716.935 ], c = [ 661.864 469.517 ]
+[II] k = [  0.070819 -0.023264  0.005108 -0.000523 ]
+[ INFO [p_create_system] Creating system:
+	Builders:
+		qwerty: Qwerty devices builder
+		remote: Remote simulation devices builder
+		simulated: Simulated devices builder
+		rift: Oculus Rift
+		rift_s: Oculus Rift S
+		psvr2: PlayStation VR 2
+		rgb_tracking: RGB tracking based devices (PSVR, PSMV, ...)
+		steamvr: SteamVR proprietary wrapper (Vive, Index, Tundra trackers, etc.) devices builder
+		lighthouse: Lighthouse-tracked FLOSS (Vive, Index, Tundra trackers, etc.) devices builder
+		north_star: North Star headset
+		wmr: Windows Mixed Reality
+		xreal_air: Xreal Air
+		legacy: Legacy probing system
+	No builder selected in config (or wasn't compiled in)
+	No builder was certain that it could create a head device
+	Selected legacy because it maybe could create a head
+	Using builder legacy: Legacy probing system
+	Got devices:
+		 0: 'Rift (CV1) (OpenHMD)' (id=1)
+		 1: 'Rift (CV1): Left Controller (OpenHMD)' (id=2)
+		 2: 'Rift (CV1): Right Controller (OpenHMD)' (id=3)
+	In roles:
+		head: Rift (CV1) (OpenHMD) (Rift (CV1) (OpenHMD)), view count: 2
+		eyes: <none> (<none>)
+		face: <none> (<none>)
+		left: Rift (CV1): Left Controller (OpenHMD) (Rift (CV1): Left Controller (OpenHMD))
+		right: Rift (CV1): Right Controller (OpenHMD) (Rift (CV1): Right Controller (OpenHMD))
+		gamepad: <none> (<none>)
+		hand_tracking.unobstructed.left: <none> (<none>)
+		hand_tracking.unobstructed.right: <none> (<none>)
+		hand_tracking.conforming.left: <none> (<none>)
+		hand_tracking.conforming.right: <none> (<none>)
+	Result: XRT_SUCCESS
+DEBUG [comp_main_create_system_compositor] Doing init 0x55bd720c9fb0
+ WARN [compositor_check_and_prepare_xdev] Had to fill in meshuv on xdev 'Rift (CV1) (OpenHMD)', this should be done in the driver.
+ INFO [comp_window_direct_wayland_init] No connector was chosen, will use first available connector
+ INFO [_drm_lease_device_drm_fd] Available DRM lease device: /dev/dri/card1
+ INFO [_lease_connector_done] [/dev/dri/card1] connector HDMI-A-1 (Oculus VR, Inc. Rift) id: 406
+ INFO [comp_window_direct_wayland_init] Using DRM node /dev/dri/card1
+ INFO [comp_window_direct_wayland_init] Connector id 406 HDMI-A-1 (Oculus VR, Inc. Rift)
+ INFO [_lease_connector_withdrawn] Connector HDMI-A-1 has been withdrawn by the compositor
+ WARN [build_extension_list] Duplicate extension VK_KHR_get_surface_capabilities2 not added twice
+ INFO [vk_log_extension_list] Vulkan instance extensions list(s):
+	Enabled extensions:
+		VK_KHR_display                            required
+		VK_KHR_external_fence_capabilities        required
+		VK_KHR_external_memory_capabilities       required
+		VK_KHR_external_semaphore_capabilities    required
+		VK_KHR_get_physical_device_properties2    required
+		VK_KHR_get_surface_capabilities2          optional
+		VK_KHR_surface                            required
+		VK_KHR_wayland_surface                    required
+		VK_EXT_acquire_drm_display                required
+		VK_EXT_debug_report                       required
+		VK_EXT_direct_mode_display                required
+		VK_EXT_display_surface_counter            optional
+		VK_EXT_swapchain_colorspace               optional
+	Not enabled optional extensions:
+ INFO [create_device] Created device and COMPUTE queue with QUEUE_GLOBAL_PRIORITY_MEDIUM.
+ INFO [vk_print_device_info] Device info:
+	name: AMD Radeon RX 7800 XT (RADV NAVI32)
+	vendor: 0x1002
+	product: 0x747e
+	deviceType: VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU
+	apiVersion: 1.4.354
+	driverVersion: 0x06801005
+ INFO [vk_print_queues_info] Selected Queues/Families:
+	main_queue.queue: 0x55bd71fdd330
+	main_queue.index: 0
+	main_queue.family_index: 1
+	graphics_queue.queue: 0x55bd720f98a0
+	graphics_queue.index: 0
+	graphics_queue.family_index: 0
+	encode_queue.queue: (nil)
+	encode_queue.index: -1
+	encode_queue.family_index: -1
+ INFO [vk_print_features_info] Features:
+	timestamp_compute_and_graphics: true
+	timestamp_period: 10.000000
+	timestamp_valid_bits: 64
+	timeline_semaphore: true
+ INFO [vk_print_external_handles_info] Supported images:
+	VK_EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_FD_BIT:
+		color import=true export=true
+		depth import=true export=true
+ INFO [vk_print_external_handles_info] Supported fences:
+	VK_EXTERNAL_FENCE_HANDLE_TYPE_SYNC_FD_BIT: true
+	VK_EXTERNAL_FENCE_HANDLE_TYPE_OPAQUE_FD_BIT: true
+ INFO [vk_print_external_handles_info] Supported semaphores:
+	VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_SYNC_FD_BIT(binary): true
+	VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_OPAQUE_FD_BIT(binary): true
+	VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_SYNC_FD_BIT(timeline): false
+	VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_OPAQUE_FD_BIT(timeline): true
+ INFO [vk_print_display_surface_create_info] VkDisplaySurfaceCreateInfoKHR:
+	flags:
+	displayMode: 55bd720efb60
+	planeIndex: 0
+	planeStackIndex: 0
+	transform: VK_SURFACE_TRANSFORM_IDENTITY_BIT_KHR
+	planeIndex: 1.000000
+	alphaMode: VK_DISPLAY_PLANE_ALPHA_GLOBAL_BIT_KHR
+	imageExtent: {2160, 1200}
+ INFO [u_pc_fake_create] Created pacer (non-feedback version aka "fake")
+	estimated_frame_period: 11.111358ms
+	percentage: 20.000000%
+	min_comp_time: 3.000000ms
+	comp_time: 3.000000ms
+ INFO [vk_print_surface_info] VkSurfaceKHR info:
+	caps.minImageCount: 2
+	caps.maxImageCount: 0
+	caps.currentExtent: 2160x1200
+	caps.minImageExtent: 1x1
+	caps.maxImageExtent: 16384x16384
+	caps.maxImageArrayLayers: 1
+	caps.supportedTransforms:
+		VK_SURFACE_TRANSFORM_IDENTITY_BIT_KHR
+	caps.currentTransform: VK_SURFACE_TRANSFORM_IDENTITY_BIT_KHR
+	caps.supportedCompositeAlpha:
+		VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR
+	caps.supportedUsageFlags:
+		VK_IMAGE_USAGE_TRANSFER_SRC_BIT
+		VK_IMAGE_USAGE_TRANSFER_DST_BIT
+		VK_IMAGE_USAGE_SAMPLED_BIT
+		VK_IMAGE_USAGE_STORAGE_BIT
+		VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT
+		VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT
+		VK_IMAGE_USAGE_ATTACHMENT_FEEDBACK_LOOP_BIT_EXT
+	present_modes(1):
+		VK_PRESENT_MODE_FIFO_KHR
+	present_id2_caps.presentId2Supported: 1
+	present_wait2_caps.presentWait2Supported: 1
+	shared_present_caps.sharedPresentSupportedUsageFlags:
+	formats(6):
+		[format = VK_FORMAT_B8G8R8A8_SRGB, colorSpace = VK_COLOR_SPACE_SRGB_NONLINEAR_KHR]
+		[format = VK_FORMAT_B8G8R8A8_UNORM, colorSpace = VK_COLOR_SPACE_SRGB_NONLINEAR_KHR]
+		[format = VK_FORMAT_A2B10G10R10_UNORM_PACK32, colorSpace = VK_COLOR_SPACE_SRGB_NONLINEAR_KHR]
+		[format = VK_FORMAT_A2R10G10B10_UNORM_PACK32, colorSpace = VK_COLOR_SPACE_SRGB_NONLINEAR_KHR]
+		[format = VK_FORMAT_R16G16B16A16_UNORM, colorSpace = VK_COLOR_SPACE_SRGB_NONLINEAR_KHR]
+		[format = VK_FORMAT_R16G16B16A16_SFLOAT, colorSpace = VK_COLOR_SPACE_SRGB_NONLINEAR_KHR]
+ INFO [vk_print_swapchain_create_info] VkSwapchainCreateInfoKHR:
+	flags:
+		VK_SWAPCHAIN_CREATE_PRESENT_ID_2_BIT_KHR
+		VK_SWAPCHAIN_CREATE_PRESENT_WAIT_2_BIT_KHR
+	surface: 55bd72159fa0
+	minImageCount: 2
+	imageFormat: VK_FORMAT_A2B10G10R10_UNORM_PACK32
+	imageColorSpace: VK_COLOR_SPACE_SRGB_NONLINEAR_KHR
+	imageExtent: {2160, 1200}
+	imageArrayLayers: 1
+	imageUsage:
+		VK_IMAGE_USAGE_STORAGE_BIT
+	imageSharingMode: VK_SHARING_MODE_EXCLUSIVE
+	queueFamilyIndexCount: 0
+	preTransform: VK_SURFACE_TRANSFORM_IDENTITY_BIT_KHR
+	compositeAlpha: VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR
+	presentMode: VK_PRESENT_MODE_FIFO_KHR
+	clipped: VK_TRUE
+	oldSwapchain: 0
+ INFO [comp_target_swapchain_create_images] Started vblank event thread!
+ WARN [u_linux_try_to_set_realtime_priority_on_thread] Could not raise priority for thread 'VBlank Events'
+ INFO [comp_vulkan_formats_log] Supported formats:
+	VK_FORMAT_R16G16B16A16_UNORM: true
+	VK_FORMAT_R16G16B16A16_SFLOAT: true
+	VK_FORMAT_R16G16B16_UNORM: false
+	VK_FORMAT_R16G16B16_SFLOAT: false
+	VK_FORMAT_R8G8B8A8_SRGB: true
+	VK_FORMAT_B8G8R8A8_SRGB: true
+	VK_FORMAT_R8G8B8_SRGB: false
+	VK_FORMAT_R8G8B8A8_UNORM: true
+	VK_FORMAT_B8G8R8A8_UNORM: true
+	VK_FORMAT_R8G8B8_UNORM: false
+	VK_FORMAT_B8G8R8_UNORM: false
+	VK_FORMAT_R5G6B5_UNORM_PACK16: true
+	VK_FORMAT_R32_SFLOAT: true
+	VK_FORMAT_D32_SFLOAT: true
+	VK_FORMAT_D16_UNORM: true
+	VK_FORMAT_X8_D24_UNORM_PACK32: false
+	VK_FORMAT_D24_UNORM_S8_UINT: false
+	VK_FORMAT_D32_SFLOAT_S8_UINT: true
+	VK_FORMAT_S8_UINT: true
+ WARN [u_linux_try_to_set_realtime_priority_on_thread] Could not raise priority for thread 'Multi Client Module'
+II] Calibration capture enabled -> /home/mia/git/rift-cv1-center/captures/lin/2026-07-31/bonelab.jsonl
+Opened Rift Sensor 1 w/ Serial WMTD3052400VZL. Connecting to Radio address 0x11563cc989
+[II] camera width 1280 height 960
+[II] f = [ 716.734 716.734 ], c = [ 647.399 478.498 ]
+[II] k = [  0.071847 -0.025176  0.006398 -0.000817 ]
+Opened 2 Rift Sensor cameras
+Temperature: 40.9 °C
+Temperature: 40.0 °C
+[II] Device 0 using OVR-SDK complementary fusion backend
+device 0 online. Now tracking.
+[WW] Exposure timestamp 353083904 was more than 1.5 IMU samples earlier than IMU ts 353085746 by 1842 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 62 missed exposure, diff avg -0.60 min -12.07 max 1.53 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.70 min -3.93 max 1.91 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -3.92 max 2.06 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.84 min -3.70 max 1.95 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.73 min -4.15 max 1.86 ms
+[WW] Exposure timestamp 369653504 was more than 1.5 IMU samples earlier than IMU ts 369655296 by 1792 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.72 min -3.59 max 2.78 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.73 min -3.30 max 1.87 ms
+[WW] Exposure timestamp 375490304 was more than 1.5 IMU samples earlier than IMU ts 375492063 by 1759 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.71 min -3.83 max 2.06 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.71 min -2.83 max 1.64 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.72 min -3.71 max 1.93 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -4.14 max 1.53 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.75 min -3.51 max 1.71 ms
+[WW] Exposure timestamp 389602304 was more than 1.5 IMU samples earlier than IMU ts 389603826 by 1522 µS
+[WW] Exposure timestamp 391637504 was more than 1.5 IMU samples earlier than IMU ts 391639269 by 1765 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.75 min -3.31 max 1.68 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.69 min -3.27 max 1.77 ms
+[WW] Exposure timestamp 396341504 was more than 1.5 IMU samples earlier than IMU ts 396343287 by 1783 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -3.49 max 1.92 ms
+[WW] Exposure timestamp 398165504 was more than 1.5 IMU samples earlier than IMU ts 398167337 by 1833 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.75 min -3.49 max 1.82 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.71 min -3.96 max 1.60 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.75 min -3.85 max 2.10 ms
+[WW] Exposure timestamp 405058304 was more than 1.5 IMU samples earlier than IMU ts 405060063 by 1759 µS
+[WW] Exposure timestamp 405192704 was more than 1.5 IMU samples earlier than IMU ts 405194292 by 1588 µS
+[WW] Exposure timestamp 405749504 was more than 1.5 IMU samples earlier than IMU ts 405751241 by 1737 µS
+[WW] Exposure timestamp 407151104 was more than 1.5 IMU samples earlier than IMU ts 407152632 by 1528 µS
+[WW] Exposure timestamp 407573504 was more than 1.5 IMU samples earlier than IMU ts 407575352 by 1848 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.81 min -4.59 max 1.81 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.76 min -3.90 max 1.51 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -3.13 max 2.11 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.71 min -4.11 max 1.87 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -3.03 max 1.62 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.70 min -3.48 max 2.00 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.69 min -4.16 max 2.07 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.70 min -3.61 max 2.13 ms
+[WW] Exposure timestamp 431842304 was more than 1.5 IMU samples earlier than IMU ts 431844016 by 1712 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -4.00 max 1.73 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -4.44 max 1.56 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.77 min -3.88 max 1.67 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.74 min -4.42 max 1.74 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.69 min -3.42 max 1.88 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.74 min -3.23 max 2.18 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -3.79 max 2.00 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.66 min -3.79 max 1.57 ms
+[II] Device 0: IMU saturation (accel), 1 samples so far - the reading is clipped, so it is being ignored rather than integrated
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.75 min -3.92 max 1.99 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.75 min -3.92 max 1.40 ms
+[WW] Exposure timestamp 461199104 was more than 1.5 IMU samples earlier than IMU ts 461202809 by 3705 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -3.98 max 4.43 ms
+UVC PTS changed in-frame at 1101720 bytes. Lost 19 ms
+UVC Dropping short frame: 1101720 < 1228800 (127080 lost)
+UVC PTS changed in-frame at 245872 bytes. Lost 19 ms
+UVC Dropping short frame: 245872 < 1228800 (982928 lost)
+UVC PTS changed in-frame at 1094760 bytes. Lost 12 ms
+UVC Dropping short frame: 1094760 < 1228800 (134040 lost)
+UVC PTS changed in-frame at 1065456 bytes. Lost 100 ms
+UVC Dropping short frame: 1065456 < 1228800 (163344 lost)
+UVC PTS changed in-frame at 1152944 bytes. Lost 19 ms
+UVC Dropping short frame: 1152944 < 1228800 (75856 lost)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.68 min -4.20 max 2.03 ms
+[WW] Exposure timestamp 465480704 was more than 1.5 IMU samples earlier than IMU ts 465482304 by 1600 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 1 missed exposure, diff avg -1.90 min -361.96 max 2.47 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.73 min -3.57 max 1.84 ms
+[WW] Exposure timestamp 469474304 was more than 1.5 IMU samples earlier than IMU ts 469476218 by 1914 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.78 min -4.03 max 2.13 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.75 min -3.91 max 1.87 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.74 min -3.77 max 1.96 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.67 min -3.83 max 1.80 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.56 min -4.10 max 1.92 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.60 min -3.40 max 1.98 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.62 min -3.73 max 1.99 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.61 min -3.34 max 1.71 ms
+[WW] Exposure timestamp 493723904 was more than 1.5 IMU samples earlier than IMU ts 493725615 by 1711 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -4.62 max 1.92 ms
+[WW] Exposure timestamp 496949504 was more than 1.5 IMU samples earlier than IMU ts 496951270 by 1766 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.69 min -4.35 max 2.26 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.63 min -3.30 max 1.53 ms
+UVC PTS changed in-frame at 1059048 bytes. Lost 19 ms
+UVC Dropping short frame: 1059048 < 1228800 (169752 lost)
+UVC PTS changed in-frame at 1118696 bytes. Lost 19 ms
+UVC Dropping short frame: 1118696 < 1228800 (110104 lost)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.62 min -3.81 max 1.67 ms
+[WW] Exposure timestamp 504802304 was more than 1.5 IMU samples earlier than IMU ts 504804055 by 1751 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.66 min -3.74 max 1.53 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.65 min -2.92 max 1.65 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -3.86 max 1.72 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.71 min -4.27 max 1.90 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -3.43 max 2.00 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.74 min -3.37 max 2.09 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.80 min -3.67 max 1.81 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.72 min -3.69 max 1.84 ms
+[WW] Exposure timestamp 530914304 was more than 1.5 IMU samples earlier than IMU ts 530916048 by 1744 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.67 min -3.59 max 1.77 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.67 min -3.48 max 2.17 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.69 min -4.24 max 1.74 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.68 min -3.96 max 2.05 ms
+[WW] Exposure timestamp 538863104 was more than 1.5 IMU samples earlier than IMU ts 538865093 by 1989 µS
+[WW] Exposure timestamp 539707904 was more than 1.5 IMU samples earlier than IMU ts 539709588 by 1684 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.66 min -2.99 max 2.15 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.59 min -3.34 max 1.97 ms
+[WW] Exposure timestamp 545026304 was more than 1.5 IMU samples earlier than IMU ts 545027995 by 1691 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.79 min -3.65 max 1.79 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.73 min -4.56 max 2.08 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.74 min -3.78 max 2.20 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.59 min -3.48 max 2.00 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -3.79 max 1.83 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.53 min -3.62 max 1.82 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.58 min -3.65 max 1.71 ms
+[WW] Exposure timestamp 566088704 was more than 1.5 IMU samples earlier than IMU ts 566090337 by 1633 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.74 min -3.57 max 1.87 ms
+[WW] Exposure timestamp 567202304 was more than 1.5 IMU samples earlier than IMU ts 567204315 by 2011 µS
+[WW] Exposure timestamp 569410304 was more than 1.5 IMU samples earlier than IMU ts 569412237 by 1933 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.61 min -4.05 max 2.09 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.74 min -4.06 max 1.90 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.67 min -4.37 max 2.26 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.75 min -3.40 max 1.94 ms
+[WW] Exposure timestamp 582178304 was more than 1.5 IMU samples earlier than IMU ts 582179942 by 1638 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.65 min -3.32 max 1.73 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.68 min -3.49 max 1.99 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.74 min -3.74 max 1.77 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -3.96 max 1.68 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.67 min -3.37 max 1.78 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.69 min -3.65 max 1.76 ms
+[WW] Exposure timestamp 597711104 was more than 1.5 IMU samples earlier than IMU ts 597712618 by 1514 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.69 min -3.34 max 2.20 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.68 min -3.64 max 2.02 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -3.56 max 1.85 ms
+[WW] Exposure timestamp 605909504 was more than 1.5 IMU samples earlier than IMU ts 605911250 by 1746 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.73 min -3.92 max 1.79 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.70 min -3.85 max 1.85 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.71 min -3.40 max 1.80 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -3.92 max 1.97 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.71 min -3.51 max 1.99 ms
+[WW] Exposure timestamp 620386304 was more than 1.5 IMU samples earlier than IMU ts 620388130 by 1826 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.74 min -3.90 max 1.97 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.74 min -3.39 max 1.89 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.81 min -3.75 max 1.86 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.86 min -3.94 max 1.49 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.73 min -3.61 max 1.77 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.72 min -3.69 max 1.64 ms
+[WW] Exposure timestamp 637224704 was more than 1.5 IMU samples earlier than IMU ts 637226321 by 1617 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -3.38 max 1.86 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.69 min -3.35 max 1.78 ms
+[WW] Exposure timestamp 645557504 was more than 1.5 IMU samples earlier than IMU ts 645559220 by 1716 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -3.44 max 1.40 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.71 min -4.04 max 1.94 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.78 min -3.62 max 1.80 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.75 min -3.78 max 1.75 ms
+[WW] Exposure timestamp 657154304 was more than 1.5 IMU samples earlier than IMU ts 657156039 by 1735 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -3.09 max 1.49 ms
+[WW] Exposure timestamp 657730304 was more than 1.5 IMU samples earlier than IMU ts 657732074 by 1770 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -3.85 max 1.58 ms
+[WW] Exposure timestamp 661935104 was more than 1.5 IMU samples earlier than IMU ts 661936630 by 1526 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.74 min -3.74 max 1.84 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.71 min -4.09 max 2.10 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.73 min -3.93 max 1.48 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.70 min -4.22 max 1.57 ms
+[WW] Exposure timestamp 670613504 was more than 1.5 IMU samples earlier than IMU ts 670615238 by 1734 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.73 min -3.79 max 1.97 ms
+[WW] Exposure timestamp 676162304 was more than 1.5 IMU samples earlier than IMU ts 676164223 by 1919 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.73 min -4.80 max 1.71 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.79 min -3.75 max 1.88 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.82 min -3.42 max 1.76 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.79 min -3.98 max 2.08 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -3.46 max 2.08 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.68 min -2.55 max 2.06 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.64 min -3.09 max 2.09 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -4.35 max 1.67 ms
+[WW] Exposure timestamp 698376704 was more than 1.5 IMU samples earlier than IMU ts 698378255 by 1551 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.74 min -3.65 max 2.06 ms
+[WW] Exposure timestamp 701026304 was more than 1.5 IMU samples earlier than IMU ts 701028036 by 1732 µS
+[WW] Exposure timestamp 701045504 was more than 1.5 IMU samples earlier than IMU ts 701047070 by 1566 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -3.63 max 1.72 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -3.73 max 1.89 ms
+[WW] Exposure timestamp 708130304 was more than 1.5 IMU samples earlier than IMU ts 708131860 by 1556 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.74 min -3.80 max 1.69 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.73 min -3.87 max 1.88 ms
+[WW] Exposure timestamp 710914304 was more than 1.5 IMU samples earlier than IMU ts 710915888 by 1584 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.80 min -3.48 max 2.00 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.76 min -4.56 max 1.78 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.70 min -4.33 max 2.16 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.72 min -3.67 max 1.97 ms
+[WW] Exposure timestamp 725410304 was more than 1.5 IMU samples earlier than IMU ts 725412090 by 1786 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.74 min -3.45 max 2.06 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.69 min -4.08 max 2.81 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.58 min -3.57 max 3.29 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.67 min -4.04 max 3.29 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.68 min -3.58 max 2.02 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.66 min -3.10 max 1.64 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.73 min -3.34 max 2.01 ms
+[WW] Exposure timestamp 745282304 was more than 1.5 IMU samples earlier than IMU ts 745284062 by 1758 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.73 min -3.64 max 1.74 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.75 min -3.99 max 1.54 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.75 min -4.16 max 1.80 ms
+[WW] Exposure timestamp 753538304 was more than 1.5 IMU samples earlier than IMU ts 753540025 by 1721 µS
+[WW] Exposure timestamp 753557504 was more than 1.5 IMU samples earlier than IMU ts 753559059 by 1555 µS
+[WW] Exposure timestamp 754690304 was more than 1.5 IMU samples earlier than IMU ts 754692114 by 1810 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -3.81 max 1.76 ms
+[WW] Exposure timestamp 755861504 was more than 1.5 IMU samples earlier than IMU ts 755863243 by 1739 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.68 min -3.83 max 1.99 ms
+[WW] Exposure timestamp 758530304 was more than 1.5 IMU samples earlier than IMU ts 758532077 by 1773 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.71 min -4.03 max 1.86 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.74 min -4.20 max 2.01 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -3.42 max 2.11 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.76 min -3.28 max 1.62 ms
+[WW] Exposure timestamp 768418304 was more than 1.5 IMU samples earlier than IMU ts 768420018 by 1714 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.71 min -3.94 max 1.89 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.73 min -3.81 max 1.96 ms
+[WW] Exposure timestamp 775867904 was more than 1.5 IMU samples earlier than IMU ts 775869544 by 1640 µS
+[WW] Exposure timestamp 776923904 was more than 1.5 IMU samples earlier than IMU ts 776925462 by 1558 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -3.46 max 1.71 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.73 min -3.67 max 1.67 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.73 min -3.80 max 1.39 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.74 min -3.82 max 1.76 ms
+[WW] Exposure timestamp 786811904 was more than 1.5 IMU samples earlier than IMU ts 786813427 by 1523 µS
+[WW] Exposure timestamp 786907904 was more than 1.5 IMU samples earlier than IMU ts 786909602 by 1698 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.75 min -3.58 max 1.56 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.82 min -4.18 max 1.37 ms
+[WW] Exposure timestamp 792706304 was more than 1.5 IMU samples earlier than IMU ts 792708144 by 1840 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.78 min -3.95 max 2.02 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.75 min -3.25 max 1.80 ms
+[WW] Exposure timestamp 801000704 was more than 1.5 IMU samples earlier than IMU ts 801002276 by 1572 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.73 min -4.11 max 1.87 ms
+[WW] Exposure timestamp 801864704 was more than 1.5 IMU samples earlier than IMU ts 801866803 by 2099 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.69 min -3.52 max 2.05 ms
+[WW] Exposure timestamp 805858304 was more than 1.5 IMU samples earlier than IMU ts 805860069 by 1765 µS
+[WW] Exposure timestamp 806434304 was more than 1.5 IMU samples earlier than IMU ts 806436118 by 1814 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -3.81 max 1.97 ms
+[WW] Exposure timestamp 807970304 was more than 1.5 IMU samples earlier than IMU ts 807971913 by 1609 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.74 min -3.65 max 1.67 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.71 min -3.68 max 1.83 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.74 min -4.03 max 1.90 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.79 min -3.77 max 1.98 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.76 min -3.38 max 1.64 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.73 min -3.22 max 1.56 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.70 min -3.15 max 1.78 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.71 min -3.19 max 1.56 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.76 min -3.96 max 1.54 ms
+[WW] Exposure timestamp 831778304 was more than 1.5 IMU samples earlier than IMU ts 831780287 by 1983 µS
+[WW] Exposure timestamp 832738304 was more than 1.5 IMU samples earlier than IMU ts 832740083 by 1779 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.74 min -3.88 max 1.41 ms
+[WW] Exposure timestamp 837384704 was more than 1.5 IMU samples earlier than IMU ts 837386511 by 1807 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.74 min -4.15 max 1.63 ms
+[WW] Exposure timestamp 839266304 was more than 1.5 IMU samples earlier than IMU ts 839267943 by 1639 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.78 min -4.14 max 1.64 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.80 min -4.03 max 1.77 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.78 min -4.01 max 1.76 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.72 min -3.29 max 1.91 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.78 min -3.15 max 1.62 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.74 min -3.92 max 1.68 ms
+[WW] Exposure timestamp 855682304 was more than 1.5 IMU samples earlier than IMU ts 855683906 by 1602 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -3.68 max 2.01 ms
+[WW] Exposure timestamp 859291904 was more than 1.5 IMU samples earlier than IMU ts 859293544 by 1640 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -3.03 max 1.68 ms
+[WW] Exposure timestamp 864629504 was more than 1.5 IMU samples earlier than IMU ts 864631250 by 1746 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.78 min -4.49 max 1.66 ms
+[WW] Exposure timestamp 865819904 was more than 1.5 IMU samples earlier than IMU ts 865821425 by 1521 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.81 min -4.25 max 1.58 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.82 min -4.79 max 1.62 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.80 min -3.50 max 1.78 ms
+[WW] Exposure timestamp 872194304 was more than 1.5 IMU samples earlier than IMU ts 872196077 by 1773 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.73 min -3.84 max 1.83 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.73 min -3.62 max 1.71 ms
+[WW] Exposure timestamp 881621504 was more than 1.5 IMU samples earlier than IMU ts 881623317 by 1813 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -3.95 max 1.62 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.73 min -3.90 max 1.53 ms
+[WW] Exposure timestamp 886037504 was more than 1.5 IMU samples earlier than IMU ts 886039400 by 1896 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.85 min -3.88 max 1.47 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.85 min -3.53 max 1.79 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.78 min -3.99 max 1.62 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.81 min -3.96 max 1.47 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.79 min -3.85 max 1.61 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.75 min -3.65 max 1.81 ms
+[WW] Exposure timestamp 902722304 was more than 1.5 IMU samples earlier than IMU ts 902723944 by 1640 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.74 min -3.33 max 1.64 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.71 min -3.12 max 1.84 ms
+[WW] Exposure timestamp 909250304 was more than 1.5 IMU samples earlier than IMU ts 909251904 by 1600 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.71 min -4.06 max 2.13 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.71 min -3.88 max 1.65 ms
+[WW] Exposure timestamp 913186304 was more than 1.5 IMU samples earlier than IMU ts 913188118 by 1814 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.80 min -3.75 max 1.61 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.74 min -3.57 max 1.87 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -3.49 max 1.72 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.68 min -3.07 max 1.83 ms
+[WW] Exposure timestamp 926818304 was more than 1.5 IMU samples earlier than IMU ts 926820117 by 1813 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.74 min -3.48 max 1.65 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.56 min -3.32 max 1.79 ms
+[WW] Exposure timestamp 933826304 was more than 1.5 IMU samples earlier than IMU ts 933827976 by 1672 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.63 min -3.07 max 1.94 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.65 min -3.86 max 1.84 ms
+[WW] Exposure timestamp 935650304 was more than 1.5 IMU samples earlier than IMU ts 935652325 by 2021 µS
+[WW] Exposure timestamp 936168704 was more than 1.5 IMU samples earlier than IMU ts 936170275 by 1571 µS
+[WW] Exposure timestamp 937224704 was more than 1.5 IMU samples earlier than IMU ts 937226260 by 1556 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.58 min -3.69 max 2.08 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.75 min -3.53 max 1.89 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.71 min -3.46 max 1.58 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.78 min -3.65 max 1.41 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -3.49 max 1.67 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.72 min -3.54 max 1.92 ms
+[WW] Exposure timestamp 957019904 was more than 1.5 IMU samples earlier than IMU ts 957021573 by 1669 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.62 min -3.32 max 1.61 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.66 min -3.44 max 1.83 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.75 min -4.42 max 1.48 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.71 min -3.59 max 1.96 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.74 min -3.65 max 1.45 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.81 min -3.93 max 1.78 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -3.43 max 1.70 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.70 min -3.95 max 1.87 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.75 min -3.92 max 1.93 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -4.30 max 2.13 ms
+[WW] Exposure timestamp 983131904 was more than 1.5 IMU samples earlier than IMU ts 983133595 by 1691 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.63 min -3.05 max 2.14 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.69 min -3.66 max 1.69 ms
+[WW] Exposure timestamp 987336704 was more than 1.5 IMU samples earlier than IMU ts 987338381 by 1677 µS
+[WW] Exposure timestamp 988507904 was more than 1.5 IMU samples earlier than IMU ts 988509491 by 1587 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.81 min -3.37 max 1.97 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.76 min -3.70 max 1.74 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.77 min -3.63 max 1.72 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -3.26 max 1.72 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.78 min -3.49 max 1.61 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.75 min -3.60 max 2.09 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.68 min -3.81 max 2.04 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.73 min -3.86 max 1.66 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.73 min -3.61 max 1.94 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.78 min -4.29 max 1.60 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -3.13 max 1.97 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.70 min -3.93 max 1.78 ms
+[WW] Exposure timestamp 1022914304 was more than 1.5 IMU samples earlier than IMU ts 1022915889 by 1585 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -3.86 max 1.84 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.75 min -4.02 max 1.63 ms
+[WW] Exposure timestamp 1031650304 was more than 1.5 IMU samples earlier than IMU ts 1031652003 by 1699 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.74 min -4.09 max 1.91 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.78 min -3.33 max 1.65 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.74 min -3.13 max 1.68 ms
+[WW] Exposure timestamp 1037967104 was more than 1.5 IMU samples earlier than IMU ts 1037968658 by 1554 µS
+[WW] Exposure timestamp 1038178304 was more than 1.5 IMU samples earlier than IMU ts 1038180049 by 1745 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.75 min -4.07 max 1.81 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.69 min -4.34 max 1.65 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.68 min -4.09 max 1.92 ms
+[WW] Exposure timestamp 1046242304 was more than 1.5 IMU samples earlier than IMU ts 1046243934 by 1630 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -4.14 max 1.73 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -4.07 max 1.66 ms
+[WW] Exposure timestamp 1054402304 was more than 1.5 IMU samples earlier than IMU ts 1054404002 by 1698 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.81 min -3.46 max 1.64 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.82 min -3.77 max 1.77 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.70 min -3.09 max 2.24 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.68 min -3.94 max 1.73 ms
+[WW] Exposure timestamp 1062331904 was more than 1.5 IMU samples earlier than IMU ts 1062333650 by 1746 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.70 min -3.61 max 1.33 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.68 min -4.12 max 1.76 ms
+[WW] Exposure timestamp 1069570304 was more than 1.5 IMU samples earlier than IMU ts 1069572026 by 1722 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.68 min -3.87 max 1.78 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.70 min -3.05 max 2.26 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -4.34 max 1.64 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.71 min -3.25 max 1.80 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.79 min -4.11 max 1.58 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.78 min -3.49 max 1.99 ms
+[WW] Exposure timestamp 1086485504 was more than 1.5 IMU samples earlier than IMU ts 1086487302 by 1798 µS
+[WW] Exposure timestamp 1088943104 was more than 1.5 IMU samples earlier than IMU ts 1088944850 by 1746 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.75 min -3.09 max 2.11 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.73 min -4.04 max 1.91 ms
+[WW] Exposure timestamp 1094069504 was more than 1.5 IMU samples earlier than IMU ts 1094071332 by 1828 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.75 min -3.24 max 2.03 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.80 min -3.86 max 1.66 ms
+[WW] Exposure timestamp 1100155904 was more than 1.5 IMU samples earlier than IMU ts 1100157596 by 1692 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.84 min -3.84 max 1.89 ms
+[WW] Exposure timestamp 1102267904 was more than 1.5 IMU samples earlier than IMU ts 1102269506 by 1602 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.85 min -3.57 max 1.65 ms
+[WW] Exposure timestamp 1106338304 was more than 1.5 IMU samples earlier than IMU ts 1106340040 by 1736 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.84 min -4.08 max 1.56 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.78 min -3.10 max 1.85 ms
+[WW] Exposure timestamp 1109698304 was more than 1.5 IMU samples earlier than IMU ts 1109700261 by 1957 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.67 min -3.84 max 1.56 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.66 min -3.20 max 1.58 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.68 min -3.11 max 1.64 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.71 min -3.90 max 2.03 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.71 min -3.13 max 2.02 ms
+[WW] Exposure timestamp 1125250304 was more than 1.5 IMU samples earlier than IMU ts 1125252068 by 1764 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.76 min -3.42 max 1.78 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.80 min -3.85 max 1.80 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.74 min -3.70 max 1.68 ms
+[WW] Exposure timestamp 1135061504 was more than 1.5 IMU samples earlier than IMU ts 1135063250 by 1746 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -4.29 max 1.91 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.71 min -4.02 max 1.97 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -3.14 max 1.81 ms
+[WW] Exposure timestamp 1141954304 was more than 1.5 IMU samples earlier than IMU ts 1141956028 by 1724 µS
+[WW] Exposure timestamp 1142299904 was more than 1.5 IMU samples earlier than IMU ts 1142301669 by 1765 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.83 min -2.99 max 2.23 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.71 min -4.09 max 1.95 ms
+[WW] Exposure timestamp 1148251904 was more than 1.5 IMU samples earlier than IMU ts 1148253706 by 1802 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.71 min -3.30 max 1.93 ms
+[WW] Exposure timestamp 1149211904 was more than 1.5 IMU samples earlier than IMU ts 1149213491 by 1587 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.74 min -4.00 max 1.31 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.71 min -2.73 max 1.75 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.77 min -4.13 max 1.65 ms
+[WW] Exposure timestamp 1159963904 was more than 1.5 IMU samples earlier than IMU ts 1159965432 by 1528 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -3.13 max 1.53 ms
+[WW] Exposure timestamp 1160405504 was more than 1.5 IMU samples earlier than IMU ts 1160407251 by 1747 µS
+[WW] Exposure timestamp 1163554304 was more than 1.5 IMU samples earlier than IMU ts 1163556093 by 1789 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.74 min -3.40 max 1.82 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.72 min -3.72 max 2.16 ms
+[WW] Exposure timestamp 1170101504 was more than 1.5 IMU samples earlier than IMU ts 1170103245 by 1741 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.75 min -4.10 max 1.35 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -3.26 max 1.83 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.71 min -4.35 max 1.58 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.73 min -3.34 max 1.86 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -3.55 max 1.90 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.78 min -3.60 max 1.59 ms
+[WW] Exposure timestamp 1184482304 was more than 1.5 IMU samples earlier than IMU ts 1184483944 by 1640 µS
+[WW] Exposure timestamp 1185173504 was more than 1.5 IMU samples earlier than IMU ts 1185175228 by 1724 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.79 min -4.11 max 1.90 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.75 min -3.63 max 1.76 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.71 min -4.22 max 1.52 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.69 min -3.33 max 1.77 ms
+[WW] Exposure timestamp 1196501504 was more than 1.5 IMU samples earlier than IMU ts 1196503290 by 1786 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.70 min -3.86 max 1.90 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.69 min -3.92 max 1.97 ms
+[WW] Exposure timestamp 1203490304 was more than 1.5 IMU samples earlier than IMU ts 1203492258 by 1954 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.77 min -3.73 max 1.97 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.78 min -3.84 max 1.98 ms
+[WW] Exposure timestamp 1210402304 was more than 1.5 IMU samples earlier than IMU ts 1210404105 by 1801 µS
+[WW] Exposure timestamp 1210517504 was more than 1.5 IMU samples earlier than IMU ts 1210519319 by 1815 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.80 min -4.28 max 2.01 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.80 min -3.53 max 1.73 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.74 min -3.74 max 1.35 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.72 min -3.58 max 1.84 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.73 min -3.78 max 2.00 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.68 min -3.38 max 1.76 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -3.85 max 1.81 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.75 min -3.85 max 2.04 ms
+[WW] Exposure timestamp 1230274304 was more than 1.5 IMU samples earlier than IMU ts 1230276056 by 1752 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.70 min -4.41 max 1.83 ms
+[WW] Exposure timestamp 1234594304 was more than 1.5 IMU samples earlier than IMU ts 1234596138 by 1834 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.70 min -3.85 max 2.09 ms
+[WW] Exposure timestamp 1235650304 was more than 1.5 IMU samples earlier than IMU ts 1235652056 by 1752 µS
+[WW] Exposure timestamp 1235784704 was more than 1.5 IMU samples earlier than IMU ts 1235786309 by 1605 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -4.13 max 1.80 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.78 min -3.62 max 2.11 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.80 min -3.45 max 2.22 ms
+[WW] Exposure timestamp 1246402304 was more than 1.5 IMU samples earlier than IMU ts 1246404061 by 1757 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.75 min -3.73 max 1.66 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -3.95 max 2.02 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.73 min -3.45 max 2.03 ms
+[WW] Exposure timestamp 1256674304 was more than 1.5 IMU samples earlier than IMU ts 1256676180 by 1876 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.81 min -3.42 max 1.73 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.79 min -3.69 max 1.86 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.75 min -3.83 max 1.98 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.73 min -3.22 max 1.80 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.73 min -3.94 max 1.65 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.70 min -3.93 max 1.69 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.70 min -2.99 max 1.39 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.73 min -3.06 max 1.65 ms
+[WW] Exposure timestamp 1278082304 was more than 1.5 IMU samples earlier than IMU ts 1278084042 by 1738 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -3.16 max 1.90 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.70 min -4.27 max 1.93 ms
+[WW] Exposure timestamp 1281941504 was more than 1.5 IMU samples earlier than IMU ts 1281943231 by 1727 µS
+[WW] Exposure timestamp 1284514304 was more than 1.5 IMU samples earlier than IMU ts 1284516024 by 1720 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.74 min -3.63 max 1.64 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.62 min -4.18 max 1.73 ms
+[WW] Exposure timestamp 1289794304 was more than 1.5 IMU samples earlier than IMU ts 1289795860 by 1556 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.69 min -3.41 max 1.96 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.57 min -3.26 max 1.85 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.78 min -3.83 max 1.68 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.60 min -3.53 max 1.87 ms
+[WW] Exposure timestamp 1298299904 was more than 1.5 IMU samples earlier than IMU ts 1298301713 by 1809 µS
+[WW] Exposure timestamp 1300757504 was more than 1.5 IMU samples earlier than IMU ts 1300759335 by 1831 µS
+[WW] Exposure timestamp 1302063104 was more than 1.5 IMU samples earlier than IMU ts 1302064722 by 1618 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.68 min -3.45 max 2.07 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.68 min -3.59 max 1.95 ms
+[WW] Exposure timestamp 1306018304 was more than 1.5 IMU samples earlier than IMU ts 1306020094 by 1790 µS
+[WW] Exposure timestamp 1306863104 was more than 1.5 IMU samples earlier than IMU ts 1306864668 by 1564 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.54 min -2.94 max 2.13 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.73 min -3.12 max 1.79 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.65 min -4.36 max 1.99 ms
+[WW] Exposure timestamp 1314658304 was more than 1.5 IMU samples earlier than IMU ts 1314660246 by 1942 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.76 min -4.31 max 2.02 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.71 min -3.27 max 2.24 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.76 min -3.49 max 1.32 ms
+[WW] Exposure timestamp 1324258304 was more than 1.5 IMU samples earlier than IMU ts 1324260098 by 1794 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.68 min -4.56 max 1.71 ms
+[WW] Exposure timestamp 1326235904 was more than 1.5 IMU samples earlier than IMU ts 1326237786 by 1882 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.67 min -4.35 max 2.16 ms
+[WW] Exposure timestamp 1328002304 was more than 1.5 IMU samples earlier than IMU ts 1328004079 by 1775 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.67 min -3.53 max 1.93 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.72 min -3.87 max 2.01 ms
+[WW] Exposure timestamp 1335490304 was more than 1.5 IMU samples earlier than IMU ts 1335492044 by 1740 µS
+[WW] Exposure timestamp 1335970304 was more than 1.5 IMU samples earlier than IMU ts 1335971939 by 1635 µS
+[WW] Exposure timestamp 1336546304 was more than 1.5 IMU samples earlier than IMU ts 1336548013 by 1709 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.73 min -3.95 max 1.93 ms
+[WW] Exposure timestamp 1338178304 was more than 1.5 IMU samples earlier than IMU ts 1338180057 by 1753 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.78 min -3.94 max 1.93 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -3.28 max 1.64 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.75 min -3.59 max 1.95 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -3.42 max 1.83 ms
+[WW] Exposure timestamp 1349410304 was more than 1.5 IMU samples earlier than IMU ts 1349412010 by 1706 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.75 min -3.41 max 1.85 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.69 min -3.16 max 1.98 ms
+[WW] Exposure timestamp 1355631104 was more than 1.5 IMU samples earlier than IMU ts 1355632616 by 1512 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.70 min -3.00 max 2.01 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.75 min -3.74 max 1.59 ms
+[WW] Exposure timestamp 1360642304 was more than 1.5 IMU samples earlier than IMU ts 1360643968 by 1664 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.76 min -3.85 max 1.74 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.74 min -3.39 max 1.83 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.70 min -3.80 max 1.71 ms
+[WW] Exposure timestamp 1368130304 was more than 1.5 IMU samples earlier than IMU ts 1368131943 by 1639 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.73 min -3.29 max 1.77 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -3.55 max 1.76 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -3.41 max 2.11 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.73 min -3.25 max 1.82 ms
+[WW] Exposure timestamp 1381704704 was more than 1.5 IMU samples earlier than IMU ts 1381706284 by 1580 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.75 min -3.94 max 1.54 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -3.24 max 1.60 ms
+[WW] Exposure timestamp 1384795904 was more than 1.5 IMU samples earlier than IMU ts 1384798057 by 2153 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.77 min -4.17 max 1.85 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.80 min -3.09 max 1.67 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.79 min -4.21 max 1.79 ms
+[WW] Exposure timestamp 1395394304 was more than 1.5 IMU samples earlier than IMU ts 1395395894 by 1590 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.76 min -3.54 max 1.66 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.78 min -3.15 max 1.91 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.81 min -3.98 max 1.90 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.79 min -3.03 max 1.61 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.76 min -3.43 max 1.71 ms
+[WW] Exposure timestamp 1411387904 was more than 1.5 IMU samples earlier than IMU ts 1411389726 by 1822 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.80 min -3.77 max 1.59 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.79 min -3.82 max 1.63 ms
+[WW] Exposure timestamp 1413979904 was more than 1.5 IMU samples earlier than IMU ts 1413981570 by 1666 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -4.36 max 1.90 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.72 min -4.10 max 1.88 ms
+[WW] Exposure timestamp 1421832704 was more than 1.5 IMU samples earlier than IMU ts 1421834245 by 1541 µS
+[WW] Exposure timestamp 1422754304 was more than 1.5 IMU samples earlier than IMU ts 1422755968 by 1664 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -3.60 max 2.08 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.78 min -3.95 max 1.73 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.77 min -4.60 max 1.43 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.73 min -3.37 max 1.66 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.69 min -4.20 max 1.89 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.68 min -2.85 max 1.94 ms
+[WW] Exposure timestamp 1436674304 was more than 1.5 IMU samples earlier than IMU ts 1436675989 by 1685 µS
+[WW] Exposure timestamp 1437154304 was more than 1.5 IMU samples earlier than IMU ts 1437155887 by 1583 µS
+[WW] Exposure timestamp 1437365504 was more than 1.5 IMU samples earlier than IMU ts 1437367282 by 1778 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -3.97 max 1.90 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.67 min -3.34 max 1.74 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.71 min -4.03 max 2.04 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.73 min -3.91 max 1.79 ms
+[WW] Exposure timestamp 1450709504 was more than 1.5 IMU samples earlier than IMU ts 1450711236 by 1732 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.73 min -4.46 max 1.80 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.72 min -3.93 max 2.03 ms
+[WW] Exposure timestamp 1456891904 was more than 1.5 IMU samples earlier than IMU ts 1456893800 by 1896 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.74 min -4.31 max 1.76 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.73 min -3.15 max 1.49 ms
+[WW] Exposure timestamp 1462306304 was more than 1.5 IMU samples earlier than IMU ts 1462307928 by 1624 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.71 min -3.82 max 1.91 ms
+[WW] Exposure timestamp 1465090304 was more than 1.5 IMU samples earlier than IMU ts 1465092137 by 1833 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.70 min -5.21 max 1.89 ms
+[WW] Exposure timestamp 1468872704 was more than 1.5 IMU samples earlier than IMU ts 1468874212 by 1508 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.81 min -3.82 max 1.84 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.81 min -3.91 max 1.77 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.77 min -3.94 max 1.44 ms
+[WW] Exposure timestamp 1476341504 was more than 1.5 IMU samples earlier than IMU ts 1476343188 by 1684 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.80 min -3.26 max 1.61 ms
+[WW] Exposure timestamp 1480335104 was more than 1.5 IMU samples earlier than IMU ts 1480336661 by 1557 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.75 min -3.68 max 1.82 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -4.13 max 1.76 ms
+[WW] Exposure timestamp 1486863104 was more than 1.5 IMU samples earlier than IMU ts 1486864879 by 1775 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.82 min -3.12 max 1.67 ms
+[WW] Exposure timestamp 1487573504 was more than 1.5 IMU samples earlier than IMU ts 1487575209 by 1705 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -3.61 max 1.90 ms
+[WW] Exposure timestamp 1491778304 was more than 1.5 IMU samples earlier than IMU ts 1491780080 by 1776 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.73 min -4.12 max 1.92 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.74 min -3.28 max 1.59 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.74 min -3.73 max 2.08 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.72 min -3.51 max 1.75 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.71 min -2.80 max 1.97 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.70 min -4.40 max 1.68 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.69 min -4.16 max 1.86 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -3.73 max 2.08 ms
+[WW] Exposure timestamp 1513666304 was more than 1.5 IMU samples earlier than IMU ts 1513668061 by 1757 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.78 min -4.03 max 1.65 ms
+[WW] Exposure timestamp 1517064704 was more than 1.5 IMU samples earlier than IMU ts 1517066425 by 1721 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -4.15 max 1.49 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.85 min -3.84 max 1.57 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.81 min -4.20 max 1.87 ms
+[WW] Exposure timestamp 1524552704 was more than 1.5 IMU samples earlier than IMU ts 1524554450 by 1746 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.82 min -3.43 max 1.79 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.79 min -3.54 max 1.83 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.81 min -4.59 max 1.98 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.87 min -4.14 max 1.94 ms
+[WW] Exposure timestamp 1537915904 was more than 1.5 IMU samples earlier than IMU ts 1537917530 by 1626 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.71 min -3.40 max 1.81 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.72 min -3.71 max 1.51 ms
+[WW] Exposure timestamp 1544098304 was more than 1.5 IMU samples earlier than IMU ts 1544100068 by 1764 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.74 min -3.82 max 1.89 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.67 min -3.02 max 1.65 ms
+[II] frame-timing WMTD306Q701DEK: 300 frame INFO [client_connected] Client 1 connected
+ INFO [ipc_handle_instance_describe_client] Client info:
+	id: 1
+	application_name: 'steam'
+	pid: 203949
+	extensions:
+		ext_hand_tracking_enabled: true
+		ext_hand_tracking_data_source_enabled: false
+		ext_eye_gaze_interaction_enabled: false
+		ext_future_enabled: false
+		ext_hand_interaction_enabled: false
+		htc_facial_tracking_enabled: false
+		fb_body_tracking_enabled: false
+		meta_body_tracking_full_body_enabled: false
+		meta_body_tracking_calibration_enabled: false
+		meta_body_tracking_fidelity_enabled: false
+		fb_face_tracking2_enabled: false
+		android_face_tracking_enabled: false
+ INFO [client_disconnected] Client 1 disconnected
+ WARN [renderer_wait_for_present] Compositor probably missed frame by 1.51ms
+ INFO [client_connected] Client 2 connected
+ INFO [ipc_handle_instance_describe_client] Client info:
+	id: 2
+	application_name: 'wineopenxr test instance'
+	pid: 203949
+	extensions:
+		ext_hand_tracking_enabled: false
+		ext_hand_tracking_data_source_enabled: false
+		ext_eye_gaze_interaction_enabled: false
+		ext_future_enabled: false
+		ext_hand_interaction_enabled: false
+		htc_facial_tracking_enabled: false
+		fb_body_tracking_enabled: false
+		meta_body_tracking_full_body_enabled: false
+		meta_body_tracking_calibration_enabled: false
+		meta_body_tracking_fidelity_enabled: false
+		fb_face_tracking2_enabled: false
+		android_face_tracking_enabled: false
+ INFO [client_disconnected] Client 2 disconnected
+ INFO [client_connected] Client 3 connected
+ INFO [ipc_handle_instance_describe_client] Client info:
+	id: 3
+	application_name: 'Bigscreen'
+	pid: 204044
+	extensions:
+		ext_hand_tracking_enabled: true
+		ext_hand_tracking_data_source_enabled: false
+		ext_eye_gaze_interaction_enabled: false
+		ext_future_enabled: false
+		ext_hand_interaction_enabled: false
+		htc_facial_tracking_enabled: false
+		fb_body_tracking_enabled: false
+		meta_body_tracking_full_body_enabled: false
+		meta_body_tracking_calibration_enabled: false
+		meta_body_tracking_fidelity_enabled: false
+		fb_face_tracking2_enabled: false
+		android_face_tracking_enabled: false
+ WARN [renderer_wait_for_present] Compositor probably missed frame by 11.15ms
+s, 0 missed exposure, diff avg -0.76 min -3.34 max 2.11 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.70 min -4.09 max 1.83 ms
+[WW] Exposure timestamp 1553122304 was more than 1.5 IMU samples earlier than IMU ts 1553123978 by 1674 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.68 min -3.96 max 1.86 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -3.63 max 1.65 ms
+[WW] Exposure timestamp 1560725504 was more than 1.5 IMU samples earlier than IMU ts 1560727228 by 1724 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.80 min -4.03 max 1.80 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -3.92 max 1.57 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.69 min -3.00 max 1.53 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.71 min -4.32 max 1.79 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.77 min -4.12 max 1.59 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.73 min -3.72 max 1.62 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.65 min -2.99 max 1.99 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.67 min -3.63 max 2.29 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.81 min -3.90 max 1.63 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.81 min -4.36 max 1.77 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -3.93 max 1.83 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -3.26 max 2.11 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.80 min -4.06 max 1.87 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.76 min -3.81 max 1.82 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -3.34 max 1.95 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.72 min -3.41 max 2.04 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.71 min -3.86 max 2.11 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.70 min -3.75 max 1.78 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.75 min -3.87 max 1.63 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.80 min -3.35 max 1.79 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.73 min -3.62 max 1.90 ms
+[WW] Exposure timestamp 1620802304 was more than 1.5 IMU samples earlier than IMU ts 1620803885 by 1581 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.68 min -3.19 max 2.02 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -3.21 max 2.00 ms
+[WW] Exposure timestamp 1625813504 was more than 1.5 IMU samples earlier than IMU ts 1625815290 by 1786 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -4.05 max 2.15 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.82 min -3.83 max 1.57 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -3.85 max 2.05 ms
+[WW] Exposure timestamp 1634242304 was more than 1.5 IMU samples earlier than IMU ts 1634244110 by 1806 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.75 min -4.15 max 1.75 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -4.08 max 1.70 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.83 min -4.33 max 1.46 ms
+UVC PTS changed in-frame at 933128 bytes. Lost 27 ms
+UVC Dropping short frame: 933128 < 1228800 (295672 lost)
+UVC PTS changed in-frame at 996928 bytes. Lost 27 ms
+UVC Dropping short frame: 996928 < 1228800 (231872 lost)
+[II] frame-ti WARN [renderer_wait_for_present] Compositor probably missed frame by 11.19ms
+ WARN [renderer_wait_for_present] Compositor probably missed frame by 11.11ms
+ INFO [client_disconnected] Client 3 disconnected
+ming WMTD3052400VZL: 300 frames, 1 missed exposure, diff avg -1.05 min -78.14 max 1.66 ms
+[WW] Sensor WMTD306Q701DEK: predicted exposure-to-frame latency of -0.8 ms differed from measured 4.4 ms (1 so far) - check the sensor sync cable
+UVC PTS changed in-frame at 805552 bytes. Lost 38 ms
+UVC Dropping short frame: 805552 < 1228800 (423248 lost)
+UVC PTS changed in-frame at 749724 bytes. Lost 38 ms
+UVC Dropping short frame: 749724 < 1228800 (479076 lost)
+UVC PTS changed in-frame at 1088008 bytes. Lost 57 ms
+UVC Dropping short frame: 1088008 < 1228800 (140792 lost)
+UVC PTS changed in-frame at 1032224 bytes. Lost 57 ms
+UVC Dropping short frame: 1032224 < 1228800 (196576 lost)
+UVC PTS changed in-frame at 944520 bytes. Lost 19 ms
+UVC Dropping short frame: 944520 < 1228800 (284280 lost)
+UVC PTS changed in-frame at 1007672 bytes. Lost 19 ms
+UVC Dropping short frame: 1007672 < 1228800 (221128 lost)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 1 missed exposure, diff avg -0.93 min -78.43 max 6.93 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.71 min -3.71 max 5.71 ms
+[WW] Exposure timestamp 1651656704 was more than 1.5 IMU samples earlier than IMU ts 1651658782 by 2078 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.71 min -3.46 max 1.96 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.67 min -3.06 max 1.61 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -4.16 max 1.87 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.68 min -3.97 max 1.77 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -3.55 max 1.67 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.70 min -3.13 max 2.05 ms
+[WW] Exposure timestamp 1668571904 was more than 1.5 IMU samples earlier than IMU ts 1668573514 by 1610 µS
+[WW] Exposure timestamp 1669954304 was more than 1.5 IMU samples earlier than IMU ts 1669956109 by 1805 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.75 min -4.17 max 2.33 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.73 min -4.00 max 1.89 ms
+[WW] Exposure timestamp 1673122304 was more than 1.5 IMU samples earlier than IMU ts 1673124053 by 1749 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.74 min -3.96 max 1.95 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.63 min -3.50 max 1.82 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.69 min -3.03 max 1.94 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.61 min -3.20 max 2.11 ms
+[WW] Exposure timestamp 1685544704 was more than 1.5 IMU samples earlier than IMU ts 1685546366 by 1662 µS
+[WW] Exposure timestamp 1685986304 was more than 1.5 IMU samples earlier than IMU ts 1685988195 by 1891 µS
+[WW] Exposure timestamp 1687157504 was more than 1.5 IMU samples earlier than IMU ts 1687159395 by 1891 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -4.38 max 1.95 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.80 min -4.04 max 1.84 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.66 min -2.99 max 2.30 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.71 min -3.08 max 2.15 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.67 min -3.68 max 2.00 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.76 min -3.77 max 1.51 ms
+[WW] Exposure timestamp 1704034304 was more than 1.5 IMU samples earlier than IMU ts 1704036068 by 1764 µS
+[WW] Exposure timestamp 1705570304 was more than 1.5 IMU samples earlier than IMU ts 1705571997 by 1693 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -3.53 max 1.61 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.79 min -3.23 max 1.99 ms
+[WW] Exposure timestamp 1710466304 was more than 1.5 IMU samples earlier than IMU ts 1710468141 by 1837 µS
+[WW] Exposure timestamp 1710907904 was more than 1.5 IMU samples earlier than IMU ts 1710909971 by 2067 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.81 min -3.88 max 1.89 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.82 min -3.53 max 1.64 ms
+[WW] Exposure timestamp 1716091904 was more than 1.5 IMU samples earlier than IMU ts 1716093701 by 1797 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.75 min -3.50 max 1.68 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.74 min -3.80 max 1.70 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.84 min -4.22 max 1.83 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.76 min -3.37 max 2.05 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.68 min -4.18 max 1.72 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.75 min -4.34 max 1.72 ms
+[WW] Exposure timestamp 1731451904 was more than 1.5 IMU samples earlier than IMU ts 1731453534 by 1630 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.70 min -3.09 max 2.09 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.75 min -3.14 max 1.77 ms
+[WW] Exposure timestamp 1738824704 was more than 1.5 IMU samples earlier than IMU ts 1738826376 by 1672 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -3.59 max 1.86 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.73 min -3.66 max 1.61 ms
+[WW] Exposure timestamp 1743048704 was more than 1.5 IMU samples earlier than IMU ts 1743050306 by 1602 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.82 min -3.07 max 1.86 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.79 min -3.60 max 1.93 ms
+[WW] Exposure timestamp 1750997504 was more than 1.5 IMU samples earlier than IMU ts 1750999237 by 1733 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.68 min -4.47 max 1.56 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.70 min -3.33 max 1.74 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.73 min -3.68 max 1.62 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.78 min -4.27 max 1.59 ms
+[WW] Exposure timestamp 1762018304 was more than 1.5 IMU samples earlier than IMU ts 1762019928 by 1624 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -4.41 max 1.68 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.71 min -3.17 max 1.38 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.70 min -3.81 max 2.09 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.74 min -4.53 max 1.97 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.83 min -4.04 max 1.78 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.78 min -3.52 max 1.55 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.70 min -3.17 max 1.66 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.69 min -3.74 max 1.57 ms
+[WW] Exposure timestamp 1786018304 was more than 1.5 IMU samples earlier than IMU ts 1786020013 by 1709 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -3.74 max 1.85 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.74 min -3.80 max 1.48 ms
+[WW] Exposure timestamp 1790568704 was more than 1.5 IMU samples earlier than IMU ts 1790570566 by 1862 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.71 min -3.67 max 1.54 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.74 min -3.69 max 1.95 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -3.80 max 1.78 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.81 min -4.16 max 1.87 ms
+[WW] Exposure timestamp 1802050304 was more than 1.5 IMU samples earlier than IMU ts 1802052136 by 1832 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.91 min -3.97 max 1.70 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.83 min -3.88 max 1.68 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -3.75 max 1.80 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.74 min -3.04 max 1.70 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.77 min -4.34 max 2.00 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -4.32 max 2.01 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.75 min -3.64 max 1.87 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.73 min -3.23 max 1.93 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -3.05 max 1.79 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.72 min -3.83 max 1.68 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.75 min -4.42 max 1.16 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.72 min -4.73 max 1.58 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.74 min -3.23 max 1.89 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -4.15 max 1.78 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.75 min -3.60 max 1.40 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.81 min -3.82 max 1.70 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.79 min -3.54 max 2.04 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.71 min -4.20 max 1.55 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.68 min -3.77 max 1.80 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.67 min -3.08 max 1.82 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -4.63 max 1.74 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.68 min -3.93 max 1.71 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.68 min -3.88 max 1.67 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.69 min -4.03 max 1.61 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.67 min -3.39 max 2.09 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.71 min -3.84 max 1.50 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.78 min -3.63 max 1.47 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.76 min -3.70 max 2.13 ms
+[WW] Exposure timestamp 1882421504 was more than 1.5 IMU samples earlier than IMU ts 1882423273 by 1769 µS
+[WW] Exposure timestamp 1883477504 was more than 1.5 IMU samples earlier than IMU ts 1883479260 by 1756 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.77 min -3.52 max 1.82 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.76 min -3.37 max 1.96 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -3.54 max 1.46 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.70 min -4.44 max 1.84 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -3.91 max 1.80 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.76 min -3.64 max 1.55 ms
+[WW] Exposure timestamp 1898491904 was more than 1.5 IMU samples earlier than IMU ts 1898493515 by 1611 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.74 min -3.86 max 1.88 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.76 min -4.14 max 1.63 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.77 min -4.38 max 1.92 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.80 min -5.17 max 1.88 ms
+[WW] Exposure timestamp 1909493504 was more than 1.5 IMU samples earlier than IMU ts 1909495269 by 1765 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.75 min -3.22 max 1.67 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.74 min -4.18 max 1.60 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.74 min -3.60 max 1.48 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.75 min -3.32 max 1.70 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.80 min -3.37 max 1.81 ms
+[WW] Exposure timestamp 1926005504 was more than 1.5 IMU samples earlier than IMU ts 1926007309 by 1805 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.74 min -4.48 max 2.10 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.66 min -3.69 max 1.80 ms
+[WW] Exposure timestamp 1931285504 was more than 1.5 IMU samples earlier than IMU ts 1931287251 by 1747 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.73 min -3.42 max 1.71 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -4.07 max 1.50 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.75 min -3.62 max 1.72 ms
+[WW] Exposure timestamp 1939138304 was more than 1.5 IMU samples earlier than IMU ts 1939140040 by 1736 µS
+[WW] Exposure timestamp 1940674304 was more than 1.5 IMU samples earlier than IMU ts 1940675931 by 1627 µS
+[WW] Exposure timestamp 1941039104 was more than 1.5 IMU samples earlier than IMU ts 1941040618 by 1514 µS
+[WW] Exposure timestamp 1942171904 was more than 1.5 IMU samples earlier than IMU ts 1942173752 by 1848 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.74 min -4.04 max 1.83 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.76 min -3.66 max 1.92 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.75 min -4.11 max 1.86 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.74 min -3.25 max 1.80 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.77 min -3.54 max 1.73 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.75 min -3.64 max 1.33 ms
+[WW] Exposure timestamp 1955554304 was more than 1.5 IMU samples earlier than IMU ts 1955555959 by 1655 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.75 min -3.94 max 1.56 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.76 min -3.50 max 1.62 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.71 min -3.65 max 1.85 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.74 min -4.30 max 1.94 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.71 min -3.41 max 1.94 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.68 min -4.25 max 2.04 ms
+[WW] Exposure timestamp 1974754304 was more than 1.5 IMU samples earlier than IMU ts 1974756135 by 1831 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.75 min -3.78 max 1.41 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.72 min -3.52 max 1.73 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.75 min -3.90 max 2.06 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.73 min -3.56 max 1.95 ms
+[WW] Exposure timestamp 1985755904 was more than 1.5 IMU samples earlier than IMU ts 1985757870 by 1966 µS
+[WW] Exposure timestamp 1987426304 was more than 1.5 IMU samples earlier than IMU ts 1987428018 by 1714 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.82 min -3.22 max 1.76 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.82 min -3.78 max 2.08 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.62 min -3.81 max 1.66 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.65 min -3.32 max 1.72 ms
+[WW] Exposure timestamp 1999253504 was more than 1.5 IMU samples earlier than IMU ts 1999255314 by 1810 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.78 min -3.62 max 1.79 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.76 min -4.06 max 1.90 ms
+[WW] Exposure timestamp 2003035904 was more than 1.5 IMU samples earlier than IMU ts 2003037445 by 1541 µS
+[WW] Exposure timestamp 2005608704 was more than 1.5 IMU samples earlier than IMU ts 2005610296 by 1592 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.69 min -3.01 max 2.01 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.70 min -2.88 max 1.58 ms
+[WW] Exposure timestamp 2007221504 was more than 1.5 IMU samples earlier than IMU ts 2007223338 by 1834 µS
+[WW] Exposure timestamp 2008296704 was more than 1.5 IMU samples earlier than IMU ts 2008298365 by 1661 µS
+[WW] Exposure timestamp 2008872704 was more than 1.5 IMU samples earlier than IMU ts 2008874451 by 1747 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.90 min -3.93 max 1.31 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.85 min -4.31 max 1.90 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.75 min -3.16 max 1.82 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.71 min -3.09 max 1.92 ms
+[WW] Exposure timestamp 2022466304 was more than 1.5 IMU samples earlier than IMU ts 2022468134 by 1830 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.69 min -3.94 max 1.69 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.70 min -3.68 max 1.87 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -4.34 max 1.66 ms
+[WW] Exposure timestamp 2028802304 was more than 1.5 IMU samples earlier than IMU ts 2028804041 by 1737 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.76 min -4.13 max 1.26 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.75 min -3.37 max 1.58 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.69 min -3.27 max 1.74 ms
+[WW] Exposure timestamp 2036885504 was more than 1.5 IMU samples earlier than IMU ts 2036887289 by 1785 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.78 min -3.42 max 1.75 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.70 min -3.22 max 1.77 ms
+[WW] Exposure timestamp 2041915904 was more than 1.5 IMU samples earlier than IMU ts 2041917780 by 1876 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.78 min -3.60 max 1.63 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.59 min -3.44 max 1.82 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.63 min -2.99 max 2.14 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.68 min -3.71 max 1.96 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.64 min -3.68 max 2.06 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.82 min -3.97 max 1.81 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.74 min -4.10 max 1.67 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.81 min -4.26 max 1.47 ms
+[WW] Exposure timestamp 2065032704 was more than 1.5 IMU samples earlier than IMU ts 2065034403 by 1699 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -3.92 max 1.75 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.74 min -4.12 max 1.59 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.69 min -3.01 max 1.72 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.69 min -3.24 max 1.98 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.70 min -4.42 max 1.58 ms
+[WW] Exposure timestamp 2081794304 was more than 1.5 IMU samples earlier than IMU ts 2081796046 by 1742 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.74 min -4.41 max 1.51 ms
+[WW] Exposure timestamp 2083330304 was more than 1.5 IMU samples earlier than IMU ts 2083331941 by 1637 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.73 min -3.39 max 1.83 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.83 min -3.80 max 1.78 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.79 min -3.49 max 1.93 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.75 min -3.71 max 2.16 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -3.60 max 1.67 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.75 min -3.89 max 1.53 ms
+[WW] Exposure timestamp 2099995904 was more than 1.5 IMU samples earlier than IMU ts 2099997410 by 1506 µS
+[WW] Exposure timestamp 2102779904 was more than 1.5 IMU samples earlier than IMU ts 2102781664 by 1760 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.78 min -3.78 max 1.88 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.76 min -4.22 max 1.90 ms
+[WW] Exposure timestamp 2105333504 was more than 1.5 IMU samples earlier than IMU ts 2105335487 by 1983 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.80 min -3.72 max 1.82 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.79 min -3.63 max 1.48 ms
+[WW] Exposure timestamp 2110651904 was more than 1.5 IMU samples earlier than IMU ts 2110653530 by 1626 µS
+[WW] Exposure timestamp 2111592704 was more than 1.5 IMU samples earlier than IMU ts 2111594306 by 1602 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -3.81 max 1.85 ms
+[WW] Exposure timestamp 2115355904 was more than 1.5 IMU samples earlier than IMU ts 2115357413 by 1509 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.78 min -4.35 max 2.10 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.71 min -3.64 max 1.62 ms
+[WW] Exposure timestamp 2120962304 was more than 1.5 IMU samples earlier than IMU ts 2120964048 by 1744 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.71 min -3.82 max 1.87 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.71 min -3.32 max 1.90 ms
+[WW] Exposure timestamp 2126818304 was more than 1.5 IMU samples earlier than IMU ts 2126820108 by 1804 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.71 min -3.56 max 1.89 ms
+[WW] Exposure timestamp 2128930304 was more than 1.5 IMU samples earlier than IMU ts 2128932051 by 1747 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.71 min -3.23 max 1.92 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.64 min -3.92 max 1.79 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.60 min -3.40 max 2.31 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.63 min -3.59 max 2.12 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.85 min -3.91 max 1.69 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.92 min -4.44 max 1.46 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.84 min -3.67 max 1.56 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.76 min -3.23 max 2.03 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.78 min -3.90 max 2.26 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.76 min -3.77 max 2.20 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.75 min -3.94 max 1.64 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.73 min -3.29 max 1.60 ms
+[WW] Exposure timestamp 2162818304 was more than 1.5 IMU samples earlier than IMU ts 2162820068 by 1764 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.75 min -3.86 max 1.47 ms
+[WW] Exposure timestamp 2167656704 was more than 1.5 IMU samples earlier than IMU ts 2167658208 by 1504 µS
+[WW] Exposure timestamp 2167733504 was more than 1.5 IMU samples earlier than IMU ts 2167735354 by 1850 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.84 min -4.39 max 1.67 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.78 min -3.12 max 1.46 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.80 min -3.16 max 1.57 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.75 min -3.57 max 1.63 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.70 min -4.17 max 1.88 ms
+[WW] Exposure timestamp 2180290304 was more than 1.5 IMU samples earlier than IMU ts 2180292079 by 1775 µS
+[WW] Exposure timestamp 2183458304 was more than 1.5 IMU samples earlier than IMU ts 2183460066 by 1762 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.81 min -4.31 max 1.95 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -3.99 max 1.52 ms
+[WW] Exposure timestamp 2187682304 was more than 1.5 IMU samples earlier than IMU ts 2187684048 by 1744 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.77 min -3.62 max 2.01 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -3.56 max 1.96 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.81 min -3.76 max 1.78 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.84 min -3.64 max 1.82 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.80 min -3.71 max 1.57 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.82 min -4.43 max 1.66 ms
+[WW] Exposure timestamp 2205154304 was more than 1.5 IMU samples earlier than IMU ts 2205156067 by 1763 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -4.34 max 1.80 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.70 min -4.55 max 2.19 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -3.87 max 2.02 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.80 min -4.07 max 1.64 ms
+[WW] Exposure timestamp 2217384704 was more than 1.5 IMU samples earlier than IMU ts 2217386229 by 1525 µS
+[WW] Exposure timestamp 2217499904 was more than 1.5 IMU samples earlier than IMU ts 2217501446 by 1542 µS
+[WW] Exposure timestamp 2218786304 was more than 1.5 IMU samples earlier than IMU ts 2218787841 by 1537 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.86 min -3.72 max 2.03 ms
+[WW] Exposure timestamp 2219112704 was more than 1.5 IMU samples earlier than IMU ts 2219114495 by 1791 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -3.81 max 1.97 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.78 min -3.50 max 2.10 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.79 min -3.66 max 1.63 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.71 min -3.75 max 2.00 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.72 min -3.75 max 2.13 ms
+[WW] Exposure timestamp 2232130304 was more than 1.5 IMU samples earlier than IMU ts 2232132056 by 1752 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.68 min -3.57 max 1.71 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.75 min -3.23 max 1.94 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -3.38 max 1.82 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.68 min -3.81 max 1.75 ms
+[WW] Exposure timestamp 2243707904 was more than 1.5 IMU samples earlier than IMU ts 2243709944 by 2040 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.77 min -4.32 max 1.88 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.70 min -3.10 max 1.93 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.70 min -4.30 max 1.82 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.72 min -3.58 max 1.85 ms
+[WW] Exposure timestamp 2254882304 was more than 1.5 IMU samples earlier than IMU ts 2254884070 by 1766 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.71 min -3.64 max 2.11 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.76 min -3.07 max 1.96 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.80 min -3.77 max 1.74 ms
+[WW] Exposure timestamp 2265058304 was more than 1.5 IMU samples earlier than IMU ts 2265060312 by 2008 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.85 min -4.53 max 1.63 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.74 min -3.57 max 2.23 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.75 min -3.36 max 1.86 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.85 min -3.63 max 1.71 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.83 min -4.38 max 1.63 ms
+[WW] Exposure timestamp 2278786304 was more than 1.5 IMU samples earlier than IMU ts 2278788271 by 1967 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.79 min -3.29 max 1.58 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.75 min -3.80 max 1.85 ms
+[WW] Exposure timestamp 2286677504 was more than 1.5 IMU samples earlier than IMU ts 2286679194 by 1690 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.63 min -4.06 max 1.73 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.68 min -3.78 max 1.85 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.73 min -4.09 max 1.60 ms
+[WW] Exposure timestamp 2294530304 was more than 1.5 IMU samples earlier than IMU ts 2294532092 by 1788 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.76 min -3.84 max 1.76 ms
+[WW] Exposure timestamp 2296507904 was more than 1.5 IMU samples earlier than IMU ts 2296509787 by 1883 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.78 min -3.48 max 1.44 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.78 min -3.75 max 1.67 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -3.53 max 2.00 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.75 min -4.54 max 1.71 ms
+[WW] Exposure timestamp 2307317504 was more than 1.5 IMU samples earlier than IMU ts 2307319232 by 1728 µS
+[WW] Exposure timestamp 2308373504 was more than 1.5 IMU samples earlier than IMU ts 2308375230 by 1726 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -3.48 max 1.63 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.68 min -4.38 max 1.84 ms
+[WW] Exposure timestamp 2314114304 was more than 1.5 IMU samples earlier than IMU ts 2314116089 by 1785 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.66 min -2.95 max 1.96 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.76 min -4.51 max 2.33 ms
+[WW] Exposure timestamp 2321755904 was more than 1.5 IMU samples earlier than IMU ts 2321757545 by 1641 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.81 min -4.21 max 1.58 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.82 min -3.60 max 1.73 ms
+[WW] Exposure timestamp 2324789504 was more than 1.5 IMU samples earlier than IMU ts 2324791284 by 1780 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.73 min -3.48 max 2.15 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.69 min -3.54 max 2.27 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -4.85 max 1.54 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -4.13 max 1.77 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -3.57 max 1.85 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.68 min -3.78 max 2.04 ms
+[WW] Exposure timestamp 2342626304 was more than 1.5 IMU samples earlier than IMU ts 2342628078 by 1774 µS
+[WW] Exposure timestamp 2345295104 was more than 1.5 IMU samples earlier than IMU ts 2345297082 by 1978 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.75 min -3.51 max 1.76 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.79 min -4.06 max 2.33 ms
+[WW] Exposure timestamp 2350709504 was more than 1.5 IMU samples earlier than IMU ts 2350711327 by 1823 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.74 min -3.80 max 1.47 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.73 min -3.41 max 1.69 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.77 min -3.45 max 2.04 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.79 min -4.30 max 1.91 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.71 min -3.52 max 1.69 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.65 min -3.60 max 1.90 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.74 min -3.55 max 1.62 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.71 min -3.66 max 1.61 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.77 min -4.51 max 1.66 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.75 min -4.40 max 1.76 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.74 min -3.12 max 2.18 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.76 min -3.12 max 1.92 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.75 min -3.77 max 1.63 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -4.21 max 1.71 ms
+[WW] Exposure timestamp 2391202304 was more than 1.5 IMU samples earlier than IMU ts 2391203962 by 1658 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -4.30 max 1.69 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.74 min -4.19 max 1.94 ms
+[WW] Exposure timestamp 2396482304 was more than 1.5 IMU samples earlier than IMU ts 2396483956 by 1652 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -3.83 max 1.89 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.68 min -3.94 max 1.94 ms
+[WW] Exposure timestamp 2402453504 was more than 1.5 IMU samples earlier than IMU ts 2402455260 by 1756 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.73 min -3.88 max 1.71 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.67 min -3.61 max 1.76 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.66 min -3.37 max 1.79 ms
+[WW] Exposure timestamp 2409960704 was more than 1.5 IMU samples earlier than IMU ts 2409962471 by 1767 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.56 min -3.18 max 2.02 ms
+[WW] Exposure timestamp 2412207104 was more than 1.5 IMU samples earlier than IMU ts 2412208723 by 1619 µS
+[WW] Exposure timestamp 2413378304 was more than 1.5 IMU samples earlier than IMU ts 2413379941 by 1637 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -3.81 max 2.04 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.60 min -3.64 max 2.19 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.69 min -3.66 max 1.61 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -3.81 max 1.42 ms
+[WW] Exposure timestamp 2422152704 was more than 1.5 IMU samples earlier than IMU ts 2422154553 by 1849 µS
+[WW] Exposure timestamp 2423592704 was more than 1.5 IMU samples earlier than IMU ts 2423594278 by 1574 µS
+[WW] Exposure timestamp 2425243904 was more than 1.5 IMU samples earlier than IMU ts 2425245405 by 1501 µS
+[WW] Exposure timestamp 2425685504 was more than 1.5 IMU samples earlier than IMU ts 2425687243 by 1739 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.64 min -3.73 max 1.81 ms
+[WW] Exposure timestamp 2426741504 was more than 1.5 IMU samples earlier than IMU ts 2426743240 by 1736 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.82 min -3.90 max 1.59 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.77 min -4.03 max 1.98 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.81 min -3.53 max 1.74 ms
+[WW] Exposure timestamp 2436706304 was more than 1.5 IMU samples earlier than IMU ts 2436708107 by 1803 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -3.33 max 1.53 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.70 min -3.12 max 1.78 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.75 min -4.60 max 1.98 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.80 min -3.66 max 1.53 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.71 min -3.73 max 1.77 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.75 min -3.65 max 1.78 ms
+[WW] Exposure timestamp 2452085504 was more than 1.5 IMU samples earlier than IMU ts 2452087225 by 1721 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.70 min -4.26 max 2.03 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.71 min -4.50 max 1.93 ms
+[WW] Exposure timestamp 2458306304 was more than 1.5 IMU samples earlier than IMU ts 2458308004 by 1700 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.68 min -3.48 max 1.61 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.69 min -3.47 max 2.17 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -3.89 max 1.61 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.65 min -4.26 max 1.75 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.73 min -3.81 max 1.99 ms
+[WW] Exposure timestamp 2472514304 was more than 1.5 IMU samples earlier than IMU ts 2472515908 by 1604 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.74 min -3.83 max 1.90 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -3.89 max 1.67 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.76 min -3.72 max 1.53 ms
+[WW] Exposure timestamp 2482248704 was more than 1.5 IMU samples earlier than IMU ts 2482250347 by 1643 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.71 min -3.66 max 1.72 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.75 min -3.75 max 1.88 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.79 min -3.67 max 1.41 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.74 min -4.38 max 1.61 ms
+[WW] Exposure timestamp 2491618304 was more than 1.5 IMU samples earlier than IMU ts 2491620133 by 1829 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.80 min -4.00 max 1.89 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.76 min -3.50 max 1.75 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.70 min -3.97 max 1.61 ms
+[WW] Exposure timestamp 2501563904 was more than 1.5 IMU samples earlier than IMU ts 2501565923 by 2019 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.72 min -4.32 max 2.13 ms
+[WW] Exposure timestamp 2506402304 was more than 1.5 IMU samples earlier than IMU ts 2506404087 by 1783 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.71 min -4.01 max 1.66 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.71 min -3.53 max 2.14 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.70 min -3.68 max 1.51 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.75 min -3.90 max 1.97 ms
+[WW] Exposure timestamp 2516962304 was more than 1.5 IMU samples earlier than IMU ts 2516964089 by 1785 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.77 min -4.41 max 1.69 ms
+[WW] Exposure timestamp 2518363904 was more than 1.5 IMU samples earlier than IMU ts 2518365790 by 1886 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -4.18 max 2.32 ms
+[WW] Exposure timestamp 2521301504 was more than 1.5 IMU samples earlier than IMU ts 2521303311 by 1807 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.67 min -3.85 max 1.75 ms
+[WW] Exposure timestamp 2525314304 was more than 1.5 IMU samples earlier than IMU ts 2525315908 by 1604 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.63 min -3.80 max 1.88 ms
+[WW] Exposure timestamp 2526715904 was more than 1.5 IMU samples earlier than IMU ts 2526717563 by 1659 µS
+[WW] Exposure timestamp 2526831104 was more than 1.5 IMU samples earlier than IMU ts 2526832782 by 1678 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.73 min -3.53 max 1.57 ms
+[WW] Exposure timestamp 2530786304 was more than 1.5 IMU samples earlier than IMU ts 2530788274 by 1970 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.74 min -3.47 max 1.54 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -4.11 max 1.90 ms
+[WW] Exposure timestamp 2535970304 was more than 1.5 IMU samples earlier than IMU ts 2535972094 by 1790 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.78 min -3.17 max 2.12 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.79 min -3.62 max 1.72 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.81 min -3.45 max 1.82 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.77 min -3.83 max 1.77 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.72 min -3.78 max 1.95 ms
+[WW] Exposure timestamp 2549179904 was more than 1.5 IMU samples earlier than IMU ts 2549182119 by 2215 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -3.52 max 1.69 ms
+[II] frame-timing WMTD3052400VZL: 3 INFO [ipc_server_main_common] Server exiting: '0'
+00 frames, 0 missed exposure, diff avg -0.69 min -4.05 max 1.95 ms
+[WW] Exposure timestamp 2557109504 was more than 1.5 IMU samples earlier than IMU ts 2557111148 by 1644 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.70 min -3.37 max 1.90 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.70 min -4.22 max 1.78 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.66 min -4.04 max 1.83 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.71 min -3.24 max 1.99 ms
+[WW] Exposure timestamp 2569762304 was more than 1.5 IMU samples earlier than IMU ts 2569764113 by 1809 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.78 min -3.49 max 1.71 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.76 min -4.43 max 1.87 ms
+[WW] Exposure timestamp 2574811904 was more than 1.5 IMU samples earlier than IMU ts 2574813680 by 1776 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.70 min -3.88 max 1.80 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.75 min -3.45 max 1.83 ms
+[WW] Exposure timestamp 2578805504 was more than 1.5 IMU samples earlier than IMU ts 2578807247 by 1743 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.80 min -3.84 max 1.94 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.75 min -3.49 max 1.61 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.75 min -3.27 max 1.65 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.74 min -4.41 max 1.61 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.73 min -3.94 max 2.15 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.78 min -3.41 max 1.89 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.74 min -3.42 max 2.14 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.75 min -3.55 max 2.24 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.81 min -4.50 max 2.26 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.78 min -3.70 max 2.06 ms
+[WW] Exposure timestamp 2608834304 was more than 1.5 IMU samples earlier than IMU ts 2608836144 by 1840 µS
+[WW] Exposure timestamp 2610389504 was more than 1.5 IMU samples earlier than IMU ts 2610391093 by 1589 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.70 min -4.30 max 1.68 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.67 min -3.68 max 1.57 ms
+[WW] Exposure timestamp 2613211904 was more than 1.5 IMU samples earlier than IMU ts 2613213443 by 1539 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.83 min -4.04 max 1.92 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.84 min -3.64 max 1.70 ms
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.76 min -3.85 max 1.86 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.76 min -3.80 max 2.19 ms
+[WW] Exposure timestamp 2626325504 was more than 1.5 IMU samples earlier than IMU ts 2626327287 by 1783 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.74 min -3.90 max 2.30 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.73 min -4.41 max 2.05 ms
