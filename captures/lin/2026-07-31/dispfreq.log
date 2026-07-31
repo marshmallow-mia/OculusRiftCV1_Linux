@@ -1,0 +1,895 @@
++++ dirname /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/vrmonitor.sh
+++ cd /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/
+++ pwd
++ VRBINDIR=/home/mia/.local/share/Steam/steamapps/common/SteamVR/bin
++ [[ -n '' ]]
++ exec /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/vrenv.sh /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/vrmonitor.sh
+vrenv.sh[175317]: VRCOMPOSITOR_LD_LIBRARY_PATH=/home/mia/git/rift-cv1-center:/home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/linux64/qt/lib:/home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/linux64
+vrenv.sh[175317]: exec /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/vrmonitor.sh
++++ dirname /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/vrmonitor.sh
+++ cd /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/
+++ pwd
++ VRBINDIR=/home/mia/.local/share/Steam/steamapps/common/SteamVR/bin
++ [[ -n /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/vrenv.sh ]]
++ case $(uname) in
+++ uname
++ VRMONITOR=/home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/linux64/vrmonitor
++ exec /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/linux64/vrmonitor
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 18:15:34 minidumps folder is set to /tmp/dumps
+07/31 18:15:34 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(175317)
+static QPlatformTheme* QKdeTheme::createKdeTheme(): Unable to determine KDE dirs
+sh: line 1: steamxdg-icon-resource: command not found
+sh: line 1: steam-runtime-launch-client: command not found
+QObject::connect: No such slot CQVRMonitorController::OnStartRecordingAction() in /data/src/vrmonitor/qvrmonitorcontroller.cpp:1112
+QObject::connect: No such slot CQVRMonitorController::OnStopRecordingAction() in /data/src/vrmonitor/qvrmonitorcontroller.cpp:1115
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+CQVRMonitorHeadsetWarning(0x55fc0a1a9e80)  does not have a property named  "green_color"
+CQVRMonitorHeadsetWarning(0x55fc0a1a9e80)  does not have a property named  "red_color"
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 18:15:34 minidumps folder is set to /tmp/dumps
+07/31 18:15:34 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(175419)
+[S_API] SteamAPI_Init(): Loaded '/home/mia/.local/share/Steam/linux64/steamclient.so' OK.
+VR Server (v1781734990)
+
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+SteamInternal_SetMinidumpSteamID:  Caching Steam ID:  76561198428899653 [API loaded yes]
+SteamInternal_SetMinidumpSteamID:  Setting Steam ID:  76561198428899653
+[II] HMD IMU calibration  gyro_offset [ -0.003900, 0.001300, 0.001100 ]  accel_offset [ 0.108000, -0.305600, 0.024900 ]
+[II]   gyro_calib = 
+[II]   [    0.999,    0.005,   -0.021 ]
+[II]   [    0.004,    1.000,   -0.007 ]
+[II]   [    0.008,    0.038,    0.999 ]
+[II]   accel_calib = 
+[II]   [    1.021,    0.001,   -0.018 ]
+[II]   [    0.001,    1.037,    0.022 ]
+[II]   [    0.004,   -0.005,    0.963 ]
+[II] HMD accel calibration matrix: mean row norm 1.0072 -> 1.0000 (scale removed 0.72%)
+[II] HMD gyro calibration matrix: mean row norm 0.9994 -> 1.0000 (scale removed -0.06%)
+[II] CV1 display config: brightness=0 flags=0x400 persistence=273/1472 rows
+[II] Using 34 visor LEDs; dropped 10 headband LEDs (not tracked as a separate body yet - the headset is only trackable from the front)
+LED model: HMD LEDs
+{ .pos = {0.062939,-0.032042,0.067541}, .dir={0.181956,-0.102972,0.977900}, .pattern=0x1 },
+{ .pos = {0.077151,0.000993,0.065562}, .dir={0.299055,0.001984,0.954234}, .pattern=0x6 },
+{ .pos = {0.028983,-0.019018,0.073518}, .dir={0.082983,-0.096960,0.991823}, .pattern=0x1a },
+{ .pos = {-0.000097,-0.033045,0.072449}, .dir={0.000000,-0.188028,0.982164}, .pattern=0x1d },
+{ .pos = {-0.028998,-0.019144,0.073384}, .dir={-0.082983,-0.096960,0.991823}, .pattern=0x28 },
+{ .pos = {-0.063022,-0.032156,0.067359}, .dir={-0.181956,-0.102972,0.977900}, .pattern=0x2f },
+{ .pos = {-0.077078,0.000964,0.065342}, .dir={-0.299055,0.001984,0.954234}, .pattern=0x33 },
+{ .pos = {-0.054039,0.034440,0.068623}, .dir={-0.140969,0.134957,0.980772}, .pattern=0x4b },
+{ .pos = {-0.020202,0.017950,0.074224}, .dir={-0.056979,0.095951,0.993754}, .pattern=0x4c },
+{ .pos = {0.053973,0.034595,0.069160}, .dir={0.140969,0.134957,0.980772}, .pattern=0x57 },
+{ .pos = {0.020062,0.018061,0.074368}, .dir={0.056979,0.095951,0.993754}, .pattern=0x62 },
+{ .pos = {-0.078856,-0.011904,0.028395}, .dir={-0.993057,-0.099980,-0.061984}, .pattern=0x65 },
+{ .pos = {-0.077293,-0.012335,-0.008668}, .dir={-0.981566,-0.188915,-0.028963}, .pattern=0x79 },
+{ .pos = {-0.070740,-0.031349,0.010284}, .dir={-0.734056,-0.668042,-0.121987}, .pattern=0x7e },
+{ .pos = {-0.059124,-0.040984,0.036314}, .dir={-0.153997,-0.983099,-0.099003}, .pattern=0x90 },
+{ .pos = {0.058835,-0.040830,0.035942}, .dir={0.153997,-0.983099,-0.099003}, .pattern=0xa4 },
+{ .pos = {0.028165,-0.043453,0.061352}, .dir={-0.004975,-0.998636,-0.051974}, .pattern=0x114 },
+{ .pos = {-0.080319,-0.024476,0.053355}, .dir={-0.947594,-0.225904,-0.225904}, .pattern=0x151 },
+{ .pos = {-0.027992,-0.043610,0.061432}, .dir={0.004975,-0.998636,-0.051974}, .pattern=0x183 },
+{ .pos = {0.070561,-0.031850,0.009988}, .dir={0.734056,-0.668042,-0.121987}, .pattern=0x18c },
+{ .pos = {0.077672,-0.012729,-0.008828}, .dir={0.981566,-0.188915,-0.028963}, .pattern=0x199 },
+{ .pos = {0.079252,-0.012425,0.027945}, .dir={0.993057,-0.099980,-0.061984}, .pattern=0x1aa },
+{ .pos = {0.080678,-0.024862,0.053475}, .dir={0.947594,-0.225904,-0.225904}, .pattern=0x1b5 },
+{ .pos = {-0.029139,0.043728,0.057487}, .dir={-0.004975,0.999980,0.003998}, .pattern=0x1c0 },
+{ .pos = {-0.078382,0.029385,0.053600}, .dir={-0.871752,0.428856,-0.236921}, .pattern=0x1cf },
+{ .pos = {0.072131,0.030937,0.000022}, .dir={0.816019,0.577024,-0.033998}, .pattern=0x1d6 },
+{ .pos = {0.067042,0.037833,0.030095}, .dir={0.526908,0.847875,-0.058962}, .pattern=0x1e9 },
+{ .pos = {0.078260,0.029513,0.053292}, .dir={0.871752,0.428856,-0.236921}, .pattern=0x1f3 },
+{ .pos = {0.028896,0.043669,0.057676}, .dir={0.004975,0.999980,0.003998}, .pattern=0x1fc },
+{ .pos = {-0.067240,0.037555,0.029876}, .dir={-0.526908,0.847875,-0.058962}, .pattern=0x230 },
+{ .pos = {-0.072200,0.030241,0.000120}, .dir={-0.816019,0.577024,-0.033998}, .pattern=0x252 },
+{ .pos = {-0.041120,0.043276,0.023325}, .dir={-0.041995,0.999110,-0.003998}, .pattern=0x282 },
+{ .pos = {0.000159,0.043811,0.033423}, .dir={0.005982,0.999932,0.009980}, .pattern=0x285 },
+{ .pos = {0.041085,0.043260,0.023553}, .dir={0.041995,0.999110,-0.003998}, .pattern=0x29b },
+[II] HMD IPD 63.5 mm, as reported by the headset (note: this is its stored figure, not the live slider position)
+Opened Rift Sensor 0 w/ Serial WMTD306Q701DEK. Connecting to Radio address 0x11563cc989
+[II] camera width 1280 height 960
+[II] f = [ 716.935 716.935 ], c = [ 661.864 469.517 ]
+[II] k = [  0.070819 -0.023264  0.005108 -0.000523 ]
+[II] Calibration capture enabled -> /home/mia/git/rift-cv1-center/captures/lin/2026-07-31/dispfreq.jsonl
+stream state: "connecting"
+stream state: "connecting"
+[II] Loaded pose for sensor WMTD306Q701DEK from room store: "pos" : [ -0.847630, 1.125575, 1.818947 ], "orient" : [ -0.981234, 0.044516, -0.158873, -0.099787 ]
+[II] Set sensor 0 pose to orient -0.981234 0.044516 -0.158873 -0.099787  pos -0.847630 1.125575 1.818947
+stream state: "paused"
+stream state: "paused"
+Opened Rift Sensor 1 w/ Serial WMTD3052400VZL. Connecting to Radio address 0x11563cc989
+[II] camera width 1280 height 960
+[II] f = [ 716.734 716.734 ], c = [ 647.399 478.498 ]
+[II] k = [  0.071847 -0.025176  0.006398 -0.000817 ]
+stream state: "connecting"
+stream state: "connecting"
+[II] Loaded pose for sensor WMTD3052400VZL from room store: "pos" : [ 0.217871, 1.364955, 2.000427 ], "orient" : [ -0.991738, 0.049486, -0.033746, -0.113440 ]
+[II] Set sensor 1 pose to orient -0.991738 0.049486 -0.033746 -0.113440  pos 0.217871 1.364955 2.000427
+Opened 2 Rift Sensor cameras
+stream state: "paused"
+stream state: "paused"
+Temperature: 39.1 °C
+Temperature: 36.0 °C
+[II] HMD device frame: IMU at [-0.0166 0.0345 0.0331] m; screen 0.1193 x 0.0663 m; lens separation 0.0540 m, v-centre 0.0308 m, eye-to-screen 0.0396/0.0396 m
+[II] HMD LED model spans z -0.0088..0.0744, y -0.0436..0.0438 m (34 LEDs, before the 180 deg model rotation)
+[II] Device 0 using OVR-SDK complementary fusion backend
+stream state: "connecting"
+device 0 online. Now tracking.
+stream state: "paused"
+LED model: Controller 3
+{ .pos = {-0.029804,-0.008488,-0.011466}, .dir={-0.868435,0.426789,-0.252331}, .pattern=0xff },
+{ .pos = {-0.035495,-0.032119,-0.010513}, .dir={-0.974995,-0.004233,-0.222187}, .pattern=0xff },
+{ .pos = {-0.029819,-0.055363,-0.011530}, .dir={-0.872345,-0.433877,-0.225311}, .pattern=0xff },
+{ .pos = {-0.012223,-0.074735,-0.014482}, .dir={-0.550523,-0.783165,-0.289098}, .pattern=0xff },
+{ .pos = {0.010931,-0.082399,-0.018558}, .dir={-0.113685,-0.920719,-0.373300}, .pattern=0xff },
+{ .pos = {0.035337,-0.077725,-0.022971}, .dir={0.321003,-0.822476,-0.469565}, .pattern=0xff },
+{ .pos = {0.055530,-0.060415,-0.026481}, .dir={0.671715,-0.512871,-0.534567}, .pattern=0xff },
+{ .pos = {0.063821,-0.036430,-0.028022}, .dir={0.830456,-0.074589,-0.552069}, .pattern=0xff },
+{ .pos = {0.060918,-0.014519,-0.027529}, .dir={0.771918,0.326510,-0.545466}, .pattern=0xff },
+{ .pos = {0.048247,0.004788,-0.025273}, .dir={0.539162,0.671628,-0.508154}, .pattern=0xff },
+{ .pos = {-0.030624,-0.009621,0.005618}, .dir={-0.876521,0.425520,0.225041}, .pattern=0xff },
+{ .pos = {-0.035434,-0.032114,0.006428}, .dir={-0.968514,-0.012193,0.248660}, .pattern=0xff },
+{ .pos = {-0.030270,-0.055054,0.005541}, .dir={-0.870318,-0.441839,0.217545}, .pattern=0xff },
+{ .pos = {-0.015943,-0.073504,0.003043}, .dir={-0.599825,-0.781416,0.172044}, .pattern=0xff },
+{ .pos = {0.004718,-0.083876,-0.000671}, .dir={-0.218195,-0.969594,0.110808}, .pattern=0xff },
+{ .pos = {0.027053,-0.084468,-0.004476}, .dir={0.196325,-0.980135,0.028128}, .pattern=0xff },
+{ .pos = {0.047832,-0.075416,-0.008199}, .dir={0.589146,-0.807459,-0.030300}, .pattern=0xff },
+{ .pos = {0.062790,-0.058741,-0.010697}, .dir={0.860962,-0.500010,-0.093454}, .pattern=0xff },
+{ .pos = {0.069656,-0.035386,-0.012032}, .dir={0.994294,-0.054871,-0.091480}, .pattern=0xff },
+{ .pos = {0.066382,-0.013213,-0.011531}, .dir={0.927925,0.362530,-0.086761}, .pattern=0xff },
+{ .pos = {0.054259,0.005804,-0.009452}, .dir={0.696018,0.715006,-0.065769}, .pattern=0xff },
+{ .pos = {0.039996,0.011548,-0.013374}, .dir={-0.199193,0.957329,0.209387}, .pattern=0xff },
+{ .pos = {0.005256,0.001517,-0.029359}, .dir={0.033090,0.844565,-0.534430}, .pattern=0xff },
+{ .pos = {-0.017616,-0.001473,-0.023911}, .dir={-0.465796,0.777332,-0.422836}, .pattern=0xff },
+vrcompositor-launcher.sh[175482]: Relaunch under scout LDLP runtime.
+vrcompositor-launcher.sh[175482]: exec /home/mia/.steam/root/ubuntu12_32/steam-runtime/run.sh /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/linux64/vrcompositor-launcher.sh
+vrcompositor-launcher.sh[175482]: Detected scout LDLP runtime.
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 18:15:38 minidumps folder is set to /tmp/dumps
+07/31 18:15:38 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(175521)
+[S_API] SteamAPI_Init(): Loaded '/home/mia/.local/share/Steam/linux64/steamclient.so' OK.
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+SteamInternal_SetMinidumpSteamID:  Caching Steam ID:  76561198428899653 [API loaded yes]
+SteamInternal_SetMinidumpSteamID:  Setting Steam ID:  76561198428899653
+Initialize() is failed!!!
+qt.network.ssl: QSslSocket: cannot resolve CRYPTO_num_locks
+qt.network.ssl: QSslSocket: cannot resolve CRYPTO_set_id_callback
+qt.network.ssl: QSslSocket: cannot resolve CRYPTO_set_locking_callback
+qt.network.ssl: QSslSocket: cannot resolve ERR_free_strings
+qt.network.ssl: QSslSocket: cannot resolve sk_new_null
+qt.network.ssl: QSslSocket: cannot resolve sk_push
+qt.network.ssl: QSslSocket: cannot resolve sk_free
+qt.network.ssl: QSslSocket: cannot resolve sk_num
+qt.network.ssl: QSslSocket: cannot resolve sk_pop_free
+qt.network.ssl: QSslSocket: cannot resolve sk_value
+qt.network.ssl: QSslSocket: cannot resolve SSL_get_peer_certificate
+qt.network.ssl: QSslSocket: cannot resolve SSL_library_init
+qt.network.ssl: QSslSocket: cannot resolve SSL_load_error_strings
+qt.network.ssl: QSslSocket: cannot resolve SSL_get_ex_new_index
+qt.network.ssl: QSslSocket: cannot resolve SSLv2_client_method
+qt.network.ssl: QSslSocket: cannot resolve SSLv3_client_method
+qt.network.ssl: QSslSocket: cannot resolve SSLv23_client_method
+qt.network.ssl: QSslSocket: cannot resolve SSLv2_server_method
+qt.network.ssl: QSslSocket: cannot resolve SSLv3_server_method
+qt.network.ssl: QSslSocket: cannot resolve SSLv23_server_method
+qt.network.ssl: QSslSocket: cannot resolve X509_STORE_CTX_get_chain
+qt.network.ssl: QSslSocket: cannot resolve OPENSSL_add_all_algorithms_noconf
+qt.network.ssl: QSslSocket: cannot resolve OPENSSL_add_all_algorithms_conf
+qt.network.ssl: QSslSocket: cannot resolve SSLeay
+qt.network.ssl: QSslSocket: cannot resolve SSLeay_version
+qt.network.ssl: QSslSocket: cannot call unresolved function SSLeay
+qt.network.ssl: QSslSocket: cannot call unresolved function CRYPTO_num_locks
+qt.network.ssl: QSslSocket: cannot call unresolved function CRYPTO_set_id_callback
+qt.network.ssl: QSslSocket: cannot call unresolved function CRYPTO_set_locking_callback
+qt.network.ssl: QSslSocket: cannot call unresolved function SSL_library_init
+qt.network.ssl: QSslSocket: cannot call unresolved function SSLv23_client_method
+qt.network.ssl: QSslSocket: cannot call unresolved function sk_num
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+[S_API] SteamAPI_Init(): Loaded '/home/mia/.local/share/Steam/linux64/steamclient.so' OK.
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+SteamInternal_SetMinidumpSteamID:  Caching Steam ID:  76561198428899653 [API loaded yes]
+SteamInternal_SetMinidumpSteamID:  Setting Steam ID:  76561198428899653
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 18:15:38 minidumps folder is set to /tmp/dumps
+07/31 18:15:38 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(175523)
+[0731/181539.014627:ERROR:check.cc(376)] Check failed: false. NOTREACHED log messages are omitted in official builds. Sorry!
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 18:15:39 minidumps folder is set to /tmp/dumps
+07/31 18:15:39 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(175555)
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+[0731/181539.051132:ERROR:check.cc(376)] Check failed: false. NOTREACHED log messages are omitted in official builds. Sorry!
+07/31 18:15:39 minidumps folder is set to /tmp/dumps
+07/31 18:15:39 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(175554)
+[0731/181539.051453:ERROR:check.cc(376)] Check failed: false. NOTREACHED log messages are omitted in official builds. Sorry!
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 19: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 20: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 23: invalid constant used : monospace
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 42: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 43: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 46: invalid constant used : sans-serif
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 68: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 69: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 72: invalid constant used : serif
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 88: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 89: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 92: invalid constant used : emoji
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 108: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 109: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 112: invalid constant used : math
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 120: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 121: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 124: invalid constant used : system-ui
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 132: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 133: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 136: invalid constant used : cursive
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 144: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 145: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 148: invalid constant used : fantasy
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 156: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 157: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 160: invalid constant used : ui-sans-serif
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 168: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 169: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 172: invalid constant used : ui-serif
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 180: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 181: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 184: invalid constant used : ui-monospace
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 192: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 193: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 196: invalid constant used : ui-rounded
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 204: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 205: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 208: invalid constant used : fangsong
+Fontconfig warning: "/etc/fonts/conf.d/48-spacing.conf", line 14: invalid constant used : monospace
+Fontconfig warning: "/etc/fonts/conf.d/49-sansserif.conf", line 10: invalid constant used : serif
+Fontconfig warning: "/etc/fonts/conf.d/49-sansserif.conf", line 18: invalid constant used : sans-serif
+Fontconfig warning: "/etc/fonts/conf.d/49-sansserif.conf", line 26: invalid constant used : monospace
+Fontconfig warning: "/etc/fonts/conf.d/49-sansserif.conf", line 34: invalid constant used : emoji
+Fontconfig warning: "/etc/fonts/conf.d/49-sansserif.conf", line 42: invalid constant used : math
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 19: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 20: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 23: invalid constant used : monospace
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 42: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 43: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 46: invalid constant used : sans-serif
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 68: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 69: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 72: invalid constant used : serif
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 88: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 89: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 92: invalid constant used : emoji
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 108: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 109: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 112: invalid constant used : math
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 120: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 121: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 124: invalid constant used : system-ui
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 132: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 133: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 136: invalid constant used : cursive
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 144: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 145: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 148: invalid constant used : fantasy
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 156: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 157: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 160: invalid constant used : ui-sans-serif
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 168: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 169: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 172: invalid constant used : ui-serif
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 180: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 181: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 184: invalid constant used : ui-monospace
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 192: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 193: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 196: invalid constant used : ui-rounded
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 204: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 205: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 208: invalid constant used : fangsong
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-spacing.conf", line 14: invalid constant used : monospace
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/49-sansserif.conf", line 10: invalid constant used : serif
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/49-sansserif.conf", line 18: invalid constant used : sans-serif
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/49-sansserif.conf", line 26: invalid constant used : monospace
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/49-sansserif.conf", line 34: invalid constant used : emoji
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/49-sansserif.conf", line 42: invalid constant used : math
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 18:15:39 minidumps folder is set to /tmp/dumps
+07/31 18:15:39 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(175616)
+[0731/181539.324488:ERROR:check.cc(376)] Check failed: false. NOTREACHED log messages are omitted in official builds. Sorry!
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 18:15:39 minidumps folder is set to /tmp/dumps
+07/31 18:15:39 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(175752)
+[0731/181539.707819:ERROR:check.cc(376)] Check failed: false. NOTREACHED log messages are omitted in official builds. Sorry!
+[II] Touch 1 accel calibration matrix: mean row norm 0.9953 -> 1.0000 (scale removed -0.47%)
+[II] Touch 1 gyro calibration matrix: mean row norm 1.0003 -> 1.0000 (scale removed 0.03%)
+[II] Device 1 using OVR-SDK complementary fusion backend
+stream state: "connecting"
+device 1 online. Now tracking.
+[II] Right Controller IMU calibration  gyro_offset [ 0.007307, -0.012761, -0.019731 ]  accel_offset [ 0.130618, -0.047088, -0.550669 ]
+[II]   gyro_calib = 
+[II]   [   -0.002,   -1.000,    0.010 ]
+[II]   [   -0.001,    0.010,    1.000 ]
+[II]   [   -1.000,    0.002,   -0.001 ]
+[II]   accel_calib = 
+[II]   [   -0.000,   -1.000,    0.012 ]
+[II]   [   -0.001,    0.012,    1.000 ]
+[II]   [   -1.000,    0.000,   -0.001 ]
+stream state: "paused"
+[WW] Sensor WMTD306Q701DEK: predicted exposure-to-frame latency of 3.5 ms differed from measured -2.8 ms (1 so far) - check the sensor sync cable
+[II] Touch controller 3 wake config complete
+[II] calib feed: 1 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 1 obs, 0 paired, history 0 over 0 viewpoints, 0 solves, residual -1.00 px, uncalibrated
+[WW] Device 0: late pose time 146.266 ms from WMTD306Q701DEK (1 so far, worst 146.266 ms)
+[II] Forcing orientation observation
+[II] output correction bleeding OFF - set OHMD_RIFT_BLEED=1 to restore
+[II] Ignoring position observation with error 0.032389 0.880385 0.649881 (prior stddev was 0.505000 0.505000 0.505000)
+
+[II] Forcing orientation observation
+[II] Matched orientation after 0.005963 sec
+[II] Device 0: joint reconstruction 1 solved, 0 rejected, 2 single-camera (0 observations arrived too late to count)
+[II] sensor WMTD3052400VZL calibration SETTLED
+[II] Matched orientation after 1.069256 sec
+[II] Device 1: joint reconstruction 1 solved, 0 rejected, 1 single-camera (0 observations arrived too late to count)
+[II] sensor WMTD3052400VZL: keeping the stored calibration - it was fitted over 3 viewpoints and this session has seen 1 (it leaves 2.37 px here)
+[II] angular velocity exported in the device-local frame
+[II] velocity smoothing: tau 25 ms, speed-adaptive
+[II] HMD obs quality: full(strong+ids) 298 ids-verified 2 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 298
+[II] frame-timing WMTD306Q701DEK: 300 frames, 49 missed exposure, diff avg -0.71 min -15.32 max 3.43 ms
+[II] calib feed: 901 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 901 obs, 241 paired, history 192 over 1 viewpoints, 14 solves, residual 1.47 px, estimated
+[II] vision-vs-fusion orientation error over 10 s: yaw mean 0.72 max 38.25 deg, tilt mean 2.97 max 20.45 deg | above 1 deg for 97% of the time, 117 episodes, mean 83 ms worst 8998 ms | 4 snaps | gains yaw 0.25 tilt 0.50 /s
+[II] frame-timing WMTD3052400VZL: 300 frames, 4 missed exposure, diff avg -0.83 min -14.13 max 4.62 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 301 solved, 0 rejected, 302 single-camera (0 observations arrived too late to count)
+[II] Device 1: joint reconstruction 301 solved, 0 rejected, 325 single-camera (0 observations arrived too late to count)
+[WW] Exposure timestamp 3051897600 was more than 1.5 IMU samples earlier than IMU ts 3051899251 by 1651 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] sensor 0 calibration feed: 901 offered, 653 passed - rejected 0 for LED ids, 248 for too few blobs (<10), 0 for error
+[II] sensor 1 calibration feed: 901 offered, 678 passed - rejected 0 for LED ids, 223 for too few blobs (<10), 0 for error
+[II] accelerometer scale check: |accel| at rest mean 9.6849 m/s^2 (-1.24% vs 9.8067), range 9.231..10.754, 1634 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] vision-vs-fusion orientation error over 10 s: yaw mean 0.51 max 4.08 deg, tilt mean 0.92 max 9.67 deg | above 1 deg for 46% of the time, 2227 episodes, mean 2 ms worst 6 ms | 2 snaps | gains yaw 0.25 tilt 0.50 /s
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.85 min -4.09 max 1.71 ms
+[II] pose export over 10 s: age mean 1.6 ms max 3.1 ms | speed mean 0.17 max 1.21 m/s, ang mean 50 max 491 deg/s | age*speed worst 3.4 mm (995 samples)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.87 min -3.57 max 1.58 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 601 solved, 0 rejected, 602 single-camera (0 observations arrived too late to count)
+[WW] Exposure timestamp 3057561600 was more than 1.5 IMU samples earlier than IMU ts 3057563189 by 1589 µS
+[WW] Exposure timestamp 3057772800 was more than 1.5 IMU samples earlier than IMU ts 3057774566 by 1766 µS
+[II] calib feed: 1801 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 1801 obs, 691 paired, history 192 over 1 viewpoints, 42 solves, residual 1.15 px, estimated
+[II] Device 1: joint reconstruction 601 solved, 0 rejected, 709 single-camera (0 observations arrived too late to count)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 3060038400 was more than 1.5 IMU samples earlier than IMU ts 3060040104 by 1704 µS
+[II] vision-vs-fusion orientation error over 10 s: yaw mean 0.61 max 4.84 deg, tilt mean 1.05 max 5.25 deg | above 1 deg for 50% of the time, 2411 episodes, mean 2 ms worst 6 ms | 0 snaps | gains yaw 0.25 tilt 0.50 /s
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.90 min -4.08 max 1.77 ms
+[II] Device 0: IMU saturation (accel), 1 samples so far - the reading is clipped, so it is being ignored rather than integrated
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.90 min -4.10 max 1.79 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] sensor 0 calibration feed: 1801 offered, 1142 passed - rejected 0 for LED ids, 659 for too few blobs (<10), 0 for error
+[II] Device 0: joint reconstruction 901 solved, 0 rejected, 902 single-camera (0 observations arrived too late to count)
+[II] sensor 1 calibration feed: 1801 offered, 1256 passed - rejected 0 for LED ids, 545 for too few blobs (<10), 0 for error
+[II] calib feed: 2701 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 1)
+[II] Device 1: joint reconstruction 901 solved, 0 rejected, 1033 single-camera (0 observations arrived too late to count)
+[II] accelerometer scale check: |accel| at rest mean 9.7103 m/s^2 (-0.98% vs 9.8067), range 9.252..10.239, 720 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] vision-vs-fusion orientation error over 10 s: yaw mean 0.66 max 4.56 deg, tilt mean 0.87 max 6.06 deg | above 1 deg for 48% of the time, 2377 episodes, mean 2 ms worst 6 ms | 0 snaps | gains yaw 0.25 tilt 0.50 /s
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] pose export over 10 s: age mean 1.6 ms max 3.1 ms | speed mean 0.08 max 0.33 m/s, ang mean 29 max 91 deg/s | age*speed worst 0.7 mm (1020 samples)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.89 min -5.24 max 2.25 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.86 min -4.22 max 1.83 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 1201 solved, 0 rejected, 1202 single-camera (0 observations arrived too late to count)
+[II] calib feed: 3601 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 1)
+[II] vision-vs-fusion orientation error over 10 s: yaw mean 1.12 max 6.01 deg, tilt mean 0.52 max 3.58 deg | above 1 deg for 43% of the time, 2110 episodes, mean 2 ms worst 6 ms | 1 snaps | gains yaw 0.25 tilt 0.50 /s
+[II] Device 1: joint reconstruction 1201 solved, 0 rejected, 1333 single-camera (0 observations arrived too late to count)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] sensor 0 calibration feed: 2701 offered, 2042 passed - rejected 0 for LED ids, 659 for too few blobs (<10), 0 for error
+[II] sensor 1 calibration feed: 2701 offered, 2079 passed - rejected 0 for LED ids, 622 for too few blobs (<10), 0 for error
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.86 min -3.64 max 1.50 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.90 min -4.03 max 1.74 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 1501 solved, 0 rejected, 1502 single-camera (0 observations arrived too late to count)
+[II] accelerometer scale check: |accel| at rest mean 9.6915 m/s^2 (-1.17% vs 9.8067), range 8.746..10.209, 408 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] calib feed: 4501 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 4501 obs, 1545 paired, history 192 over 1 viewpoints, 95 solves, residual 1.46 px, estimated
+[II] vision-vs-fusion orientation error over 10 s: yaw mean 0.60 max 8.83 deg, tilt mean 1.01 max 9.02 deg | above 1 deg for 49% of the time, 2227 episodes, mean 2 ms worst 152 ms | 6 snaps | gains yaw 0.25 tilt 0.50 /s
+[II] pose export over 10 s: age mean 1.6 ms max 3.2 ms | speed mean 0.13 max 0.54 m/s, ang mean 50 max 198 deg/s | age*speed worst 1.4 mm (1048 samples)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 1: joint reconstruction 1501 solved, 0 rejected, 1673 single-camera (0 observations arrived too late to count)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.94 min -3.88 max 1.84 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.90 min -4.05 max 1.72 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] sensor 0 calibration feed: 3601 offered, 2528 passed - rejected 0 for LED ids, 1073 for too few blobs (<10), 0 for error
+[II] Device 0: joint reconstruction 1801 solved, 0 rejected, 1802 single-camera (0 observations arrived too late to count)
+[II] vision-vs-fusion orientation error over 10 s: yaw mean 0.62 max 6.89 deg, tilt mean 1.13 max 7.37 deg | above 1 deg for 52% of the time, 2348 episodes, mean 2 ms worst 193 ms | 2 snaps | gains yaw 0.25 tilt 0.50 /s
+[WW] Exposure timestamp 3080889600 was more than 1.5 IMU samples earlier than IMU ts 3080891424 by 1824 µS
+[II] sensor 1 calibration feed: 3601 offered, 2577 passed - rejected 0 for LED ids, 1024 for too few blobs (<10), 0 for error
+[II] calib feed: 5401 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 5401 obs, 1861 paired, history 192 over 1 viewpoints, 115 solves, residual 0.92 px, estimated
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 3082963200 was more than 1.5 IMU samples earlier than IMU ts 3082964759 by 1559 µS
+[II] Device 1: joint reconstruction over 2 cameras left 6.51 px in the worst camera (>2.0 px) - check sensor calibration
+[II] Device 1: joint reconstruction 1801 solved, 2 rejected, 2018 single-camera (0 observations arrived too late to count)
+[WW] Exposure timestamp 3084537600 was more than 1.5 IMU samples earlier than IMU ts 3084539250 by 1650 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.91 min -3.53 max 1.38 ms
+[II] vision-vs-fusion orientation error over 10 s: yaw mean 0.28 max 5.24 deg, tilt mean 0.67 max 11.37 deg | above 1 deg for 39% of the time, 1769 episodes, mean 2 ms worst 235 ms | 4 snaps | gains yaw 0.25 tilt 0.50 /s
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.94 min -3.88 max 1.36 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 2101 solved, 0 rejected, 2102 single-camera (0 observations arrived too late to count)
+[II] pose export over 10 s: age mean 1.6 ms max 3.1 ms | speed mean 0.10 max 0.36 m/s, ang mean 43 max 156 deg/s | age*speed worst 0.8 mm (988 samples)
+[WW] Exposure timestamp 3087264000 was more than 1.5 IMU samples earlier than IMU ts 3087265647 by 1647 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] calib feed: 6301 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 6301 obs, 2186 paired, history 192 over 1 viewpoints, 135 solves, residual 1.27 px, estimated
+[II] sensor 0 calibration feed: 4501 offered, 3333 passed - rejected 0 for LED ids, 1168 for too few blobs (<10), 0 for error
+[II] Device 1: joint reconstruction 2101 solved, 2 rejected, 2334 single-camera (0 observations arrived too late to count)
+[II] vision-vs-fusion orientation error over 10 s: yaw mean 0.64 max 2.75 deg, tilt mean 0.97 max 6.30 deg | above 1 deg for 49% of the time, 2384 episodes, mean 2 ms worst 6 ms | 0 snaps | gains yaw 0.25 tilt 0.50 /s
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.88 min -3.63 max 1.78 ms
+[II] sensor 1 calibration feed: 4501 offered, 3086 passed - rejected 0 for LED ids, 1415 for too few blobs (<10), 0 for error
+[WW] Exposure timestamp 3090892800 was more than 1.5 IMU samples earlier than IMU ts 3090894522 by 1722 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.86 min -4.02 max 1.42 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 2401 solved, 0 rejected, 2402 single-camera (0 observations arrived too late to count)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] accelerometer scale check: |accel| at rest mean 9.7767 m/s^2 (-0.31% vs 9.8067), range 9.531..10.726, 405 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] vision-vs-fusion orientation error over 10 s: yaw mean 0.78 max 4.31 deg, tilt mean 1.12 max 6.77 deg | above 1 deg for 56% of the time, 2189 episodes, mean 3 ms worst 159 ms | 0 snaps | gains yaw 0.25 tilt 0.50 /s
+[II] Device 1: joint reconstruction 2401 solved, 2 rejected, 2643 single-camera (0 observations arrived too late to count)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.90 min -4.00 max 1.85 ms
+[II] calib feed: 7201 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 7201 obs, 2478 paired, history 192 over 4 viewpoints, 153 solves, residual 1.85 px, CALIBRATED
+[II] pose export over 10 s: age mean 1.6 ms max 3.1 ms | speed mean 0.36 max 1.84 m/s, ang mean 55 max 408 deg/s | age*speed worst 3.5 mm (998 samples)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.85 min -4.22 max 1.94 ms
+[II] sensor 0 calibration feed: 5401 offered, 3905 passed - rejected 0 for LED ids, 1496 for too few blobs (<10), 0 for error
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 2701 solved, 0 rejected, 2715 single-camera (0 observations arrived too late to count)
+[II] sensor 1 calibration feed: 5401 offered, 3762 passed - rejected 0 for LED ids, 1639 for too few blobs (<10), 0 for error
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] vision-vs-fusion orientation error over 10 s: yaw mean 1.06 max 3.98 deg, tilt mean 0.89 max 3.24 deg | above 1 deg for 53% of the time, 2381 episodes, mean 2 ms worst 312 ms | 0 snaps | gains yaw 0.25 tilt 0.50 /s
+[II] calib feed: 8101 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 8101 obs, 2703 paired, history 192 over 4 viewpoints, 167 solves, residual 1.82 px, CALIBRATED
+[WW] Exposure timestamp 3101241600 was more than 1.5 IMU samples earlier than IMU ts 3101243343 by 1743 µS
+[II] Device 1: joint reconstruction 2701 solved, 2 rejected, 2943 single-camera (0 observations arrived too late to count)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.84 min -3.32 max 1.92 ms
+[WW] Exposure timestamp 3102508800 was more than 1.5 IMU samples earlier than IMU ts 3102510411 by 1611 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.85 min -4.08 max 1.65 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 3001 solved, 0 rejected, 3015 single-camera (0 observations arrived too late to count)
+[II] calib feed: 9001 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 9001 obs, 2928 paired, history 192 over 4 viewpoints, 182 solves, residual 1.55 px, CALIBRATED
+[II] accelerometer scale check: |accel| at rest mean 9.7238 m/s^2 (-0.84% vs 9.8067), range 9.301..10.275, 1997 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] vision-vs-fusion orientation error over 10 s: yaw mean 1.44 max 4.44 deg, tilt mean 1.00 max 2.58 deg | above 1 deg for 54% of the time, 2277 episodes, mean 2 ms worst 430 ms | 0 snaps | gains yaw 0.25 tilt 0.50 /s
+[II] sensor 0 calibration feed: 6301 offered, 4805 passed - rejected 0 for LED ids, 1496 for too few blobs (<10), 0 for error
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 3106137600 was more than 1.5 IMU samples earlier than IMU ts 3106139339 by 1739 µS
+[II] pose export over 10 s: age mean 1.6 ms max 3.1 ms | speed mean 0.22 max 1.09 m/s, ang mean 59 max 436 deg/s | age*speed worst 2.6 mm (987 samples)
+[II] Device 1: joint reconstruction 3001 solved, 2 rejected, 3243 single-camera (0 observations arrived too late to count)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.85 min -4.61 max 1.60 ms
+[II] sensor 1 calibration feed: 6301 offered, 4662 passed - rejected 0 for LED ids, 1639 for too few blobs (<10), 0 for error
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.87 min -3.94 max 1.72 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 3301 solved, 0 rejected, 3315 single-camera (0 observations arrived too late to count)
+[II] calib feed: 9901 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 9901 obs, 3153 paired, history 192 over 4 viewpoints, 196 solves, residual 1.44 px, CALIBRATED
+[II] vision-vs-fusion orientation error over 10 s: yaw mean 1.09 max 5.82 deg, tilt mean 0.97 max 2.97 deg | above 1 deg for 52% of the time, 2281 episodes, mean 2 ms worst 234 ms | 1 snaps | gains yaw 0.25 tilt 0.50 /s
+[II] Matched orientation after 0.483531 sec
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.86 min -3.73 max 1.65 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.89 min -3.81 max 1.81 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 3601 solved, 0 rejected, 3632 single-camera (0 observations arrived too late to count)
+[II] accelerometer scale check: |accel| at rest mean 9.7370 m/s^2 (-0.71% vs 9.8067), range 8.868..10.755, 4631 quiet samples | hw calibration NOT requested (driver applies its own)
+[WW] Exposure timestamp 3115833600 was more than 1.5 IMU samples earlier than IMU ts 3115835228 by 1628 µS
+[II] pose export over 10 s: age mean 1.6 ms max 3.1 ms | speed mean 0.25 max 2.16 m/s, ang mean 35 max 418 deg/s | age*speed worst 6.2 mm (988 samples)
+[WW] Exposure timestamp 3116620800 was more than 1.5 IMU samples earlier than IMU ts 3116622522 by 1722 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] sensor 0 calibration feed: 7201 offered, 5665 passed - rejected 0 for LED ids, 1536 for too few blobs (<10), 0 for error
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.91 min -4.67 max 1.42 ms
+[II] vision-vs-fusion orientation error over 10 s: yaw mean 0.16 max 3.09 deg, tilt mean 0.45 max 9.02 deg | above 1 deg for 8% of the time, 236 episodes, mean 3 ms worst 151 ms | 1 snaps | gains yaw 0.25 tilt 0.50 /s
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.85 min -4.08 max 1.79 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 3120595200 was more than 1.5 IMU samples earlier than IMU ts 3120597066 by 1866 µS
+[II] Device 0: joint reconstruction 3901 solved, 0 rejected, 3932 single-camera (0 observations arrived too late to count)
+[II] Matched orientation after 11.563809 sec
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] sensor 1 calibration feed: 7201 offered, 4830 passed - rejected 0 for LED ids, 2371 for too few blobs (<10), 0 for error
+[II] calib feed: 10801 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 10801 obs, 3186 paired, history 192 over 4 viewpoints, 198 solves, residual 1.48 px, CALIBRATED
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.91 min -3.72 max 1.67 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7490 m/s^2 (-0.59% vs 9.8067), range 9.534..9.994, 9983 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.90 min -3.44 max 1.68 ms
+[WW] Exposure timestamp 3125875200 was more than 1.5 IMU samples earlier than IMU ts 3125876797 by 1597 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] pose export over 10 s: age mean 1.6 ms max 3.1 ms | speed mean 0.00 max 0.01 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.0 mm (988 samples)
+[II] Device 0: joint reconstruction 4201 solved, 0 rejected, 4232 single-camera (0 observations arrived too late to count)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] vision-vs-fusion orientation error over 10 s: yaw mean 0.21 max 3.77 deg, tilt mean 0.38 max 18.22 deg | above 1 deg for 3% of the time, 118 episodes, mean 3 ms worst 7 ms | 1 snaps | gains yaw 0.25 tilt 0.50 /s
+[WW] Exposure timestamp 3130099200 was more than 1.5 IMU samples earlier than IMU ts 3130100819 by 1619 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.86 min -3.40 max 2.06 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.90 min -4.18 max 1.51 ms
+[II] Matched orientation after 9.275038 sec
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 4501 solved, 0 rejected, 4532 single-camera (0 observations arrived too late to count)
+[WW] Exposure timestamp 3133593600 was more than 1.5 IMU samples earlier than IMU ts 3133595652 by 2052 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] accelerometer scale check: |accel| at rest mean 9.7513 m/s^2 (-0.56% vs 9.8067), range 9.497..9.976, 9982 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] sensor 0 calibration feed: 8101 offered, 6563 passed - rejected 0 for LED ids, 1538 for too few blobs (<10), 0 for error
+[II] pose export over 10 s: age mean 1.6 ms max 3.1 ms | speed mean 0.00 max 0.00 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.0 mm (987 samples)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.92 min -3.87 max 2.21 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.90 min -3.73 max 1.71 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 4801 solved, 0 rejected, 4832 single-camera (0 observations arrived too late to count)
+[II] vision-vs-fusion orientation error over 10 s: yaw mean 0.22 max 4.77 deg, tilt mean 0.37 max 14.96 deg | above 1 deg for 3% of the time, 107 episodes, mean 2 ms worst 4 ms | 1 snaps | gains yaw 0.25 tilt 0.50 /s
+[WW] Exposure timestamp 3139929600 was more than 1.5 IMU samples earlier than IMU ts 3139931281 by 1681 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] sensor 1 calibration feed: 8101 offered, 4830 passed - rejected 0 for LED ids, 3271 for too few blobs (<10), 0 for error
+[WW] Exposure timestamp 3141177600 was more than 1.5 IMU samples earlier than IMU ts 3141179382 by 1782 µS
+[II] calib feed: 11701 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 11701 obs, 3186 paired, history 192 over 4 viewpoints, 198 solves, residual 1.48 px, CALIBRATED
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.91 min -3.97 max 1.69 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.88 min -3.72 max 1.76 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Matched orientation after 11.577829 sec
+[II] Device 0: joint reconstruction 5101 solved, 0 rejected, 5132 single-camera (0 observations arrived too late to count)
+[WW] Exposure timestamp 3144057600 was more than 1.5 IMU samples earlier than IMU ts 3144059240 by 1640 µS
+[II] accelerometer scale check: |accel| at rest mean 9.7519 m/s^2 (-0.56% vs 9.8067), range 9.483..9.994, 9984 quiet samples | hw calibration NOT requested (driver applies its own)
+[WW] Exposure timestamp 3145440000 was more than 1.5 IMU samples earlier than IMU ts 3145441576 by 1576 µS
+[II] pose export over 10 s: age mean 1.6 ms max 3.1 ms | speed mean 0.00 max 0.00 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.0 mm (988 samples)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.86 min -3.67 max 1.49 ms
+[WW] Exposure timestamp 3148281600 was more than 1.5 IMU samples earlier than IMU ts 3148283388 by 1788 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.85 min -3.78 max 1.59 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 5401 solved, 0 rejected, 5432 single-camera (0 observations arrived too late to count)
+[II] vision-vs-fusion orientation error over 10 s: yaw mean 0.21 max 12.36 deg, tilt mean 0.39 max 17.85 deg | above 1 deg for 2% of the time, 59 episodes, mean 3 ms worst 4 ms | 1 snaps | gains yaw 0.25 tilt 0.50 /s
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] sensor 0 calibration feed: 9001 offered, 7462 passed - rejected 0 for LED ids, 1539 for too few blobs (<10), 0 for error
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.91 min -3.83 max 1.70 ms
+[II] Matched orientation after 10.426954 sec
+[WW] Exposure timestamp 3154041600 was more than 1.5 IMU samples earlier than IMU ts 3154043174 by 1574 µS
+[WW] Exposure timestamp 3154252800 was more than 1.5 IMU samples earlier than IMU ts 3154254534 by 1734 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.91 min -4.58 max 1.51 ms
+[WW] Exposure timestamp 3154713600 was more than 1.5 IMU samples earlier than IMU ts 3154715319 by 1719 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] accelerometer scale check: |accel| at rest mean 9.7524 m/s^2 (-0.55% vs 9.8067), range 9.511..9.979, 9983 quiet samples | hw calibration NOT requested (driver applies its own)
+[WW] Exposure timestamp 3155289600 was more than 1.5 IMU samples earlier than IMU ts 3155291300 by 1700 µS
+[II] Device 0: joint reconstruction 5701 solved, 0 rejected, 5732 single-camera (0 observations arrived too late to count)
+[II] pose export over 10 s: age mean 1.6 ms max 3.2 ms | speed mean 0.00 max 0.00 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.0 mm (987 samples)
+[II] Matched orientation after 3.909238 sec
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Matched orientation after 0.212795 sec
+UVC PTS changed in-frame at 1217640 bytes. Lost 38 ms
+UVC Dropping short frame: 1217640 < 1228800 (11160 lost)
+UVC PTS changed in-frame at 1038356 bytes. Lost 38 ms
+UVC Dropping short frame: 1038356 < 1228800 (190444 lost)
+[WW] Device 1: late pose time 54.916 ms from WMTD306Q701DEK (1 so far, worst 54.916 ms)
+[II] Ignoring position observation with error 0.017434 0.166036 0.176522 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Matched orientation after 0.111892 sec
+[II] Ignoring position observation with error -0.011517 0.101309 0.117919 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.009068 0.172398 0.209632 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.002857 0.121459 0.173886 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] sensor 1 calibration feed: 9001 offered, 4844 passed - rejected 0 for LED ids, 4157 for too few blobs (<10), 0 for error
+[II] Ignoring position observation with error -0.014532 0.132523 0.198553 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.019369 0.093925 0.167467 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] calib feed: 12601 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 12601 obs, 3190 paired, history 192 over 4 viewpoints, 198 solves, residual 1.48 px, CALIBRATED
+[II] Ignoring position observation with error -0.027722 0.110799 0.208619 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.028770 0.085442 0.167348 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.044204 0.094270 0.243236 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] vision-vs-fusion orientation error over 10 s: yaw mean 0.32 max 10.01 deg, tilt mean 0.65 max 16.81 deg | above 1 deg for 14% of the time, 336 episodes, mean 4 ms worst 426 ms | 6 snaps | gains yaw 0.25 tilt 0.50 /s
+[II] Ignoring position observation with error -0.021069 0.061755 0.134591 (prior stddev was 0.100000 0.100000 0.100000)
+
+UVC PTS changed in-frame at 1127408 bytes. Lost 19 ms
+UVC Dropping short frame: 1127408 < 1228800 (101392 lost)
+[II] Ignoring position observation with error -0.043372 0.054828 0.218078 (prior stddev was 0.100000 0.100000 0.100000)
+
+[WW] Exposure timestamp 3158956800 was more than 1.5 IMU samples earlier than IMU ts 3158958559 by 1759 µS
+[II] Matched orientation after 0.114890 sec
+[II] Ignoring position observation with error -0.060961 0.050274 0.228208 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.077090 0.045530 0.264983 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.082878 0.040143 0.269378 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.100751 0.044226 0.320765 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.091851 0.030300 0.266863 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.095757 0.035989 0.308832 (prior stddev was 0.100000 0.100000 0.100000)
+
+UVC PTS changed in-frame at 1212968 bytes. Lost 19 ms
+UVC Dropping short frame: 1212968 < 1228800 (15832 lost)
+UVC PTS changed in-frame at 1212376 bytes. Lost 38 ms
+UVC Dropping short frame: 1212376 < 1228800 (16424 lost)
+UVC PTS changed in-frame at 1170072 bytes. Lost 19 ms
+UVC Dropping short frame: 1170072 < 1228800 (58728 lost)
+UVC PTS changed in-frame at 1050336 bytes. Lost 19 ms
+UVC Dropping short frame: 1050336 < 1228800 (178464 lost)
+UVC PTS changed in-frame at 1110248 bytes. Lost 19 ms
+UVC Dropping short frame: 1110248 < 1228800 (118552 lost)
+UVC PTS changed in-frame at 1093016 bytes. Lost 19 ms
+UVC Dropping short frame: 1093016 < 1228800 (135784 lost)
+[II] Ignoring position observation with error -0.089941 0.035341 0.288236 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.75 min -3.60 max 3.92 ms
+[II] Ignoring position observation with error -0.121759 0.046678 0.370959 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.034944 0.007608 0.110805 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.064417 0.009277 0.158041 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.066809 0.019022 0.221575 (prior stddev was 0.100000 0.100000 0.100000)
+
+UVC PTS changed in-frame at 1204472 bytes. Lost 19 ms
+UVC Dropping short frame: 1204472 < 1228800 (24328 lost)
+UVC PTS changed in-frame at 998904 bytes. Lost 19 ms
+UVC Dropping short frame: 998904 < 1228800 (229896 lost)
+[II] Ignoring position observation with error -0.119891 0.019505 0.300225 (prior stddev was 0.100000 0.100000 0.100000)
+
+UVC PTS changed in-frame at 1067448 bytes. Lost 19 ms
+UVC Dropping short frame: 1067448 < 1228800 (161352 lost)
+[II] Ignoring position observation with error -0.120869 0.023880 0.296078 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.168557 0.022700 0.359775 (prior stddev was 0.100000 0.100000 0.100000)
+
+UVC PTS changed in-frame at 1110216 bytes. Lost 19 ms
+UVC Dropping short frame: 1110216 < 1228800 (118584 lost)
+UVC PTS changed in-frame at 883068 bytes. Lost 38 ms
+UVC Dropping short frame: 883068 < 1228800 (345732 lost)
+[II] Ignoring position observation with error -0.156283 0.010028 0.273093 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.199009 0.013774 0.298072 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.110942 0.008373 0.140209 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.148306 0.015237 0.186583 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.50 min -3.54 max 5.98 ms
+UVC PTS changed in-frame at 776472 bytes. Lost 19 ms
+UVC Dropping short frame: 776472 < 1228800 (452328 lost)
+UVC PTS changed in-frame at 1093008 bytes. Lost 19 ms
+UVC Dropping short frame: 1093008 < 1228800 (135792 lost)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 6001 solved, 0 rejected, 6070 single-camera (0 observations arrived too late to count)
+UVC PTS changed in-frame at 1110264 bytes. Lost 19 ms
+UVC Dropping short frame: 1110264 < 1228800 (118536 lost)
+UVC PTS changed in-frame at 1094200 bytes. Lost 19 ms
+UVC Dropping short frame: 1094200 < 1228800 (134600 lost)
+UVC PTS changed in-frame at 1033856 bytes. Lost 19 ms
+UVC Dropping short frame: 1033856 < 1228800 (194944 lost)
+UVC PTS changed in-frame at 136824 bytes. Lost 38 ms
+UVC Dropping short frame: 136824 < 1228800 (1091976 lost)
+UVC PTS changed in-frame at 1127224 bytes. Lost 19 ms
+UVC Dropping short frame: 1127224 < 1228800 (101576 lost)
+[II] Device 1: joint reconstruction 3301 solved, 4 rejected, 3611 single-camera (0 observations arrived too late to count)
+UVC PTS changed in-frame at 947656 bytes. Lost 19 ms
+UVC Dropping short frame: 947656 < 1228800 (281144 lost)
+UVC PTS changed in-frame at 1195976 bytes. Lost 19 ms
+UVC Dropping short frame: 1195976 < 1228800 (32824 lost)
+UVC PTS changed in-frame at 1219372 bytes. Lost 38 ms
+UVC Dropping short frame: 1219372 < 1228800 (9428 lost)
+[II] vision-vs-fusion orientation error over 10 s: yaw mean 1.12 max 20.91 deg, tilt mean 1.03 max 13.71 deg | above 1 deg for 51% of the time, 2363 episodes, mean 2 ms worst 169 ms | 8 snaps | gains yaw 0.25 tilt 0.50 /s
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] calib feed: 13501 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 1)
+[II] sensor 0 calibration feed: 9901 offered, 8263 passed - rejected 0 for LED ids, 1638 for too few blobs (<10), 0 for error
+UVC PTS changed in-frame at 921728 bytes. Lost 19 ms
+UVC Dropping short frame: 921728 < 1228800 (307072 lost)
+UVC PTS changed in-frame at 1170120 bytes. Lost 19 ms
+UVC Dropping short frame: 1170120 < 1228800 (58680 lost)
+[WW] Exposure timestamp 3165177600 was more than 1.5 IMU samples earlier than IMU ts 3165179212 by 1612 µS
+[II] accelerometer scale check: |accel| at rest mean 9.7475 m/s^2 (-0.60% vs 9.8067), range 9.370..10.825, 1834 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] Device 0: joint reconstruction over 2 cameras left 4.18 px in the worst camera (>2.0 px) - check sensor calibration
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.36 min -5.97 max 3.86 ms
+[II] pose export over 10 s: age mean 1.7 ms max 6.1 ms | speed mean 0.32 max 2.16 m/s, ang mean 75 max 536 deg/s | age*speed worst 13.1 mm (960 samples)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.41 min -3.86 max 4.26 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 6301 solved, 1 rejected, 6375 single-camera (0 observations arrived too late to count)
+[II] sensor 1 calibration feed: 9901 offered, 5535 passed - rejected 0 for LED ids, 4366 for too few blobs (<10), 0 for error
+[II] vision-vs-fusion orientation error over 10 s: yaw mean 0.89 max 7.22 deg, tilt mean 1.03 max 4.97 deg | above 1 deg for 64% of the time, 1239 episodes, mean 5 ms worst 1309 ms | 7 snaps | gains yaw 0.25 tilt 0.50 /s
+[II] sensor WMTD3052400VZL: re-solved calibration from 192 poses over 5 viewpoints (stored: 3), residual 2.07 px - SETTLED
+[II] sensor WMTD3052400VZL: its previous calibration left 2.44 px; moving the sensor 4.7 mm / 0.22 deg
+[II] Set sensor 1 pose to orient -0.991543 0.049698 -0.034795 -0.114722  pos 0.215780 1.368814 2.002229
+[II] sensor WMTD3052400VZL calibration SETTLED
+[II] Device 1: joint reconstruction 3601 solved, 4 rejected, 3913 single-camera (0 observations arrived too late to count)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] calib feed: 14401 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 14401 obs, 3713 paired, history 192 over 5 viewpoints, 231 solves, residual 1.86 px, CALIBRATED
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.82 min -3.86 max 4.03 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.76 min -5.11 max 2.68 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 6601 solved, 1 rejected, 6676 single-camera (0 observations arrived too late to count)
+[II] sensor 0 calibration feed: 10801 offered, 8907 passed - rejected 0 for LED ids, 1894 for too few blobs (<10), 0 for error
+[II] vision-vs-fusion orientation error over 10 s: yaw mean 1.60 max 5.41 deg, tilt mean 1.11 max 3.93 deg | above 1 deg for 58% of the time, 2074 episodes, mean 3 ms worst 1536 ms | 0 snaps | gains yaw 0.25 tilt 0.50 /s
+[II] Device 1: joint reconstruction 3901 solved, 4 rejected, 4213 single-camera (0 observations arrived too late to count)
+[II] accelerometer scale check: |accel| at rest mean 9.6637 m/s^2 (-1.46% vs 9.8067), range 9.286..10.161, 1642 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] pose export over 10 s: age mean 1.6 ms max 4.5 ms | speed mean 0.21 max 0.88 m/s, ang mean 33 max 210 deg/s | age*speed worst 2.0 mm (1016 samples)
+[II] sensor 1 calibration feed: 10801 offered, 6088 passed - rejected 0 for LED ids, 4713 for too few blobs (<10), 0 for error
+[II] calib feed: 15301 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 1)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.83 min -4.39 max 1.65 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.83 min -4.07 max 1.74 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] vision-vs-fusion orientation error over 10 s: yaw mean 0.87 max 6.03 deg, tilt mean 0.82 max 3.99 deg | above 1 deg for 45% of the time, 2227 episodes, mean 2 ms worst 5 ms | 1 snaps | gains yaw 0.25 tilt 0.50 /s
+[II] Device 0: joint reconstruction 6901 solved, 1 rejected, 6976 single-camera (0 observations arrived too late to count)
+[II] Device 1: joint reconstruction 4201 solved, 4 rejected, 4513 single-camera (0 observations arrived too late to count)
+[II] calib feed: 16201 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 1)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] sensor 0 calibration feed: 11701 offered, 9770 passed - rejected 0 for LED ids, 1931 for too few blobs (<10), 0 for error
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.81 min -4.15 max 2.00 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.81 min -4.61 max 2.02 ms
+[II] vision-vs-fusion orientation error over 10 s: yaw mean 1.18 max 5.76 deg, tilt mean 0.61 max 2.48 deg | above 1 deg for 48% of the time, 2358 episodes, mean 2 ms worst 6 ms | 1 snaps | gains yaw 0.25 tilt 0.50 /s
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 3184512000 was more than 1.5 IMU samples earlier than IMU ts 3184513535 by 1535 µS
+[II] Device 0: joint reconstruction 7201 solved, 1 rejected, 7276 single-camera (0 observations arrived too late to count)
+[II] sensor 1 calibration feed: 11701 offered, 6834 passed - rejected 0 for LED ids, 4867 for too few blobs (<10), 0 for error
+[II] accelerometer scale check: |accel| at rest mean 9.7537 m/s^2 (-0.54% vs 9.8067), range 9.331..10.214, 1925 quiet samples | hw calibration NOT requested (driver applies its own)
+[WW] Exposure timestamp 3185280000 was more than 1.5 IMU samples earlier than IMU ts 3185281862 by 1862 µS
+[WW] Exposure timestamp 3186240000 was more than 1.5 IMU samples earlier than IMU ts 3186241530 by 1530 µS
+[II] pose export over 10 s: age mean 1.6 ms max 9.2 ms | speed mean 0.08 max 0.68 m/s, ang mean 27 max 256 deg/s | age*speed worst 1.8 mm (1075 samples)
+[II] Device 1: joint reconstruction 4501 solved, 4 rejected, 4813 single-camera (0 observations arrived too late to count)
+[II] calib feed: 17101 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 17101 obs, 4552 paired, history 192 over 5 viewpoints, 283 solves, residual 1.87 px, CALIBRATED
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 3188083200 was more than 1.5 IMU samples earlier than IMU ts 3188084704 by 1504 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.93 min -5.86 max 1.77 ms
+[WW] Exposure timestamp 3188620800 was more than 1.5 IMU samples earlier than IMU ts 3188622633 by 1833 µS
+[II] vision-vs-fusion orientation error over 10 s: yaw mean 0.89 max 6.04 deg, tilt mean 0.74 max 3.98 deg | above 1 deg for 49% of the time, 2263 episodes, mean 2 ms worst 113 ms | 1 snaps | gains yaw 0.25 tilt 0.50 /s
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.95 min -4.46 max 1.49 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 7501 solved, 1 rejected, 7576 single-camera (0 observations arrived too late to count)
+[II] Set sensor 1 pose to orient -0.991621 0.049609 -0.034751 -0.114103  pos 0.215521 1.366919 2.002461
+[II] sensor WMTD3052400VZL CameraPoseChange: dt -0.3 -1.9 0.2 (1.9) mm  dr 0.07 deg
+[II] sensor WMTD3052400VZL calibration UNSETTLED
+[II] extrinsic refine: sensor WMTD3052400VZL step 1.6 mm / 0.07 deg (window mismatch 10.4 mm / 0.48 deg; net from start 1.9 mm / 0.08 deg; summed steps 1.6 mm / 0.07 deg)
+[II] sensor WMTD3052400VZL calibration SETTLED
+[II] sensor 0 calibration feed: 12601 offered, 10547 passed - rejected 0 for LED ids, 2054 for too few blobs (<10), 0 for error
+[II] calib feed: 18001 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 1)
+[II] Device 1: joint reconstruction 4801 solved, 4 rejected, 5113 single-camera (0 observations arrived too late to count)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] sensor 1 calibration feed: 12601 offered, 7565 passed - rejected 0 for LED ids, 5036 for too few blobs (<10), 0 for error
+[II] vision-vs-fusion orientation error over 10 s: yaw mean 0.81 max 4.82 deg, tilt mean 0.59 max 3.61 deg | above 1 deg for 48% of the time, 1964 episodes, mean 2 ms worst 429 ms | 0 snaps | gains yaw 0.25 tilt 0.50 /s
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.94 min -4.04 max 1.42 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.88 min -3.78 max 1.69 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7422 m/s^2 (-0.66% vs 9.8067), range 9.239..10.936, 1054 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] pose export over 10 s: age mean 1.6 ms max 3.1 ms | speed mean 0.15 max 0.59 m/s, ang mean 51 max 239 deg/s | age*speed worst 1.2 mm (986 samples)
+[II] Device 0: joint reconstruction 7801 solved, 1 rejected, 7876 single-camera (0 observations arrived too late to count)
+[II] calib feed: 18901 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 1)
+[II] Device 1: joint reconstruction 5101 solved, 4 rejected, 5413 singlesteamtours.sh[177573]: Relaunch under scout LDLP runtime.
+steamtours.sh[177573]: exec /home/mia/.steam/bin/steam-runtime/run.sh /home/mia/.local/share/Steam/steamapps/common/SteamVR/tools/steamvr_environments/game/steamtours.sh -vr -retail -vulkan -useappid SteamVRAppID -nowindow -vconport 29009
+steamtours.sh[177573]: Detected scout LDLP runtime.
+-camera (0 observations arrived too late to count)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] vision-vs-fusion orientation error over 10 s: yaw mean 1.27 max 5.79 deg, tilt mean 0.61 max 1.88 deg | above 1 deg for 45% of the time, 2191 episodes, mean 2 ms worst 39 ms | 1 snaps | gains yaw 0.25 tilt 0.50 /s
+[II] sensor 0 calibration feed: 13501 offered, 11285 passed - rejected 0 for LED ids, 2216 for too few blobs (<10), 0 for error
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.86 min -4.20 max 1.65 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.86 min -4.13 max 1.72 ms
+[II] calib feed: 19801 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 19801 obs, 5307 paired, history 192 over 5 viewpoints, 330 solves, residual 1.85 px, CALIBRATED
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 8101 solved, 1 rejected, 8176 single-camera (0 observations arrived too late to count)
+[II] sensor 1 calibration feed: 13501 offered, 8416 passed - rejected 0 for LED ids, 5085 for too few blobs (<10), 0 for error
+[II] Device 1: joint reconstruction 5401 solved, 4 rejected, 5713 single-camera (0 observations arrived too late to count)
+[II] vision-vs-fusion orientation error over 10 s: yaw mean 1.09 max 4.93 deg, tilt mean 0.57 max 1.75 deg | above 1 deg for 50% of the time, 2436 episodes, mean 2 ms worst 6 ms | 0 snaps | gains yaw 0.25 tilt 0.50 /s
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] accelerometer scale check: |accel| at rest mean 9.7509 m/s^2 (-0.57% vs 9.8067), range 9.276..10.730, 600 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.88 min -4.11 max 1.85 ms
+[II] pose export over 10 s: age mean 1.6 ms max 3.1 ms | speed mean 0.20 max 0.75 m/s, ang mean 55 max 263 deg/s | age*speed worst 1.9 mm (985 samples)
+[II] calib feed: 20701 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 1)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.89 min -4.46 max 1.55 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 3207744000 was more than 1.5 IMU samples earlier than IMU ts 3207745633 by 1633 µS
+[II] Device 0: joint reconstruction 8401 solved, 1 rejected, 8476 single-camera (0 observations arrived too late to count)
+[II] sensor 0 calibration feed: 14401 offered, 12061 passed - rejected 0 for LED ids, 2340 for too few blobs (<10), 0 for error
+[II] vision-vs-fusion orientation error over 10 s: yaw mean 1.36 max 5.99 deg, tilt mean 0.73 max 2.92 deg | above 1 deg for 48% of the time, 2245 episodes, mean 2 ms worst 195 ms | 1 snaps | gains yaw 0.25 tilt 0.50 /s
+[II] sensor WMTD3052400VZL: re-solved calibration from 192 poses over 5 viewpoints (stored: 5), residual 2.34 px (estimated)
+[II] sensor WMTD3052400VZL: its previous calibration left 2.75 px; moving the sensor 10.1 mm / 0.34 deg
+[II] Set sensor 1 pose to orient -0.991814 0.050545 -0.032185 -0.112759  pos 0.223976 1.361696 2.000475
+[II] sensor WMTD3052400VZL calibration SETTLED
+[II] Matched orientation after 0.147859 sec
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.92 min -4.40 max 2.01 ms
+[WW] Exposure timestamp 3211756800 was more than 1.5 IMU samples earlier than IMU ts 3211758554 by 1754 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.90 min -4.14 max 1.77 ms
+[WW] Exposure timestamp 3215097600 was more tDestroy() is failed!!
+han 1.5 IMU samples earlier than IMU ts 3215099317 by 1717 µS
+[II] accelerometer scale check: |accel| at rest mean 9.7749 m/s^2 (-0.32% vs 9.8067), range 9.302..10.077, 5305 quiet samples | hw calibration NOT requested (driver applies its own)
+[WW] Exposure timestamp 3215673600 was more than 1.5 IMU samples earlier than IMU ts 3215675310 by 1710 µS
+[WW] Exposure timestamp 3216249600 was more than 1.5 IMU samples earlier than IMU ts 3216251304 by 1704 µS
+[II] calib feed: 21601 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 21601 obs, 5705 paired, history 192 over 5 viewpoints, 355 solves, residual 2.36 px, estimated
+[II] pose export over 10 s: age mean 1.6 ms max 3.1 ms | speed mean 0.22 max 2.20 m/s, ang mean 22 max 225 deg/s | age*speed worst 4.7 mm (987 samples)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.92 min -4.32 max 1.51 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.92 min -4.35 max 1.61 ms
+[II] vision-vs-fusion orientation error over 10 s: yaw mean 0.15 max 1.94 deg, tilt mean 0.59 max 9.40 deg | above 1 deg for 3% of the time, 127 episodes, mean 2 ms worst 11 ms | 2 snaps | gains yaw 0.25 tilt 0.50 /s
+[WW] Exposure timestamp 3219801600 was more than 1.5 IMU samples earlier than IMU ts 3219803435 by 1835 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.81 min -3.36 max 2.25 ms
+[WW] Exposure timestamp 3223603200 was more than 1.5 IMU samples earlier than IMU ts 3223604999 by 1799 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.80 min -3.59 max 1.81 ms
+[II] sensor 0 calibration feed: 15301 offered, 12946 passed - rejected 0 for LED ids, 2355 for too few blobs (<10), 0 for error
+[II] accelerometer scale check: |accel| at rest mean 9.7767 m/s^2 (-0.31% vs 9.8067), range 9.524..10.034, 9983 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] pose export over 10 s: age mean 1.6 ms max 3.1 ms | speed mean 0.00 max 0.00 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.0 mm (984 samples)
+[II] vision-vs-fusion orientation error over 10 s: yaw mean 0.26 max 0.31 deg, tilt mean 0.52 max 0.68 deg | above 1 deg for 0% of the time, 0 episodes, mean 0 ms worst 0 ms | 0 snaps | gains yaw 0.25 tilt 0.50 /s
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.87 min -3.71 max 1.88 ms
+stream state: "unconnected"
+stream state: "unconnected"
+stream state: "unconnected"
+stream state: "unconnected"
+stream state: "unconnected"
+stream state: "unconnected"
+qt.network.ssl: QSslSocket: cannot call unresolved function CRYPTO_num_locks
+qt.network.ssl: QSslSocket: cannot call unresolved function CRYPTO_set_id_callback
+qt.network.ssl: QSslSocket: cannot call unresolved function CRYPTO_set_locking_callback
+qt.network.ssl: QSslSocket: cannot call unresolved function ERR_free_strings

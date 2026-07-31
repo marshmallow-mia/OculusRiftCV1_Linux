@@ -1,0 +1,511 @@
++++ dirname /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/vrmonitor.sh
+++ cd /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/
+++ pwd
++ VRBINDIR=/home/mia/.local/share/Steam/steamapps/common/SteamVR/bin
++ [[ -n '' ]]
++ exec /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/vrenv.sh /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/vrmonitor.sh
+vrenv.sh[170782]: VRCOMPOSITOR_LD_LIBRARY_PATH=/home/mia/git/rift-cv1-center:/home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/linux64/qt/lib:/home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/linux64
+vrenv.sh[170782]: exec /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/vrmonitor.sh
++++ dirname /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/vrmonitor.sh
+++ cd /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/
+++ pwd
++ VRBINDIR=/home/mia/.local/share/Steam/steamapps/common/SteamVR/bin
++ [[ -n /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/vrenv.sh ]]
++ case $(uname) in
+++ uname
++ VRMONITOR=/home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/linux64/vrmonitor
++ exec /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/linux64/vrmonitor
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 18:06:46 minidumps folder is set to /tmp/dumps
+07/31 18:06:46 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(170782)
+static QPlatformTheme* QKdeTheme::createKdeTheme(): Unable to determine KDE dirs
+sh: line 1: steamxdg-icon-resource: command not found
+sh: line 1: steam-runtime-launch-client: command not found
+QObject::connect: No such slot CQVRMonitorController::OnStartRecordingAction() in /data/src/vrmonitor/qvrmonitorcontroller.cpp:1112
+QObject::connect: No such slot CQVRMonitorController::OnStopRecordingAction() in /data/src/vrmonitor/qvrmonitorcontroller.cpp:1115
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+CQVRMonitorHeadsetWarning(0x557e4d371420)  does not have a property named  "green_color"
+CQVRMonitorHeadsetWarning(0x557e4d371420)  does not have a property named  "red_color"
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 18:06:47 minidumps folder is set to /tmp/dumps
+07/31 18:06:47 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(170889)
+[S_API] SteamAPI_Init(): Loaded '/home/mia/.local/share/Steam/linux64/steamclient.so' OK.
+VR Server (v1781734990)
+
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+SteamInternal_SetMinidumpSteamID:  Caching Steam ID:  76561198428899653 [API loaded yes]
+SteamInternal_SetMinidumpSteamID:  Setting Steam ID:  76561198428899653
+[II] HMD IMU calibration  gyro_offset [ -0.003900, 0.001300, 0.001100 ]  accel_offset [ 0.108000, -0.305600, 0.024900 ]
+[II]   gyro_calib = 
+[II]   [    0.999,    0.005,   -0.021 ]
+[II]   [    0.004,    1.000,   -0.007 ]
+[II]   [    0.008,    0.038,    0.999 ]
+[II]   accel_calib = 
+[II]   [    1.021,    0.001,   -0.018 ]
+[II]   [    0.001,    1.037,    0.022 ]
+[II]   [    0.004,   -0.005,    0.963 ]
+[II] HMD accel calibration matrix: mean row norm 1.0072 -> 1.0000 (scale removed 0.72%)
+[II] HMD gyro calibration matrix: mean row norm 0.9994 -> 1.0000 (scale removed -0.06%)
+[II] CV1 display config: brightness=0 flags=0x400 persistence=273/1472 rows
+[II] Using 34 visor LEDs; dropped 10 headband LEDs (not tracked as a separate body yet - the headset is only trackable from the front)
+LED model: HMD LEDs
+{ .pos = {0.062939,-0.032042,0.067541}, .dir={0.181956,-0.102972,0.977900}, .pattern=0x1 },
+{ .pos = {0.077151,0.000993,0.065562}, .dir={0.299055,0.001984,0.954234}, .pattern=0x6 },
+{ .pos = {0.028983,-0.019018,0.073518}, .dir={0.082983,-0.096960,0.991823}, .pattern=0x1a },
+{ .pos = {-0.000097,-0.033045,0.072449}, .dir={0.000000,-0.188028,0.982164}, .pattern=0x1d },
+{ .pos = {-0.028998,-0.019144,0.073384}, .dir={-0.082983,-0.096960,0.991823}, .pattern=0x28 },
+{ .pos = {-0.063022,-0.032156,0.067359}, .dir={-0.181956,-0.102972,0.977900}, .pattern=0x2f },
+{ .pos = {-0.077078,0.000964,0.065342}, .dir={-0.299055,0.001984,0.954234}, .pattern=0x33 },
+{ .pos = {-0.054039,0.034440,0.068623}, .dir={-0.140969,0.134957,0.980772}, .pattern=0x4b },
+{ .pos = {-0.020202,0.017950,0.074224}, .dir={-0.056979,0.095951,0.993754}, .pattern=0x4c },
+{ .pos = {0.053973,0.034595,0.069160}, .dir={0.140969,0.134957,0.980772}, .pattern=0x57 },
+{ .pos = {0.020062,0.018061,0.074368}, .dir={0.056979,0.095951,0.993754}, .pattern=0x62 },
+{ .pos = {-0.078856,-0.011904,0.028395}, .dir={-0.993057,-0.099980,-0.061984}, .pattern=0x65 },
+{ .pos = {-0.077293,-0.012335,-0.008668}, .dir={-0.981566,-0.188915,-0.028963}, .pattern=0x79 },
+{ .pos = {-0.070740,-0.031349,0.010284}, .dir={-0.734056,-0.668042,-0.121987}, .pattern=0x7e },
+{ .pos = {-0.059124,-0.040984,0.036314}, .dir={-0.153997,-0.983099,-0.099003}, .pattern=0x90 },
+{ .pos = {0.058835,-0.040830,0.035942}, .dir={0.153997,-0.983099,-0.099003}, .pattern=0xa4 },
+{ .pos = {0.028165,-0.043453,0.061352}, .dir={-0.004975,-0.998636,-0.051974}, .pattern=0x114 },
+{ .pos = {-0.080319,-0.024476,0.053355}, .dir={-0.947594,-0.225904,-0.225904}, .pattern=0x151 },
+{ .pos = {-0.027992,-0.043610,0.061432}, .dir={0.004975,-0.998636,-0.051974}, .pattern=0x183 },
+{ .pos = {0.070561,-0.031850,0.009988}, .dir={0.734056,-0.668042,-0.121987}, .pattern=0x18c },
+{ .pos = {0.077672,-0.012729,-0.008828}, .dir={0.981566,-0.188915,-0.028963}, .pattern=0x199 },
+{ .pos = {0.079252,-0.012425,0.027945}, .dir={0.993057,-0.099980,-0.061984}, .pattern=0x1aa },
+{ .pos = {0.080678,-0.024862,0.053475}, .dir={0.947594,-0.225904,-0.225904}, .pattern=0x1b5 },
+{ .pos = {-0.029139,0.043728,0.057487}, .dir={-0.004975,0.999980,0.003998}, .pattern=0x1c0 },
+{ .pos = {-0.078382,0.029385,0.053600}, .dir={-0.871752,0.428856,-0.236921}, .pattern=0x1cf },
+{ .pos = {0.072131,0.030937,0.000022}, .dir={0.816019,0.577024,-0.033998}, .pattern=0x1d6 },
+{ .pos = {0.067042,0.037833,0.030095}, .dir={0.526908,0.847875,-0.058962}, .pattern=0x1e9 },
+{ .pos = {0.078260,0.029513,0.053292}, .dir={0.871752,0.428856,-0.236921}, .pattern=0x1f3 },
+{ .pos = {0.028896,0.043669,0.057676}, .dir={0.004975,0.999980,0.003998}, .pattern=0x1fc },
+{ .pos = {-0.067240,0.037555,0.029876}, .dir={-0.526908,0.847875,-0.058962}, .pattern=0x230 },
+{ .pos = {-0.072200,0.030241,0.000120}, .dir={-0.816019,0.577024,-0.033998}, .pattern=0x252 },
+{ .pos = {-0.041120,0.043276,0.023325}, .dir={-0.041995,0.999110,-0.003998}, .pattern=0x282 },
+{ .pos = {0.000159,0.043811,0.033423}, .dir={0.005982,0.999932,0.009980}, .pattern=0x285 },
+{ .pos = {0.041085,0.043260,0.023553}, .dir={0.041995,0.999110,-0.003998}, .pattern=0x29b },
+[II] HMD IPD 63.5 mm, as reported by the headset (note: this is its stored figure, not vrcompositor-launcher.sh[170947]: Relaunch under scout LDLP runtime.
+vrcompositor-launcher.sh[170947]: exec /home/mia/.steam/root/ubuntu12_32/steam-runtime/run.sh /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/linux64/vrcompositor-launcher.sh
+vrcompositor-launcher.sh[170947]: Detected scout LDLP runtime.
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 18:06:51 minidumps folder is set to /tmp/dumps
+07/31 18:06:51 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(170994)
+[S_API] SteamAPI_Init(): Loaded '/home/mia/.local/share/Steam/linux64/steamclient.so' OK.
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+SteamInternal_SetMinidumpSteamID:  Caching Steam ID:  76561198428899653 [API loaded yes]
+SteamInternal_SetMinidumpSteamID:  Setting Steam ID:  76561198428899653
+Initialize() is failed!!!
+qt.network.ssl: QSslSocket: cannot resolve CRYPTO_num_locks
+qt.network.ssl: QSslSocket: cannot resolve CRYPTO_set_id_callback
+qt.network.ssl: QSslSocket: cannot resolve CRYPTO_set_locking_callback
+qt.network.ssl: QSslSocket: cannot resolve ERR_free_strings
+qt.network.ssl: QSslSocket: cannot resolve sk_new_null
+qt.network.ssl: QSslSocket: cannot resolve sk_push
+qt.network.ssl: QSslSocket: cannot resolve sk_free
+qt.network.ssl: QSslSocket: cannot resolve sk_num
+qt.network.ssl: QSslSocket: cannot resolve sk_pop_free
+qt.network.ssl: QSslSocket: cannot resolve sk_value
+qt.network.ssl: QSslSocket: cannot resolve SSL_get_peer_certificate
+qt.network.ssl: QSslSocket: cannot resolve SSL_library_init
+qt.network.ssl: QSslSocket: cannot resolve SSL_load_error_strings
+qt.network.ssl: QSslSocket: cannot resolve SSL_get_ex_new_index
+qt.network.ssl: QSslSocket: cannot resolve SSLv2_client_method
+qt.network.ssl: QSslSocket: cannot resolve SSLv3_client_method
+qt.network.ssl: QSslSocket: cannot resolve SSLv23_client_method
+qt.network.ssl: QSslSocket: cannot resolve SSLv2_server_method
+qt.network.ssl: QSslSocket: cannot resolve SSLv3_server_method
+qt.network.ssl: QSslSocket: cannot resolve SSLv23_server_method
+qt.network.ssl: QSslSocket: cannot resolve X509_STORE_CTX_get_chain
+qt.network.ssl: QSslSocket: cannot resolve OPENSSL_add_all_algorithms_noconf
+qt.network.ssl: QSslSocket: cannot resolve OPENSSL_add_all_algorithms_conf
+qt.network.ssl: QSslSocket: cannot resolve SSLeay
+qt.network.ssl: QSslSocket: cannot resolve SSLeay_version
+qt.network.ssl: QSslSocket: cannot call unresolved function SSLeay
+qt.network.ssl: QSslSocket: cannot call unresolved function CRYPTO_num_locks
+qt.network.ssl: QSslSocket: cannot call unresolved function CRYPTO_set_id_callback
+qt.network.ssl: QSslSocket: cannot call unresolved function CRYPTO_set_locking_callback
+qt.network.ssl: QSslSocket: cannot call unresolved function SSL_library_init
+qt.network.ssl: QSslSocket: cannot call unresolved function SSLv23_client_method
+qt.network.ssl: QSslSocket: cannot call unresolved function sk_num
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+[S_API] SteamAPI_Init(): Loaded '/home/mia/.local/share/Steam/linux64/steamclient.so' OK.
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 18:06:51 minidumps folder is set to /tmp/dumps
+07/31 18:06:51 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(170996)
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+SteamInternal_SetMinidumpSteamID:  Caching Steam ID:  76561198428899653 [API loaded yes]
+SteamInternal_SetMinidumpSteamID:  Setting Steam ID:  76561198428899653
+[0731/180651.710304:ERROR:check.cc(376)] Check failed: false. NOTREACHED log messages are omitted in official builds. Sorry!
+Using breakpad crash handler
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 18:06:51 minidumps folder is set to /tmp/dumps
+07/31 18:06:51 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(171031)
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+[0731/180651.744838:ERROR:check.cc(376)] Check failed: false. NOTREACHED log messages are omitted in official builds. Sorry!
+07/31 18:06:51 minidumps folder is set to /tmp/dumps
+07/31 18:06:51 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(171032)
+[0731/180651.745172:ERROR:check.cc(376)] Check failed: false. NOTREACHED log messages are omitted in official builds. Sorry!
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 19: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 20: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 23: invalid constant used : monospace
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 42: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 43: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 46: invalid constant used : sans-serif
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 68: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 69: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 72: invalid constant used : serif
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 88: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 89: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 92: invalid constant used : emoji
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 108: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 109: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 112: invalid constant used : math
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 120: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 121: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 124: invalid constant used : system-ui
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 132: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 133: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 136: invalid constant used : cursive
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 144: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 145: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 148: invalid constant used : fantasy
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 156: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 157: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 160: invalid constant used : ui-sans-serif
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 168: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 169: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 172: invalid constant used : ui-serif
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 180: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 181: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 184: invalid constant used : ui-monospace
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 192: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 193: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 196: invalid constant used : ui-rounded
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 204: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 205: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 208: invalid constant used : fangsong
+Fontconfig warning: "/etc/fonts/conf.d/48-spacing.conf", line 14: invalid constant used : monospace
+Fontconfig warning: "/etc/fonts/conf.d/49-sansserif.conf", line 10: invalid constant used : serif
+Fontconfig warning: "/etc/fonts/conf.d/49-sansserif.conf", line 18: invalid constant used : sans-serif
+Fontconfig warning: "/etc/fonts/conf.d/49-sansserif.conf", line 26: invalid constant used : monospace
+Fontconfig warning: "/etc/fonts/conf.d/49-sansserif.conf", line 34: invalid constant used : emoji
+Fontconfig warning: "/etc/fonts/conf.d/49-sansserif.conf", line 42: invalid constant used : math
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 19: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 20: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 23: invalid constant used : monospace
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 42: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 43: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 46: invalid constant used : sans-serif
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 68: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 69: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 72: invalid constant used : serif
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 88: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 89: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 92: invalid constant used : emoji
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 108: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 109: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 112: invalid constant used : math
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 120: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 121: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 124: invalid constant used : system-ui
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 132: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 133: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 136: invalid constant used : cursive
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 144: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 145: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 148: invalid constant used : fantasy
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 156: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 157: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 160: invalid constant used : ui-sans-serif
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 168: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 169: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 172: invalid constant used : ui-serif
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 180: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 181: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 184: invalid constant used : ui-monospace
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 192: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 193: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 196: invalid constant used : ui-rounded
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 204: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 205: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 208: invalid constant used : fangsong
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-spacing.conf", line 14: invalid constant used : monospace
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/49-sansserif.conf", line 10: invalid constant used : serif
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/49-sansserif.conf", line 18: invalid constant used : sans-serif
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/49-sansserif.conf", line 26: invalid constant used : monospace
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/49-sansserif.conf", line 34: invalid constant used : emoji
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/49-sansserif.conf", line 42: invalid constant used : math
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 18:06:52 minidumps folder is set to /tmp/dumps
+07/31 18:06:52 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(171101)
+[0731/180652.050228:ERROR:check.cc(376)] Check failed: false. NOTREACHED log messages are omitted in official builds. Sorry!
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 18:06:52 minidumps folder is set to /tmp/dumps
+07/31 18:06:52 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(171247)
+[0731/180652.480935:ERROR:check.cc(376)] Check failed: false. NOTREACHED log messages are omitted in official builds. Sorry!
+the live slider position)
+Opened Rift Sensor 0 w/ Serial WMTD306Q701DEK. Connecting to Radio address 0x11563cc989
+[II] camera width 1280 height 960
+[II] f = [ 716.935 716.935 ], c = [ 661.864 469.517 ]
+[II] k = [  0.070819 -0.023264  0.005108 -0.000523 ]
+[II] Calibration capture enabled -> /home/mia/git/rift-cv1-center/captures/lin/2026-07-31/calibfix.jsonl
+stream state: "connecting"
+stream state: "connecting"
+[II] Loaded pose for sensor WMTD306Q701DEK from room store: "pos" : [ -0.847630, 1.125575, 1.818947 ], "orient" : [ -0.981234, 0.044516, -0.158873, -0.099787 ]
+[II] Set sensor 0 pose to orient -0.981234 0.044516 -0.158873 -0.099787  pos -0.847630 1.125575 1.818947
+stream state: "paused"
+stream state: "paused"
+Opened Rift Sensor 1 w/ Serial WMTD3052400VZL. Connecting to Radio address 0x11563cc989
+[II] camera width 1280 height 960
+[II] f = [ 716.734 716.734 ], c = [ 647.399 478.498 ]
+[II] k = [  0.071847 -0.025176  0.006398 -0.000817 ]
+stream state: "connecting"
+stream state: "connecting"
+[II] Loaded pose for sensor WMTD3052400VZL from room store: "pos" : [ 0.218281, 1.379354, 1.987755 ], "orient" : [ 0.991446, -0.048305, 0.033145, 0.116633 ]
+[II] Set sensor 1 pose to orient 0.991446 -0.048305 0.033145 0.116633  pos 0.218281 1.379354 1.987755
+Opened 2 Rift Sensor cameras
+stream state: "paused"
+stream state: "paused"
+Temperature: 33.6 °C
+UVC PTS changed in-frame at 16372 bytes. Lost 95 ms
+UVC Dropping short frame: 16372 < 1228800 (1212428 lost)
+Temperature: 31.0 °C
+[II] HMD device frame: IMU at [-0.0166 0.0345 0.0331] m; screen 0.1193 x 0.0663 m; lens separation 0.0540 m, v-centre 0.0308 m, eye-to-screen 0.0396/0.0396 m
+[II] HMD LED model spans z -0.0088..0.0744, y -0.0436..0.0438 m (34 LEDs, before the 180 deg model rotation)
+[II] Device 0 using OVR-SDK complementary fusion backend
+stream state: "connecting"
+device 0 online. Now tracking.
+stream state: "paused"
+[WW] Exposure timestamp 2517868800 was more than 1.5 IMU samples earlier than IMU ts 2517883155 by 14355 µS
+[II] calib feed: 1 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 1 obs, 0 paired, history 0 over 0 viewpoints, 0 solves, residual -1.00 px, uncalibrated
+[WW] Device 0: late pose time 1077.432 ms from WMTD306Q701DEK (1 so far, worst 1077.432 ms)
+[II] Matched orientation after 1.077432 sec
+[II] output correction bleeding OFF - set OHMD_RIFT_BLEED=1 to restore
+[WW] Sensor WMTD306Q701DEK: predicted exposure-to-frame latency of -8.3 ms differed from measured 0.8 ms (1 so far) - check the sensor sync cable
+[II] Device 0: joint reconstruction 1 solved, 0 rejected, 5 single-camera (0 observations arrived too late to count)
+[II] sensor WMTD3052400VZL calibration SETTLED
+[II] sensor WMTD3052400VZL: keeping the stored calibration - it was fitted over 3 viewpoints and this session has seen 1 (it leaves 1.67 px here)
+[WW] Sensor WMTD306Q701DEK: predicted exposure-to-frame latency of -8.3 ms differed from measured -0.1 ms (101 so far) - check the sensor sync cable
+[II] angular velocity exported in the device-local frame
+[II] velocity smoothing: tau 25 ms, speed-adaptive
+[WW] Sensor WMTD306Q701DEK: predicted exposure-to-frame latency of -8.3 ms differed from measured -1.0 ms (201 so far) - check the sensor sync cable
+[II] Matched orientation after 0.187279 sec
+[WW] Sensor WMTD3052400VZL: predicted exposure-to-frame latency of -8.2 ms differed from measured -0.0 ms (301 so far) - check the sensor sync cable
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Sensor WMTD3052400VZL: predicted exposure-to-frame latency of -8.2 ms differed from measured 0.9 ms (401 so far) - check the sensor sync cable
+[II] frame-timing WMTD306Q701DEK: 300 frames, 54 missed exposure, diff avg -0.60 min -8.32 max 2.74 ms
+[WW] Sensor WMTD306Q701DEK: predicted exposure-to-frame latency of -8.2 ms differed from measured -0.6 ms (501 so far) - check the sensor sync cable
+[WW] Exposure timestamp 2523532800 was more than 1.5 IMU samples earlier than IMU ts 2523534572 by 1772 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 1 missed exposure, diff avg -0.76 min -3.78 max 1.93 ms
+[WW] Sensor WMTD3052400VZL: predicted exposure-to-frame latency of -7.8 ms differed from measured 0.6 ms (601 so far) - check the sensor sync cable
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 301 solved, 0 rejected, 333 single-camera (0 observations arrived too late to count)
+[WW] Sensor WMTD3052400VZL: predicted exposure-to-frame latency of -7.5 ms differed from measured -1.6 ms (701 so far) - check the sensor sync cable
+[II] Set sensor 1 pose to orient 0.991837 -0.048204 0.041475 0.110529  pos 0.180928 1.356995 2.007352
+[II] sensor WMTD3052400VZL CameraPoseChange: dt -37.4 -22.4 19.6 (47.7) mm  dr 1.18 deg
+[II] sensor WMTD3052400VZL calibration UNSETTLED
+[II] extrinsic refine: sensor WMTD3052400VZL step 0.7 mm / 1.18 deg (window mismatch 4.6 mm / 7.90 deg; net from start 47.7 mm / 1.18 deg; summed steps 0.7 mm / 1.18 deg)
+[II] sensor WMTD3052400VZL calibration SETTLED
+[WW] Sensor WMTD3052400VZL: predicted exposure-to-frame latency of -6.9 ms differed from measured -0.1 ms (801 so far) - check the sensor sync cable
+[II] Device 0: IMU saturation (accel), 1 samples so far - the reading is clipped, so it is being ignored rather than integrated
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] sensor WMTD3052400VZL: re-solved calibration from 192 poses over 3 viewpoints (stored: 3), residual 1.88 px (estimated)
+[II] sensor WMTD3052400VZL: its previous calibration left 6.17 px; moving the sensor 39.7 mm / 0.94 deg
+[II] Set sensor 1 pose to orient 0.991461 -0.050773 0.035069 0.114879  pos 0.217384 1.369330 1.997438
+[II] sensor WMTD3052400VZL calibration SETTLED
+[II] accelerometer scale check: |accel| at rest mean 9.7603 m/s^2 (-0.47% vs 9.8067), range 8.250..10.536, 1560 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] vision-vs-fusion orientation error over 10 s: yaw mean 0.51 max 10.76 deg, tilt mean 1.19 max 14.79 deg | above 1 deg for 67% of the time, 56 episodes, mean 63 ms worst 324 ms | 2 snaps | gains yaw 0.25 tilt 0.50 /s
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.86 min -5.02 max 2.20 ms
+[II] pose export over 10 s: age mean 1.6 ms max 3.1 ms | speed mean 0.31 max 1.58 m/s, ang mean 69 max 302 deg/s | age*speed worst 3.9 mm (994 samples)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.82 min -3.90 max 1.71 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 601 solved, 0 rejected, 634 single-camera (0 observations arrived too late to count)
+[II] Set sensor 1 pose to orient 0.991573 -0.050915 0.034615 0.113985  pos 0.218699 1.366014 1.998591
+[II] sensor WMTD3052400VZL CameraPoseChange: dt 1.3 -3.3 1.2 (3.7) mm  dr 0.08 deg
+[II] sensor WMTD3052400VZL calibration UNSETTLED
+[II] extrinsic refine: sensor WMTD3052400VZL step 1.5 mm / 0.08 deg (window mismatch 9.8 mm / 0.54 deg; net from start 3.7 mm / 0.10 deg; summed steps 2.1 mm / 1.27 deg)
+[II] sensor WMTD3052400VZL calibration SETTLED
+[II] calib feed: 901 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 901 obs, 372 paired, history 192 over 4 viewpoints, 22 solves, residual 2.51 px, estimated
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.82 min -3.53 max 2.00 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.81 min -3.53 max 2.02 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] sensor 1 calibration feed: 901 offered, 658 passed - rejected 0 for LED ids, 243 for too few blobs (<10), 0 for error
+[II] sensor 0 calibration feed: 901 offered, 638 passed - rejected 0 for LED ids, 263 for too few blobs (<10), 0 for error
+[II] Device 0: joint reconstruction 901 solved, 0 rejected, 940 single-camera (0 observations arrived too late to count)
+[WW] Exposure timestamp 2537356800 was more than 1.5 IMU samples earlier than IMU ts 2537358316 by 1516 µS
+[II] vision-vs-fusion orientation error over 10 s: yaw mean 0.43 max 4.06 deg, tilt mean 0.96 max 3.17 deg | above 1 deg for 73% of the time, 35 episodes, mean 181 ms worst 3646 ms | 0 snaps | gains yaw 0.25 tilt 0.50 /s
+[II] pose export over 10 s: age mean 1.6 ms max 3.1 ms | speed mean 0.22 max 1.32 m/s, ang mean 75 max 464 deg/s | age*speed worst 3.7 mm (985 samples)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 2539468800 was more than 1.5 IMU samples earlier than IMU ts 2539470557 by 1757 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.89 min -3.27 max 1.65 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.86 min -3.69 max 1.85 ms
+[WW] Exposure timestamp 2541619200 was more than 1.5 IMU samples earlier than IMU ts 2541620774 by 1574 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 1201 solved, 0 rejected, 1278 single-camera (0 observations arrived too late to count)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.84 min -4.08 max 1.62 ms
+[WW] Exposure timestamp 2545785600 was more than 1.5 IMU samples earlier than IMU ts 2545787101 by 1501 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.84 min -3.84 max 1.53 ms
+[II] calib feed: 1801 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 1801 obs, 608 paired, history 192 over 4 viewpoints, 37 solves, residual 2.50 px, estimated
+[II] HMD obs quality: full(strong+ids) 299 ids-verified 1 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 299
+[II] accelerometer scale check: |accel| at rest mean 9.5662 m/s^2 (-2.45% vs 9.8067), range 8.733..10.006, 3154 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] vision-vs-fusion orientation error over 10 s: yaw mean 0.40 max 3.18 deg, tilt mean 1.83 max 5.11 deg | above 1 deg for 108% of the time, 19 episodes, mean 551 ms worst 3667 ms | 0 snaps | gains yaw 0.25 tilt 0.50 /s
+[II] pose export over 10 s: age mean 1.6 ms max 3.1 ms | speed mean 0.18 max 1.18 m/s, ang mean 50 max 427 deg/s | age*speed worst 2.3 mm (986 samples)
+[II] Device 0: joint reconstruction 1501 solved, 0 rejected, 1648 single-camera (0 observations arrived too late to count)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.93 min -3.85 max 1.71 ms
+[II] Matched orientation after 1.540357 sec
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.95 min -4.13 max 1.44 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Matched orientation after 0.577932 sec
+[II] sensor 0 calibration feed: 1801 offered, 1234 passed - rejected 0 for LED ids, 567 for too few blobs (<10), 0 for error
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.85 min -4.25 max 1.67 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] accelerometer scale check: |accel| at rest mean 9.5477 m/s^2 (-2.64% vs 9.8067), range 8.498..9.877, 1309 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.85 min -3.75 max 1.51 ms
+[II] pose export over 10 s: age mean 1.6 ms max 3.1 ms | speed mean 0.17 max 0.93 m/s, ang mean 51 max 316 deg/s | age*speed worst 1.8 mm (988 samples)
+[II] Matched orientation after 1.455233 sec
+[II] sensor 1 calibration feed: 1801 offered, 811 passed - rejected 0 for LED ids, 990 for too few blobs (<10), 0 for error
+[II] vision-vs-fusion orientation error over 10 s: yaw mean 0.44 max 9.70 deg, tilt mean 2.21 max 6.31 deg | above 1 deg for 102% of the time, 13 episodes, mean 576 ms worst 3933 ms | 2 snaps | gains yaw 0.25 tilt 0.50 /s
+[II] HMD obs quality: full(strong+ids) 299 ids-verified 1 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 299
+[II] Device 0: joint reconstruction 1801 solved, 0 rejected, 2111 single-camera (0 observations arrived too late to count)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.83 min -4.52 max 1.85 ms
+[II] Device 0: joint reconstruction over 2 cameras left 3.74 px in the worst camera (>2.0 px) - check sensor calibration
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.77 min -3.78 max 1.70 ms
+[II] Forcing orientation observation
+[II] Forcing orientation observation
+[II] Matched orientation after 0.016025 sec
+[II] Ignoring position observation with error 0.372048 0.353474 0.124968 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error 0.157602 0.133234 0.056818 (prior stddev was 0.100000 0.100000 0.100000)
+
+[WW] Exposure timestamp 2566041600 was more than 1.5 IMU samples earlier than IMU ts 2566043215 by 1615 µS
+[II] HMD obs quality: full(strong+ids) 295 ids-verified 5 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 295
+[II] accelerometer scale check: |accel| at rest mean 9.5907 m/s^2 (-2.20% vs 9.8067), range 9.331..9.990, 293 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] Matched orientation after 0.753216 sec
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.85 min -3.92 max 1.97 ms
+[II] pose export over 10 s: age mean 1.6 ms max 3.1 ms | speed mean 0.36 max 5.81 m/s, ang mean 91 max 285 deg/s | age*speed worst 10.8 mm (989 samples)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.85 min -3.61 max 1.83 ms
+[II] Matched orientation after 0.452705 sec
+[II] HMD obs quality: full(strong+ids) 298 ids-verified 2 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 298
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.81 min -3.66 max 1.66 ms
+[II] vision-vs-fusion orientation error over 10 s: yaw mean 0.36 max 121.56 deg, tilt mean 1.07 max 76.21 deg | above 1 deg for 77% of the time, 33 episodes, mean 210 ms worst 4395 ms | 4 snaps | gains yaw 0.25 tilt 0.50 /s
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.85 min -4.27 max 1.95 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7442 m/s^2 (-0.64% vs 9.8067), range 9.421..10.014, 7307 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] sensor 0 calibration feed: 2701 offered, 1582 passed - rejected 0 for LED ids, 1119 for too few blobs (<10), 0 for error
+[II] pose export over 10 s: age mean 1.6 ms max 3.1 ms | speed mean 0.19 max 2.25 m/s, ang mean 18 max 281 deg/s | age*speed worst 4.6 mm (988 samples)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.88 min -3.30 max 1.50 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.86 min -3.50 max 1.57 ms
+[WW] Exposure timestamp 2583628800 was more than 1.5 IMU samples earlier than IMU ts 2583630686 by 1886 µS
+[II] vision-vs-fusion orientation error over 10 s: yaw mean 0.06 max 0.14 deg, tilt mean 1.26 max 1.36 deg | above 1 deg for 108% of the time, 0 episodes, mean 0 ms worst 0 ms | 0 snaps | gains yaw 0.25 tilt 0.50 /s
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 2584876800 was more than 1.5 IMU samples earlier than IMU ts 2584878648 by 1848 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.88 min -4.03 max 1.92 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.82 min -3.81 max 1.58 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7455 m/s^2 (-0.62% vs 9.8067), range 9.524..9.993, 9984 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] pose export over 10 s: age mean 1.6 ms max 3.1 ms | speed mean 0.00 max 0.00 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.0 mm (989 samples)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.83 min -3.71 max 1.75 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.86 min -4.13 max 1.97 ms
+[II] vision-vs-fusion orientation error over 10 s: yaw mean 0.13 max 0.22 deg, tilt mean 1.29 max 1.43 deg | above 1 deg for 208% of the time, 0 episodes, mean 0 ms worst 0 ms | 0 snaps | gains yaw 0.25 tilt 0.50 /s
+[II] sensor 0 calibration feed: 3601 offered, 1582 passed - rejected 0 for LED ids, 2019 for too few blobs (<10), 0 for error
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 2597452800 was more than 1.5 IMU samples earlier than IMU ts 2597454499 by 1699 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.87 min -3.71 max 1.77 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7452 m/s^2 (-0.63% vs 9.8067), range 9.506..10.015, 9984 quiet samples | hw calibration NOT requested (driver applies its own)
+[WW] Exposure timestamp 2598144000 was more than 1.5 IMU samples earlier than IMU ts 2598145595 by 1595 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.90 min -4.08 max 1.18 ms
+[II] pose export over 10 s: age mean 1.6 ms max 3.1 ms | speed mean 0.00 max 0.00 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.0 mm (987 samples)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 2602656000 was more than 1.5 IMU samples earlier than IMU ts 2602657755 by 1755 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.86 min -4.26 max 1.70 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.84 min -3.62 max 1.49 ms
+[II] vision-vs-fusion orientation error over 10 s: yaw mean 0.15 max 0.27 deg, tilt mean 1.30 max 1.41 deg | above 1 deg for 308% of the time, 0 episodes, mean 0 ms worst 0 ms | 0 snaps | gains yaw 0.25 tilt 0.50 /s
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] accelerometer scale check: |accel| at rest mean 9.7465 m/s^2 (-0.61% vs 9.8067), range 9.515..10.016, 9984 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] pose export over 10 s: age mean 1.6 ms max 3.1 ms | speed mean 0.00 max 0.00 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.0 mm (987 samples)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.83 min -4.39 max 2.00 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.82 min -3.52 max 1.81 ms
+[II] sensor 0 calibration feed: 4501 offered, 1582 passed - rejected 0 for LED ids, 2919 for too few blobs (<10), 0 for error
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 2613657600 was more than 1.5 IMU samples earlier thaGetRunningAppName
+Destroy() is failed!!
+n IMU ts 2613659286 by 1686 µS
+[II] vision-vs-fusion orientation error over 10 s: yaw mean 0.14 max 0.24 deg, tilt mean 1.30 max 1.40 deg | above 1 deg for 408% of the time, 0 episodes, mean 0 ms worst 0 ms | 0 snaps | gains yaw 0.25 tilt 0.50 /s
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.87 min -3.43 max 1.41 ms
+stream state: "unconnected"
+stream state: "unconnected"
+stream state: "unconnected"
+stream state: "unconnected"
+stream state: "unconnected"
+qt.network.ssl: QSslSocket: cannot call unresolved function CRYPTO_num_locks
+qt.network.ssl: QSslSocket: cannot call unresolved function CRYPTO_set_id_callback
+qt.network.ssl: QSslSocket: cannot call unresolved function CRYPTO_set_locking_callback
+qt.network.ssl: QSslSocket: cannot call unresolved function ERR_free_strings

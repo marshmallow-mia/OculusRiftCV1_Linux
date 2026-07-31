@@ -1,0 +1,390 @@
+ INFO [ipc_server_main_common] Monado(XRT) by Collabora et al '945820b' starting up...
+ INFO [print_linux_end_user_started_information] 
+################################################################################
+#                                                                              #
+#                        The Monado service has started.                       #
+#                                                                              #
+################################################################################
+[II] HMD IMU calibration  gyro_offset [ -0.003900, 0.001300, 0.001100 ]  accel_offset [ 0.108000, -0.305600, 0.024900 ]
+[II]   gyro_calib = 
+[II]   [    0.999,    0.005,   -0.021 ]
+[II]   [    0.004,    1.000,   -0.007 ]
+[II]   [    0.008,    0.038,    0.999 ]
+[II]   accel_calib = 
+[II]   [    1.021,    0.001,   -0.018 ]
+[II]   [    0.001,    1.037,    0.022 ]
+[II]   [    0.004,   -0.005,    0.963 ]
+[II] CV1 display config: brightness=0 flags=0x400 persistence=273/1472 rows
+Dropping headband LED { .pos = {-0.011830,0.026198,-0.164263}, .dir={-0.208077,0.144049,-0.967447}, .pattern=0x29c },
+Dropping headband LED { .pos = {-0.024177,0.007232,-0.160992}, .dir={-0.421008,-0.007996,-0.907022}, .pattern=0x2ae },
+Dropping headband LED { .pos = {-0.032938,-0.011553,-0.153813}, .dir={-0.493130,-0.214031,-0.843216}, .pattern=0x2b7 },
+Dropping headband LED { .pos = {-0.039487,-0.031748,-0.140100}, .dir={-0.505856,-0.473871,-0.720802}, .pattern=0x2c8 },
+Dropping headband LED { .pos = {-0.015285,-0.042343,-0.142738}, .dir={-0.147928,-0.689771,-0.708754}, .pattern=0x2d1 },
+Dropping headband LED { .pos = {0.014865,-0.042119,-0.142964}, .dir={0.147928,-0.689771,-0.708754}, .pattern=0x2e3 },
+Dropping headband LED { .pos = {0.039884,-0.031382,-0.139951}, .dir={0.505856,-0.473871,-0.720802}, .pattern=0x2ed },
+Dropping headband LED { .pos = {0.032799,-0.011722,-0.153851}, .dir={0.493130,-0.214031,-0.843216}, .pattern=0x2fa },
+Dropping headband LED { .pos = {0.024120,0.007229,-0.161096}, .dir={0.421008,-0.007996,-0.907022}, .pattern=0x307 },
+Dropping headband LED { .pos = {0.012047,0.026206,-0.164226}, .dir={0.208077,0.144049,-0.967447}, .pattern=0x309 },
+LED model: HMD LEDs
+{ .pos = {0.062939,-0.032042,0.067541}, .dir={0.181956,-0.102972,0.977900}, .pattern=0x1 },
+{ .pos = {0.077151,0.000993,0.065562}, .dir={0.299055,0.001984,0.954234}, .pattern=0x6 },
+{ .pos = {0.028983,-0.019018,0.073518}, .dir={0.082983,-0.096960,0.991823}, .pattern=0x1a },
+{ .pos = {-0.000097,-0.033045,0.072449}, .dir={0.000000,-0.188028,0.982164}, .pattern=0x1d },
+{ .pos = {-0.028998,-0.019144,0.073384}, .dir={-0.082983,-0.096960,0.991823}, .pattern=0x28 },
+{ .pos = {-0.063022,-0.032156,0.067359}, .dir={-0.181956,-0.102972,0.977900}, .pattern=0x2f },
+{ .pos = {-0.077078,0.000964,0.065342}, .dir={-0.299055,0.001984,0.954234}, .pattern=0x33 },
+{ .pos = {-0.054039,0.034440,0.068623}, .dir={-0.140969,0.134957,0.980772}, .pattern=0x4b },
+{ .pos = {-0.020202,0.017950,0.074224}, .dir={-0.056979,0.095951,0.993754}, .pattern=0x4c },
+{ .pos = {0.053973,0.034595,0.069160}, .dir={0.140969,0.134957,0.980772}, .pattern=0x57 },
+{ .pos = {0.020062,0.018061,0.074368}, .dir={0.056979,0.095951,0.993754}, .pattern=0x62 },
+{ .pos = {-0.078856,-0.011904,0.028395}, .dir={-0.993057,-0.099980,-0.061984}, .pattern=0x65 },
+{ .pos = {-0.077293,-0.012335,-0.008668}, .dir={-0.981566,-0.188915,-0.028963}, .pattern=0x79 },
+{ .pos = {-0.070740,-0.031349,0.010284}, .dir={-0.734056,-0.668042,-0.121987}, .pattern=0x7e },
+{ .pos = {-0.059124,-0.040984,0.036314}, .dir={-0.153997,-0.983099,-0.099003}, .pattern=0x90 },
+{ .pos = {0.058835,-0.040830,0.035942}, .dir={0.153997,-0.983099,-0.099003}, .pattern=0xa4 },
+{ .pos = {0.028165,-0.043453,0.061352}, .dir={-0.004975,-0.998636,-0.051974}, .pattern=0x114 },
+{ .pos = {-0.080319,-0.024476,0.053355}, .dir={-0.947594,-0.225904,-0.225904}, .pattern=0x151 },
+{ .pos = {-0.027992,-0.043610,0.061432}, .dir={0.004975,-0.998636,-0.051974}, .pattern=0x183 },
+{ .pos = {0.070561,-0.031850,0.009988}, .dir={0.734056,-0.668042,-0.121987}, .pattern=0x18c },
+{ .pos = {0.077672,-0.012729,-0.008828}, .dir={0.981566,-0.188915,-0.028963}, .pattern=0x199 },
+{ .pos = {0.079252,-0.012425,0.027945}, .dir={0.993057,-0.099980,-0.061984}, .pattern=0x1aa },
+{ .pos = {0.080678,-0.024862,0.053475}, .dir={0.947594,-0.225904,-0.225904}, .pattern=0x1b5 },
+{ .pos = {-0.029139,0.043728,0.057487}, .dir={-0.004975,0.999980,0.003998}, .pattern=0x1c0 },
+{ .pos = {-0.078382,0.029385,0.053600}, .dir={-0.871752,0.428856,-0.236921}, .pattern=0x1cf },
+{ .pos = {0.072131,0.030937,0.000022}, .dir={0.816019,0 INFO [p_create_system] Creating system:
+	Builders:
+		qwerty: Qwerty devices builder
+		remote: Remote simulation devices builder
+		simulated: Simulated devices builder
+		rift: Oculus Rift
+		rift_s: Oculus Rift S
+		psvr2: PlayStation VR 2
+		rgb_tracking: RGB tracking based devices (PSVR, PSMV, ...)
+		steamvr: SteamVR proprietary wrapper (Vive, Index, Tundra trackers, etc.) devices builder
+		lighthouse: Lighthouse-tracked FLOSS (Vive, Index, Tundra trackers, etc.) devices builder
+		north_star: North Star headset
+		wmr: Windows Mixed Reality
+		xreal_air: Xreal Air
+		legacy: Legacy probing system
+	No builder selected in config (or wasn't compiled in)
+	No builder was certain that it could create a head device
+	Selected legacy because it maybe could create a head
+	Using builder legacy: Legacy probing system
+	Got devices:
+		 0: 'Rift (CV1) (OpenHMD)' (id=1)
+		 1: 'Rift (CV1): Left Controller (OpenHMD)' (id=2)
+		 2: 'Rift (CV1): Right Controller (OpenHMD)' (id=3)
+	In roles:
+		head: Rift (CV1) (OpenHMD) (Rift (CV1) (OpenHMD)), view count: 2
+		eyes: <none> (<none>)
+		face: <none> (<none>)
+		left: Rift (CV1): Left Controller (OpenHMD) (Rift (CV1): Left Controller (OpenHMD))
+		right: Rift (CV1): Right Controller (OpenHMD) (Rift (CV1): Right Controller (OpenHMD))
+		gamepad: <none> (<none>)
+		hand_tracking.unobstructed.left: <none> (<none>)
+		hand_tracking.unobstructed.right: <none> (<none>)
+		hand_tracking.conforming.left: <none> (<none>)
+		hand_tracking.conforming.right: <none> (<none>)
+	Result: XRT_SUCCESS
+DEBUG [comp_main_create_system_compositor] Doing init 0x56041e795050
+ WARN [compositor_check_and_prepare_xdev] Had to fill in meshuv on xdev 'Rift (CV1) (OpenHMD)', this should be done in the driver.
+ INFO [comp_window_direct_wayland_init] No connector was chosen, will use first available connector
+ INFO [_drm_lease_device_drm_fd] Available DRM lease device: /dev/dri/card1
+ INFO [_lease_connector_done] [/dev/dri/card1] connector HDMI-A-1 (Oculus VR, Inc. Rift) id: 406
+ INFO [comp_window_direct_wayland_init] Using DRM node /dev/dri/card1
+ INFO [comp_window_direct_wayland_init] Connector id 406 HDMI-A-1 (Oculus VR, Inc. Rift)
+ INFO [_lease_connector_withdrawn] Connector HDMI-A-1 has been withdrawn by the compositor
+ WARN [build_extension_list] Duplicate extension VK_KHR_get_surface_capabilities2 not added twice
+ INFO [vk_log_extension_list] Vulkan instance extensions list(s):
+	Enabled extensions:
+		VK_KHR_display                            required
+		VK_KHR_external_fence_capabilities        required
+		VK_KHR_external_memory_capabilities       required
+		VK_KHR_external_semaphore_capabilities    required
+		VK_KHR_get_physical_device_properties2    required
+		VK_KHR_get_surface_capabilities2          optional
+		VK_KHR_surface                            required
+		VK_KHR_wayland_surface                    required
+		VK_EXT_acquire_drm_display                required
+		VK_EXT_debug_report                       required
+		VK_EXT_direct_mode_display                required
+		VK_EXT_display_surface_counter            optional
+		VK_EXT_swapchain_colorspace               optional
+	Not enabled optional extensions:
+ INFO [create_device] Created device and COMPUTE queue with QUEUE_GLOBAL_PRIORITY_MEDIUM.
+ INFO [vk_print_device_info] Device info:
+	name: AMD Radeon RX 7800 XT (RADV NAVI32)
+	vendor: 0x1002
+	product: 0x747e
+	deviceType: VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU
+	apiVersion: 1.4.354
+	driverVersion: 0x06801005
+ INFO [vk_print_queues_info] Selected Queues/Families:
+	main_queue.queue: 0x56041e7bb600
+	main_queue.index: 0
+	main_queue.family_index: 1
+	graphics_queue.queue: 0x56041e70ded0
+	graphics_queue.index: 0
+	graphics_queue.family_index: 0
+	encode_queue.queue: (nil)
+	encode_queue.index: -1
+	encode_queue.family_index: -1
+ INFO [vk_print_features_info] Features:
+	timestamp_compute_and_graphics: true
+	timestamp_period: 10.000000
+	timestamp_valid_bits: 64
+	timeline_semaphore: true
+ INFO [vk_print_external_handles_info] Supported images:
+	VK_EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_FD_BIT:
+		color import=true export=true
+		depth import=true export=true
+ INFO [vk_print_external_handles_info] Supported fences:
+	VK_EXTERNAL_FENCE_HANDLE_TYPE_SYNC_FD_BIT: true
+	VK_EXTERNAL_FENCE_HANDLE_TYPE_OPAQUE_FD_BIT: true
+ INFO [vk_print_external_handles_info] Supported semaphores:
+	VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_SYNC_FD_BIT(binary): true
+	VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_OPAQUE_FD_BIT(binary): true
+	VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_SYNC_FD_BIT(timeline): false
+	VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_OPAQUE_FD_BIT(timeline): true
+ INFO [vk_print_display_surface_create_info] VkDisplaySurfaceCreateInfoKHR:
+	flags:
+	displayMode: 56041e7b9b60
+	planeIndex: 0
+	planeStackIndex: 0
+	transform: VK_SURFACE_TRANSFORM_IDENTITY_BIT_KHR
+	planeIndex: 1.000000
+	alphaMode: VK_DISPLAY_PLANE_ALPHA_GLOBAL_BIT_KHR
+	imageExtent: {2160, 1200}
+ INFO [u_pc_fake_create] Created pacer (non-feedback version aka "fake")
+	estimated_frame_period: 11.111358ms
+	percentage: 20.000000%
+	min_comp_time: 3.000000ms
+	comp_time: 3.000000ms
+ INFO [vk_print_surface_info] VkSurfaceKHR info:
+	caps.minImageCount: 2
+	caps.maxImageCount: 0
+	caps.currentExtent: 2160x1200
+	caps.minImageExtent: 1x1
+	caps.maxImageExtent: 16384x16384
+	caps.maxImageArrayLayers: 1
+	caps.supportedTransforms:
+		VK_SURFACE_TRANSFORM_IDENTITY_BIT_KHR
+	caps.currentTransform: VK_SURFACE_TRANSFORM_IDENTITY_BIT_KHR
+	caps.supportedCompositeAlpha:
+		VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR
+	caps.supportedUsageFlags:
+		VK_IMAGE_USAGE_TRANSFER_SRC_BIT
+		VK_IMAGE_USAGE_TRANSFER_DST_BIT
+		VK_IMAGE_USAGE_SAMPLED_BIT
+		VK_IMAGE_USAGE_STORAGE_BIT
+		VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT
+		VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT
+		VK_IMAGE_USAGE_ATTACHMENT_FEEDBACK_LOOP_BIT_EXT
+	present_modes(1):
+		VK_PRESENT_MODE_FIFO_KHR
+	present_id2_caps.presentId2Supported: 1
+	present_wait2_caps.presentWait2Supported: 1
+	shared_present_caps.sharedPresentSupportedUsageFlags:
+	formats(6):
+		[format = VK_FORMAT_B8G8R8A8_SRGB, colorSpace = VK_COLOR_SPACE_SRGB_NONLINEAR_KHR]
+		[format = VK_FORMAT_B8G8R8A8_UNORM, colorSpace = VK_COLOR_SPACE_SRGB_NONLINEAR_KHR]
+		[format = VK_FORMAT_A2B10G10R10_UNORM_PACK32, colorSpace = VK_COLOR_SPACE_SRGB_NONLINEAR_KHR]
+		[format = VK_FORMAT_A2R10G10B10_UNORM_PACK32, colorSpace = VK_COLOR_SPACE_SRGB_NONLINEAR_KHR]
+		[format = VK_FORMAT_R16G16B16A16_UNORM, colorSpace = VK_COLOR_SPACE_SRGB_NONLINEAR_KHR]
+		[format = VK_FORMAT_R16G16B16A16_SFLOAT, colorSpace = VK_COLOR_SPACE_SRGB_NONLINEAR_KHR]
+ INFO [vk_print_swapchain_create_info] VkSwapchainCreateInfoKHR:
+	flags:
+		VK_SWAPCHAIN_CREATE_PRESENT_ID_2_BIT_KHR
+		VK_SWAPCHAIN_CREATE_PRESENT_WAIT_2_BIT_KHR
+	surface: 56041e823ed0
+	minImageCount: 2
+	imageFormat: VK_FORMAT_A2B10G10R10_UNORM_PACK32
+	imageColorSpace: VK_COLOR_SPACE_SRGB_NONLINEAR_KHR
+	imageExtent: {2160, 1200}
+	imageArrayLayers: 1
+	imageUsage:
+		VK_IMAGE_USAGE_STORAGE_BIT
+	imageSharingMode: VK_SHARING_MODE_EXCLUSIVE
+	queueFamilyIndexCount: 0
+	preTransform: VK_SURFACE_TRANSFORM_IDENTITY_BIT_KHR
+	compositeAlpha: VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR
+	presentMode: VK_PRESENT_MODE_FIFO_KHR
+	clipped: VK_TRUE
+	oldSwapchain: 0
+ INFO [comp_target_swapchain_create_images] Started vblank event thread!
+ WARN [u_linux_try_to_set_realtime_priority_on_thread] Could not raise priority for thread 'VBlank Events'
+ INFO [comp_vulkan_formats_log] Supported formats:
+	VK_FORMAT_R16G16B16A16_UNORM: true
+	VK_FORMAT_R16G16B16A16_SFLOAT: true
+	VK_FORMAT_R16G16B16_UNORM: false
+	VK_FORMAT_R16G16B16_SFLOAT: false
+	VK_FORMAT_R8G8B8A8_SRGB: true
+	VK_FORMAT_B8G8R8A8_SRGB: true
+	VK_FORMAT_R8G8B8_SRGB: false
+	VK_FORMAT_R8G8B8A8_UNORM: true
+	VK_FORMAT_B8G8R8A8_UNORM: true
+	VK_FORMAT_R8G8B8_UNORM: false
+	VK_FORMAT_B8G8R8_UNORM: false
+	VK_FORMAT_R5G6B5_UNORM_PACK16: true
+	VK_FORMAT_R32_SFLOAT: true
+	VK_FORMAT_D32_SFLOAT: true
+	VK_FORMAT_D16_UNORM: true
+	VK_FORMAT_X8_D24_UNORM_PACK32: false
+	VK_FORMAT_D24_UNORM_S8_UINT: false
+	VK_FORMAT_D32_SFLOAT_S8_UINT: true
+	VK_FORMAT_S8_UINT: true
+ WARN [u_linux_try_to_set_realtime_priority_on_thread] Could not raise priority for thread 'Multi Client Module'
+ INFO [client_connected] Client 1 connected
+ INFO [ipc_handle_instance_describe_client] Client info:
+	id: 1
+	application_name: 'steam'
+	pid: 278437
+	extensions:
+		ext_hand_tracking_enabled: true
+		ext_hand_tracking_data_source_enabled: false
+		ext_eye_gaze_interaction_enabled: false
+		ext_future_enabled: false
+		ext_hand_interaction_enabled: false
+		htc_facial_tracking_enabled: false
+		fb_body_tracking_enabled: false
+		meta_body_tracking_full_body_enabled: false
+		meta_body_tracking_calibration_enabled: false
+		meta_body_tracking_fidelity_enabled: false
+		fb_face_tracking2_enabled: false
+		android_face_tracking_enabled: false
+ INFO [client_disconnected] Client 1 disconnected
+ WARN [renderer_wait_for_present] Compositor probably missed frame by 4.58ms
+ INFO [client_connected] Client 2 connected
+ INFO [ipc_handle_instance_describe_client] Client info:
+	id: 2
+	application_name: 'wineopenxr test instance'
+	pid: 278437
+	extensions:
+		ext_hand_tracking_enabled: false
+		ext_hand_tracking_data_source_enabled: false
+		ext_eye_gaze_interaction_enabled: false
+		ext_future_enabled: false
+		ext_hand_interaction_enabled: false
+		htc_facial_tracking_enabled: false
+		fb_body_tracking_enabled: false
+		meta_body_tracking_full_body_enabled: false
+		meta_body_tracking_calibration_enabled: false
+		meta_body_tracking_fidelity_enabled: false
+		fb_face_tracking2_enabled: false
+		android_face_tracking_enabled: false
+ INFO [client_disconnected] Client 2 disconnected
+ INFO [client_connected] Client 3 connected
+ INFO [ipc_handle_instance_describe_client] Client info:
+	id: 3
+	application_name: 'Bigscreen'
+	pid: 278531
+	extensions:
+		ext_hand_tracking_enabled: true
+		ext_hand_tracking_data_source_enabled: false
+		ext_eye_gaze_interaction_enabled: false
+		ext_future_enabled: false
+		ext_hand_interaction_enabled: false
+		htc_facial_tracking_enabled: false
+		fb_body_tracking_enabled: false
+		meta_body_tracking_full_body_enabled: false
+		meta_body_tracking_calibration_enabled: false
+		meta_body_tracking_fidelity_enabled: false
+		fb_face_tracking2_enabled: false
+		android_face_tracking_enabled: false
+ WARN [renderer_wait_for_present] Compositor probably missed frame by 11.13ms
+ WARN [renderer_wait_for_present] Compositor probably missed frame by 11.32ms
+ WARN [renderer_wait_for_present] Compositor probably missed frame by 11.15ms
+.577024,-0.033998}, .pattern=0x1d6 },
+{ .pos = {0.067042,0.037833,0.030095}, .dir={0.526908,0.847875,-0.058962}, .pattern=0x1e9 },
+{ .pos = {0.078260,0.029513,0.053292}, .dir={0.871752,0.428856,-0.236921}, .pattern=0x1f3 },
+{ .pos = {0.028896,0.043669,0.057676}, .dir={0.004975,0.999980,0.003998}, .pattern=0x1fc },
+{ .pos = {-0.067240,0.037555,0.029876}, .dir={-0.526908,0.847875,-0.058962}, .pattern=0x230 },
+{ .pos = {-0.072200,0.030241,0.000120}, .dir={-0.816019,0.577024,-0.033998}, .pattern=0x252 },
+{ .pos = {-0.041120,0.043276,0.023325}, .dir={-0.041995,0.999110,-0.003998}, .pattern=0x282 },
+{ .pos = {0.000159,0.043811,0.033423}, .dir={0.005982,0.999932,0.009980}, .pattern=0x285 },
+{ .pos = {0.041085,0.043260,0.023553}, .dir={0.041995,0.999110,-0.003998}, .pattern=0x29b },
+Opened Rift Sensor 0 w/ Serial WMTD306Q701DEK. Connecting to Radio address 0x11563cc989
+[II] camera width 1280 height 960
+[II] f = [ 716.935 716.935 ], c = [ 661.864 469.517 ]
+[II] k = [  0.070819 -0.023264  0.005108 -0.000523 ]
+[II] Calibration capture enabled -> /home/mia/git/rift-cv1-center/captures/lin/2026-07-31/bisect7.jsonl
+[II] Loaded pose for sensor WMTD306Q701DEK from room store: "pos" : [ -1.080223, 1.242403, -0.743242 ], "orient" : [ 0.602096, -0.067780, 0.792231, 0.072504 ]
+[II] Set sensor 0 pose to orient 0.602096 -0.067780 0.792231 0.072504  pos -1.080223 1.242403 -0.743242
+Opened Rift Sensor 1 w/ Serial WMTD3052400VZL. Connecting to Radio address 0x11563cc989
+[II] camera width 1280 height 960
+[II] f = [ 716.734 716.734 ], c = [ 647.399 478.498 ]
+[II] k = [  0.071847 -0.025176  0.006398 -0.000817 ]
+[II] Loaded pose for sensor WMTD3052400VZL from room store: "pos" : [ -1.204735, 1.584360, 0.304064 ], "orient" : [ 0.690720, -0.085808, 0.713154, 0.083393 ]
+[II] Set sensor 1 pose to orient 0.690720 -0.085808 0.713154 0.083393  pos -1.204735 1.584360 0.304064
+Opened 2 Rift Sensor cameras
+UVC PTS changed in-frame at 16372 bytes. Lost 74 ms
+UVC Dropping short frame: 16372 < 1228800 (1212428 lost)
+Temperature: 43.6 °C
+UVC PTS changed in-frame at 16372 bytes. Lost 32 ms
+UVC Dropping short frame: 16372 < 1228800 (1212428 lost)
+Temperature: 42.0 °C
+[II] Device 0 using OVR-SDK complementary fusion backend
+device 0 online. Now tracking.
+[WW] Exposure timestamp 531462912 was more than 1.5 IMU samples earlier than IMU ts 531471120 by 8208 µS
+[II] Forcing orientation observation
+[II] Matched orientation after 0.012979 sec
+[II] frame-timing WMTD306Q701DEK: 300 frames, 40 missed exposure, diff avg -0.66 min -17.87 max 1.88 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 2 missed exposure, diff avg -0.69 min -4.39 max 2.12 ms
+[II] HMD obs quality: full(strong+ids) 299 ids-verified 1 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 299
+[WW] Exposure timestamp 538950912 was more than 1.5 IMU samples earlier than IMU ts 538952701 by 1789 µS
+[WW] Exposure timestamp 541331712 was more than 1.5 IMU samples earlier than IMU ts 541333719 by 2007 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.73 min -3.69 max 1.55 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.72 min -3.89 max 1.51 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.71 min -3.69 max 1.60 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.74 min -3.55 max 1.47 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 553619712 was more than 1.5 IMU samples earlier than IMU ts 553621512 by 1800 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames,  WARN [renderer_wait_for_present] Compositor probably missed frame by 11.18ms
+ WARN [renderer_wait_for_present] Compositor probably missed frame by 11.22ms
+ WARN [renderer_wait_for_present] Compositor probably missed frame by 11.16ms
+ WARN [renderer_wait_for_present] Compositor probably missed frame by 11.27ms
+ INFO [client_disconnected] Client 3 disconnected
+0 missed exposure, diff avg -0.74 min -4.22 max 1.88 ms
+[WW] Exposure timestamp 554195712 was more than 1.5 IMU samples earlier than IMU ts 554197489 by 1777 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.73 min -3.59 max 1.93 ms
+[WW] Exposure timestamp 554886912 was more than 1.5 IMU samples earlier than IMU ts 554888661 by 1749 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.62 min -3.06 max 1.89 ms
+[WW] Exposure timestamp 559590912 was more than 1.5 IMU samples earlier than IMU ts 559592650 by 1738 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.61 min -3.49 max 1.74 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 562816512 was more than 1.5 IMU samples earlier than IMU ts 562818136 by 1624 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -3.62 max 1.90 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.70 min -3.50 max 1.57 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.60 min -3.30 max 2.37 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.63 min -3.71 max 1.98 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.68 min -4.60 max 1.94 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.70 min -4.20 max 1.65 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 582323712 was more than 1.5 IMU samples earlier than IMU ts 582325450 by 1738 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.74 min -3.84 max 1.92 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.73 min -3.30 max 1.81 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.81 min -2.88 max 1.57 ms
+[WW] Exposure timestamp 588870912 was more than 1.5 IMU samples earlier than IMU ts 588872675 by 1763 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.82 min -3.17 max 1.71 ms
+[WW] Exposure timestamp 589562112 was more than 1.5 IMU samples earlier than IMU ts 589563862 by 1750 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.78 min -3.20 max 1.95 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.79 min -3.77 max 1.98 ms
+[WW] Exposure timestamp 598067712 was more than 1.5 IMU samples earlier than IMU ts 598069484 by 1772 µS
+[WW] Exposure timestamp 598317312 was more than 1.5 IMU samples earlier than IMU ts 598318913 by 1601 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.78 min -3.67 max 1.87 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.72 min -3.68 max  INFO [ipc_server_main_common] Server exiting: '0'
+1.81 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 604307712 was more than 1.5 IMU samples earlier than IMU ts 604309232 by 1520 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.67 min -3.37 max 2.00 ms

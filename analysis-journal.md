@@ -565,3 +565,770 @@ drift 5.50 → 4.54 mm. So this is a real defect corrected against an absolute
 reference, but the predicted improvement is **moderate, not dramatic** — and the
 residual −0.50% is unexplained, as is why the factory matrix carries a scale at
 all. Both are open.
+
+---
+
+## Iteration: is the artifact in the runtime rather than the pose?
+
+### Why this became the question
+
+`tools/find_oscillation.py` on `captures/lin/2026-07-31/osc.csv` — 53456 samples
+of what SteamVR is actually handed — reports residual **0.64 mm** while moving,
+p90 1.74 mm, and **no dominant frequency**: every spectral component is under
+0.2% of residual power. The Oculus Windows reference is 0.27 mm, also peakless.
+
+There is no oscillation in the pose. Nine fixes to individual fusion stages were
+each measured correct afterwards and none moved the reported symptom, which is
+consistent with all nine having been in the wrong half of the system.
+
+The user reports `hello_xr` under Monado feels better — same tracking code,
+different runtime and compositor. That is suggestive but confounded: `hello_xr`
+draws a few cubes, whereas a real application that misses frame deadlines gets
+reprojected, and reprojection looks exactly like the world lagging and catching
+up. So the test needs a *demanding* application under Monado.
+
+### Layer audit: Bonelab (native OpenXR) under Proton + Monado
+
+Bonelab reports "openxr loader failed to initialize". Every layer was checked;
+all but one is correctly configured.
+
+| Layer | State | Evidence |
+|---|---|---|
+| Monado service + display | good | swapchain 2160x1200, vblank thread running |
+| DRM lease | good | `_lease_connector_withdrawn` is **benign** — it means the connector cannot be leased *again* because Monado holds it |
+| Host OpenXR runtime pointer | good | `~/.config/openxr/1/active_runtime.json` -> Monado |
+| pressure-vessel import | good | `PRESSURE_VESSEL_IMPORT_OPENXR_1_RUNTIMES=1` captures `libopenxr_monado.so`, generates a correct in-container `active_runtime.json`, sets `XDG_CONFIG_DIRS`. i386 capture fails; harmless, the game is 64-bit |
+| Monado IPC socket in container | good | `/run/user/1000/monado_comp_ipc` visible inside |
+| Runtime deps in container | good | `ldd` resolves everything |
+| Native OpenXR loader in container | good | Proton's own `libopenxr_loader.so.1` (1.1.36), inside **steamrt4**, returns `XR_SUCCESS` with **57 extensions** incl. `XR_KHR_vulkan_enable`, `_enable2`, `_convert_timespec_time` |
+| Wine registry + bridge files | good | `ActiveRuntime = C:\openxr\wineopenxr64.json`; json and dll present |
+| Steam launch options | good | verbatim in `localconfig.vdf` |
+| **Wine<->Linux OpenXR bridge** | **BROKEN** | `wineopenxr.dll`'s `xrNegotiateLoaderRuntimeInterface` returns **-6** (`XR_ERROR_INITIALIZATION_FAILED`) |
+
+From `~/steam-1592190.log`:
+
+```
+RuntimeInterface::LoadRuntime skipping manifest file C:\openxr\wineopenxr64.json,
+negotiation failed with error -6
+```
+
+DXVK's own OpenXR provider fails in the same run (`Unable to get required Vulkan
+instance extensions size`), so the break is in the bridge, not in game code.
+
+### Two corrections to earlier readings, both mine
+
+- I called `_lease_connector_withdrawn` "KWin took back the lease" and blamed it
+  for Alyx's black screen. Wrong: it is the normal protocol event for a connector
+  that is now leased. Monado had the display the whole time.
+- I verified the container stack in **sniper**. Proton Experimental 11.0 uses
+  **steamrt4**; the log header (`depot: ... steamrt4`) says so. Re-run in
+  steamrt4 gave the same result, so the conclusion survived, but the first pass
+  was measuring the wrong container.
+
+### Leading hypothesis, unconfirmed
+
+Bonelab bundles OpenXR Loader **1.0.27**; Proton's bridge is built against
+**1.1.36**. A version-negotiation rejection would produce exactly this error.
+Not measured — confirming it means replacing a DLL inside the game install, which
+was not authorised. Recorded as hypothesis, not finding.
+
+### Verdict
+
+Tracking is exonerated by measurement and is not the open question. The open
+question is presentation, and answering it requires a real app rendering through
+Monado. Next: a title that reaches Monado through xrizer (OpenVR), which bypasses
+the broken bridge entirely and is already proven to connect.
+
+---
+
+## Iteration: SteamVR's extrapolation, not the pose
+
+### Hypothesis
+
+Bigscreen under Monado feels correct with the *same* OpenHMD tracking, so the
+artifact is in the SteamVR driver layer. The two layers differ structurally in
+exactly one way that can produce overshoot:
+
+- **Monado never extrapolates.** `oh_device.c` never sets
+  `XRT_SPACE_RELATION_LINEAR_VELOCITY_VALID_BIT`, never writes `linear_velocity`,
+  and ignores `at_timestamp_ns` (it appears only in the parameter list at `:383`).
+  Latency is absorbed by the compositor reprojecting onto a freshly **measured**
+  pose (`comp_renderer.c:1098`). Overshoot is structurally impossible.
+- **SteamVR-OpenHMD hands SteamVR everything it needs to extrapolate**:
+  `vecVelocity`, `vecAcceleration`, `vecAngularVelocity`, and
+  `poseTimeOffset = -pose_age`, on both the HMD and the controllers. SteamVR
+  dead-reckons all of it to photon time (~22-33 ms) and displays the result.
+
+Monado's own SteamVR shim zeroes all five deliberately
+(`steamvr_drv/ovrd_driver.cpp:1356-1379`, *"monado predicts pose 'now'"*).
+
+### Correction: why the earlier evidence looked exculpatory
+
+`tools/lin_pose_log.py` called
+`getDeviceToAbsoluteTrackingPose(..., 0.0, poses)` — **prediction horizon zero**.
+So `osc.csv`, the 0.64 mm / no-dominant-frequency result, describes the pose
+SteamVR *received*, not the pose it *renders*. At horizon 0 there is no
+extrapolation, so that capture could not contain the artifact under investigation.
+Calling it "the entire tracking stack is exonerated" was too broad.
+
+The earlier `OHMD_STEAMVR_NO_PREDICT` A/B was also confounded twice over: it was
+wired only into the HMD path, so the controllers kept extrapolating; and it ran at
+15:52, while `displayFrequency` was still `0` (not fixed until 18:18), so SteamVR's
+photon clock was wrong at the time.
+
+### What changed
+
+- `tools/lin_pose_log.py` gained `--predict-ms`, accepting a comma-separated sweep.
+  Every horizon is sampled **in the same loop iteration** as horizon 0, because a
+  human cannot repeat a head turn twice; the motion is then identical by
+  construction and the only difference between files is how far SteamVR
+  extrapolated. Predicted rows are stamped with the time they were predicted *for*,
+  matching `tools/win/ovr_pose_log.c`, so `analyze_prediction.py` recovers the
+  horizon correctly and scores our predictor by the identical method used on the
+  Oculus runtime's 0.19 deg / 2.2 mm.
+- `driver_openhmd.cpp` gained `ApplyPredictionPolicy()`, applied to the HMD **and**
+  both controllers. Default is to extrapolate with nothing;
+  `OHMD_STEAMVR_PREDICT=1|all` restores the old behaviour, and individual terms
+  (`offset,angvel,vel,accel`) can be earned back one at a time.
+  `vecAngularAcceleration` is now explicitly zeroed - it was never populated while
+  `vecAcceleration` was, making linear extrapolation second-order and angular
+  first-order, an asymmetry that reads as some parts settling later than others.
+- Two adjacent controller defects fixed: the untracked fallback position was
+  written in `Activate()` and then erased by `pose = { 0 }` in `GetPose()` (dead
+  since it was written); and `poseIsValid`/`result` were hardcoded true/`Running_OK`
+  regardless of tracking flags, so an untracked controller was reported as
+  confidently located at the origin.
+
+### Measurement
+
+PENDING - baseline sweep with `OHMD_STEAMVR_PREDICT=1` vs default, scored with
+`analyze_prediction.py`. The falsifiable prediction: predictor error should exceed
+zero-prediction error at 22-33 ms with prediction on, and the horizon sweep should
+flatten with it off. If the error does *not* grow with horizon, this hypothesis is
+wrong and the next target is the eye/projection geometry.
+
+Regression at this point: `tools/run_dropout_check.sh` all within bars; orientation
+error 2.121 deg unchanged.
+
+### Measurement: VOID - the experiment tested one binary against itself
+
+The prediction on/off A/B returned "both feel the same", and the pose data agreed
+far too well:
+
+| horizon | predold `\|pred-now\|` | prednew `\|pred-now\|` |
+|---|---|---|
+| 11 ms | 2.00 mm | 2.49 mm |
+| 22 ms | 4.00 mm | 4.98 mm |
+| 33 ms | 6.00 mm | 7.47 mm |
+
+Both runs extrapolated, both perfectly linear in horizon, and `prednew` reported
+100% non-zero velocities through OpenVR despite the driver being told to send
+none. That is not a null result, it is a broken manipulation.
+
+**Cause: SteamVR loads `<driver-dir>/bin/linux64/driver_openhmd.so`, and meson has
+no rule that produces it.** Meson builds `driver_openhmd.so.0.0.1` in the build
+root; the `bin/linux64` copy was placed by hand once and had been stale since
+18:14. Confirmed directly:
+
+```
+build/driver_openhmd.so.0.0.1        HAS new prediction policy   (19:18)
+build/bin/linux64/driver_openhmd.so  OLD - no prediction policy  (18:14)
+```
+
+So both runs loaded the same 18:14 binary. `OHMD_STEAMVR_PREDICT` was read by code
+that was never loaded. The hypothesis is **untested, not falsified**.
+
+OpenHMD is linked *into* the driver `.so` (`ldd` shows no separate `libopenhmd`),
+so this staleness window silently covers OpenHMD changes too, not just the SteamVR
+layer - any driver-side change made after 18:14 and tested before this fix reached
+nothing.
+
+### Fix to the harness
+
+`tools/run_steamvr_test.sh` now refreshes `bin/linux64/driver_openhmd.so` from the
+meson output when the latter is newer, and says which binary it is starting with a
+timestamp. Same defensive posture the script already takes on the OpenHMD library
+pin: fail or fix loudly rather than quietly measure the wrong code.
+
+**Method note, third time this has bitten in this project:** every measurement must
+first prove it can see the thing it claims to manipulate. The earlier
+`OHMD_STEAMVR_NO_PREDICT` A/B at 15:52 shares this failure mode and its negative
+result should not be trusted either.
+
+### Re-run with the manipulation verified: prediction FALSIFIED, cleanly
+
+Second attempt, after the harness fix. The driver log confirms both arms loaded
+the intended code before anything was judged:
+
+```
+19:27:22  SteamVR prediction terms = 0xf (offset=1 angvel=1 vel=1 accel=1)
+19:28:03  SteamVR prediction terms = 0x0 (offset=0 angvel=0 vel=0 accel=0)
+```
+
+| | driver vel reported | extrapolation @11/22/33 ms |
+|---|---|---|
+| `predold2` (0xf) | 100% nonzero, median 0.179 m/s | 1.98 / 3.97 / 5.94 mm |
+| `prednew2` (0x0) | **0.0% nonzero** | **0.000 / 0.000 / 0.000 mm** |
+
+The manipulation was total: SteamVR moved the pose by exactly nothing at every
+horizon. **The artifact was unchanged.** Forward prediction is not the cause.
+
+That is hypothesis ten, and the first one to die against a manipulation that was
+independently verified to have taken effect rather than assumed to.
+
+### And the prediction is good, so it stays on
+
+`tools/analyze_prediction.py` on `predold2_*`, tracked & moving (|w|>0.5 rad/s),
+n=10929:
+
+| horizon | predicted | no prediction |
+|---|---|---|
+| 11 ms | 1.17 mm / 0.146 deg | 4.12 mm / 1.013 deg |
+| 22 ms | 2.57 mm / 0.393 deg | 8.23 mm / 2.020 deg |
+| 33 ms | 4.20 mm / 0.747 deg | 12.34 mm / 3.026 deg |
+
+About 3x better than not predicting, and in the same league as the Oculus
+runtime's 0.19 deg / 2.2 mm measured by the same method. Disabling it would be a
+latency regression that fixes nothing, so the default is restored to predicting
+with everything; `OHMD_STEAMVR_PREDICT=0|none|<subset>` remains for experiments.
+
+Net gain from this iteration: prediction quality is now measured rather than
+assumed, on both device types, with a repeatable harness - and one more suspect is
+eliminated with numbers instead of a feeling.
+
+### What the artifact must now be
+
+It survives with SteamVR extrapolating by literally zero, and it is absent under
+Monado on the same tracking. Both stacks therefore start from the same pose, so
+the difference lies strictly downstream of it: eye/projection geometry, the
+distortion mesh, or compositor frame pacing and reprojection under load.
+
+Next, and cheapest: **run Bigscreen under SteamVR.** It is the one application
+already known to feel correct under Monado, so running the same app on the other
+runtime isolates runtime from application load - a confound present in every
+comparison so far (hello_xr is trivial to render; Alyx never rendered).
+
+---
+
+## Iteration: the two stacks render at different fields of view
+
+### What the eliminations force
+
+Bigscreen is wrong under SteamVR and right under Monado - same app, same
+tracking, same headset. Combined with the measured eliminations (pose clean at
+0.64 mm; prediction provably 0.000 mm of extrapolation with the artifact intact;
+2% dropped frames and 0 reprojected; direct mode confirmed), the cause has to lie
+in the projection itself.
+
+Also corrected: "only some parts lag behind" was withdrawn - the motion is
+uniform. The partial-image signature I was reasoning from was not real.
+
+### The number
+
+Inverting this driver's own logged frustum (`projectionraw values lrtb, near far:
+-0.824583 0.681474 -0.895002 0.778395 | 0.039620`) against `rift.c:1802-1826`:
+
+```
+h_screen 119.34 mm   v_screen 66.30 mm   lens_sep/2 27.00 mm  eye_to_screen 39.62 mm
+per-eye 59.67 x 66.30 mm -> aspect 0.9000  (1080/1200 = 0.9000 exactly)
+```
+
+The aspect landing exactly on 0.9000 confirms the inversion.
+
+| | H FOV | V FOV |
+|---|---|---|
+| SteamVR-OpenHMD | **73.78 deg** | 79.73 deg |
+| Monado | **79.02 deg** | 85.07 deg |
+
+Exactly a **uniform tangent scale of 1.09905**. At 30 deg of head turn the two
+stacks disagree by 2.13 deg of world motion.
+
+Cause of the divergence: we use `display_info.eye_to_screen_distance` (39.62 mm)
+as the panel-metres-to-tangent scale. Monado reads `OHMD_RIGHT_EYE_FOV`, which
+`rift.c:1822` computes as **twice the outer half-angle** - treating an asymmetric
+frustum as symmetric - and back-solves 36.05 mm to make the totals agree.
+
+### Why this fits, where the timing hypotheses did not
+
+Rendered FOV is the gain between head motion and world motion. Too narrow means
+the world is magnified and over-rotates while the head turns, agreeing with
+reality only at rest. That is uniform, exactly zero at rest, proportional to
+speed, identical on headset and controllers (shared projection), and untouchable
+by anything on the tracking side - which is every surviving observation, and
+explains why nine tracking fixes and two timing fixes changed nothing.
+
+### Ground truth: Oculus treats these as different quantities
+
+`server-plugins/Rift.dll` serialises, per lens:
+
+```
+LensConfigurations[%d].LensToScreen
+LensConfigurations[%d].MetersPerTanAngleAtCenter
+LensConfigurations[%d].EyeRelief
+LensConfigurations[%d].PerMMEyeShiftSwim = [7 coefficients]
+```
+
+`MetersPerTanAngleAtCenter` is the panel-metres-per-unit-tangent scale and is a
+**separate field from `LensToScreen`**. We are using a physical distance where a
+tangent scale is required, which is very likely the defect itself. Oculus also
+carries an explicit per-lens **swim** model as a function of eye shift in mm -
+they consider this artifact class real enough to correct per unit.
+
+The values are per-headset (there is an "Unable to read lens serials for device"
+path), so extracting the CV1's actual numbers is a further dig.
+
+### Change
+
+`ApplyFovPolicy()` in `driver_openhmd.cpp`, applied in `GetProjectionRaw`:
+
+```
+OHMD_STEAMVR_FOV_SCALE=<f>   multiply all four tangents by f (0.5..2.0)
+OHMD_STEAMVR_FOV=monado      Monado's derivation, solved at runtime
+(unset)                      unchanged
+```
+
+Default changes nothing until the A/B says which direction is right. The solver
+reproduces 1.09905 and H 79.02 deg from the real constants, verified standalone.
+It logs `FOV <eye> mode=<...> scale=<...> -> H .. deg V .. deg` every run, so an
+arm can be checked from its own log - the two void experiments earlier tonight
+were both cases of a test that could not verify itself.
+
+### Measurement
+
+PENDING - A/B `OHMD_STEAMVR_FOV=monado` against default. Falsifiable: if the
+swim is unchanged at a 7.1% FOV difference, rendered FOV is not the gain term and
+this dies like the others.
+
+---
+
+## THE PREMISE WAS FALSE: the two stacks never ran the same tracking code
+
+### What was assumed
+
+Every inference of the last several hours rested on one sentence: *"Bigscreen
+feels right under Monado and wrong under SteamVR, with the same OpenHMD tracking,
+so tracking is exonerated and the fault is in the SteamVR runtime."* That sentence
+is wrong, and it was never checked.
+
+- SteamVR compiles OpenHMD **into** `driver_openhmd.so` from `subprojects/openhmd`,
+  rebuilt with the driver. It was at `5e8fd10`, built 07-31 19:54.
+- Monado loads a **separately installed** shared library from
+  `~/.local/openhmd-windows-parity/lib`, last built **07-29 21:27**.
+
+Verified by content, not timestamp:
+
+| string | Monado | SteamVR |
+|---|---|---|
+| `calibration matrix: mean row norm` | no | YES |
+| `OHMD_RIFT_DEADRECKON_MS` | no | YES |
+| `OHMD_RIFT_VEL_ADAPTIVE` | no | YES |
+| `OHMD_RIFT_BLEED` | no | YES |
+| `accelerometer scale check` | no | YES |
+
+**Fourteen tracking commits** separate them:
+
+```
+5e8fd10 07-31 18:03 Keep the IMU calibration matrix's alignment, drop its scale
+c23e60e 07-31 17:43 Check whether the accelerometer is actually scaled correctly
+6029f53 07-31 16:39 Coast on the IMU through a vision gap instead of freezing the pose
+82f0858 07-31 15:57 Log which frame angular velocity is exported in
+1019457 07-31 15:44 Measure the prediction horizon
+c3234bf 07-31 00:06 Measure how long an orientation error takes to wash out
+2e8915d 07-30 23:57 Smooth the exported velocity by how fast the device is moving
+e4eff5c 07-30 23:24 Fix the cold-start deadlock
+4101fc4 07-30 22:30 rift: optional HID feature-report dump
+f5830f4 07-30 22:12 rift: stop bleeding optical corrections into the displayed pose
+6437fbd 07-30 21:53 rift: render stereo at the IPD the slider is set to
+10a58b2 07-30 20:27 rift-cam-calib: recover from a moved sensor
+5391124 07-29 21:32 rift: advertise the CV1 HMD as positionally tracked
+```
+
+### What this invalidates
+
+The Monado-versus-SteamVR comparison varied **two** things at once: the runtime
+*and* the tracking code. So it never showed what it was taken to show. The
+correct reading of the same datum is the opposite one: **the 07-29 tracking feels
+right and the 07-31 tracking does not**, and several of those commits touch
+exactly the machinery that would produce move-overshoot-settle - exported
+velocity smoothing, correction bleeding, IMU dead-reckoning, and a 3.5% change in
+accelerometer scale.
+
+The individual eliminations still stand on their own evidence (prediction really
+does extrapolate 0.000 mm; frames really are 98% delivered; FOV really was set to
+Monado's value and changed nothing). What does not stand is the conclusion that
+the pose is innocent.
+
+### The accident is now the instrument
+
+We have a known-good binary (07-29) and a known-bad one (07-31), and Monado can
+load either with the runtime held constant. That is the controlled A/B that was
+never run. Preserved as
+`~/.local/openhmd-windows-parity/lib/libopenhmd.so.0.1.0.known-good-0729`; the
+current build is installed alongside.
+
+Next: Bigscreen under Monado on the CURRENT tracking. If it now feels wrong, the
+artifact is in those fourteen commits and bisects in ~4 runs. If it still feels
+right, the runtime difference is real and the search resumes there - but with the
+tracking finally equalised.
+
+**Method note, and the third instance tonight:** a comparison is only worth what
+its controls are worth. The bin/linux64 staleness, the HMD-only prediction knob,
+and now this, are all the same failure - the experiment did not verify that the
+thing it claimed to vary was the only thing that varied.
+
+### The controlled A/B finally ran, and it is positive
+
+Bigscreen, under Monado, with the runtime and application held constant and only
+the OpenHMD library swapped:
+
+| tracking | result |
+|---|---|
+| 07-29 build (`libopenhmd.so.0.1.0.known-good-0729`) | feels right |
+| 07-31 build (`5e8fd10`) | **same artifact** |
+
+Control verified before judging: `client_connected ... application_name:
+'Bigscreen'` present, and the session log carries `output correction bleeding
+OFF`, a string that exists only in the new build.
+
+**The artifact follows the tracking code, not the runtime.** It is in the fourteen
+commits between those builds.
+
+Two filters narrow it. Monado never reports linear velocity and never
+extrapolates, so any commit that only changes *exported* velocity cannot be
+responsible - that removes `2e8915d`, `82f0858`, `1019457`. Only pose-changing
+commits qualify: `5391124`, `10a58b2`, `f5830f4`, `e4eff5c`, `6029f53`, `5e8fd10`.
+Three of those have runtime switches, so they A/B without a rebuild:
+`OHMD_RIFT_BLEED=1`, `OHMD_RIFT_DEADRECKON_MS=70`, `OHMD_RIFT_NO_CALIB_ORTHO=1`.
+
+Live clue pointing at the last of those: the new build's own telemetry reads
+
+```
+accelerometer scale check: |accel| at rest mean 9.4340 m/s^2 (-3.80%)
+                           9.5086 (-3.04%)   9.5421 (-2.70%)
+```
+
+where `5e8fd10` was measured to land it at **-0.50%**. A ~3% scale error is
+phantom acceleration, and the replay harness put 3.5% at triple the overshoot and
+quadruple the post-stop drift. The fix is not achieving what it was measured to
+achieve on live hardware.
+
+### Correction: the FOV A/B was impure
+
+The user reports that under `OHMD_STEAMVR_FOV=monado`, "stuff on the edge curved
+weirdly". That is my error: `ApplyFovPolicy` scales the four projection tangents,
+but `ComputeDistortion` builds its mesh from the lens constants independently and
+was left untouched. Widening the frustum 9.9% against a distortion mesh tuned for
+the original one warps the periphery.
+
+The central finding survives - the move-overshoot-settle artifact was unchanged,
+which is what the test was for - but the experiment introduced a second artifact
+and should not be cited as a clean test of field of view. It also establishes that
+the distortion mesh is self-consistent with the present 73.78 deg frustum, so any
+future FOV change must port the matching distortion or it will look worse whether
+or not the new FOV is correct.
+
+The override defaults to unset and changes nothing unless asked, so it does not
+contaminate the tracking bisection now in progress.
+
+## THE ANSWER: the "good" configuration was 3DOF
+
+`OHMD_RIFT_NO_CALIB_ORTHO=1 OHMD_RIFT_BLEED=1 OHMD_RIFT_DEADRECKON_MS=70` -
+verified applied (`correction bleeding ON`, accelerometer back to its pre-fix
++2.51%) - did not change the artifact. That eliminates correction bleeding, the
+calibration ortho and the dead-reckoning window.
+
+Reading the remaining candidates found it immediately. `5391124`, the first
+commit after the known-good build, says so in its own message:
+
+> Monado's OpenHMD driver defaults every device to 3dof and only makes the HMD
+> 6dof when this flag is set, so the entire constellation solve was being
+> discarded and replaced with a neck model.
+
+Confirmed in `monado/src/xrt/drivers/ohmd/oh_device.c:1263`:
+
+```c
+// Default everything to 3dof (NONE), but 6dof when the HMD supports position tracking.
+ohd->base.supported.position_tracking = (device_flags & OHMD_DEVICE_FLAGS_POSITIONAL_TRACKING) != 0;
+```
+
+**The 07-29 library did not set that flag, so every "Monado feels right" report was
+a 3DOF headset on a neck model.** A 3DOF headset has no positional error, no
+vision corrections and no settle, by construction.
+
+So the artifact is not a regression, and not the runtime. It is **CV1 positional
+tracking**, switched on for Monado at 07-29 21:32 and always on under SteamVR -
+which is why the complaint dates from the first message of the session.
+
+### The second measurement blindness
+
+`tools/find_oscillation.py` removes smooth motion by fitting a local quadratic
+over a **0.25 s** window. Anything settling more slowly is absorbed into "real
+motion" and cannot appear in the residual. The position observer's poles are a
+complex pair at 1.07 Hz plus a **real pole at -0.559, tau = 1.79 s**.
+
+A 1.8 s settle is therefore structurally invisible to the tool used to declare
+the pose clean at 0.64 mm - and "I move and it overshoots, gets back too far,
+until it reached the real point" is a description of precisely that. The 1.79 s
+pole was on the candidate list early and was dismissed on the strength of a
+measurement that could not see it.
+
+Both of tonight's blind spots have the same shape: a metric that excluded the
+band the symptom lives in, then treated silence as absence.
+
+### Where to go next
+
+The question is now narrow, positional, and offline-measurable: **what does the
+position estimate do in the 0.2-3 s after motion stops?** Not the residual after
+smoothing - the trajectory itself, against a step input.
+
+1. `tools/fusion_replay.c` already drives the real `rift-fusion-ovr.c` with
+   synthetic profiles and reports overshoot and settling. Re-run the
+   `--profile translate` stop test and read the tail out to 3 s, with no
+   smoothing window applied.
+2. Re-analyse the existing captures with a smoothing window of 3-5 s (or none),
+   which is the change that makes the slow mode visible in data already on disk.
+3. Then the gains: `GAIN_POS(10,10,8) / GAIN_VEL(50,50,32) / GAIN_ACCEL(25,25,16)`
+   put a real pole at tau 1.79 s. Whether that is the artifact is now a
+   measurement, not a guess.
+
+---
+
+## Step 1: quantify the settle. Instrument built; result not yet conclusive
+
+### Harness: the accel scale error matters, but not by the mechanism I proposed
+
+`tools/fusion_replay.c`, real fusion code, translate profile at 1.2 m/s:
+
+| accel scale | overshoot | settle | bias peak | bias at end |
+|---|---|---|---|---|
+| 1.000 (perfect) | 2.60 mm | 390 ms | 0.0389 | **0.0003** |
+| 0.975 (-2.5%) | 6.78 mm | 442 ms | 0.2428 | 0.2428 |
+| 0.970 (-3.0%) | 7.62 mm | 444 ms | 0.2914 | 0.2914 |
+| 0.962 (-3.8%) | 8.97 mm | 446 ms | 0.3691 | 0.3691 |
+
+With a perfect accelerometer the slow mode barely excites and decays to zero, so
+**the tau = 1.79 s pole alone is not a symptom** - it needs a forcing term. A 3%
+scale error triples the overshoot.
+
+But the `turn` profile shows **0.00 mm overshoot at every scale**, with
+`bias_end` identical to the translate case. The bias state is held in the **body
+frame**, where a scale error is constant, so rotation never forces it to
+re-converge. **The mechanism written into the plan - rotation moves the bias
+target, 1.8 s re-convergence - is wrong.**
+
+What survives is simpler: a scale error scales *real* acceleration, injecting
+error proportional to how hard you accelerate. Still motion-proportional and zero
+at rest, but not a rotating bias.
+
+### New metric, and three bugs in it worth recording
+
+`tools/settle_profile.py` measures displacement from the stop point over a fixed
+window with no speed threshold terminating it. Getting it right took three fixes,
+each of which had produced confident nonsense:
+
+1. **Quiet defined against FAST rather than SLOW.** 0.4 m/s sustained for 3 s is
+   1.2 m of travel; `p_final` landed somewhere unrelated and the journey was
+   reported as a settle - 107 mm at lag 0, non-monotonic.
+2. **Speed differenced between adjacent samples.** At 810 Hz, 0.5 mm of noise
+   across a 1.2 ms gap is 0.4 m/s, so every real stop looked like motion and zero
+   events were found. Now computed over a fixed 50 ms base, which also makes
+   captures at different rates comparable.
+3. **Forward "fast then slow" scan.** During a settle the speed dithers across
+   SLOW repeatedly and the first failing dip discarded the deceleration that
+   caused it. Now finds quiet runs first, then asks which were preceded by
+   movement.
+
+### Preliminary numbers - NOT yet a result
+
+Window 1.5 s, distance still to travel after the stop:
+
+| capture | events | at stop | 0.5 s | 1.0 s | fitted amplitude | fitted tau |
+|---|---|---|---|---|---|---|
+| Oculus runtime | 3 | 11.2 mm | 10.8 | 7.4 | 14.2 mm | 0.85 s |
+| ours `predold2` | 1 | 20.0 mm | 8.9 | 2.7 | 23.8 mm | 0.47 s |
+| ours `osc` | 1 | 24.0 mm | 14.2 | 9.8 | 26.7 mm | 0.88 s |
+
+Ours settles roughly **1.7-1.9x further** than the Oculus runtime, which is the
+direction expected. But **n = 1 against n = 3**, so this is an indication, not a
+measurement, and it must not be quoted as one.
+
+Two further points against the plan's headline: the fitted tau is 0.5-0.9 s, not
+1.79 s, so the slow bias pole is not visibly dominating; and the Oculus runtime
+has a 14 mm settle of its own, so the target is not zero.
+
+### What is actually blocking
+
+Every capture on disk was made for a different experiment and contains almost no
+clean stops - `osc.csv` has **one** in 60 s, `predold2` **one** in 26 s. The
+motion was continuous by design. Nothing more can be concluded without a capture
+made for this question: repeated fast movements each followed by a deliberate
+2-3 second hold, which yields 15-20 events instead of one.
+
+### Step 1 verdict: the positional settle is NOT the artifact
+
+Purpose-made capture, headset moved and set down on a desk (true stillness, no
+human sway, 14 clean stops in 60 s):
+
+| | events | at stop | 0.5 s | 1.0 s | 1.5 s | amplitude | tau |
+|---|---|---|---|---|---|---|---|
+| Oculus runtime | 3 | 11.20 mm | 10.76 | 7.42 | 1.49 | 14.21 mm | 0.85 s |
+| ours | 14 | 9.25 mm | 5.86 | 2.50 | 0.83 | **13.84 mm** | **0.53 s** |
+
+**Ours is equal or better than the reference on every measure.** The fitted tau is
+0.53 s, not 1.79 s, so the slow bias pole is not visible in real data either.
+
+Caveats, both real: their capture is head-worn and ours is desk-mounted, so the
+protocol that made our measurement clean also made it flattering; and their n=3.
+Neither caveat rescues the hypothesis - a settle that is already at parity cannot
+be what makes one configuration feel broken and the other fine.
+
+**The plan's premise is falsified by its own step 1, as intended.** Retuning the
+observer gains would be optimising something already at reference parity.
+
+### What this leaves, and it fits better than anything so far
+
+The desk test exercises **translation only**. The artifact is felt while wearing
+the headset and turning the head, and it vanishes in 3DOF - a mode that has no
+position at all, and therefore no rotation-to-translation term.
+
+That points at the **lever arm**: the tracked point is not the eye. The driver's
+own log reports `HMD device frame: IMU at [-0.0166 0.0345 0.0331] m`, and
+`driver_openhmd.cpp` leaves `vecDriverFromHeadTranslation` at **zero** for the
+HMD, so SteamVR places the eyes exactly on OpenHMD's tracked origin. A 3 cm error
+in that offset produces `r x omega` = 0.03 * 1.57 = **47 mm/s** of spurious
+translation during a modest 90 deg/s head turn.
+
+That is zero at rest, proportional to turn rate, uniform across the image,
+identical on headset and controllers, invisible to every pose-quality metric
+(the pose is *correct* for the point it describes), and structurally absent in
+3DOF. It matches every surviving observation.
+
+This was raised earlier in the project and dropped on an argument rather than a
+measurement: `windows-vs-linux-tracking.md:1043` reasons that the tracked origin
+"sits 74 mm behind the visor face - about where a CV1 wearer's eye actually is,
+so zero is approximately right". "Approximately right" is exactly the kind of
+claim this artifact would hide behind.
+
+**Next test, and it is a desk test too:** rotate the headset in place about a
+known point and measure how far the reported position moves. If the pivot is
+modelled correctly, spinning about the tracked origin should produce near-zero
+translation; whatever it does produce is the lever-arm error, in mm, directly.
+
+---
+
+## BISECT RESULT: the overshoot enters at `b665454`
+
+After twelve failed hypotheses, going back to pristine upstream and walking
+forward found it in five runs. Harness: Monado (loads libopenhmd dynamically, so
+a point is one file copy), Bigscreen, `tools/bisect_openhmd.sh`. Every point
+carried two constants so neither became a variable: the OpenCV-5 build fix, and
+`5391124` for the positional flag - without which Monado silently runs 3DOF,
+the false "feels perfect" that cost the earlier part of the evening.
+
+| point | commit | overshoot |
+|---|---|---|
+| A | `04f5276` pristine upstream | **no** (heavy vibration) |
+| 6 | `bd1e9f9` all room-config work | **no** (light vibration) |
+| 7 | `b665454` 2026-07-12 tracking session | **YES** |
+| 8 | `b5ea958` obs merge -> orientation | yes |
+| 10 | `7ad4c30` extrinsic refine, vision tilt | yes |
+| 20 | `2266430` cam-calib auto-recovery | yes |
+| 40 | `5e8fd10` HEAD | yes |
+
+`b665454` is the commit. Every point was content-fingerprinted before its run and
+every run was confirmed to have live positional tracking, so unlike the earlier
+comparisons this one has controls.
+
+### Two things established on the way
+
+**Upstream's vibration is real and ours fixed it.** At point A both cameras were
+placed with `gravity error 25.000000 degrees` - exactly the `MIN_ROT_ERROR` clamp,
+i.e. the cold-start deadlock - so the extrinsics were badly conditioned and the
+two sensors' fixes disagreed. That is the 7.5 Hz rest-wander, and it fades from
+point 6 onward. The work in this repo demonstrably fixed something.
+
+**A prediction I made was wrong and is worth recording as such.** Before the #8
+run I named `f9b88f6` (IMU calibration offset convention) as the suspect on the
+strength of the accelerometer telemetry. The bisect put the cause four commits
+earlier, in code I had already reasoned about and not suspected.
+
+### What is inside `b665454`, and what can still be excluded
+
+Under Monado two of its changes cannot matter: the exported-velocity EMA and
+`rift_predict_pose` only affect consumers that read velocity or request
+prediction, and Monado does neither. That leaves:
+
+- the **same-exposure observation merge** (position corrected toward the
+  confidence-weighted mean of an exposure's observations, weights 1/obs_scale^2)
+- the **rewritten gravity gate**
+- `vision_fix` taking **`replace_pending`**
+
+The first two have kill switches, so narrowing needs no rebuild. Neither logged
+its state, so a log line was added first - the same defect that made a previous
+A/B in this project unverifiable from its own output, noted in
+`windows-vs-linux-tracking.md` and repeated twice tonight.
+
+**Leading candidate, stated before the test:** the merge changed position from
+"take the latest camera's fix" to "converge toward a weighted mean of the
+exposure's observations". That is exactly the change that stops the cameras
+fighting at rest - which it verifiably did - and it is also the kind of change
+that would make the pose approach its target gradually during motion rather than
+snapping to it.
+
+## SOLVED: the OVR complementary fusion backend is the cause
+
+`OHMD_RIFT_FUSION=ukf` at **current HEAD** - all 40 commits present - removes the
+overshoot. Verified from the log before judging: `Device 0 using UKF fusion
+backend`, `Now tracking`, 7 sensor placements.
+
+`b665454` did not tune the fusion. It **added a second one**:
+`rift-fusion-ovr.c | 470 +++++` and `rift-fusion-ovr.h | 88 +++`, both pure
+additions - a port of the Oculus SDK 0.3.2 complementary filter - and made it the
+default, displacing thaytan's UKF (`rift-kalman-6dof.c`).
+
+That new file is exactly where `GAIN_POS(10,10,8) / GAIN_VEL(50,50,32) /
+GAIN_ACCEL(25,25,16)` live, whose poles were computed earlier tonight:
+
+| axis | poles |
+|---|---|
+| X, Y | -4.72 +/- 4.74j (1.06 Hz, zeta 0.71) and **-0.559, tau 1.789 s** |
+| Z | -3.71 +/- 3.73j (0.84 Hz, zeta 0.71) and **-0.577, tau 1.732 s** |
+
+The pole analysis was right about the mechanism and wrong about the scope: the
+question was never "are these gains mistuned?" but "why is this filter running at
+all?". The UKF has no such observer and does not overshoot.
+
+Also falsified along the way, with the switch verified applied
+(`same-exposure obs merge OFF (OHMD_RIFT_NO_OBS_MERGE=1)`): the obs merge is not
+the cause. It was named as the leading candidate before the test, and was wrong -
+as was `f9b88f6`, named one run earlier.
+
+### Confirmed A/B, one variable, both ends verified
+
+| config | fusion | overshoot |
+|---|---|---|
+| HEAD | OVR complementary (default) | yes |
+| HEAD + `OHMD_RIFT_FUSION=ukf` | UKF | **no** |
+
+Everything else from the 40 commits is unaffected and stays: cold-start fix,
+same-exposure obs merge, gravity gate, auto-placement, room config, calibration.
+Those live outside the fusion, and the vibration fix they provide is retained -
+point A's `gravity error 25.000000 degrees` shows what happens without them.
+
+### Open, and now well-posed
+
+1. **Default.** The OVR backend should not be the default while it does this. A
+   one-line change, but the choice deserves the measurements below rather than a
+   reflex.
+2. **Which is actually better?** The UKF removes the overshoot; whether it is
+   worse on latency, rest jitter or dropout recovery is unmeasured. Both backends
+   can now be scored offline with `tools/settle_profile.py` (14-event desk
+   capture) against the Oculus runtime's 14.21 mm / tau 0.85 s.
+3. **Or fix the complementary filter.** Its slow real pole comes from `Ka` being
+   low relative to `Kp`/`Kv`: for `Kp=10`, placing all three poles together wants
+   `Kv=33.3, Ka=36.9` against the shipped `50 / 25`. Worth testing, since the
+   complementary filter was ported for a reason.
+4. The **edge cropping** the user reports is independent of all of this - it
+   appears at every bisect point and no lens/screen constant changes across them.
+   Monado also forces the vertical lens centre to 0.5 with `//! @todo This are
+   probably all wrong!`. Separate thread.

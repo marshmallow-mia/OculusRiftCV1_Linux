@@ -1,0 +1,646 @@
++++ dirname /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/vrmonitor.sh
+++ cd /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/
+++ pwd
++ VRBINDIR=/home/mia/.local/share/Steam/steamapps/common/SteamVR/bin
++ [[ -n '' ]]
++ exec /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/vrenv.sh /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/vrmonitor.sh
+vrenv.sh[294932]: VRCOMPOSITOR_LD_LIBRARY_PATH=/home/mia/git/rift-cv1-center:/home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/linux64/qt/lib:/home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/linux64
+vrenv.sh[294932]: exec /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/vrmonitor.sh
++++ dirname /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/vrmonitor.sh
+++ cd /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/
+++ pwd
++ VRBINDIR=/home/mia/.local/share/Steam/steamapps/common/SteamVR/bin
++ [[ -n /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/vrenv.sh ]]
++ case $(uname) in
+++ uname
++ VRMONITOR=/home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/linux64/vrmonitor
++ exec /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/linux64/vrmonitor
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 21:30:33 minidumps folder is set to /tmp/dumps
+07/31 21:30:33 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(294932)
+static QPlatformTheme* QKdeTheme::createKdeTheme(): Unable to determine KDE dirs
+sh: line 1: steamxdg-icon-resource: command not found
+sh: line 1: steam-runtime-launch-client: command not found
+QObject::connect: No such slot CQVRMonitorController::OnStartRecordingAction() in /data/src/vrmonitor/qvrmonitorcontroller.cpp:1112
+QObject::connect: No such slot CQVRMonitorController::OnStopRecordingAction() in /data/src/vrmonitor/qvrmonitorcontroller.cpp:1115
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+CQVRMonitorHeadsetWarning(0x55f32997d1f0)  does not have a property named  "green_color"
+CQVRMonitorHeadsetWarning(0x55f32997d1f0)  does not have a property named  "red_color"
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 21:30:33 minidumps folder is set to /tmp/dumps
+07/31 21:30:33 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(295036)
+[S_API] SteamAPI_Init(): Loaded '/home/mia/.local/share/Steam/linux64/steamclient.so' OK.
+VR Server (v1781734990)
+
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+SteamInternal_SetMinidumpSteamID:  Caching Steam ID:  76561198428899653 [API loaded yes]
+SteamInternal_SetMinidumpSteamID:  Setting Steam ID:  76561198428899653
+[II] HMD IMU calibration  gyro_offset [ -0.003900, 0.001300, 0.001100 ]  accel_offset [ 0.108000, -0.305600, 0.024900 ]
+[II]   gyro_calib = 
+[II]   [    0.999,    0.005,   -0.021 ]
+[II]   [    0.004,    1.000,   -0.007 ]
+[II]   [    0.008,    0.038,    0.999 ]
+[II]   accel_calib = 
+[II]   [    1.021,    0.001,   -0.018 ]
+[II]   [    0.001,    1.037,    0.022 ]
+[II]   [    0.004,   -0.005,    0.963 ]
+[II] HMD accel calibration matrix: mean row norm 1.0072 -> 1.0000 (scale removed 0.72%)
+[II] HMD gyro calibration matrix: mean row norm 0.9994 -> 1.0000 (scale removed -0.06%)
+[II] CV1 display config: brightness=0 flags=0x400 persistence=273/1472 rows
+[II] Using 34 visor LEDs; dropped 10 headband LEDs (not tracked as a separate body yet - the headset is only trackable from the front)
+LED model: HMD LEDs
+{ .pos = {0.062939,-0.032042,0.067541}, .dir={0.181956,-0.102972,0.977900}, .pattern=0x1 },
+{ .pos = {0.077151,0.000993,0.065562}, .dir={0.299055,0.001984,0.954234}, .pattern=0x6 },
+{ .pos = {0.028983,-0.019018,0.073518}, .dir={0.082983,-0.096960,0.991823}, .pattern=0x1a },
+{ .pos = {-0.000097,-0.033045,0.072449}, .dir={0.000000,-0.188028,0.982164}, .pattern=0x1d },
+{ .pos = {-0.028998,-0.019144,0.073384}, .dir={-0.082983,-0.096960,0.991823}, .pattern=0x28 },
+{ .pos = {-0.063022,-0.032156,0.067359}, .dir={-0.181956,-0.102972,0.977900}, .pattern=0x2f },
+{ .pos = {-0.077078,0.000964,0.065342}, .dir={-0.299055,0.001984,0.954234}, .pattern=0x33 },
+{ .pos = {-0.054039,0.034440,0.068623}, .dir={-0.140969,0.134957,0.980772}, .pattern=0x4b },
+{ .pos = {-0.020202,0.017950,0.074224}, .dir={-0.056979,0.095951,0.993754}, .pattern=0x4c },
+{ .pos = {0.053973,0.034595,0.069160}, .dir={0.140969,0.134957,0.980772}, .pattern=0x57 },
+{ .pos = {0.020062,0.018061,0.074368}, .dir={0.056979,0.095951,0.993754}, .pattern=0x62 },
+{ .pos = {-0.078856,-0.011904,0.028395}, .dir={-0.993057,-0.099980,-0.061984}, .pattern=0x65 },
+{ .pos = {-0.077293,-0.012335,-0.008668}, .dir={-0.981566,-0.188915,-0.028963}, .pattern=0x79 },
+{ .pos = {-0.070740,-0.031349,0.010284}, .dir={-0.734056,-0.668042,-0.121987}, .pattern=0x7e },
+{ .pos = {-0.059124,-0.040984,0.036314}, .dir={-0.153997,-0.983099,-0.099003}, .pattern=0x90 },
+{ .pos = {0.058835,-0.040830,0.035942}, .dir={0.153997,-0.983099,-0.099003}, .pattern=0xa4 },
+{ .pos = {0.028165,-0.043453,0.061352}, .dir={-0.004975,-0.998636,-0.051974}, .pattern=0x114 },
+{ .pos = {-0.080319,-0.024476,0.053355}, .dir={-0.947594,-0.225904,-0.225904}, .pattern=0x151 },
+{ .pos = {-0.027992,-0.043610,0.061432}, .dir={0.004975,-0.998636,-0.051974}, .pattern=0x183 },
+{ .pos = {0.070561,-0.031850,0.009988}, .dir={0.734056,-0.668042,-0.121987}, .pattern=0x18c },
+{ .pos = {0.077672,-0.012729,-0.008828}, .dir={0.981566,-0.188915,-0.028963}, .pattern=0x199 },
+{ .pos = {0.079252,-0.012425,0.027945}, .dir={0.993057,-0.099980,-0.061984}, .pattern=0x1aa },
+{ .pos = {0.080678,-0.024862,0.053475}, .dir={0.947594,-0.225904,-0.225904}, .pattern=0x1b5 },
+{ .pos = {-0.029139,0.043728,0.057487}, .dir={-0.004975,0.999980,0.003998}, .pattern=0x1c0 },
+{ .pos = {-0.078382,0.029385,0.053600}, .dir={-0.871752,0.428856,-0.236921}, .pattern=0x1cf },
+{ .pos = {0.072131,0.030937,0.000022}, .dir={0.816019,0.577024,-0.033998}, .pattern=0x1d6 },
+{ .pos = {0.067042,0.037833,0.030095}, .dir={0.526908,0.847875,-0.058962}, .pattern=0x1e9 },
+{ .pos = {0.078260,0.029513,0.053292}, .dir={0.871752,0.428856,-0.236921}, .pattern=0x1f3 },
+{ .pos = {0.028896,0.043669,0.057676}, .dir={0.004975,0.999980,0.003998}, .pattern=0x1fc },
+{ .pos = {-0.067240,0.037555,0.029876}, .dir={-0.526908,0.847875,-0.058962}, .pattern=0x230 },
+{ .pos = {-0.072200,0.030241,0.000120}, .dir={-0.816019,0.577024,-0.033998}, .pattern=0x252 },
+{ .pos = {-0.041120,0.043276,0.023325}, .dir={-0.041995,0.999110,-0.003998}, .pattern=0x282 },
+{ .pos = {0.000159,0.043811,0.033423}, .dir={0.005982,0.999932,0.009980}, .pattern=0x285 },
+{ .pos = {0.041085,0.043260,0.023553}, .dir={0.041995,0.999110,-0.003998}, .pattern=0x29b },
+[II] HMD IPD 63.5 mm, as reported by the headset (note: this is its stored figure, not the live slider position)
+Opened Rift Sensor 0 w/ Serial WMTD306Q701DEK. Connecting to Radio address 0x11563cc989
+[II] camera width 1280 height 960
+[II] f = [ 716.935 716.935 ], c = [ 661.864 469.517 ]
+[II] k = [  0.070819 -0.023264  0.005108 -0.000523 ]
+[II] Calibration capture enabled -> /home/mia/git/rift-cv1-center/captures/lin/2026-07-31/noaccel.jsonl
+stream state: "connecting"
+stream state: "connecting"
+[II] Loaded pose for sensor WMTD306Q701DEK from room store: "pos" : [ -1.080223, 1.242403, -0.743242 ], "orient" : [ 0.602096, -0.067780, 0.792231, 0.072504 ]
+[II] Set sensor 0 pose to orient 0.602096 -0.067780 0.792231 0.072504  pos -1.080223 1.242403 -0.743242
+stream state: "paused"
+stream state: "paused"
+Opened Rift Sensor 1 w/ Serial WMTD3052400VZL. Connecting to Radio address 0x11563cc989
+[II] camera width 1280 height 960
+[II] f = [ 716.734 716.734 ], c = [ 647.399 478.498 ]
+[II] k = [  0.071847 -0.025176  0.006398 -0.000817 ]
+stream state: "connecting"
+stream state: "connecting"
+[II] Loaded pose for sensor WMTD3052400VZL from room store: "pos" : [ -1.210712, 1.577917, 0.300834 ], "orient" : [ 0.690365, -0.084812, 0.713771, 0.082057 ]
+[II] Set sensor 1 pose to orient 0.690365 -0.084812 0.713771 0.082057  pos -1.210712 1.577917 0.300834
+Opened 2 Rift Sensor cameras
+stream state: "paused"
+stream state: "paused"
+Temperature: 41.8 °C
+UVC PTS changed in-frame at 16372 bytes. Lost 74 ms
+UVC Dropping short frame: 16372 < 1228800 (1212428 lost)
+Temperature: 40.0 °C
+[II] HMD device frame: IMU at [-0.0166 0.0345 0.0331] m; screen 0.1193 x 0.0663 m; lens separation 0.0540 m, v-centre 0.0308 m, eye-to-screen 0.0396/0.0396 m
+[II] HMD LED model spans z -0.0088..0.0744, y -0.0436..0.0438 m (34 LEDs, before the 180 deg model rotation)
+[II] position observer gains pos [10 10 8] vel [50 50 32] accel [25 25 16]
+[II] Device 0 using UKF fusion backend
+stream state: "connecting"
+device 0 online. Now tracking.
+stream state: "paused"
+[WW] Exposure timestamp 1859027712 was more than 1.5 IMU samples earlier than IMU ts 1859039784 by 12072 µS
+[WW] Device 0: late pose time 3653.977 ms from WMTD3052400VZL (1 so far, worst 3653.977 ms)
+[II] Matched orientation after 3.653977 sec
+[II] output correction bleeding OFF - set OHMD_RIFT_BLEED=1 to restore
+[WW] Sensor WMTD3052400VZL: predicted exposure-to-frame latency of -6.2 ms differed from measured 0.9 ms (1 so far) - check the sensor sync cable
+[II] sensor WMTD3052400VZL calibration SETTLED
+[II] calib feed: 1 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 1 obs, 0 paired, history 0 over 0 viewpoints, 0 solves, residual -1.00 px, uncalibrated
+[II] Device 0: joint reconstruction over 2 cameras left 16.41 px in the worst camera (>2.0 px) - check sensor calibration
+[II] Ignoring position observation with error -0.085912 0.094384 -0.044370 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.084006 0.091567 -0.044253 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.085986 0.094366 -0.044419 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.085888 0.094306 -0.044106 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.084502 0.092156 -0.043983 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.084923 0.093108 -0.044247 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.085882 0.093555 -0.044333 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.085612 0.093970 -0.044271 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.086089 0.094613 -0.044055 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.084530 0.092765 -0.044398 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] angular velocity exported in the device-local frame
+[II] velocity smovrcompositor-launcher.sh[295103]: Relaunch under scout LDLP runtime.
+vrcompositor-launcher.sh[295103]: exec /home/mia/.steam/root/ubuntu12_32/steam-runtime/run.sh /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/linux64/vrcompositor-launcher.sh
+vrcompositor-launcher.sh[295103]: Detected scout LDLP runtime.
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 21:30:38 minidumps folder is set to /tmp/dumps
+07/31 21:30:38 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(295142)
+[S_API] SteamAPI_Init(): Loaded '/home/mia/.local/share/Steam/linux64/steamclient.so' OK.
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+SteamInternal_SetMinidumpSteamID:  Caching Steam ID:  76561198428899653 [API loaded yes]
+SteamInternal_SetMinidumpSteamID:  Setting Steam ID:  76561198428899653
+Initialize() is failed!!!
+qt.network.ssl: QSslSocket: cannot resolve CRYPTO_num_locks
+qt.network.ssl: QSslSocket: cannot resolve CRYPTO_set_id_callback
+qt.network.ssl: QSslSocket: cannot resolve CRYPTO_set_locking_callback
+qt.network.ssl: QSslSocket: cannot resolve ERR_free_strings
+qt.network.ssl: QSslSocket: cannot resolve sk_new_null
+qt.network.ssl: QSslSocket: cannot resolve sk_push
+qt.network.ssl: QSslSocket: cannot resolve sk_free
+qt.network.ssl: QSslSocket: cannot resolve sk_num
+qt.network.ssl: QSslSocket: cannot resolve sk_pop_free
+qt.network.ssl: QSslSocket: cannot resolve sk_value
+qt.network.ssl: QSslSocket: cannot resolve SSL_get_peer_certificate
+qt.network.ssl: QSslSocket: cannot resolve SSL_library_init
+qt.network.ssl: QSslSocket: cannot resolve SSL_load_error_strings
+qt.network.ssl: QSslSocket: cannot resolve SSL_get_ex_new_index
+qt.network.ssl: QSslSocket: cannot resolve SSLv2_client_method
+qt.network.ssl: QSslSocket: cannot resolve SSLv3_client_method
+qt.network.ssl: QSslSocket: cannot resolve SSLv23_client_method
+qt.network.ssl: QSslSocket: cannot resolve SSLv2_server_method
+qt.network.ssl: QSslSocket: cannot resolve SSLv3_server_method
+qt.network.ssl: QSslSocket: cannot resolve SSLv23_server_method
+qt.network.ssl: QSslSocket: cannot resolve X509_STORE_CTX_get_chain
+qt.network.ssl: QSslSocket: cannot resolve OPENSSL_add_all_algorithms_noconf
+qt.network.ssl: QSslSocket: cannot resolve OPENSSL_add_all_algorithms_conf
+qt.network.ssl: QSslSocket: cannot resolve SSLeay
+qt.network.ssl: QSslSocket: cannot resolve SSLeay_version
+qt.network.ssl: QSslSocket: cannot call unresolved function SSLeay
+qt.network.ssl: QSslSocket: cannot call unresolved function CRYPTO_num_locks
+qt.network.ssl: QSslSocket: cannot call unresolved function CRYPTO_set_id_callback
+qt.network.ssl: QSslSocket: cannot call unresolved function CRYPTO_set_locking_callback
+qt.network.ssl: QSslSocket: cannot call unresolved function SSL_library_init
+qt.network.ssl: QSslSocket: cannot call unresolved function SSLv23_client_method
+qt.network.ssl: QSslSocket: cannot call unresolved function sk_num
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 21:30:38 minidumps folder is set to /tmp/dumps
+07/31 21:30:38 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(295144)
+[S_API] SteamAPI_Init(): Loaded '/home/mia/.local/share/Steam/linux64/steamclient.so' OK.
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+SteamInternal_SetMinidumpSteamID:  Caching Steam ID:  76561198428899653 [API loaded yes]
+SteamInternal_SetMinidumpSteamID:  Setting Steam ID:  76561198428899653
+[0731/213038.122819:ERROR:check.cc(376)] Check failed: false. NOTREACHED log messages are omitted in official builds. Sorry!
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 21:30:38 minidumps folder is set to /tmp/dumps
+07/31 21:30:38 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(295180)
+[0731/213038.163875:ERROR:check.cc(376)] Check failed: false. NOTREACHED log messages are omitted in official builds. Sorry!
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 21:30:38 minidumps folder is set to /tmp/dumps
+07/31 21:30:38 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(295179)
+[0731/213038.164659:ERROR:check.cc(376)] Check failed: false. NOTREACHED log messages are omitted in official builds. Sorry!
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 19: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 20: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 23: invalid constant used : monospace
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 42: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 43: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 46: invalid constant used : sans-serif
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 68: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 69: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 72: invalid constant used : serif
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 88: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 89: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 92: invalid constant used : emoji
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 108: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 109: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 112: invalid constant used : math
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 120: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 121: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 124: invalid constant used : system-ui
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 132: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 133: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 136: invalid constant used : cursive
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 144: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 145: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 148: invalid constant used : fantasy
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 156: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 157: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 160: invalid constant used : ui-sans-serif
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 168: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 169: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 172: invalid constant used : ui-serif
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 180: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 181: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 184: invalid constant used : ui-monospace
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 192: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 193: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 196: invalid constant used : ui-rounded
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 204: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 205: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 208: invalid constant used : fangsong
+Fontconfig warning: "/etc/fonts/conf.d/48-spacing.conf", line 14: invalid constant used : monospace
+Fontconfig warning: "/etc/fonts/conf.d/49-sansserif.conf", line 10: invalid constant used : serif
+Fontconfig warning: "/etc/fonts/conf.d/49-sansserif.conf", line 18: invalid constant used : sans-serif
+Fontconfig warning: "/etc/fonts/conf.d/49-sansserif.conf", line 26: invalid constant used : monospace
+Fontconfig warning: "/etc/fonts/conf.d/49-sansserif.conf", line 34: invalid constant used : emoji
+Fontconfig warning: "/etc/fonts/conf.d/49-sansserif.conf", line 42: invalid constant used : math
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 19: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 20: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 23: invalid constant used : monospace
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 42: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 43: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 46: invalid constant used : sans-serif
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 68: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 69: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 72: invalid constant used : serif
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 88: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 89: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 92: invalid constant used : emoji
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 108: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 109: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 112: invalid constant used : math
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 120: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 121: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 124: invalid constant used : system-ui
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 132: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 133: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 136: invalid constant used : cursive
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 144: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 145: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 148: invalid constant used : fantasy
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 156: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 157: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 160: invalid constant used : ui-sans-serif
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 168: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 169: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 172: invalid constant used : ui-serif
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 180: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 181: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 184: invalid constant used : ui-monospace
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 192: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 193: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 196: invalid constant used : ui-rounded
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 204: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 205: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 208: invalid constant used : fangsong
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-spacing.conf", line 14: invalid constant used : monospace
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/49-sansserif.conf", line 10: invalid constant used : serif
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/49-sansserif.conf", line 18: invalid constant used : sans-serif
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/49-sansserif.conf", line 26: invalid constant used : monospace
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/49-sansserif.conf", line 34: invalid constant used : emoji
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/49-sansserif.conf", line 42: invalid constant used : math
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 21:30:38 minidumps folder is set to /tmp/dumps
+07/31 21:30:38 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(295255)
+[0731/213038.421511:ERROR:check.cc(376)] Check failed: false. NOTREACHED log messages are omitted in official builds. Sorry!
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 21:30:38 minidumps folder is set to /tmp/dumps
+07/31 21:30:38 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(295386)
+[0731/213038.843095:ERROR:check.cc(376)] Check failed: false. NOTREACHED log messages are omitted in official builds. Sorry!
+othing: tau 25 ms, speed-adaptive
+[II] Ignoring position observation with error -0.084630 0.092320 -0.044052 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.086023 0.094456 -0.044106 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.085325 0.093834 -0.044224 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.085393 0.093729 -0.044049 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.084258 0.092157 -0.044467 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.083826 0.091295 -0.044334 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.084784 0.093019 -0.044378 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.082015 0.088770 -0.044665 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.085252 0.093509 -0.044083 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.086006 0.094261 -0.044272 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.085985 0.093670 -0.043537 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.085044 0.093410 -0.044130 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.084924 0.093088 -0.044230 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.087654 0.100876 -0.076165 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.081916 0.089422 -0.044786 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.084646 0.092366 -0.044042 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.085862 0.094290 -0.043866 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.083385 0.090794 -0.044158 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.085812 0.094187 -0.044025 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.085305 0.093612 -0.044120 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.085392 0.093139 -0.043798 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.084645 0.092964 -0.044392 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.085573 0.093926 -0.044030 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.085133 0.093198 -0.044045 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.086422 0.094990 -0.043880 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.084803 0.093011 -0.044204 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.084086 0.092209 -0.044278 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.084944 0.093291 -0.044250 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.085336 0.093644 -0.044141 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.084729 0.092899 -0.044171 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.086181 0.094708 -0.043972 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.084145 0.091702 -0.044056 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.084702 0.092142 -0.044257 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.084402 0.092567 -0.044276 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.084501 0.092116 -0.044018 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.082699 0.089544 -0.044492 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.084355 0.092585 -0.044289 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.085115 0.093669 -0.043969 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.085669 0.093545 -0.043774 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.083246 0.090463 -0.044625 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.083079 0.090681 -0.044752 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] HMD obs quality: full(strong+ids) 248 ids-verified 52 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 248
+[II] Ignoring position observation with error -0.085746 0.094465 -0.043983 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.085504 0.094045 -0.043999 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] frame-timing WMTD306Q701DEK: 300 frames, 46 missed exposure, diff avg -0.60 min -6.53 max 4.45 ms
+[II] Ignoring position observation with error -0.081626 0.088813 -0.044965 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.083876 0.091565 -0.044583 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.085404 0.093279 -0.044016 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.084496 0.092602 -0.044454 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.083305 0.090750 -0.044674 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.081897 0.088524 -0.044630 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.084635 0.092116 -0.044182 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.085472 0.094184 -0.044028 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.084978 0.093427 -0.044194 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] frame-timing WMTD3052400VZL: 300 frames, 3 missed exposure, diff avg -0.82 min -7.03 max 6.46 ms
+[II] Ignoring position observation with error -0.085274 0.092877 -0.043887 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.083401 0.090298 -0.044151 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.086138 0.094704 -0.044128 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.081834 0.088481 -0.045019 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.083173 0.090701 -0.044709 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.082404 0.089325 -0.044397 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.083889 0.091977 -0.044331 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.085040 0.092778 -0.043891 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.084612 0.092322 -0.044190 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.084614 0.092723 -0.044087 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.085502 0.093773 -0.044047 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.085235 0.093443 -0.043921 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.085177 0.092849 -0.043896 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.085116 0.092894 -0.043826 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.084348 0.091814 -0.044463 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.084999 0.093164 -0.044087 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.085734 0.093802 -0.044271 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.085395 0.093499 -0.044312 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.085948 0.094470 -0.044001 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.085183 0.092747 -0.043706 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.082870 0.089897 -0.044359 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.085747 0.093160 -0.044176 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.083813 0.091309 -0.044108 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.084805 0.092409 -0.044339 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.084812 0.093032 -0.044328 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.085543 0.093697 -0.044446 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.085465 0.093318 -0.043831 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.084794 0.092977 -0.044506 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.085660 0.093935 -0.044282 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.085591 0.093803 -0.043835 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.085481 0.093253 -0.043844 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.085304 0.093135 -0.043704 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.085925 0.094227 -0.044238 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.084597 0.092659 -0.043979 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.084573 0.092755 -0.044373 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.081510 0.088804 -0.044831 (prior stddev was 0.100000 0.100000 0.100000)
+
+[WW] Device 0: late pose time 100.338 ms from WMTD306Q701DEK (101 so far, worst 3749.137 ms)
+[II] Ignoring position observation with error -0.084057 0.091594 -0.043888 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.083964 0.091358 -0.043999 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.085391 0.093703 -0.044034 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.084414 0.091783 -0.044046 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.083759 0.091397 -0.044767 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.084859 0.093078 -0.044290 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] HMD obs quality: full(strong+ids) 247 ids-verified 53 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 247
+[II] Ignoring position observation with error -0.084956 0.093149 -0.044187 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.085243 0.093616 -0.043896 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] Ignoring position observation with error -0.086340 0.094845 -0.043952 (prior stddev was 0.100000 0.100000 0.100000)
+
+[II] accelerometer scale check: |accel| at rest mean 9.7527 m/s^2 (-0.55% vs 9.8067), range 9.319..10.162, 9798 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.75 min -4.33 max 1.79 ms
+[II] pose export over 10 s: age mean 1.9 ms max 3.8 ms | speed mean 1.01 max 1.23 m/s, ang mean 1 max 24 deg/s | age*speed worst 3.8 mm (875 samples)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.82 min -4.63 max 1.52 ms
+[II] HMD obs quality: full(strong+ids) 249 ids-verified 51 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 249
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.81 min -4.06 max 1.91 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.90 min -5.03 max 1.45 ms
+[II] sensor 1 calibration feed: 901 offered, 0 passed - rejected 0 for LED ids, 901 for too few blobs (<10), 0 for error
+[II] Device 0: joint reconstruction 1 solved, 88 rejected, 935 single-camera (0 observations arrived too late to count)
+[II] Forcing orientation observation
+[WW] Device 0: late pose time 70.204 ms from WMTD306Q701DEK (201 so far, worst 3749.137 ms)
+[II] Forcing orientation observation
+[II] Forcing orientation observation
+[II] Forcing orientation observation
+[II] Forcing orientation observation
+[II] Forcing orientation observation
+[II] Forcing orientation observation
+[II] Forcing orientation observation
+[II] Forcing orientation observation
+[II] Matched orientation after 0.007009 sec
+[WW] Exposure timestamp 1877478912 was more than 1.5 IMU samples earlier than IMU ts 1877480709 by 1797 µS
+[II] HMD obs quality: full(strong+ids) 250 ids-verified 50 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 250
+[WW] Exposure timestamp 1878054912 was more than 1.5 IMU samples earlier than IMU ts 1878056678 by 1766 µS
+[II] sensor WMTD3052400VZL: keeping the stored calibration - it was fitted over 4 viewpoints and this session has seen 2 (it leaves 2.20 px here)
+[II] accelerometer scale check: |accel| at rest mean 9.7508 m/s^2 (-0.57% vs 9.8067), range 9.190..10.570, 7208 quiet samples | hw calibration NOT requested (driver applies its own)
+[WW] Exposure timestamp 1879878912 was more than 1.5 IMU samples earlier than IMU ts 1879880751 by 1839 µS
+[II] pose export over 10 s: age mean 1.9 ms max 3.7 ms | speed mean 0.94 max 1.62 m/s, ang mean 41 max 513 deg/s | age*speed worst 4.6 mm (868 samples)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.72 min -3.75 max 1.50 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.75 min -4.31 max 1.49 ms
+[II] Device 0: joint reconstruction 301 solved, 88 rejected, 1245 single-camera (0 observations arrived too late to count)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] calib feed: 901 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 901 obs, 335 paired, history 192 over 2 viewpoints, 19 solves, residual 2.72 px, estimated
+[WW] Exposure timestamp 1886406912 was more than 1.5 IMU samples earlier than IMU ts 1886408813 by 1901 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.77 min -4.34 max 1.75 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.84 min -4.20 max 1.84 ms
+[II] Device 0: joint reconstruction 601 solved, 88 rejected, 1545 single-camera (0 observations arrived too late to count)
+[II] accelerometer scale check: |accel| at rest mean 9.7829 m/s^2 (-0.24% vs 9.8067), range 9.386..10.184, 1872 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] pose export over 10 s: age mean 1.9 ms max 4.4 ms | speed mean 0.69 max 1.07 m/s, ang mean 47 max 288 deg/s | age*speed worst 3.0 mm (838 samples)
+[II] sensor 0 calibration feed: 901 offered, 826 passed - rejected 0 for LED ids, 75 for too few blobs (<10), 0 for error
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.80 min -4.81 max 2.04 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.81 min -5.38 max 1.86 ms
+[II] sensor 1 calibration feed: 1801 offered, 809 passed - rejected 0 for LED ids, 992 for too few blobs (<10), 0 for error
+[II] Device 0: IMU saturation (accel), 1 samples so far - the reading is clipped, so it is being ignored rather than integrated
+[II] calib feed: 1801 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 1801 obs, 781 paired, history 192 over 3 viewpoints, 47 solves, residual 1.19 px, estimated
+[WW] Exposure timestamp 1894912512 was more than 1.5 IMU samples earlier than IMU ts 1894914163 by 1651 µS
+[II] Device 0: joint reconstruction 901 solved, 88 rejected, 1874 single-camera (0 observations arrived too late to count)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.91 min -4.07 max 1.66 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7543 m/s^2 (-0.53% vs 9.8067), range 9.401..10.152, 4153 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.95 min -4.52 max 1.91 ms
+[II] pose export over 10 s: age mean 1.9 ms max 4.2 ms | speed mean 0.67 max 1.73 m/s, ang mean 49 max 516 deg/s | age*speed worst 4.8 mm (820 samples)
+[II] Device 0: joint reconstruction 1201 solved, 88 rejected, 2174 single-camera (0 observations arrived too late to count)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.71 min -4.61 max 1.91 ms
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.82 min -4.41 max 1.99 ms
+[II] Device 0: joint reconstruction 1501 solved, 88 rejected, 2474 single-camera (0 observations arrived too late to count)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] sensor 0 calibration feed: 1801 offered, 1702 passed - rejected 0 for LED ids, 99 for too few blobs (<10), 0 for error
+[II] accelerometer scale check: |accel| at rest mean 9.7573 m/s^2 (-0.50% vs 9.8067), range 9.518..10.004, 9983 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.80 min -4.29 max 1.65 ms
+stream state: "unconnected"
+stream state: "unconnected"
+stream state: "unconnected"
+stream state: "unconnected"
+stream state: "unconnected"

@@ -1,0 +1,1671 @@
++++ dirname /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/vrmonitor.sh
+++ cd /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/
+++ pwd
++ VRBINDIR=/home/mia/.local/share/Steam/steamapps/common/SteamVR/bin
++ [[ -n '' ]]
++ exec /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/vrenv.sh /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/vrmonitor.sh
+vrenv.sh[286250]: VRCOMPOSITOR_LD_LIBRARY_PATH=/home/mia/git/rift-cv1-center:/home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/linux64/qt/lib:/home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/linux64
+vrenv.sh[286250]: exec /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/vrmonitor.sh
++++ dirname /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/vrmonitor.sh
+++ cd /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/
+++ pwd
++ VRBINDIR=/home/mia/.local/share/Steam/steamapps/common/SteamVR/bin
++ [[ -n /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/vrenv.sh ]]
++ case $(uname) in
+++ uname
++ VRMONITOR=/home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/linux64/vrmonitor
++ exec /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/linux64/vrmonitor
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 21:18:10 minidumps folder is set to /tmp/dumps
+07/31 21:18:10 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(286250)
+static QPlatformTheme* QKdeTheme::createKdeTheme(): Unable to determine KDE dirs
+sh: line 1: steamxdg-icon-resource: command not found
+sh: line 1: steam-runtime-launch-client: command not found
+QObject::connect: No such slot CQVRMonitorController::OnStartRecordingAction() in /data/src/vrmonitor/qvrmonitorcontroller.cpp:1112
+QObject::connect: No such slot CQVRMonitorController::OnStopRecordingAction() in /data/src/vrmonitor/qvrmonitorcontroller.cpp:1115
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+CQVRMonitorHeadsetWarning(0x5637df935940)  does not have a property named  "green_color"
+CQVRMonitorHeadsetWarning(0x5637df935940)  does not have a property named  "red_color"
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 21:18:10 minidumps folder is set to /tmp/dumps
+07/31 21:18:10 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(286311)
+[S_API] SteamAPI_Init(): Loaded '/home/mia/.local/share/Steam/linux64/steamclient.so' OK.
+VR Server (v1781734990)
+
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+SteamInternal_SetMinidumpSteamID:  Caching Steam ID:  76561198428899653 [API loaded yes]
+SteamInternal_SetMinidumpSteamID:  Setting Steam ID:  76561198428899653
+[II] HMD IMU calibration  gyro_offset [ -0.003900, 0.001300, 0.001100 ]  accel_offset [ 0.108000, -0.305600, 0.024900 ]
+[II]   gyro_calib = 
+[II]   [    0.999,    0.005,   -0.021 ]
+[II]   [    0.004,    1.000,   -0.007 ]
+[II]   [    0.008,    0.038,    0.999 ]
+[II]   accel_calib = 
+[II]   [    1.021,    0.001,   -0.018 ]
+[II]   [    0.001,    1.037,    0.022 ]
+[II]   [    0.004,   -0.005,    0.963 ]
+[II] HMD accel calibration matrix: mean row norm 1.0072 -> 1.0000 (scale removed 0.72%)
+[II] HMD gyro calibration matrix: mean row norm 0.9994 -> 1.0000 (scale removed -0.06%)
+[II] CV1 display config: brightness=0 flags=0x400 persistence=273/1472 rows
+[II] Using 34 visor LEDs; dropped 10 headband LEDs (not tracked as a separate body yet - the headset is only trackable from the front)
+LED model: HMD LEDs
+{ .pos = {0.062939,-0.032042,0.067541}, .dir={0.181956,-0.102972,0.977900}, .pattern=0x1 },
+{ .pos = {0.077151,0.000993,0.065562}, .dir={0.299055,0.001984,0.954234}, .pattern=0x6 },
+{ .pos = {0.028983,-0.019018,0.073518}, .dir={0.082983,-0.096960,0.991823}, .pattern=0x1a },
+{ .pos = {-0.000097,-0.033045,0.072449}, .dir={0.000000,-0.188028,0.982164}, .pattern=0x1d },
+{ .pos = {-0.028998,-0.019144,0.073384}, .dir={-0.082983,-0.096960,0.991823}, .pattern=0x28 },
+{ .pos = {-0.063022,-0.032156,0.067359}, .dir={-0.181956,-0.102972,0.977900}, .pattern=0x2f },
+{ .pos = {-0.077078,0.000964,0.065342}, .dir={-0.299055,0.001984,0.954234}, .pattern=0x33 },
+{ .pos = {-0.054039,0.034440,0.068623}, .dir={-0.140969,0.134957,0.980772}, .pattern=0x4b },
+{ .pos = {-0.020202,0.017950,0.074224}, .dir={-0.056979,0.095951,0.993754}, .pattern=0x4c },
+{ .pos = {0.053973,0.034595,0.069160}, .dir={0.140969,0.134957,0.980772}, .pattern=0x57 },
+{ .pos = {0.020062,0.018061,0.074368}, .dir={0.056979,0.095951,0.993754}, .pattern=0x62 },
+{ .pos = {-0.078856,-0.011904,0.028395}, .dir={-0.993057,-0.099980,-0.061984}, .pattern=0x65 },
+{ .pos = {-0.077293,-0.012335,-0.008668}, .dir={-0.981566,-0.188915,-0.028963}, .pattern=0x79 },
+{ .pos = {-0.070740,-0.031349,0.010284}, .dir={-0.734056,-0.668042,-0.121987}, .pattern=0x7e },
+{ .pos = {-0.059124,-0.040984,0.036314}, .dir={-0.153997,-0.983099,-0.099003}, .pattern=0x90 },
+{ .pos = {0.058835,-0.040830,0.035942}, .dir={0.153997,-0.983099,-0.099003}, .pattern=0xa4 },
+{ .pos = {0.028165,-0.043453,0.061352}, .dir={-0.004975,-0.998636,-0.051974}, .pattern=0x114 },
+{ .pos = {-0.080319,-0.024476,0.053355}, .dir={-0.947594,-0.225904,-0.225904}, .pattern=0x151 },
+{ .pos = {-0.027992,-0.043610,0.061432}, .dir={0.004975,-0.998636,-0.051974}, .pattern=0x183 },
+{ .pos = {0.070561,-0.031850,0.009988}, .dir={0.734056,-0.668042,-0.121987}, .pattern=0x18c },
+{ .pos = {0.077672,-0.012729,-0.008828}, .dir={0.981566,-0.188915,-0.028963}, .pattern=0x199 },
+{ .pos = {0.079252,-0.012425,0.027945}, .dir={0.993057,-0.099980,-0.061984}, .pattern=0x1aa },
+{ .pos = {0.080678,-0.024862,0.053475}, .dir={0.947594,-0.225904,-0.225904}, .pattern=0x1b5 },
+{ .pos = {-0.029139,0.043728,0.057487}, .dir={-0.004975,0.999980,0.003998}, .pattern=0x1c0 },
+{ .pos = {-0.078382,0.029385,0.053600}, .dir={-0.871752,0.428856,-0.236921}, .pattern=0x1cf },
+{ .pos = {0.072131,0.030937,0.000022}, .dir={0.816019,0.577024,-0.033998}, .pattern=0x1d6 },
+{ .pos = {0.067042,0.037833,0.030095}, .dir={0.526908,0.847875,-0.058962}, .pattern=0x1e9 },
+{ .pos = {0.078260,0.029513,0.053292}, .dir={0.871752,0.428856,-0.236921}, .pattern=0x1f3 },
+{ .pos = {0.028896,0.043669,0.057676}, .dir={0.004975,0.999980,0.003998}, .pattern=0x1fc },
+{ .pos = {-0.067240,0.037555,0.029876}, .dir={-0.526908,0.847875,-0.058962}, .pattern=0x230 },
+{ .pos = {-0.072200,0.030241,0.000120}, .dir={-0.816019,0.577024,-0.033998}, .pattern=0x252 },
+{ .pos = {-0.041120,0.043276,0.023325}, .dir={-0.041995,0.999110,-0.003998}, .pattern=0x282 },
+{ .pos = {0.000159,0.043811,0.033423}, .dir={0.005982,0.999932,0.009980}, .pattern=0x285 },
+{ .pos = {0.041085,0.043260,0.023553}, .dir={0.041995,0.999110,-0.003998}, .pattern=0x29b },
+[II] HMD IPD 63.5 mm, as reported by the headset (note: this is its stored figure, not vrcompositor-launcher.sh[286374]: Relaunch under scout LDLP runtime.
+vrcompositor-launcher.sh[286374]: exec /home/mia/.steam/root/ubuntu12_32/steam-runtime/run.sh /home/mia/.local/share/Steam/steamapps/common/SteamVR/bin/linux64/vrcompositor-launcher.sh
+vrcompositor-launcher.sh[286374]: Detected scout LDLP runtime.
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 21:18:15 minidumps folder is set to /tmp/dumps
+07/31 21:18:15 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(286417)
+[S_API] SteamAPI_Init(): Loaded '/home/mia/.local/share/Steam/linux64/steamclient.so' OK.
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+SteamInternal_SetMinidumpSteamID:  Caching Steam ID:  76561198428899653 [API loaded yes]
+SteamInternal_SetMinidumpSteamID:  Setting Steam ID:  76561198428899653
+Initialize() is failed!!!
+qt.network.ssl: QSslSocket: cannot resolve CRYPTO_num_locks
+qt.network.ssl: QSslSocket: cannot resolve CRYPTO_set_id_callback
+qt.network.ssl: QSslSocket: cannot resolve CRYPTO_set_locking_callback
+qt.network.ssl: QSslSocket: cannot resolve ERR_free_strings
+qt.network.ssl: QSslSocket: cannot resolve sk_new_null
+qt.network.ssl: QSslSocket: cannot resolve sk_push
+qt.network.ssl: QSslSocket: cannot resolve sk_free
+qt.network.ssl: QSslSocket: cannot resolve sk_num
+qt.network.ssl: QSslSocket: cannot resolve sk_pop_free
+qt.network.ssl: QSslSocket: cannot resolve sk_value
+qt.network.ssl: QSslSocket: cannot resolve SSL_get_peer_certificate
+qt.network.ssl: QSslSocket: cannot resolve SSL_library_init
+qt.network.ssl: QSslSocket: cannot resolve SSL_load_error_strings
+qt.network.ssl: QSslSocket: cannot resolve SSL_get_ex_new_index
+qt.network.ssl: QSslSocket: cannot resolve SSLv2_client_method
+qt.network.ssl: QSslSocket: cannot resolve SSLv3_client_method
+qt.network.ssl: QSslSocket: cannot resolve SSLv23_client_method
+qt.network.ssl: QSslSocket: cannot resolve SSLv2_server_method
+qt.network.ssl: QSslSocket: cannot resolve SSLv3_server_method
+qt.network.ssl: QSslSocket: cannot resolve SSLv23_server_method
+qt.network.ssl: QSslSocket: cannot resolve X509_STORE_CTX_get_chain
+qt.network.ssl: QSslSocket: cannot resolve OPENSSL_add_all_algorithms_noconf
+qt.network.ssl: QSslSocket: cannot resolve OPENSSL_add_all_algorithms_conf
+qt.network.ssl: QSslSocket: cannot resolve SSLeay
+qt.network.ssl: QSslSocket: cannot resolve SSLeay_version
+qt.network.ssl: QSslSocket: cannot call unresolved function SSLeay
+qt.network.ssl: QSslSocket: cannot call unresolved function CRYPTO_num_locks
+qt.network.ssl: QSslSocket: cannot call unresolved function CRYPTO_set_id_callback
+qt.network.ssl: QSslSocket: cannot call unresolved function CRYPTO_set_locking_callback
+qt.network.ssl: QSslSocket: cannot call unresolved function SSL_library_init
+qt.network.ssl: QSslSocket: cannot call unresolved function SSLv23_client_method
+qt.network.ssl: QSslSocket: cannot call unresolved function sk_num
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+[S_API] SteamAPI_Init(): Loaded '/home/mia/.local/share/Steam/linux64/steamclient.so' OK.
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 21:18:15 minidumps folder is set to /tmp/dumps
+07/31 21:18:15 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(286419)
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+SteamInternal_SetMinidumpSteamID:  Caching Steam ID:  76561198428899653 [API loaded yes]
+SteamInternal_SetMinidumpSteamID:  Setting Steam ID:  76561198428899653
+[0731/211815.780894:ERROR:check.cc(376)] Check failed: false. NOTREACHED log messages are omitted in official builds. Sorry!
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 21:18:15 minidumps folder is set to /tmp/dumps
+07/31 21:18:15 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(286453)
+[0731/211815.818291:ERROR:check.cc(376)] Check failed: false. NOTREACHED log messages are omitted in official builds. Sorry!
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 21:18:15 minidumps folder is set to /tmp/dumps
+07/31 21:18:15 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(286455)
+[0731/211815.820634:ERROR:check.cc(376)] Check failed: false. NOTREACHED log messages are omitted in official builds. Sorry!
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 19: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 20: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 23: invalid constant used : monospace
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 42: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 43: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 46: invalid constant used : sans-serif
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 68: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 69: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 72: invalid constant used : serif
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 88: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 89: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 92: invalid constant used : emoji
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 108: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 109: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 112: invalid constant used : math
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 120: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 121: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 124: invalid constant used : system-ui
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 132: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 133: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 136: invalid constant used : cursive
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 144: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 145: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 148: invalid constant used : fantasy
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 156: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 157: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 160: invalid constant used : ui-sans-serif
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 168: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 169: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 172: invalid constant used : ui-serif
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 180: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 181: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 184: invalid constant used : ui-monospace
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 192: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 193: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 196: invalid constant used : ui-rounded
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 204: invalid attribute 'xsi:nil'
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 205: invalid constant used : 
+Fontconfig warning: "/etc/fonts/conf.d/48-guessfamily.conf", line 208: invalid constant used : fangsong
+Fontconfig warning: "/etc/fonts/conf.d/48-spacing.conf", line 14: invalid constant used : monospace
+Fontconfig warning: "/etc/fonts/conf.d/49-sansserif.conf", line 10: invalid constant used : serif
+Fontconfig warning: "/etc/fonts/conf.d/49-sansserif.conf", line 18: invalid constant used : sans-serif
+Fontconfig warning: "/etc/fonts/conf.d/49-sansserif.conf", line 26: invalid constant used : monospace
+Fontconfig warning: "/etc/fonts/conf.d/49-sansserif.conf", line 34: invalid constant used : emoji
+Fontconfig warning: "/etc/fonts/conf.d/49-sansserif.conf", line 42: invalid constant used : math
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 19: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 20: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 23: invalid constant used : monospace
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 42: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 43: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 46: invalid constant used : sans-serif
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 68: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 69: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 72: invalid constant used : serif
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 88: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 89: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 92: invalid constant used : emoji
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 108: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 109: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 112: invalid constant used : math
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 120: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 121: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 124: invalid constant used : system-ui
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 132: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 133: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 136: invalid constant used : cursive
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 144: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 145: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 148: invalid constant used : fantasy
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 156: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 157: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 160: invalid constant used : ui-sans-serif
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 168: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 169: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 172: invalid constant used : ui-serif
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 180: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 181: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 184: invalid constant used : ui-monospace
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 192: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 193: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 196: invalid constant used : ui-rounded
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 204: invalid attribute 'xsi:nil'
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 205: invalid constant used : 
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-guessfamily.conf", line 208: invalid constant used : fangsong
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/48-spacing.conf", line 14: invalid constant used : monospace
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/49-sansserif.conf", line 10: invalid constant used : serif
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/49-sansserif.conf", line 18: invalid constant used : sans-serif
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/49-sansserif.conf", line 26: invalid constant used : monospace
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/49-sansserif.conf", line 34: invalid constant used : emoji
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/49-sansserif.conf", line 42: invalid constant used : math
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 21:18:16 minidumps folder is set to /tmp/dumps
+07/31 21:18:16 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(286528)
+[0731/211816.130762:ERROR:check.cc(376)] Check failed: false. NOTREACHED log messages are omitted in official builds. Sorry!
+Using breakpad crash handler
+Setting breakpad minidump AppID = 250820
+Forcing breakpad minidump interfaces to load
+Looking up breakpad interfaces from steamclient
+Calling BreakpadMiniDumpSystemInit
+07/31 21:18:16 minidumps folder is set to /tmp/dumps
+07/31 21:18:16 Init: Installing breakpad exception handler for appid(250820)/version(2.16.7)/tid(286674)
+[0731/211816.520283:ERROR:check.cc(376)] Check failed: false. NOTREACHED log messages are omitted in official builds. Sorry!
+the live slider position)
+Opened Rift Sensor 0 w/ Serial WMTD306Q701DEK. Connecting to Radio address 0x11563cc989
+[II] camera width 1280 height 960
+[II] f = [ 716.935 716.935 ], c = [ 661.864 469.517 ]
+[II] k = [  0.070819 -0.023264  0.005108 -0.000523 ]
+[II] Calibration capture enabled -> /home/mia/git/rift-cv1-center/captures/lin/2026-07-31/test.jsonl
+stream state: "connecting"
+stream state: "connecting"
+[II] Loaded pose for sensor WMTD306Q701DEK from room store: "pos" : [ -1.080223, 1.242403, -0.743242 ], "orient" : [ 0.602096, -0.067780, 0.792231, 0.072504 ]
+[II] Set sensor 0 pose to orient 0.602096 -0.067780 0.792231 0.072504  pos -1.080223 1.242403 -0.743242
+stream state: "paused"
+stream state: "paused"
+Opened Rift Sensor 1 w/ Serial WMTD3052400VZL. Connecting to Radio address 0x11563cc989
+[II] camera width 1280 height 960
+[II] f = [ 716.734 716.734 ], c = [ 647.399 478.498 ]
+[II] k = [  0.071847 -0.025176  0.006398 -0.000817 ]
+stream state: "connecting"
+stream state: "connecting"
+[II] Loaded pose for sensor WMTD3052400VZL from room store: "pos" : [ -1.208784, 1.577916, 0.302832 ], "orient" : [ 0.690728, -0.084329, 0.713435, 0.082430 ]
+[II] Set sensor 1 pose to orient 0.690728 -0.084329 0.713435 0.082430  pos -1.208784 1.577916 0.302832
+Opened 2 Rift Sensor cameras
+stream state: "paused"
+stream state: "paused"
+UVC PTS changed in-frame at 16372 bytes. Lost 80 ms
+UVC Dropping short frame: 16372 < 1228800 (1212428 lost)
+Temperature: 47.3 °C
+UVC PTS changed in-frame at 16372 bytes. Lost 8 ms
+UVC Dropping short frame: 16372 < 1228800 (1212428 lost)
+Temperature: 46.0 °C
+[II] HMD device frame: IMU at [-0.0166 0.0345 0.0331] m; screen 0.1193 x 0.0663 m; lens separation 0.0540 m, v-centre 0.0308 m, eye-to-screen 0.0396/0.0396 m
+[II] HMD LED model spans z -0.0088..0.0744, y -0.0436..0.0438 m (34 LEDs, before the 180 deg model rotation)
+[II] Device 0 using UKF fusion backend
+stream state: "connecting"
+device 0 online. Now tracking.
+stream state: "paused"
+[WW] Exposure timestamp 1116698112 was more than 1.5 IMU samples earlier than IMU ts 1116713215 by 15103 µS
+[II] calib feed: 1 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 1 obs, 0 paired, history 0 over 0 viewpoints, 0 solves, residual -1.00 px, uncalibrated
+[WW] Device 0: late pose time 53.773 ms from WMTD306Q701DEK (1 so far, worst 53.773 ms)
+[II] output correction bleeding OFF - set OHMD_RIFT_BLEED=1 to restore
+[WW] Sensor WMTD306Q701DEK: predicted exposure-to-frame latency of -8.3 ms differed from measured -2.0 ms (1 so far) - check the sensor sync cable
+[II] angular velocity exported in the device-local frame
+[II] velocity smoothing: tau 25 ms, speed-adaptive
+[WW] Sensor WMTD306Q701DEK: predicted exposure-to-frame latency of -8.0 ms differed from measured -1.1 ms (101 so far) - check the sensor sync cable
+[WW] Sensor WMTD306Q701DEK: predicted exposure-to-frame latency of -7.8 ms differed from measured -1.6 ms (201 so far) - check the sensor sync cable
+[WW] Sensor WMTD306Q701DEK: predicted exposure-to-frame latency of -7.3 ms differed from measured 0.2 ms (301 so far) - check the sensor sync cable
+[II] Device 0: joint reconstruction 1 solved, 0 rejected, 255 single-camera (0 observations arrived too late to count)
+[II] sensor WMTD3052400VZL calibration SETTLED
+[II] frame-timing WMTD306Q701DEK: 300 frames, 33 missed exposure, diff avg -0.83 min -8.33 max 6.69 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] sensor WMTD3052400VZL: adopted calibration from 30 poses over 2 viewpoints (stored: 2), residual 6.65 px (estimated)
+[II] sensor WMTD3052400VZL: the stored calibration left 2.32 px; moving the sensor 20.5 mm / 0.58 deg
+[II] Set sensor 1 pose to orient 0.690158 -0.089276 0.713471 0.081680  pos -1.211036 1.596103 0.312080
+[II] Device 0: joint reconstruction over 2 cameras left 2.14 px in the worst camera (>2.0 px) - check sensor calibration
+[II] sensor WMTD3052400VZL: re-solved calibration from 32 poses over 2 viewpoints (stored: 2), residual 2.61 px (estimated)
+[II] sensor WMTD3052400VZL: its previous calibration left 6.63 px; moving the sensor 12.0 mm / 0.55 deg
+[II] Set sensor 1 pose to orient 0.691767 -0.086865 0.711803 0.085141  pos -1.201755 1.589425 0.308402
+[II] sensor WMTD3052400VZL calibration SETTLED
+[II] frame-timing WMTD3052400VZL: 300 frames, 2 missed exposure, diff avg -0.73 min -6.55 max 4.28 ms
+[II] sensor WMTD3052400VZL: re-solved calibration from 65 poses over 3 viewpoints (stored: 2), residual 3.38 px (estimated)
+[II] sensor WMTD3052400VZL: its previous calibration left 4.03 px; moving the sensor 5.4 mm / 0.19 deg
+[II] Set sensor 1 pose to orient 0.692934 -0.086592 0.710765 0.084604  pos -1.205475 1.587871 0.312022
+[II] sensor WMTD3052400VZL calibration SETTLED
+[II] sensor WMTD3052400VZL: re-solved calibration from 112 poses over 4 viewpoints (stored: 3), residual 2.49 px (estimated)
+[II] sensor WMTD3052400VZL: its previous calibration left 3.04 px; moving the sensor 7.3 mm / 0.25 deg
+[II] Set sensor 1 pose to orient 0.691556 -0.086165 0.712238 0.083924  pos -1.208473 1.585158 0.305968
+[II] sensor WMTD3052400VZL calibration SETTLED
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] accelerometer scale check: |accel| at rest mean 9.7725 m/s^2 (-0.35% vs 9.8067), range 9.488..10.260, 4281 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] Device 0: joint reconstruction 301 solved, 2 rejected, 557 single-camera (0 observations arrived too late to count)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.79 min -4.16 max 1.60 ms
+[II] pose export over 10 s: age mean 1.9 ms max 4.5 ms | speed mean 0.30 max 2.00 m/s, ang mean 67 max 559 deg/s | age*speed worst 6.7 mm (881 samples)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] calib feed: 901 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 901 obs, 324 paired, history 192 over 4 viewpoints, 19 solves, residual 1.91 px, CALIBRATED
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.76 min -3.63 max 1.65 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.79 min -4.72 max 1.59 ms
+[II] Device 0: joint reconstruction 601 solved, 3 rejected, 884 single-camera (0 observations arrived too late to count)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.69 min -4.11 max 2.34 ms
+[II] sensor 0 calibration feed: 901 offered, 857 passed - rejected 0 for LED ids, 44 for too few blobs (<10), 0 for error
+[II] sensor WMTD3052400VZL: re-solved calibration from 192 poses over 4 viewpoints (stored: 4), residual 1.57 px - SETTLED
+[II] sensor WMTD3052400VZL: its previous calibration left 1.85 px; moving the sensor 5.6 mm / 0.24 deg
+[II] Set sensor 1 pose to orient 0.690488 -0.085271 0.713488 0.083013  pos -1.209324 1.581184 0.302097
+[II] sensor WMTD3052400VZL calibration SETTLED
+[WW] Exposure timestamp 1135667712 was more than 1.5 IMU samples earlier than IMU ts 1135669411 by 1699 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] accelerometer scale check: |accel| at rest mean 9.6263 m/s^2 (-1.84% vs 9.8067), range 8.443..10.222, 1635 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] calib feed: 1801 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 1801 obs, 762 paired, history 192 over 4 viewpoints, 46 solves, residual 1.54 px, CALIBRATED
+[II] pose export over 10 s: age mean 1.9 ms max 3.9 ms | speed mean 0.21 max 0.99 m/s, ang mean 61 max 369 deg/s | age*speed worst 2.7 mm (871 samples)
+[WW] Exposure timestamp 1138547712 was more than 1.5 IMU samples earlier than IMU ts 1138549462 by 1750 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 0 missed exposure, diff avg -0.80 min -3.77 max 1.42 ms
+[II] sensor 1 calibration feed: 901 offered, 860 passed - rejected 0 for LED ids, 41 for too few blobs (<10), 0 for error
+[II] Device 0: joint reconstruction 901 solved, 3 rejected, 1184 single-camera (0 observations arrived too late to count)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD3052400VZL: 300 frames, 0 missed exposure, diff avg -0.75 min -4.32 max 1.91 ms
+[II] Set sensor 1 pose to orient 0.690750 -0.085359 0.713244 0.082834  pos -1.208823 1.580793 0.303070
+[II] sensor WMTD3052400VZL CameraPoseChange: dt 0.5 -0.4 1.0 (1.2) mm  dr 0.05 deg
+[II] sensor WMTD3052400VZL calibration UNSETTLED
+[II] extrinsic refine: sensor WMTD3052400VZL step 0.8 mm / 0.05 deg (window mismatch 5.1 mm / 0.31 deg; net from start 1.2 mm / 0.04 deg; summed steps 0.8 mm / 0.05 deg)
+[II] sensor WMTD3052400VZL calibration SETTLED
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+LED model: Controller 3
+{ .pos = {-0.029804,-0.008488,-0.011466}, .dir={-0.868435,0.426789,-0.252331}, .pattern=0xff },
+{ .pos = {-0.035495,-0.032119,-0.010513}, .dir={-0.974995,-0.004233,-0.222187}, .pattern=0xff },
+{ .pos = {-0.029819,-0.055363,-0.011530}, .dir={-0.872345,-0.433877,-0.225311}, .pattern=0xff },
+{ .pos = {-0.012223,-0.074735,-0.014482}, .dir={-0.550523,-0.783165,-0.289098}, .pattern=0xff },
+{ .pos = {0.010931,-0.082399,-0.018558}, .dir={-0.113685,-0.920719,-0.373300}, .pattern=0xff },
+{ .pos = {0.035337,-0.077725,-0.022971}, .dir={0.321003,-0.822476,-0.469565}, .pattern=0xff },
+{ .pos = {0.055530,-0.060415,-0.026481}, .dir={0.671715,-0.512871,-0.534567}, .pattern=0xff },
+{ .pos = {0.063821,-0.036430,-0.028022}, .dir={0.830456,-0.074589,-0.552069}, .pattern=0xff },
+{ .pos = {0.060918,-0.014519,-0.027529}, .dir={0.771918,0.326510,-0.545466}, .pattern=0xff },
+{ .pos = {0.048247,0.004788,-0.025273}, .dir={0.539162,0.671628,-0.508154}, .pattern=0xff },
+{ .pos = {-0.030624,-0.009621,0.005618}, .dir={-0.876521,0.425520,0.225041}, .pattern=0xff },
+{ .pos = {-0.035434,-0.032114,0.006428}, .dir={-0.968514,-0.012193,0.248660}, .pattern=0xff },
+{ .pos = {-0.030270,-0.055054,0.005541}, .dir={-0.870318,-0.441839,0.217545}, .pattern=0xff },
+{ .pos = {-0.015943,-0.073504,0.003043}, .dir={-0.599825,-0.781416,0.172044}, .pattern=0xff },
+{ .pos = {0.004718,-0.083876,-0.000671}, .dir={-0.218195,-0.969594,0.110808}, .pattern=0xff },
+{ .pos = {0.027053,-0.084468,-0.004476}, .dir={0.196325,-0.980135,0.028128}, .pattern=0xff },
+{ .pos = {0.047832,-0.075416,-0.008199}, .dir={0.589146,-0.807459,-0.030300}, .pattern=0xff },
+{ .pos = {0.062790,-0.058741,-0.010697}, .dir={0.860962,-0.500010,-0.093454}, .pattern=0xff },
+{ .pos = {0.069656,-0.035386,-0.012032}, .dir={0.994294,-0.054871,-0.091480}, .pattern=0xff },
+{ .pos = {0.066382,-0.013213,-0.011531}, .dir={0.927925,0.362530,-0.086761}, .pattern=0xff },
+{ .pos = {0.054259,0.005804,-0.009452}, .dir={0.696018,0.715006,-0.065769}, .pattern=0xff },
+{ .pos = {0.039996,0.011548,-0.013374}, .dir={-0.199193,0.957329,0.209387}, .pattern=0xff },
+{ .pos = {0.005256,0.001517,-0.029359}, .dir={0.033090,0.844565,-0.534430}, .pattern=0xff },
+{ .pos = {-0.017616,-0.001473,-0.023911}, .dir={-0.465796,0.777332,-0.422836}, .pattern=0xff },
+[II] Touch 1 accel calibration matrix: mean row norm 0.9953 -> 1.0000 (scale removed -0.47%)
+[II] Touch 1 gyro calibration matrix: mean row norm 1.0003 -> 1.0000 (scale removed 0.03%)
+[II] Device 1 using UKF fusion backend
+stream state: "connecting"
+device 1 online. Now tracking.
+[II] Right Controller IMU calibration  gyro_offset [ 0.007307, -0.012761, -0.019731 ]  accel_offset [ 0.130618, -0.047088, -0.550669 ]
+[II]   gyro_calib = 
+[II]   [   -0.002,   -1.000,    0.010 ]
+[II]   [   -0.001,    0.010,    1.000 ]
+[II]   [   -1.000,    0.002,   -0.001 ]
+[II]   accel_calib = 
+[II]   [   -0.000,   -1.000,    0.012 ]
+[II]   [   -0.001,    0.012,    1.000 ]
+[II]   [   -1.000,    0.000,   -0.001 ]
+stream state: "paused"
+[WW] Exposure stream out of sync: gap of 52.9 ms (nominal 19.2 ms), 1 so far
+[WW] Exposure timestamp 1144288512 was more than 1.5 IMU samples earlier than IMU ts 1144291538 by 3026 µS
+[WW] Exposure timestamp 1144326912 was more than 1.5 IMU samples earlier than IMU ts 1144330653 by 3741 µS
+[WW] Exposure timestamp 1144346112 was more than 1.5 IMU samples earlier than IMU ts 1144349641 by 3529 µS
+[II] Touch controller 3 wake config complete
+[WW] Exposure timestamp 1144442112 was more than 1.5 IMU samples earlier than IMU ts 1144443806 by 1694 µS
+[WW] Exposure timestamp 1144461312 was more than 1.5 IMU samples earlier than IMU ts 1144462839 by 1527 µS
+[WW] Exposure timestamp 1144480512 was more than 1.5 IMU samples earlier than IMU ts 1144482875 by 2363 µS
+[WW] Device 1: late pose time 60.318 ms from WMTD306Q701DEK (1 so far, worst 60.318 ms)
+[II] Forcing orientation observation
+[WW] Sensor WMTD306Q701DEK: predicted exposure-to-frame latency of -0.4 ms differed from measured 7.3 ms (401 so far) - check the sensor sync cable
+[II] Forcing orientation observation
+[WW] Exposure timestamp 1144557312 was more than 1.5 IMU samples earlier than IMU ts 1144559008 by 1696 µS
+[II] Matched orientation after 0.021977 sec
+[II] Device 1: joint reconstruction 1 solved, 0 rejected, 6 single-camera (0 observations arrived too late to count)
+[WW] Exposure timestamp 1144768512 was more than 1.5 IMU samples earlier than IMU ts 1144772385 by 3873 µS
+[WW] Exposure timestamp 1144806912 was more than 1.5 IMU samples earlier than IMU ts 1144808446 by 1534 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 3 missed exposure, diff avg -0.23 min -15.13 max 19.05 ms
+[WW] Exposure timestamp 1144883712 was more than 1.5 IMU samples earlier than IMU ts 1144885589 by 1877 µS
+[WW] Exposure timestamp 1144922112 was more than 1.5 IMU samples earlier than IMU ts 1144923649 by 1537 µS
+[WW] Exposure timestamp 1144998912 was more than 1.5 IMU samples earlier than IMU ts 1145000784 by 1872 µS
+[WW] Exposure timestamp 1145018112 was more than 1.5 IMU samples earlier than IMU ts 1145019818 by 1706 µS
+[WW] Exposure timestamp 1145114112 was more than 1.5 IMU samples earlier than IMU ts 1145115987 by 1875 µS
+[II] Device 0: joint reconstruction 1201 solved, 3 rejected, 1486 single-camera (0 observations arrived too late to count)
+[WW] Exposure timestamp 1145306112 was more than 1.5 IMU samples earlier than IMU ts 1145312378 by 6266 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] frame-timing WMTD3052400VZL: 300 frames, 3 missed exposure, diff avg 0.54 min -14.64 max 19.53 ms
+[WW] Sensor WMTD3052400VZL: predicted exposure-to-frame latency of 0.2 ms differed from measured 6.6 ms (501 so far) - check the sensor sync cable
+[WW] Exposure timestamp 1145728512 was more than 1.5 IMU samples earlier than IMU ts 1145730065 by 1553 µS
+[II] calib feed: 2701 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 1)
+[WW] Exposure timestamp 1145901312 was more than 1.5 IMU samples earlier than IMU ts 1145904374 by 3062 µS
+[WW] Exposure timestamp 1145920512 was more than 1.5 IMU samples earlier than IMU ts 1145922403 by 1891 µS
+[WW] Exposure timestamp 1145958912 was more than 1.5 IMU samples earlier than IMU ts 1145960470 by 1558 µS
+[WW] Exposure timestamp 1146266112 was more than 1.5 IMU samples earlier than IMU ts 1146268011 by 1899 µS
+[WW] Exposure timestamp 1146304512 was more than 1.5 IMU samples earlier than IMU ts 1146306077 by 1565 µS
+[WW] Exposure timestamp 1146458112 was more than 1.5 IMU samples earlier than IMU ts 1146460350 by 2238 µS
+[WW] Exposure timestamp 1146515712 was more than 1.5 IMU samples earlier than IMU ts 1146517449 by 1737 µS
+[WW] Exposure timestamp 1146630912 was more than 1.5 IMU samples earlier than IMU ts 1146632672 by 1760 µS
+[II] accelerometer scale check: |accel| at rest mean 9.7435 m/s^2 (-0.64% vs 9.8067), range 9.382..9.925, 436 quiet samples | hw calibration NOT requested (driver applies its own)
+[WW] Exposure timestamp 1146746112 was more than 1.5 IMU samples earlier than IMU ts 1146747854 by 1742 µS
+[WW] Sensor WMTD306Q701DEK: predicted exposure-to-frame latency of 1.2 ms differed from measured 8.2 ms (601 so far) - check the sensor sync cable
+[WW] Exposure timestamp 1146995712 was more than 1.5 IMU samples earlier than IMU ts 1146998296 by 2584 µS
+[WW] Exposure timestamp 1147072512 was more than 1.5 IMU samples earlier than IMU ts 1147074428 by 1916 µS
+[WW] Exposure timestamp 1147302912 was more than 1.5 IMU samples earlier than IMU ts 1147304832 by 1920 µS
+[WW] Exposure timestamp 1147552512 was more than 1.5 IMU samples earlier than IMU ts 1147554273 by 1761 µS
+[WW] Exposure timestamp 1147571712 was more than 1.5 IMU samples earlier than IMU ts 1147577313 by 5601 µS
+[II] pose export over 10 s: age mean 2.3 ms max 12.7 ms | speed mean 0.33 max 0.89 m/s, ang mean 58 max 327 deg/s | age*speed worst 4.9 mm (841 samples)
+[WW] Exposure timestamp 1147763712 was more than 1.5 IMU samples earlier than IMU ts 1147765655 by 1943 µS
+[WW] Exposure timestamp 1147802112 was more than 1.5 IMU samples earlier than IMU ts 1147803709 by 1597 µS
+[WW] Exposure timestamp 1147878912 was more than 1.5 IMU samples earlier than IMU ts 1147880845 by 1933 µS
+[II] sensor 0 calibration feed: 1801 offered, 1683 passed - rejected 0 for LED ids, 118 for too few blobs (<10), 0 for error
+[WW] Exposure timestamp 1148032512 was more than 1.5 IMU samples earlier than IMU ts 1148034114 by 1602 µS
+[WW] Exposure timestamp 1148109312 was more than 1.5 IMU samples earlier than IMU ts 1148112256 by 2944 µS
+[WW] Exposure timestamp 1148128512 was more than 1.5 IMU samples earlier than IMU ts 1148130285 by 1773 µS
+[WW] Exposure timestamp 1148147712 was more than 1.5 IMU samples earlier than IMU ts 1148150320 by 2608 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 1148589312 was more than 1.5 IMU samples earlier than IMU ts 1148591093 by 1781 µS
+[WW] Exposure timestamp 1148685312 was more than 1.5 IMU samples earlier than IMU ts 1148690269 by 4957 µS
+[II] Device 1: joint reconstruction over 2 cameras left 2.69 px in the worst camera (>2.0 px) - check sensor calibration
+[WW] Exposure timestamp 1148992512 was more than 1.5 IMU samples earlier than IMU ts 1148994803 by 2291 µS
+[WW] Exposure timestamp 1149069312 was more than 1.5 IMU samples earlier than IMU ts 1149070937 by 1625 µS
+[WW] Exposure timestamp 1149242112 was more than 1.5 IMU samples earlier than IMU ts 1149244249 by 2137 µS
+[WW] Exposure timestamp 1149261312 was more than 1.5 IMU samples earlier than IMU ts 1149264323 by 3011 µS
+[WW] Exposure timestamp 1149280512 was more than 1.5 IMU samples earlier than IMU ts 1149283310 by 2798 µS
+[WW] Exposure timestamp 1149491712 was more than 1.5 IMU samples earlier than IMU ts 1149494729 by 3017 µS
+[WW] Exposure timestamp 1149779712 was more than 1.5 IMU samples earlier than IMU ts 1149782189 by 2477 µS
+[WW] Exposure timestamp 1149798912 was more than 1.5 IMU samples earlier than IMU ts 1149802224 by 3312 µS
+[WW] Exposure timestamp 1149818112 was more than 1.5 IMU samples earlier than IMU ts 1149820300 by 2188 µS
+[WW] Exposure timestamp 1149837312 was more than 1.5 IMU samples earlier than IMU ts 1149840335 by 3023 µS
+[WW] Exposure timestamp 1149875712 was more than 1.5 IMU samples earlier than IMU ts 1149877355 by 1643 µS
+[WW] Exposure timestamp 1149990912 was more than 1.5 IMU samples earlier than IMU ts 1149992557 by 1645 µS
+[WW] Exposure timestamp 1150202112 was more than 1.5 IMU samples earlier than IMU ts 1150203930 by 1818 µS
+[WW] Exposure timestamp 1150355712 was more than 1.5 IMU samples earlier than IMU ts 1150360251 by 4539 µS
+[WW] Exposure timestamp 1150394112 was more than 1.5 IMU samples earlier than IMU ts 1150400321 by 6209 µS
+[WW] Exposure timestamp 1150451712 was more than 1.5 IMU samples earlier than IMU ts 1150454369 by 2657 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 6 missed exposure, diff avg 5.54 min -15.61 max 12.13 ms
+[WW] Exposure timestamp 1150662912 was more than 1.5 IMU samples earlier than IMU ts 1150664739 by 1827 µS
+[II] sensor 1 calibration feed: 1801 offered, 1491 passed - rejected 0 for LED ids, 310 for too few blobs (<10), 0 for error
+[II] Device 1: joint reconstruction 301 solved, 22 rejected, 328 single-camera (0 observations arrived too late to count)
+[WW] Exposure timestamp 1150931712 was more than 1.5 IMU samples earlier than IMU ts 1150936264 by 4552 µS
+[WW] Exposure timestamp 1151046912 was more than 1.5 IMU samples earlier than IMU ts 1151048414 by 1502 µS
+[II] Device 0: joint reconstruction 1501 solved, 3 rejected, 1784 single-camera (0 observations arrived too late to count)
+[WW] Exposure timestamp 1151142912 was more than 1.5 IMU samples earlier than IMU ts 1151144585 by 1673 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 6 missed exposure, diff avg 5.83 min -15.03 max 12.63 ms
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 1151258112 was more than 1.5 IMU samples earlier than IMU ts 1151259785 by 1673 µS
+[WW] Exposure timestamp 1151373312 was more than 1.5 IMU samples earlier than IMU ts 1151374987 by 1675 µS
+[WW] Exposure timestamp 1151526912 was more than 1.5 IMU samples earlier than IMU ts 1151529259 by 2347 µS
+[WW] Exposure timestamp 1151622912 was more than 1.5 IMU samples earlier than IMU ts 1151624426 by 1514 µS
+[WW] Exposure timestamp 1151680512 was more than 1.5 IMU samples earlier than IMU ts 1151682528 by 2016 µS
+[WW] Exposure timestamp 1151699712 was more than 1.5 IMU samples earlier than IMU ts 1151701580 by 1868 µS
+[WW] Exposure timestamp 1151930112 was more than 1.5 IMU samples earlier than IMU ts 1151931967 by 1855 µS
+[II] calib feed: 3601 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 3601 obs, 1492 paired, history 192 over 4 viewpoints, 92 solves, residual 1.93 px, CALIBRATED
+[WW] Exposure timestamp 1152083712 was more than 1.5 IMU samples earlier than IMU ts 1152085237 by 1525 µS
+[WW] Exposure timestamp 1152525312 was more than 1.5 IMU samples earlier than IMU ts 1152527014 by 1702 µS
+[WW] Exposure timestamp 1152621312 was more than 1.5 IMU samples earlier than IMU ts 1152624232 by 2920 µS
+[WW] Exposure timestamp 1152640512 was more than 1.5 IMU samples earlier than IMU ts 1152642218 by 1706 µS
+[WW] Exposure timestamp 1152659712 was more than 1.5 IMU samples earlier than IMU ts 1152661250 by 1538 µS
+[WW] Exposure timestamp 1152851712 was more than 1.5 IMU samples earlier than IMU ts 1152853588 by 1876 µS
+[WW] Exposure timestamp 1153101312 was more than 1.5 IMU samples earlier than IMU ts 1153103027 by 1715 µS
+[WW] Exposure timestamp 1153178112 was more than 1.5 IMU samples earlier than IMU ts 1153182168 by 4056 µS
+[WW] Exposure timestamp 1153216512 was more than 1.5 IMU samples earlier than IMU ts 1153218231 by 1719 µS
+[WW] Exposure timestamp 1153466112 was more than 1.5 IMU samples earlier than IMU ts 1153467668 by 1556 µS
+[WW] Exposure timestamp 1153542912 was more than 1.5 IMU samples earlier than IMU ts 1153544804 by 1892 µS
+[WW] Exposure timestamp 1153581312 was more than 1.5 IMU samples earlier than IMU ts 1153582871 by 1559 µS
+[WW] Exposure timestamp 1153600512 was more than 1.5 IMU samples earlier than IMU ts 1153602906 by 2394 µS
+[WW] Exposure timestamp 1153811712 was more than 1.5 IMU samples earlier than IMU ts 1153813276 by 1564 µS
+[WW] Exposure timestamp 1153830912 was more than 1.5 IMU samples earlier than IMU ts 1153833312 by 2400 µS
+[WW] Exposure timestamp 1153869312 was more than 1.5 IMU samples earlier than IMU ts 1153871378 by 2066 µS
+[WW] Exposure timestamp 1154003712 was more than 1.5 IMU samples earlier than IMU ts 1154005615 by 1903 µS
+[WW] Exposure timestamp 1154138112 was more than 1.5 IMU samples earlier than IMU ts 1154139851 by 1739 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 1154464512 was more than 1.5 IMU samples earlier than IMU ts 1154466425 by 1913 µS
+[WW] Exposure timestamp 1154867712 was more than 1.5 IMU samples earlier than IMU ts 1154870137 by 2425 µS
+[WW] Exposure timestamp 1154886912 was more than 1.5 IMU samples earlier than IMU ts 1154890172 by 3260 µS
+[WW] Exposure timestamp 1154963712 was more than 1.5 IMU samples earlier than IMU ts 1154965303 by 1591 µS
+[WW] Exposure timestamp 1155270912 was more than 1.5 IMU samples earlier than IMU ts 1155272844 by 1932 µS
+[WW] Exposure timestamp 1155309312 was more than 1.5 IMU samples earlier than IMU ts 1155310911 by 1599 µS
+[WW] Exposure timestamp 1155501312 was more than 1.5 IMU samples earlier than IMU ts 1155504251 by 2939 µS
+[WW] Exposure timestamp 1156000512 was more than 1.5 IMU samples earlier than IMU ts 1156003129 by 2617 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 8 missed exposure, diff avg 5.60 min -12.49 max 11.63 ms
+[WW] Exposure timestamp 1156442112 was more than 1.5 IMU samples earlier than IMU ts 1156443905 by 1793 µS
+[WW] Exposure timestamp 1156461312 was more than 1.5 IMU samples earlier than IMU ts 1156462939 by 1627 µS
+[WW] Exposure timestamp 1156480512 was more than 1.5 IMU samples earlier than IMU ts 1156482018 by 1506 µS
+[WW] Exposure timestamp 1156576512 was more than 1.5 IMU samples earlier than IMU ts 1156578143 by 1631 µS
+[WW] Sensor WMTD306Q701DEK: predicted exposure-to-frame latency of 6.5 ms differed from measured -0.0 ms (701 so far) - check the sensor sync cable
+[WW] Exposure timestamp 1156672512 was more than 1.5 IMU samples earlier than IMU ts 1156674310 by 1798 µS
+[II] accelerometer scale check: |accel| at rest mean 9.6659 m/s^2 (-1.44% vs 9.8067), range 9.222..10.288, 1519 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] sensor 0 calibration feed: 2701 offered, 2273 passed - rejected 0 for LED ids, 428 for too few blobs (<10), 0 for error
+[WW] Exposure timestamp 1156922112 was more than 1.5 IMU samples earlier than IMU ts 1156923749 by 1637 µS
+[WW] Exposure timestamp 1156941312 was more than 1.5 IMU samples earlier than IMU ts 1156942829 by 1517 µS
+[II] Device 1: joint reconstruction 601 solved, 22 rejected, 636 single-camera (0 observations arrived too late to count)
+[II] frame-timing WMTD3052400VZL: 300 frames, 9 missed exposure, diff avg 5.69 min -12.11 max 11.62 ms
+[WW] Exposure timestamp 1157018112 was more than 1.5 IMU samples earlier than IMU ts 1157019919 by 1807 µS
+[II] Device 0: joint reconstruction 1801 solved, 3 rejected, 2088 single-camera (0 observations arrived too late to count)
+[WW] Exposure timestamp 1157114112 was more than 1.5 IMU samples earlier than IMU ts 1157116090 by 1978 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 1157190912 was more than 1.5 IMU samples earlier than IMU ts 1157193270 by 2358 µS
+[WW] Exposure timestamp 1157459712 was more than 1.5 IMU samples earlier than IMU ts 1157461696 by 1984 µS
+[WW] Exposure timestamp 1157478912 was more than 1.5 IMU samples earlier than IMU ts 1157480729 by 1817 µS
+[WW] Exposure timestamp 1157574912 was more than 1.5 IMU samples earlier than IMU ts 1157576899 by 1987 µS
+[WW] Exposure timestamp 1157690112 was more than 1.5 IMU samples earlier than IMU ts 1157692104 by 1992 µS
+[WW] Exposure timestamp 1157709312 was more than 1.5 IMU samples earlier than IMU ts 1157711137 by 1825 µS
+[II] pose export over 10 s: age mean 2.8 ms max 6.4 ms | speed mean 0.16 max 0.78 m/s, ang mean 52 max 334 deg/s | age*speed worst 3.4 mm (785 samples)
+[WW] Exposure timestamp 1157824512 was more than 1.5 IMU samples earlier than IMU ts 1157826338 by 1826 µS
+[WW] Exposure timestamp 1157920512 was more than 1.5 IMU samples earlier than IMU ts 1157922507 by 1995 µS
+[WW] Exposure timestamp 1158093312 was more than 1.5 IMU samples earlier than IMU ts 1158094857 by 1545 µS
+[WW] Exposure timestamp 1158323712 was more than 1.5 IMU samples earlier than IMU ts 1158325262 by 1550 µS
+[WW] Exposure timestamp 1158400512 was more than 1.5 IMU samples earlier than IMU ts 1158402352 by 1840 µS
+[WW] Exposure timestamp 1158554112 was more than 1.5 IMU samples earlier than IMU ts 1158555668 by 1556 µS
+[WW] Exposure timestamp 1159110912 was more than 1.5 IMU samples earlier than IMU ts 1159112603 by 1691 µS
+[WW] Exposure timestamp 1159245312 was more than 1.5 IMU samples earlier than IMU ts 1159246885 by 1573 µS
+[WW] Exposure timestamp 1159360512 was more than 1.5 IMU samples earlier than IMU ts 1159364047 by 3535 µS
+[WW] Exposure timestamp 1159379712 was more than 1.5 IMU samples earlier than IMU ts 1159384082 by 4370 µS
+[WW] Exposure timestamp 1159571712 was more than 1.5 IMU samples earlier than IMU ts 1159573430 by 1718 µS
+[II] sensor 1 calibration feed: 2701 offered, 1997 passed - rejected 0 for LED ids, 704 for too few blobs (<10), 0 for error
+[II] calib feed: 4501 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 4501 obs, 1885 paired, history 192 over 4 viewpoints, 116 solves, residual 1.73 px, CALIBRATED
+[WW] Exposure timestamp 1159936512 was more than 1.5 IMU samples earlier than IMU ts 1159942111 by 5599 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 1160397312 was more than 1.5 IMU samples earlier than IMU ts 1160398913 by 1601 µS
+[WW] Exposure timestamp 1160512512 was more than 1.5 IMU samples earlier than IMU ts 1160514122 by 1610 µS
+[WW] Exposure timestamp 1160589312 was more than 1.5 IMU samples earlier than IMU ts 1160591209 by 1897 µS
+[WW] Exposure timestamp 1161069312 was more than 1.5 IMU samples earlier than IMU ts 1161072055 by 2743 µS
+[WW] Exposure timestamp 1161203712 was more than 1.5 IMU samples earlier than IMU ts 1161205334 by 1622 µS
+[WW] Exposure timestamp 1161299712 was more than 1.5 IMU samples earlier than IMU ts 1161302459 by 2747 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 6 missed exposure, diff avg 5.24 min -11.32 max 9.93 ms
+[WW] Exposure timestamp 1162202112 was more than 1.5 IMU samples earlier than IMU ts 1162204048 by 1936 µS
+[WW] Exposure timestamp 1162240512 was more than 1.5 IMU samples earlier than IMU ts 1162242160 by 1648 µS
+[WW] Exposure timestamp 1162451712 was more than 1.5 IMU samples earlier than IMU ts 1162453487 by 1775 µS
+[WW] Exposure timestamp 1162739712 was more than 1.5 IMU samples earlier than IMU ts 1162742043 by 2331 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 4 missed exposure, diff avg 5.39 min -10.32 max 10.83 ms
+[WW] Exposure timestamp 1162778112 was more than 1.5 IMU samples earlier than IMU ts 1162780062 by 1950 µS
+[II] Device 0: joint reconstruction 2101 solved, 3 rejected, 2388 single-camera (0 observations arrived too late to count)
+[II] Device 1: joint reconstruction 901 solved, 24 rejected, 944 single-camera (0 observations arrived too late to count)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 1163296512 was more than 1.5 IMU samples earlier than IMU ts 1163298022 by 1510 µS
+[WW] Exposure timestamp 1163718912 was more than 1.5 IMU samples earlier than IMU ts 1163720719 by 1807 µS
+[WW] Exposure timestamp 1163872512 was more than 1.5 IMU samples earlier than IMU ts 1163874037 by 1525 µS
+[WW] Exposure timestamp 1164429312 was more than 1.5 IMU samples earlier than IMU ts 1164433978 by 4666 µS
+[WW] Exposure timestamp 1164986112 was more than 1.5 IMU samples earlier than IMU ts 1164987954 by 1842 µS
+[WW] Exposure timestamp 1165024512 was more than 1.5 IMU samples earlier than IMU ts 1165026067 by 1555 µS
+[WW] Exposure timestamp 1165216512 was more than 1.5 IMU samples earlier than IMU ts 1165218368 by 1856 µS
+[WW] Exposure timestamp 1165485312 was more than 1.5 IMU samples earlier than IMU ts 1165486831 by 1519 µS
+[WW] Exposure timestamp 1165562112 was more than 1.5 IMU samples earlier than IMU ts 1165563969 by 1857 µS
+[II] sensor 0 calibration feed: 3601 offered, 2768 passed - rejected 0 for LED ids, 833 for too few blobs (<10), 0 for error
+[WW] Exposure timestamp 1165946112 was more than 1.5 IMU samples earlier than IMU ts 1165947644 by 1532 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Sensor WMTD3052400VZL: predicted exposure-to-frame latency of 6.9 ms differed from measured -3.4 ms (801 so far) - check the sensor sync cable
+[WW] Exposure timestamp 1166138112 was more than 1.5 IMU samples earlier than IMU ts 1166139983 by 1871 µS
+[WW] Exposure timestamp 1166368512 was more than 1.5 IMU samples earlier than IMU ts 1166370389 by 1877 µS
+[WW] Exposure timestamp 1166483712 was more than 1.5 IMU samples earlier than IMU ts 1166485593 by 1881 µS
+[WW] Exposure timestamp 1166522112 was more than 1.5 IMU samples earlier than IMU ts 1166523659 by 1547 µS
+[WW] Exposure timestamp 1166714112 was more than 1.5 IMU samples earlier than IMU ts 1166715998 by 1886 µS
+[WW] Exposure timestamp 1166829312 was more than 1.5 IMU samples earlier than IMU ts 1166831201 by 1889 µS
+[WW] Exposure timestamp 1167078912 was more than 1.5 IMU samples earlier than IMU ts 1167080687 by 1775 µS
+[WW] Exposure timestamp 1167232512 was more than 1.5 IMU samples earlier than IMU ts 1167235963 by 3451 µS
+[WW] Exposure timestamp 1167251712 was more than 1.5 IMU samples earlier than IMU ts 1167255996 by 4284 µS
+[WW] Exposure timestamp 1167424512 was more than 1.5 IMU samples earlier than IMU ts 1167426297 by 1785 µS
+[WW] Exposure timestamp 1167443712 was more than 1.5 IMU samples earlier than IMU ts 1167445284 by 1572 µS
+[WW] Exposure timestamp 1167520512 was more than 1.5 IMU samples earlier than IMU ts 1167522420 by 1908 µS
+[WW] Exposure timestamp 1167539712 was more than 1.5 IMU samples earlier than IMU ts 1167541500 by 1788 µS
+[II] pose export over 10 s: age mean 2.8 ms max 7.9 ms | speed mean 0.17 max 0.44 m/s, ang mean 71 max 238 deg/s | age*speed worst 1.9 mm (744 samples)
+[WW] Exposure timestamp 1167789312 was more than 1.5 IMU samples earlier than IMU ts 1167791897 by 2585 µS
+[WW] Exposure timestamp 1167866112 was more than 1.5 IMU samples earlier than IMU ts 1167868029 by 1917 µS
+[WW] Exposure timestamp 1167885312 was more than 1.5 IMU samples earlier than IMU ts 1167887109 by 1797 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 6 missed exposure, diff avg 5.48 min -12.04 max 13.30 ms
+[WW] Exposure timestamp 1168365312 was more than 1.5 IMU samples earlier than IMU ts 1168367913 by 2601 µS
+[WW] Exposure timestamp 1168461312 was more than 1.5 IMU samples earlier than IMU ts 1168463126 by 1814 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 7 missed exposure, diff avg 5.60 min -13.94 max 12.37 ms
+[II] sensor 1 calibration feed: 3601 offered, 2428 passed - rejected 0 for LED ids, 1173 for too few blobs (<10), 0 for error
+[II] Device 0: joint reconstruction 2401 solved, 3 rejected, 2689 single-camera (0 observations arrived too late to count)
+[WW] Exposure timestamp 1168922112 was more than 1.5 IMU samples earlier than IMU ts 1168923938 by 1826 µS
+[WW] Exposure timestamp 1168941312 was more than 1.5 IMU samples earlier than IMU ts 1168943973 by 2661 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 1169152512 was more than 1.5 IMU samples earlier than IMU ts 1169154345 by 1833 µS
+[WW] Exposure timestamp 1169171712 was more than 1.5 IMU samples earlier than IMU ts 1169173332 by 1620 µS
+[II] Device 1: joint reconstruction 1201 solved, 24 rejected, 1263 single-camera (0 observations arrived too late to count)
+[II] calib feed: 5401 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 5401 obs, 2296 paired, history 192 over 4 viewpoints, 142 solves, residual 1.66 px, CALIBRATED
+[WW] Exposure timestamp 1169498112 was more than 1.5 IMU samples earlier than IMU ts 1169499954 by 1842 µS
+[WW] Exposure timestamp 1169747712 was more than 1.5 IMU samples earlier than IMU ts 1169749348 by 1636 µS
+[WW] Exposure timestamp 1169843712 was more than 1.5 IMU samples earlier than IMU ts 1169845564 by 1852 µS
+[WW] Exposure timestamp 1170035712 was more than 1.5 IMU samples earlier than IMU ts 1170041864 by 6152 µS
+[WW] Exposure timestamp 1170074112 was more than 1.5 IMU samples earlier than IMU ts 1170075970 by 1858 µS
+[WW] Exposure timestamp 1170093312 was more than 1.5 IMU samples earlier than IMU ts 1170096006 by 2694 µS
+[WW] Exposure timestamp 1170285312 was more than 1.5 IMU samples earlier than IMU ts 1170287297 by 1985 µS
+[WW] Exposure timestamp 1170650112 was more than 1.5 IMU samples earlier than IMU ts 1170651987 by 1875 µS
+[WW] Exposure timestamp 1170803712 was more than 1.5 IMU samples earlier than IMU ts 1170805216 by 1504 µS
+[WW] Exposure timestamp 1170861312 was more than 1.5 IMU samples earlier than IMU ts 1170863314 by 2002 µS
+[WW] Exposure timestamp 1170918912 was more than 1.5 IMU samples earlier than IMU ts 1170920414 by 1502 µS
+[WW] Exposure timestamp 1171014912 was more than 1.5 IMU samples earlier than IMU ts 1171016584 by 1672 µS
+[WW] Exposure timestamp 1171168512 was more than 1.5 IMU samples earlier than IMU ts 1171173863 by 5351 µS
+[WW] Exposure timestamp 1171341312 was more than 1.5 IMU samples earlier than IMU ts 1171343209 by 1897 µS
+[WW] Exposure timestamp 1171706112 was more than 1.5 IMU samples earlier than IMU ts 1171707851 by 1739 µS
+[WW] Exposure timestamp 1171725312 was more than 1.5 IMU samples earlier than IMU ts 1171727887 by 2575 µS
+[WW] Exposure timestamp 1171821312 was more than 1.5 IMU samples earlier than IMU ts 1171823011 by 1699 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 1171840512 was more than 1.5 IMU samples earlier than IMU ts 1171842041 by 1529 µS
+[WW] Exposure timestamp 1171936512 was more than 1.5 IMU samples earlier than IMU ts 1171938210 by 1698 µS
+[WW] Exposure timestamp 1172051712 was more than 1.5 IMU samples earlier than IMU ts 1172053414 by 1702 µS
+[WW] Exposure timestamp 1172282112 was more than 1.5 IMU samples earlier than IMU ts 1172285826 by 3714 µS
+[WW] Exposure timestamp 1172301312 was more than 1.5 IMU samples earlier than IMU ts 1172303904 by 2592 µS
+[WW] Exposure timestamp 1172627712 was more than 1.5 IMU samples earlier than IMU ts 1172629434 by 1722 µS
+[WW] Exposure timestamp 1172723712 was more than 1.5 IMU samples earlier than IMU ts 1172725646 by 1934 µS
+[WW] Exposure timestamp 1172838912 was more than 1.5 IMU samples earlier than IMU ts 1172843811 by 4899 µS
+[WW] Exposure timestamp 1172858112 was more than 1.5 IMU samples earlier than IMU ts 1172860885 by 2773 µS
+[WW] Exposure timestamp 1172877312 was more than 1.5 IMU samples earlier than IMU ts 1172879873 by 2561 µS
+[WW] Exposure timestamp 1172992512 was more than 1.5 IMU samples earlier than IMU ts 1172994074 by 1562 µS
+[WW] Exposure timestamp 1173069312 was more than 1.5 IMU samples earlier than IMU ts 1173072217 by 2905 µS
+[WW] Exposure timestamp 1173203712 was more than 1.5 IMU samples earlier than IMU ts 1173205447 by 1735 µS
+[WW] Exposure timestamp 1173318912 was more than 1.5 IMU samples earlier than IMU ts 1173320651 by 1739 µS
+[WW] Exposure timestamp 1173664512 was more than 1.5 IMU samples earlier than IMU ts 1173666261 by 1749 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 4 missed exposure, diff avg 5.52 min -12.92 max 11.46 ms
+[WW] Exposure timestamp 1173971712 was more than 1.5 IMU samples earlier than IMU ts 1173973806 by 2094 µS
+[WW] Exposure timestamp 1173990912 was more than 1.5 IMU samples earlier than IMU ts 1173993839 by 2927 µS
+[WW] Exposure timestamp 1174010112 was more than 1.5 IMU samples earlier than IMU ts 1174011871 by 1759 µS
+[WW] Exposure timestamp 1174221312 was more than 1.5 IMU samples earlier than IMU ts 1174223290 by 1978 µS
+[WW] Exposure timestamp 1174240512 was more than 1.5 IMU samples earlier than IMU ts 1174242278 by 1766 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 3 missed exposure, diff avg 5.95 min -12.65 max 11.69 ms
+[WW] Exposure timestamp 1174374912 was more than 1.5 IMU samples earlier than IMU ts 1174376515 by 1603 µS
+[II] sensor 0 calibration feed: 4501 offered, 3312 passed - rejected 0 for LED ids, 1189 for too few blobs (<10), 0 for error
+[WW] Exposure timestamp 1174605312 was more than 1.5 IMU samples earlier than IMU ts 1174606922 by 1610 µS
+[II] Device 0: joint reconstruction 2701 solved, 3 rejected, 2986 single-camera (0 observations arrived too late to count)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 1174797312 was more than 1.5 IMU samples earlier than IMU ts 1174799307 by 1995 µS
+[WW] Exposure timestamp 1174912512 was more than 1.5 IMU samples earlier than IMU ts 1174914511 by 1999 µS
+[WW] Exposure timestamp 1174950912 was more than 1.5 IMU samples earlier than IMU ts 1174952532 by 1620 µS
+[WW] Exposure timestamp 1175085312 was more than 1.5 IMU samples earlier than IMU ts 1175087775 by 2463 µS
+[WW] Exposure timestamp 1175142912 was more than 1.5 IMU samples earlier than IMU ts 1175144918 by 2006 µS
+[WW] Exposure timestamp 1175258112 was more than 1.5 IMU samples earlier than IMU ts 1175260124 by 2012 µS
+[II] Device 1: joint reconstruction 1501 solved, 26 rejected, 1577 single-camera (0 observations arrived too late to count)
+[WW] Sensor WMTD3052400VZL: predicted exposure-to-frame latency of 6.8 ms differed from measured -9.4 ms (901 so far) - check the sensor sync cable
+[WW] Exposure timestamp 1175642112 was more than 1.5 IMU samples earlier than IMU ts 1175645803 by 3691 µS
+[WW] Exposure timestamp 1175661312 was more than 1.5 IMU samples earlier than IMU ts 1175663790 by 2478 µS
+[WW] Exposure timestamp 1175738112 was more than 1.5 IMU samples earlier than IMU ts 1175739923 by 1811 µS
+[WW] Exposure timestamp 1175949312 was more than 1.5 IMU samples earlier than IMU ts 1175951342 by 2030 µS
+[WW] Exposure timestamp 1175987712 was more than 1.5 IMU samples earlier than IMU ts 1175989364 by 1652 µS
+[WW] Exposure timestamp 1176064512 was more than 1.5 IMU samples earlier than IMU ts 1176066546 by 2034 µS
+[II] accelerometer scale check: |accel| at rest mean 9.6608 m/s^2 (-1.49% vs 9.8067), range 8.714..10.078, 488 quiet samples | hw calibration NOT requested (driver applies its own)
+[WW] Exposure timestamp 1176774912 was more than 1.5 IMU samples earlier than IMU ts 1176777802 by 2890 µS
+[WW] Exposure timestamp 1176794112 was more than 1.5 IMU samples earlier than IMU ts 1176795788 by 1676 µS
+[WW] Exposure timestamp 1177139712 was more than 1.5 IMU samples earlier than IMU ts 1177141398 by 1686 µS
+[II] Matched orientation after 1.245751 sec
+[WW] Exposure timestamp 1177427712 was more than 1.5 IMU samples earlier than IMU ts 1177429908 by 2196 µS
+[II] pose export over 10 s: age mean 2.7 ms max 11.6 ms | speed mean 0.19 max 0.83 m/s, ang mean 64 max 384 deg/s | age*speed worst 2.7 mm (783 samples)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 1177811712 was more than 1.5 IMU samples earlier than IMU ts 1177813592 by 1880 µS
+[WW] Exposure timestamp 1177869312 was more than 1.5 IMU samples earlier than IMU ts 1177871691 by 2379 µS
+[II] calib feed: 6301 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 6301 obs, 2624 paired, history 192 over 4 viewpoints, 163 solves, residual 2.18 px, estimated
+[II] Matched orientation after 1.450547 sec
+[WW] Exposure timestamp 1178886912 was more than 1.5 IMU samples earlier than IMU ts 1178888486 by 1574 µS
+[WW] Exposure timestamp 1178982912 was more than 1.5 IMU samples earlier than IMU ts 1178984656 by 1744 µS
+[WW] Exposure timestamp 1179194112 was more than 1.5 IMU samples earlier than IMU ts 1179196049 by 1937 µS
+[WW] Exposure timestamp 1179213312 was more than 1.5 IMU samples earlier than IMU ts 1179215064 by 1752 µS
+[WW] Exposure timestamp 1179347712 was more than 1.5 IMU samples earlier than IMU ts 1179349301 by 1589 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 3 missed exposure, diff avg 5.61 min -15.34 max 10.60 ms
+[WW] Exposure timestamp 1179558912 was more than 1.5 IMU samples earlier than IMU ts 1179563681 by 4769 µS
+[WW] Exposure timestamp 1179885312 was more than 1.5 IMU samples earlier than IMU ts 1179887251 by 1939 µS
+[WW] Exposure timestamp 1180000512 was more than 1.5 IMU samples earlier than IMU ts 1180002455 by 1943 µS
+[WW] Exposure timestamp 1180019712 was more than 1.5 IMU samples earlier than IMU ts 1180021488 by 1776 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 5 missed exposure, diff avg 5.94 min -10.99 max 15.47 ms
+[WW] Exposure timestamp 1180134912 was more than 1.5 IMU samples earlier than IMU ts 1180137744 by 2832 µS
+[WW] Exposure timestamp 1180154112 was more than 1.5 IMU samples earlier than IMU ts 1180155727 by 1615 µS
+[WW] Exposure timestamp 1180346112 was more than 1.5 IMU samples earlier than IMU ts 1180348085 by 1973 µS
+[WW] Exposure timestamp 1180384512 was more than 1.5 IMU samples earlier than IMU ts 1180386133 by 1621 µS
+[WW] Exposure timestamp 1180480512 was more than 1.5 IMU samples earlier than IMU ts 1180482303 by 1791 µS
+[WW] Exposure timestamp 1180576512 was more than 1.5 IMU samples earlier than IMU ts 1180578473 by 1961 µS
+[WW] Exposure timestamp 1180691712 was more than 1.5 IMU samples earlier than IMU ts 1180695682 by 3970 µS
+[WW] Exposure timestamp 1180710912 was more than 1.5 IMU samples earlier than IMU ts 1180713760 by 2848 µS
+[WW] Exposure timestamp 1180806912 was more than 1.5 IMU samples earlier than IMU ts 1180808880 by 1968 µS
+[WW] Exposure timestamp 1180845312 was more than 1.5 IMU samples earlier than IMU ts 1180846947 by 1635 µS
+[WW] Exposure timestamp 1180960512 was more than 1.5 IMU samples earlier than IMU ts 1180962151 by 1639 µS
+[WW] Exposure timestamp 1181075712 was more than 1.5 IMU samples earlier than IMU ts 1181077355 by 1643 µS
+[WW] Exposure timestamp 1181267712 was more than 1.5 IMU samples earlier than IMU ts 1181270743 by 3031 µS
+[II] Matched orientation after 2.485510 sec
+[II] sensor 1 calibration feed: 4501 offered, 2874 passed - rejected 0 for LED ids, 1627 for too few blobs (<10), 0 for error
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 1182093312 was more than 1.5 IMU samples earlier than IMU ts 1182095154 by 1842 µS
+[II] Device 0: joint reconstruction 3001 solved, 3 rejected, 3378 single-camera (0 observations arrived too late to count)
+[WW] Exposure timestamp 1182381312 was more than 1.5 IMU samples earlier than IMU ts 1182383666 by 2354 µS
+[WW] Exposure timestamp 1182573312 was more than 1.5 IMU samples earlier than IMU ts 1182575003 by 1691 µS
+[WW] Exposure timestamp 1182592512 was more than 1.5 IMU samples earlier than IMU ts 1182594038 by 1526 µS
+[WW] Exposure timestamp 1182899712 was more than 1.5 IMU samples earlier than IMU ts 1182902630 by 2918 µS
+[WW] Exposure timestamp 1182957312 was more than 1.5 IMU samples earlier than IMU ts 1182959683 by 2371 µS
+[WW] Exposure timestamp 1183475712 was more than 1.5 IMU samples earlier than IMU ts 1183478649 by 2937 µS
+[WW] Exposure timestamp 1183629312 was more than 1.5 IMU samples earlier than IMU ts 1183630870 by 1558 µS
+[WW] Exposure timestamp 1183859712 was more than 1.5 IMU samples earlier than IMU ts 1183861277 by 1565 µS
+[WW] Exposure timestamp 1184051712 was more than 1.5 IMU samples earlier than IMU ts 1184055667 by 3955 µS
+[WW] Exposure timestamp 1184070912 was more than 1.5 IMU samples earlier than IMU ts 1184072651 by 1739 µS
+[WW] Exposure timestamp 1184320512 was more than 1.5 IMU samples earlier than IMU ts 1184322098 by 1586 µS
+[WW] Exposure timestamp 1184416512 was more than 1.5 IMU samples earlier than IMU ts 1184418263 by 1751 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 1184435712 was more than 1.5 IMU samples earlier than IMU ts 1184437297 by 1585 µS
+[II] Device 0: IMU saturation (accel), 1 samples so far - the reading is clipped, so it is being ignored rather than integrated
+[WW] Exposure timestamp 1184627712 was more than 1.5 IMU samples earlier than IMU ts 1184629637 by 1925 µS
+[WW] Exposure timestamp 1184646912 was more than 1.5 IMU samples earlier than IMU ts 1184648670 by 1758 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 6 missed exposure, diff avg 5.45 min -15.85 max 9.68 ms
+[WW] Exposure timestamp 1185222912 was more than 1.5 IMU samples earlier than IMU ts 1185224689 by 1777 µS
+[WW] Exposure timestamp 1185587712 was more than 1.5 IMU samples earlier than IMU ts 1185589334 by 1622 µS
+[WW] Exposure timestamp 1185722112 was more than 1.5 IMU samples earlier than IMU ts 1185726579 by 4467 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 5 missed exposure, diff avg 5.89 min -14.35 max 10.37 ms
+[II] sensor 0 calibration feed: 5401 offered, 3749 passed - rejected 0 for LED ids, 1652 for too few blobs (<10), 0 for error
+[WW] Exposure timestamp 1186163712 was more than 1.5 IMU samples earlier than IMU ts 1186165354 by 1642 µS
+[WW] Exposure timestamp 1186278912 was more than 1.5 IMU samples earlier than IMU ts 1186280559 by 1647 µS
+[II] accelerometer scale check: |accel| at rest mean 9.7005 m/s^2 (-1.08% vs 9.8067), range 9.162..10.496, 822 quiet samples | hw calibration NOT requested (driver applies its own)
+[WW] Exposure timestamp 1186739712 was more than 1.5 IMU samples earlier than IMU ts 1186741372 by 1660 µS
+[WW] Sensor WMTD3052400VZL: predicted exposure-to-frame latency of 6.9 ms differed from measured -2.9 ms (1001 so far) - check the sensor sync cable
+[WW] Exposure timestamp 1186874112 was more than 1.5 IMU samples earlier than IMU ts 1186875656 by 1544 µS
+[WW] Exposure timestamp 1186950912 was more than 1.5 IMU samples earlier than IMU ts 1186952746 by 1834 µS
+[WW] Exposure timestamp 1187085312 was more than 1.5 IMU samples earlier than IMU ts 1187086984 by 1672 µS
+[WW] Exposure timestamp 1187181312 was more than 1.5 IMU samples earlier than IMU ts 1187183154 by 1842 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 1187411712 was more than 1.5 IMU samples earlier than IMU ts 1187414565 by 2853 µS
+[WW] Exposure timestamp 1187450112 was more than 1.5 IMU samples earlier than IMU ts 1187451675 by 1563 µS
+[WW] Exposure timestamp 1187642112 was more than 1.5 IMU samples earlier than IMU ts 1187643969 by 1857 µS
+[II] pose export over 10 s: age mean 2.6 ms max 8.3 ms | speed mean 0.25 max 1.09 m/s, ang mean 58 max 539 deg/s | age*speed worst 7.2 mm (741 samples)
+[WW] Exposure timestamp 1187795712 was more than 1.5 IMU samples earlier than IMU ts 1187797286 by 1574 µS
+[WW] Exposure timestamp 1187891712 was more than 1.5 IMU samples earlier than IMU ts 1187893410 by 1698 µS
+[II] Device 1: joint reconstruction 1801 solved, 26 rejected, 1953 single-camera (0 observations arrived too late to count)
+[WW] Exposure timestamp 1187968512 was more than 1.5 IMU samples earlier than IMU ts 1187970549 by 2037 µS
+[WW] Exposure timestamp 1188102912 was more than 1.5 IMU samples earlier than IMU ts 1188104785 by 1873 µS
+[WW] Exposure timestamp 1188122112 was more than 1.5 IMU samples earlier than IMU ts 1188123818 by 1706 µS
+[II] Device 0: joint reconstruction 3301 solved, 5 rejected, 3678 single-camera (0 observations arrived too late to count)
+[WW] Exposure timestamp 1188333312 was more than 1.5 IMU samples earlier than IMU ts 1188335192 by 1880 µS
+[WW] Exposure timestamp 1188813312 was more than 1.5 IMU samples earlier than IMU ts 1188815042 by 1730 µS
+[WW] Exposure timestamp 1189062912 was more than 1.5 IMU samples earlier than IMU ts 1189064485 by 1573 µS
+[WW] Exposure timestamp 1189158912 was more than 1.5 IMU samples earlier than IMU ts 1189160653 by 1741 µS
+[II] calib feed: 7201 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 7201 obs, 3049 paired, history 192 over 4 viewpoints, 189 solves, residual 2.04 px, estimated
+[WW] Exposure timestamp 1189619712 was more than 1.5 IMU samples earlier than IMU ts 1189624522 by 4810 µS
+[WW] Exposure timestamp 1190195712 was more than 1.5 IMU samples earlier than IMU ts 1190200542 by 4830 µS
+[WW] Exposure timestamp 1190214912 was more than 1.5 IMU samples earlier than IMU ts 1190217524 by 2612 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] sensor 1 calibration feed: 5401 offered, 3340 passed - rejected 0 for LED ids, 2061 for too few blobs (<10), 0 for error
+[WW] Exposure timestamp 1190656512 was more than 1.5 IMU samples earlier than IMU ts 1190658304 by 1792 µS
+[WW] Exposure timestamp 1190752512 was more than 1.5 IMU samples earlier than IMU ts 1190755478 by 2966 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 6 missed exposure, diff avg 5.56 min -11.87 max 11.16 ms
+[WW] Exposure timestamp 1191021312 was more than 1.5 IMU samples earlier than IMU ts 1191022996 by 1684 µS
+[WW] Exposure timestamp 1191117312 was more than 1.5 IMU samples earlier than IMU ts 1191119120 by 1808 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 7 missed exposure, diff avg 5.70 min -11.06 max 11.26 ms
+[WW] Exposure timestamp 1191578112 was more than 1.5 IMU samples earlier than IMU ts 1191579936 by 1824 µS
+[WW] Exposure timestamp 1191866112 was more than 1.5 IMU samples earlier than IMU ts 1191868495 by 2383 µS
+[WW] Exposure timestamp 1191885312 was more than 1.5 IMU samples earlier than IMU ts 1191887482 by 2170 µS
+[WW] Exposure timestamp 1191923712 was more than 1.5 IMU samples earlier than IMU ts 1191925548 by 1836 µS
+[WW] Exposure timestamp 1192211712 was more than 1.5 IMU samples earlier than IMU ts 1192214059 by 2347 µS
+[WW] Exposure timestamp 1192422912 was more than 1.5 IMU samples earlier than IMU ts 1192424479 by 1567 µS
+[WW] Exposure timestamp 1192538112 was more than 1.5 IMU samples earlier than IMU ts 1192539635 by 1523 µS
+[WW] Exposure timestamp 1192634112 was more than 1.5 IMU samples earlier than IMU ts 1192635852 by 1740 µS
+[WW] Exposure timestamp 1192653312 was more than 1.5 IMU samples earlier than IMU ts 1192654839 by 1527 µS
+[WW] Exposure timestamp 1192768512 was more than 1.5 IMU samples earlier than IMU ts 1192770043 by 1531 µS
+[WW] Exposure timestamp 1192787712 was more than 1.5 IMU samples earlier than IMU ts 1192790079 by 2367 µS
+[WW] Exposure timestamp 1192979712 was more than 1.5 IMU samples earlier than IMU ts 1192982421 by 2709 µS
+[WW] Exposure timestamp 1193018112 was more than 1.5 IMU samples earlier than IMU ts 1193020535 by 2423 µS
+[WW] Exposure timestamp 1193190912 was more than 1.5 IMU samples earlier than IMU ts 1193192794 by 1882 µS
+[WW] Exposure timestamp 1193210112 was more than 1.5 IMU samples earlier than IMU ts 1193212827 by 2715 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 1193306112 was more than 1.5 IMU samples earlier than IMU ts 1193307996 by 1884 µS
+[WW] Exposure timestamp 1193325312 was more than 1.5 IMU samples earlier than IMU ts 1193327076 by 1764 µS
+[WW] Exposure timestamp 1193344512 was more than 1.5 IMU samples earlier than IMU ts 1193346064 by 1552 µS
+[WW] Exposure timestamp 1193440512 was more than 1.5 IMU samples earlier than IMU ts 1193442281 by 1769 µS
+[WW] Exposure timestamp 1193459712 was more than 1.5 IMU samples earlier than IMU ts 1193462316 by 2604 µS
+[WW] Exposure timestamp 1193555712 was more than 1.5 IMU samples earlier than IMU ts 1193562494 by 6782 µS
+[WW] Exposure timestamp 1193670912 was more than 1.5 IMU samples earlier than IMU ts 1193672688 by 1776 µS
+[WW] Exposure timestamp 1193690112 was more than 1.5 IMU samples earlier than IMU ts 1193691676 by 1564 µS
+[II] Device 1: joint reconstruction 2101 solved, 28 rejected, 2250 single-camera (0 observations arrived too late to count)
+[WW] Exposure timestamp 1193805312 was more than 1.5 IMU samples earlier than IMU ts 1193806882 by 1570 µS
+[WW] Exposure timestamp 1193920512 was more than 1.5 IMU samples earlier than IMU ts 1193922084 by 1572 µS
+[WW] Exposure timestamp 1194016512 was more than 1.5 IMU samples earlier than IMU ts 1194018301 by 1789 µS
+[II] Device 0: joint reconstruction 3601 solved, 6 rejected, 3975 single-camera (0 observations arrived too late to count)
+[WW] Exposure timestamp 1194112512 was more than 1.5 IMU samples earlier than IMU ts 1194114426 by 1914 µS
+[WW] Exposure timestamp 1194150912 was more than 1.5 IMU samples earlier than IMU ts 1194152493 by 1581 µS
+[II] sensor 0 calibration feed: 6301 offered, 4298 passed - rejected 0 for LED ids, 2003 for too few blobs (<10), 0 for error
+[WW] Exposure timestamp 1194688512 was more than 1.5 IMU samples earlier than IMU ts 1194690447 by 1935 µS
+[WW] Exposure timestamp 1194803712 was more than 1.5 IMU samples earlier than IMU ts 1194805649 by 1937 µS
+[WW] Exposure timestamp 1194918912 was more than 1.5 IMU samples earlier than IMU ts 1194920853 by 1941 µS
+[WW] Exposure timestamp 1195034112 was more than 1.5 IMU samples earlier than IMU ts 1195036057 by 1945 µS
+[WW] Exposure timestamp 1195053312 was more than 1.5 IMU samples earlier than IMU ts 1195055137 by 1825 µS
+[WW] Exposure timestamp 1195072512 was more than 1.5 IMU samples earlier than IMU ts 1195074125 by 1613 µS
+[WW] Exposure timestamp 1195494912 was more than 1.5 IMU samples earlier than IMU ts 1195496874 by 1962 µS
+[II] calib feed: 8101 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 8101 obs, 3375 paired, history 192 over 4 viewpoints, 209 solves, residual 1.95 px, CALIBRATED
+[WW] Exposure timestamp 1195763712 was more than 1.5 IMU samples earlier than IMU ts 1195766397 by 2685 µS
+[WW] Exposure timestamp 1195955712 was more than 1.5 IMU samples earlier than IMU ts 1195958692 by 2980 µS
+[WW] Exposure timestamp 1196051712 was more than 1.5 IMU samples earlier than IMU ts 1196053861 by 2149 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 1196339712 was more than 1.5 IMU samples earlier than IMU ts 1196342418 by 2706 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 7 missed exposure, diff avg 5.34 min -14.23 max 11.43 ms
+[II] accelerometer scale check: |accel| at rest mean 9.7193 m/s^2 (-0.89% vs 9.8067), range 9.472..10.098, 248 quiet samples | hw calibration NOT requested (driver applies its own)
+[WW] Exposure timestamp 1196915712 was more than 1.5 IMU samples earlier than IMU ts 1196918441 by 2729 µS
+[WW] Exposure timestamp 1197126912 was more than 1.5 IMU samples earlier than IMU ts 1197128812 by 1900 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 4 missed exposure, diff avg 5.83 min -12.91 max 11.54 ms
+[WW] Exposure timestamp 1197357312 was more than 1.5 IMU samples earlier than IMU ts 1197359220 by 1908 µS
+[WW] Sensor WMTD306Q701DEK: predicted exposure-to-frame latency of 6.9 ms differed from measured -1.1 ms (1101 so far) - check the sensor sync cable
+[II] pose export over 10 s: age mean 2.9 ms max 7.6 ms | speed mean 0.22 max 0.61 m/s, ang mean 77 max 234 deg/s | age*speed worst 3.4 mm (778 samples)
+[WW] Exposure timestamp 1198010112 was more than 1.5 IMU samples earlier than IMU ts 1198012333 by 2221 µS
+[WW] Exposure timestamp 1198029312 was more than 1.5 IMU samples earlier than IMU ts 1198031366 by 2054 µS
+[WW] Exposure timestamp 1198086912 was more than 1.5 IMU samples earlier than IMU ts 1198088467 by 1555 µS
+[WW] Exposure timestamp 1198317312 was more than 1.5 IMU samples earlier than IMU ts 1198318875 by 1563 µS
+[WW] Exposure timestamp 1198413312 was more than 1.5 IMU samples earlier than IMU ts 1198415046 by 1734 µS
+[WW] Exposure timestamp 1198547712 was more than 1.5 IMU samples earlier than IMU ts 1198552291 by 4579 µS
+[WW] Exposure timestamp 1198586112 was more than 1.5 IMU samples earlier than IMU ts 1198588353 by 2241 µS
+[WW] Exposure timestamp 1198624512 was more than 1.5 IMU samples earlier than IMU ts 1198626466 by 1954 µS
+[WW] Exposure timestamp 1198643712 was more than 1.5 IMU samples earlier than IMU ts 1198647458 by 3746 µS
+[WW] Exposure timestamp 1198739712 was more than 1.5 IMU samples earlier than IMU ts 1198741681 by 1969 µS
+[WW] Exposure timestamp 1198874112 was more than 1.5 IMU samples earlier than IMU ts 1198875863 by 1751 µS
+[WW] Exposure timestamp 1199008512 was more than 1.5 IMU samples earlier than IMU ts 1199010101 by 1589 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 1199123712 was more than 1.5 IMU samples earlier than IMU ts 1199126355 by 2643 µS
+[WW] Exposure timestamp 1199238912 was more than 1.5 IMU samples earlier than IMU ts 1199240509 by 1597 µS
+[WW] Exposure timestamp 1199450112 was more than 1.5 IMU samples earlier than IMU ts 1199451884 by 1772 µS
+[WW] Exposure timestamp 1199699712 was more than 1.5 IMU samples earlier than IMU ts 1199702376 by 2664 µS
+[WW] Exposure timestamp 1199795712 was more than 1.5 IMU samples earlier than IMU ts 1199797497 by 1785 µS
+[WW] Exposure timestamp 1200237312 was more than 1.5 IMU samples earlier than IMU ts 1200240283 by 2971 µS
+[WW] Exposure timestamp 1200256512 was more than 1.5 IMU samples earlier than IMU ts 1200259361 by 2849 µS
+[WW] Exposure timestamp 1200275712 was more than 1.5 IMU samples earlier than IMU ts 1200277348 by 1636 µS
+[WW] Exposure timestamp 1200794112 was more than 1.5 IMU samples earlier than IMU ts 1200796269 by 2157 µS
+[WW] Exposure timestamp 1200813312 was more than 1.5 IMU samples earlier than IMU ts 1200815347 by 2035 µS
+[WW] Exposure timestamp 1200832512 was more than 1.5 IMU samples earlier than IMU ts 1200834335 by 1823 µS
+[WW] Exposure timestamp 1201178112 was more than 1.5 IMU samples earlier than IMU ts 1201179948 by 1836 µS
+[WW] Exposure timestamp 1201197312 was more than 1.5 IMU samples earlier than IMU ts 1201198988 by 1676 µS
+[WW] Exposure timestamp 1201523712 was more than 1.5 IMU samples earlier than IMU ts 1201525562 by 1850 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 3 missed exposure, diff avg 5.42 min -9.85 max 13.47 ms
+[WW] Exposure timestamp 1202810112 was more than 1.5 IMU samples earlier than IMU ts 1202811841 by 1729 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 5 missed exposure, diff avg 5.33 min -10.36 max 13.52 ms
+[WW] Exposure timestamp 1203366912 was more than 1.5 IMU samples earlier than IMU ts 1203368829 by 1917 µS
+[WW] Exposure timestamp 1203635712 was more than 1.5 IMU samples earlier than IMU ts 1203637305 by 1593 µS
+[WW] Exposure timestamp 1203827712 was more than 1.5 IMU samples earlier than IMU ts 1203829647 by 1935 µS
+[WW] Exposure timestamp 1203846912 was more than 1.5 IMU samples earlier than IMU ts 1203848680 by 1768 µS
+[WW] Exposure timestamp 1204154112 was more than 1.5 IMU samples earlier than IMU ts 1204157229 by 3117 µS
+[WW] Exposure timestamp 1204173312 was more than 1.5 IMU samples earlier than IMU ts 1204176307 by 2995 µS
+[WW] Exposure timestamp 1204192512 was more than 1.5 IMU samples earlier than IMU ts 1204194293 by 1781 µS
+[WW] Exposure timestamp 1204442112 was more than 1.5 IMU samples earlier than IMU ts 1204443736 by 1624 µS
+[WW] Exposure timestamp 1204691712 was more than 1.5 IMU samples earlier than IMU ts 1204694182 by 2470 µS
+[WW] Exposure timestamp 1204730112 was more than 1.5 IMU samples earlier than IMU ts 1204732294 by 2182 µS
+[WW] Exposure timestamp 1204749312 was more than 1.5 IMU samples earlier than IMU ts 1204751281 by 1969 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 1205267712 was more than 1.5 IMU samples earlier than IMU ts 1205270208 by 2496 µS
+[WW] Exposure timestamp 1205286912 was more than 1.5 IMU samples earlier than IMU ts 1205289236 by 2324 µS
+[WW] Sensor WMTD3052400VZL: predicted exposure-to-frame latency of 7.0 ms differed from measured -3.3 ms (1201 so far) - check the sensor sync cable
+[WW] Exposure timestamp 1205555712 was more than 1.5 IMU samples earlier than IMU ts 1205557712 by 2000 µS
+[WW] Exposure timestamp 1205613312 was more than 1.5 IMU samples earlier than IMU ts 1205614814 by 1502 µS
+[WW] Exposure timestamp 1205709312 was more than 1.5 IMU samples earlier than IMU ts 1205710984 by 1672 µS
+[WW] Exposure timestamp 1205843712 was more than 1.5 IMU samples earlier than IMU ts 1205845222 by 1510 µS
+[WW] Exposure timestamp 1206035712 was more than 1.5 IMU samples earlier than IMU ts 1206037564 by 1852 µS
+[WW] Exposure timestamp 1206150912 was more than 1.5 IMU samples earlier than IMU ts 1206152768 by 1856 µS
+[WW] Exposure timestamp 1206170112 was more than 1.5 IMU samples earlier than IMU ts 1206171803 by 1691 µS
+[WW] Exposure timestamp 1206266112 was more than 1.5 IMU samples earlier than IMU ts 1206267973 by 1861 µS
+[WW] Exposure timestamp 1206362112 was more than 1.5 IMU samples earlier than IMU ts 1206364191 by 2079 µS
+[WW] Exposure timestamp 1206381312 was more than 1.5 IMU samples earlier than IMU ts 1206386184 by 4872 µS
+[WW] Exposure timestamp 1206419712 was more than 1.5 IMU samples earlier than IMU ts 1206421248 by 1536 µS
+[II] sensor 0 calibration feed: 7201 offered, 4809 passed - rejected 0 for LED ids, 2392 for too few blobs (<10), 0 for error
+[WW] Exposure timestamp 1206650112 was more than 1.5 IMU samples earlier than IMU ts 1206651653 by 1541 µS
+[II] accelerometer scale check: |accel| at rest mean 9.7568 m/s^2 (-0.51% vs 9.8067), range 5.999..11.772, 4518 quiet samples | hw calibration NOT requested (driver applies its own)
+[WW] Exposure timestamp 1206765312 was more than 1.5 IMU samples earlier than IMU ts 1206766858 by 1546 µS
+[WW] Exposure timestamp 1207187712 was more than 1.5 IMU samples earlier than IMU ts 1207189608 by 1896 µS
+[WW] Exposure timestamp 1207514112 was more than 1.5 IMU samples earlier than IMU ts 1207516188 by 2076 µS
+[II] pose export over 10 s: age mean 2.5 ms max 11.5 ms | speed mean 0.42 max 1.56 m/s, ang mean 32 max 353 deg/s | age*speed worst 8.3 mm (767 samples)
+[WW] Exposure timestamp 1207802112 was more than 1.5 IMU samples earlier than IMU ts 1207803698 by 1586 µS
+[WW] Exposure timestamp 1207898112 was more than 1.5 IMU samples earlier than IMU ts 1207899869 by 1757 µS
+[WW] Exposure timestamp 1208051712 was more than 1.5 IMU samples earlier than IMU ts 1208054144 by 2432 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 3 missed exposure, diff avg 5.65 min -10.62 max 10.25 ms
+[WW] Exposure timestamp 1208742912 was more than 1.5 IMU samples earlier than IMU ts 1208744414 by 1502 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 2 missed exposure, diff avg 5.28 min -10.69 max 10.16 ms
+[WW] Exposure timestamp 1209069312 was more than 1.5 IMU samples earlier than IMU ts 1209070948 by 1636 µS
+[WW] Exposure timestamp 1209184512 was more than 1.5 IMU samples earlier than IMU ts 1209186154 by 1642 µS
+[WW] Exposure timestamp 1209203712 was more than 1.5 IMU samples earlier than IMU ts 1209205232 by 1520 µS
+[WW] Exposure timestamp 1209280512 was more than 1.5 IMU samples earlier than IMU ts 1209282323 by 1811 µS
+[WW] Exposure timestamp 1209338112 was more than 1.5 IMU samples earlier than IMU ts 1209340472 by 2360 µS
+[WW] Exposure timestamp 1209606912 was more than 1.5 IMU samples earlier than IMU ts 1209608903 by 1991 µS
+[WW] Exposure timestamp 1209875712 was more than 1.5 IMU samples earlier than IMU ts 1209877380 by 1668 µS
+[WW] Exposure timestamp 1210125312 was more than 1.5 IMU samples earlier than IMU ts 1210126869 by 1557 µS
+[WW] Exposure timestamp 1210259712 was more than 1.5 IMU samples earlier than IMU ts 1210262064 by 2352 µS
+[WW] Exposure timestamp 1210355712 was more than 1.5 IMU samples earlier than IMU ts 1210357278 by 1566 µS
+[WW] Exposure timestamp 1210451712 was more than 1.5 IMU samples earlier than IMU ts 1210453402 by 1690 µS
+[WW] Exposure timestamp 1210566912 was more than 1.5 IMU samples earlier than IMU ts 1210568607 by 1695 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 1210682112 was more than 1.5 IMU samples earlier than IMU ts 1210683812 by 1700 µS
+[WW] Exposure timestamp 1210701312 was more than 1.5 IMU samples earlier than IMU ts 1210702891 by 1579 µS
+[WW] Exposure timestamp 1210835712 was more than 1.5 IMU samples earlier than IMU ts 1210840091 by 4379 µS
+[WW] Exposure timestamp 1210893312 was more than 1.5 IMU samples earlier than IMU ts 1210896189 by 2877 µS
+[WW] Exposure timestamp 1211392512 was more than 1.5 IMU samples earlier than IMU ts 1211394075 by 1563 µS
+[WW] Exposure timestamp 1211507712 was more than 1.5 IMU samples earlier than IMU ts 1211510279 by 2567 µS
+[WW] Exposure timestamp 1211738112 was more than 1.5 IMU samples earlier than IMU ts 1211739733 by 1621 µS
+[WW] Exposure timestamp 1211949312 was more than 1.5 IMU samples earlier than IMU ts 1211952066 by 2754 µS
+[WW] Exposure timestamp 1211968512 was more than 1.5 IMU samples earlier than IMU ts 1211970142 by 1630 µS
+[WW] Exposure timestamp 1212275712 was more than 1.5 IMU samples earlier than IMU ts 1212277642 by 1930 µS
+[WW] Exposure timestamp 1212314112 was more than 1.5 IMU samples earlier than IMU ts 1212315756 by 1644 µS
+[WW] Exposure timestamp 1212506112 was more than 1.5 IMU samples earlier than IMU ts 1212510105 by 3993 µS
+[WW] Exposure timestamp 1212525312 was more than 1.5 IMU samples earlier than IMU ts 1212528089 by 2777 µS
+[WW] Exposure timestamp 1212736512 was more than 1.5 IMU samples earlier than IMU ts 1212738461 by 1949 µS
+[WW] Exposure timestamp 1213331712 was more than 1.5 IMU samples earlier than IMU ts 1213333519 by 1807 µS
+[WW] Exposure timestamp 1213446912 was more than 1.5 IMU samples earlier than IMU ts 1213448723 by 1811 µS
+[WW] Sensor WMTD3052400VZL: predicted exposure-to-frame latency of 6.7 ms differed from measured -4.1 ms (1301 so far) - check the sensor sync cable
+[WW] Exposure timestamp 1213658112 was more than 1.5 IMU samples earlier than IMU ts 1213660098 by 1986 µS
+[WW] Exposure timestamp 1213696512 was more than 1.5 IMU samples earlier than IMU ts 1213698212 by 1700 µS
+[WW] Exposure timestamp 1213926912 was more than 1.5 IMU samples earlier than IMU ts 1213929577 by 2665 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 2 missed exposure, diff avg 5.54 min -10.93 max 9.38 ms
+[WW] Exposure timestamp 1214022912 was more than 1.5 IMU samples earlier than IMU ts 1214024746 by 1834 µS
+[WW] Exposure timestamp 1214157312 was more than 1.5 IMU samples earlier than IMU ts 1214161992 by 4680 µS
+[WW] Exposure timestamp 1214253312 was more than 1.5 IMU samples earlier than IMU ts 1214256158 by 2846 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 3 missed exposure, diff avg 5.24 min -14.59 max 10.23 ms
+[WW] Exposure timestamp 1214637312 was more than 1.5 IMU samples earlier than IMU ts 1214638839 by 1527 µS
+[WW] Exposure timestamp 1214714112 was more than 1.5 IMU samples earlier than IMU ts 1214715977 by 1865 µS
+[WW] Exposure timestamp 1214810112 was more than 1.5 IMU samples earlier than IMU ts 1214812146 by 2034 µS
+[WW] Exposure timestamp 1214829312 was more than 1.5 IMU samples earlier than IMU ts 1214832181 by 2869 µS
+[WW] Exposure timestamp 1215174912 was more than 1.5 IMU samples earlier than IMU ts 1215176794 by 1882 µS
+[WW] Exposure timestamp 1215386112 was more than 1.5 IMU samples earlier than IMU ts 1215388169 by 2057 µS
+[WW] Exposure timestamp 1215405312 was more than 1.5 IMU samples earlier than IMU ts 1215407203 by 1891 µS
+[WW] Exposure timestamp 1215539712 was more than 1.5 IMU samples earlier than IMU ts 1215541488 by 1776 µS
+[WW] Exposure timestamp 1215635712 was more than 1.5 IMU samples earlier than IMU ts 1215637612 by 1900 µS
+[WW] Exposure timestamp 1215654912 was more than 1.5 IMU samples earlier than IMU ts 1215657648 by 2736 µS
+[WW] Exposure timestamp 1215674112 was more than 1.5 IMU samples earlier than IMU ts 1215675680 by 1568 µS
+[WW] Exposure timestamp 1215827712 was more than 1.5 IMU samples earlier than IMU ts 1215831960 by 4248 µS
+[WW] Exposure timestamp 1215866112 was more than 1.5 IMU samples earlier than IMU ts 1215868026 by 1914 µS
+[WW] Exposure timestamp 1215885312 was more than 1.5 IMU samples earlier than IMU ts 1215888058 by 2746 µS
+[WW] Exposure timestamp 1215981312 was more than 1.5 IMU samples earlier than IMU ts 1215983227 by 1915 µS
+[WW] Exposure timestamp 1216000512 was more than 1.5 IMU samples earlier than IMU ts 1216002308 by 1796 µS
+[WW] Exposure timestamp 1216019712 was more than 1.5 IMU samples earlier than IMU ts 1216021295 by 1583 µS
+[WW] Exposure timestamp 1216211712 was more than 1.5 IMU samples earlier than IMU ts 1216213636 by 1924 µS
+[WW] Exposure timestamp 1216230912 was more than 1.5 IMU samples earlier than IMU ts 1216232716 by 1804 µS
+[WW] Exposure timestamp 1216326912 was more than 1.5 IMU samples earlier than IMU ts 1216328841 by 1929 µS
+[WW] Exposure timestamp 1216480512 was more than 1.5 IMU samples earlier than IMU ts 1216482115 by 1603 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 1216595712 was more than 1.5 IMU samples earlier than IMU ts 1216597339 by 1627 µS
+[II] accelerometer scale check: |accel| at rest mean 9.7592 m/s^2 (-0.48% vs 9.8067), range 9.493..10.015, 7237 quiet samples | hw calibration NOT requested (driver applies its own)
+[WW] Exposure timestamp 1216806912 was more than 1.5 IMU samples earlier than IMU ts 1216808740 by 1828 µS
+[WW] Exposure timestamp 1216826112 was more than 1.5 IMU samples earlier than IMU ts 1216827728 by 1616 µS
+[WW] Exposure timestamp 1216979712 was more than 1.5 IMU samples earlier than IMU ts 1216982002 by 2290 µS
+[WW] Exposure timestamp 1217037312 was more than 1.5 IMU samples earlier than IMU ts 1217040106 by 2794 µS
+[WW] Exposure timestamp 1217402112 was more than 1.5 IMU samples earlier than IMU ts 1217403752 by 1640 µS
+[WW] Exposure timestamp 1217517312 was more than 1.5 IMU samples earlier than IMU ts 1217520005 by 2693 µS
+[WW] Exposure timestamp 1217536512 was more than 1.5 IMU samples earlier than IMU ts 1217538993 by 2481 µS
+[WW] Exposure timestamp 1217632512 was more than 1.5 IMU samples earlier than IMU ts 1217634162 by 1650 µS
+[II] pose export over 10 s: age mean 2.5 ms max 5.0 ms | speed mean 0.30 max 0.35 m/s, ang mean 0 max 1 deg/s | age*speed worst 1.6 mm (751 samples)
+[WW] Exposure timestamp 1217862912 was more than 1.5 IMU samples earlier than IMU ts 1217864571 by 1659 µS
+[WW] Exposure timestamp 1217939712 was more than 1.5 IMU samples earlier than IMU ts 1217941711 by 1999 µS
+[WW] Exposure timestamp 1217978112 was more than 1.5 IMU samples earlier than IMU ts 1217979776 by 1664 µS
+[WW] Exposure timestamp 1218093312 was more than 1.5 IMU samples earlier than IMU ts 1218096030 by 2718 µS
+[WW] Exposure timestamp 1218419712 was more than 1.5 IMU samples earlier than IMU ts 1218421608 by 1896 µS
+[WW] Exposure timestamp 1218438912 was more than 1.5 IMU samples earlier than IMU ts 1218440596 by 1684 µS
+[WW] Exposure timestamp 1218458112 was more than 1.5 IMU samples earlier than IMU ts 1218459629 by 1517 µS
+[WW] Exposure timestamp 1218650112 was more than 1.5 IMU samples earlier than IMU ts 1218652973 by 2861 µS
+[WW] Exposure timestamp 1218784512 was more than 1.5 IMU samples earlier than IMU ts 1218786210 by 1698 µS
+[WW] Exposure timestamp 1218899712 was more than 1.5 IMU samples earlier than IMU ts 1218901415 by 1703 µS
+[WW] Exposure timestamp 1218918912 was more than 1.5 IMU samples earlier than IMU ts 1218920449 by 1537 µS
+[WW] Exposure timestamp 1219034112 was more than 1.5 IMU samples earlier than IMU ts 1219035654 by 1542 µS
+[WW] Exposure timestamp 1219110912 was more than 1.5 IMU samples earlier than IMU ts 1219112837 by 1925 µS
+[WW] Exposure timestamp 1219245312 was more than 1.5 IMU samples earlier than IMU ts 1219247031 by 1719 µS
+[WW] Exposure timestamp 1219264512 was more than 1.5 IMU samples earlier than IMU ts 1219266063 by 1551 µS
+[WW] Exposure timestamp 1219379712 was more than 1.5 IMU samples earlier than IMU ts 1219381285 by 1573 µS
+[II] sensor 1 calibration feed: 6301 offered, 4048 passed - rejected 0 for LED ids, 2253 for too few blobs (<10), 0 for error
+[WW] Exposure timestamp 1219494912 was more than 1.5 IMU samples earlier than IMU ts 1219496473 by 1561 µS
+[WW] Exposure timestamp 1219571712 was more than 1.5 IMU samples earlier than IMU ts 1219573656 by 1944 µS
+[II] Device 0: joint reconstruction 3901 solved, 6 rejected, 5291 single-camera (0 observations arrived too late to count)
+[II] frame-timing WMTD306Q701DEK: 300 frames, 6 missed exposure, diff avg 5.63 min -12.72 max 9.86 ms
+[WW] Exposure timestamp 1219744512 was more than 1.5 IMU samples earlier than IMU ts 1219747968 by 3456 µS
+[WW] Exposure timestamp 1219802112 was more than 1.5 IMU samples earlier than IMU ts 1219804066 by 1954 µS
+[WW] Exposure timestamp 1219840512 was more than 1.5 IMU samples earlier than IMU ts 1219842088 by 1576 µS
+[WW] Exposure timestamp 1219936512 was more than 1.5 IMU samples earlier than IMU ts 1219938270 by 1758 µS
+[WW] Exposure timestamp 1220301312 was more than 1.5 IMU samples earlier than IMU ts 1220302909 by 1597 µS
+[WW] Exposure timestamp 1220339712 was more than 1.5 IMU samples earlier than IMU ts 1220341977 by 2265 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 7 missed exposure, diff avg 5.27 min -13.09 max 11.18 ms
+[WW] Exposure timestamp 1220512512 was more than 1.5 IMU samples earlier than IMU ts 1220514291 by 1779 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 1220781312 was more than 1.5 IMU samples earlier than IMU ts 1220783763 by 2451 µS
+[WW] Exposure timestamp 1220858112 was more than 1.5 IMU samples earlier than IMU ts 1220863908 by 5796 µS
+[WW] Exposure timestamp 1220973312 was more than 1.5 IMU samples earlier than IMU ts 1220975105 by 1793 µS
+[WW] Exposure timestamp 1221088512 was more than 1.5 IMU samples earlier than IMU ts 1221090308 by 1796 µS
+[II] calib feed: 9001 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 9001 obs, 3548 paired, history 192 over 4 viewpoints, 220 solves, residual 2.17 px, estimated
+[WW] Exposure timestamp 1221203712 was more than 1.5 IMU samples earlier than IMU ts 1221205513 by 1801 µS
+[WW] Exposure timestamp 1221434112 was more than 1.5 IMU samples earlier than IMU ts 1221436971 by 2859 µS
+[WW] Exposure timestamp 1221453312 was more than 1.5 IMU samples earlier than IMU ts 1221454957 by 1645 µS
+[WW] Exposure timestamp 1221568512 was more than 1.5 IMU samples earlier than IMU ts 1221570162 by 1650 µS
+[WW] Exposure timestamp 1221683712 was more than 1.5 IMU samples earlier than IMU ts 1221685367 by 1655 µS
+[WW] Exposure timestamp 1221779712 was more than 1.5 IMU samples earlier than IMU ts 1221781538 by 1826 µS
+[WW] Exposure timestamp 1221971712 was more than 1.5 IMU samples earlier than IMU ts 1221975892 by 4180 µS
+[WW] Exposure timestamp 1221990912 was more than 1.5 IMU samples earlier than IMU ts 1221995921 by 5009 µS
+[WW] Exposure timestamp 1222125312 was more than 1.5 IMU samples earlier than IMU ts 1222127153 by 1841 µS
+[WW] Exposure timestamp 1222355712 was more than 1.5 IMU samples earlier than IMU ts 1222357563 by 1851 µS
+[II] Matched orientation after 0.281454 sec
+[WW] Exposure timestamp 1222739712 was more than 1.5 IMU samples earlier than IMU ts 1222741248 by 1536 µS
+[WW] Exposure timestamp 1223085312 was more than 1.5 IMU samples earlier than IMU ts 1223087862 by 2550 µS
+[WW] Sensor WMTD3052400VZL: predicted exposure-to-frame latency of 7.0 ms differed from measured -0.1 ms (1401 so far) - check the sensor sync cable
+[WW] Exposure timestamp 1223181312 was more than 1.5 IMU samples earlier than IMU ts 1223183032 by 1720 µS
+[WW] Exposure timestamp 1223200512 was more than 1.5 IMU samples earlier than IMU ts 1223202065 by 1553 µS
+[WW] Exposure timestamp 1223392512 was more than 1.5 IMU samples earlier than IMU ts 1223394408 by 1896 µS
+[WW] Exposure timestamp 1223430912 was more than 1.5 IMU samples earlier than IMU ts 1223432475 by 1563 µS
+[WW] Exposure timestamp 1223469312 was more than 1.5 IMU samples earlier than IMU ts 1223471545 by 2233 µS
+[WW] Exposure timestamp 1223622912 was more than 1.5 IMU samples earlier than IMU ts 1223627825 by 4913 µS
+[WW] Exposure timestamp 1223680512 was more than 1.5 IMU samples earlier than IMU ts 1223682921 by 2409 µS
+[WW] Exposure timestamp 1223757312 was more than 1.5 IMU samples earlier than IMU ts 1223759056 by 1744 µS
+[WW] Exposure timestamp 1223776512 was more than 1.5 IMU samples earlier than IMU ts 1223778090 by 1578 µS
+[WW] Exposure timestamp 1223968512 was more than 1.5 IMU samples earlier than IMU ts 1223970432 by 1920 µS
+[WW] Exposure timestamp 1224755712 was more than 1.5 IMU samples earlier than IMU ts 1224757881 by 2169 µS
+[WW] Exposure timestamp 1224890112 was more than 1.5 IMU samples earlier than IMU ts 1224892073 by 1961 µS
+[WW] Exposure timestamp 1224928512 was more than 1.5 IMU samples earlier than IMU ts 1224931143 by 2631 µS
+[WW] Exposure timestamp 1224986112 was more than 1.5 IMU samples earlier than IMU ts 1224988291 by 2179 µS
+[WW] Exposure timestamp 1225005312 was more than 1.5 IMU samples earlier than IMU ts 1225007279 by 1967 µS
+[WW] Exposure timestamp 1225485312 was more than 1.5 IMU samples earlier than IMU ts 1225488135 by 2823 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 2 missed exposure, diff avg 5.71 min -16.86 max 10.78 ms
+[WW] Exposure timestamp 1225600512 was more than 1.5 IMU samples earlier than IMU ts 1225602338 by 1826 µS
+[WW] Exposure timestamp 1225850112 was more than 1.5 IMU samples earlier than IMU ts 1225851784 by 1672 µS
+[WW] Exposure timestamp 1225965312 was more than 1.5 IMU samples earlier than IMU ts 1225966988 by 1676 µS
+[WW] Exposure timestamp 1226080512 was more than 1.5 IMU samples earlier than IMU ts 1226082204 by 1692 µS
+[WW] Exposure timestamp 1226099712 was more than 1.5 IMU samples earlier than IMU ts 1226101226 by 1514 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 2 missed exposure, diff avg 5.61 min -9.53 max 16.86 ms
+[WW] Exposure timestamp 1226195712 was more than 1.5 IMU samples earlier than IMU ts 1226197398 by 1686 µS
+[WW] Exposure timestamp 1226291712 was more than 1.5 IMU samples earlier than IMU ts 1226293569 by 1857 µS
+[WW] Exposure timestamp 1226406912 was more than 1.5 IMU samples earlier than IMU ts 1226411781 by 4869 µS
+[WW] Exposure timestamp 1226426112 was more than 1.5 IMU samples earlier than IMU ts 1226428812 by 2700 µS
+[WW] Exposure timestamp 1226445312 was more than 1.5 IMU samples earlier than IMU ts 1226447846 by 2534 µS
+[WW] Exposure timestamp 1226483712 was more than 1.5 IMU samples earlier than IMU ts 1226485958 by 2246 µS
+[II] accelerometer scale check: |accel| at rest mean 9.7673 m/s^2 (-0.40% vs 9.8067), range 9.388..12.453, 1929 quiet samples | hw calibration NOT requested (driver applies its own)
+[WW] Exposure timestamp 1226771712 was more than 1.5 IMU samples earlier than IMU ts 1226773424 by 1712 µS
+[WW] Exposure timestamp 1226963712 was more than 1.5 IMU samples earlier than IMU ts 1226965814 by 2102 µS
+[WW] Exposure timestamp 1226982912 was more than 1.5 IMU samples earlier than IMU ts 1226984802 by 1890 µS
+[WW] Exposure timestamp 1227098112 was more than 1.5 IMU samples earlier than IMU ts 1227100005 by 1893 µS
+[WW] Exposure timestamp 1227213312 was more than 1.5 IMU samples earlier than IMU ts 1227215210 by 1898 µS
+[WW] Exposure timestamp 1227386112 was more than 1.5 IMU samples earlier than IMU ts 1227388519 by 2407 µS
+[WW] Exposure timestamp 1227443712 was more than 1.5 IMU samples earlier than IMU ts 1227445621 by 1909 µS
+[WW] Exposure timestamp 1227578112 was more than 1.5 IMU samples earlier than IMU ts 1227579860 by 1748 µS
+[WW] Exposure timestamp 1227712512 was more than 1.5 IMU samples earlier than IMU ts 1227714122 by 1610 µS
+[WW] Exposure timestamp 1227789312 was more than 1.5 IMU samples earlier than IMU ts 1227791236 by 1924 µS
+[II] pose export over 10 s: age mean 2.6 ms max 5.9 ms | speed mean 0.24 max 1.63 m/s, ang mean 48 max 320 deg/s | age*speed worst 7.7 mm (760 samples)
+[WW] Exposure timestamp 1227808512 was more than 1.5 IMU samples earlier than IMU ts 1227810270 by 1758 µS
+[WW] Exposure timestamp 1227942912 was more than 1.5 IMU samples earlier than IMU ts 1227944509 by 1597 µS
+[WW] Exposure timestamp 1228134912 was more than 1.5 IMU samples earlier than IMU ts 1228136852 by 1940 µS
+[II] Matched orientation after 4.293693 sec
+[WW] Exposure timestamp 1228250112 was more than 1.5 IMU samples earlier than IMU ts 1228252057 by 1945 µS
+[WW] Exposure timestamp 1228269312 was more than 1.5 IMU samples earlier than IMU ts 1228271116 by 1804 µS
+[WW] Exposure timestamp 1228288512 was more than 1.5 IMU samples earlier than IMU ts 1228290127 by 1615 µS
+[II] sensor 0 calibration feed: 8101 offered, 4917 passed - rejected 0 for LED ids, 3184 for too few blobs (<10), 0 for error
+[WW] Exposure timestamp 1228634112 was more than 1.5 IMU samples earlier than IMU ts 1228637746 by 3634 µS
+[WW] Exposure timestamp 1228653312 was more than 1.5 IMU samples earlier than IMU ts 1228654821 by 1509 µS
+[WW] Exposure timestamp 1228998912 was more than 1.5 IMU samples earlier than IMU ts 1229000436 by 1524 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 1229210112 was more than 1.5 IMU samples earlier than IMU ts 1229211769 by 1657 µS
+[WW] Exposure timestamp 1229421312 was more than 1.5 IMU samples earlier than IMU ts 1229423144 by 1832 µS
+[WW] Exposure timestamp 1229805312 was more than 1.5 IMU samples earlier than IMU ts 1229806873 by 1561 µS
+[WW] Exposure timestamp 1230016512 was more than 1.5 IMU samples earlier than IMU ts 1230018203 by 1691 µS
+[WW] Exposure timestamp 1230112512 was more than 1.5 IMU samples earlier than IMU ts 1230114375 by 1863 µS
+[WW] Exposure timestamp 1230861312 was more than 1.5 IMU samples earlier than IMU ts 1230863712 by 2400 µS
+[WW] Exposure timestamp 1230918912 was more than 1.5 IMU samples earlier than IMU ts 1230920812 by 1900 µS
+[WW] Exposure timestamp 1230938112 was more than 1.5 IMU samples earlier than IMU ts 1230939846 by 1734 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 7 missed exposure, diff avg 5.83 min -13.25 max 11.83 ms
+[WW] Exposure timestamp 1231283712 was more than 1.5 IMU samples earlier than IMU ts 1231285461 by 1749 µS
+[WW] Exposure timestamp 1231494912 was more than 1.5 IMU samples earlier than IMU ts 1231496838 by 1926 µS
+[WW] Exposure timestamp 1231648512 was more than 1.5 IMU samples earlier than IMU ts 1231650157 by 1645 µS
+[WW] Exposure timestamp 1231744512 was more than 1.5 IMU samples earlier than IMU ts 1231746283 by 1771 µS
+[WW] Exposure timestamp 1231763712 was more than 1.5 IMU samples earlier than IMU ts 1231765362 by 1650 µS
+[WW] Exposure timestamp 1231840512 was more than 1.5 IMU samples earlier than IMU ts 1231842454 by 1942 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 5 missed exposure, diff avg 5.67 min -12.83 max 13.65 ms
+[WW] Exposure timestamp 1231898112 was more than 1.5 IMU samples earlier than IMU ts 1231900603 by 2491 µS
+[WW] Exposure timestamp 1231974912 was more than 1.5 IMU samples earlier than IMU ts 1231976695 by 1783 µS
+[WW] Exposure timestamp 1231994112 was more than 1.5 IMU samples earlier than IMU ts 1231995773 by 1661 µS
+[WW] Exposure timestamp 1232109312 was more than 1.5 IMU samples earlier than IMU ts 1232110978 by 1666 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 4201 solved, 6 rejected, 5695 single-camera (0 observations arrived too late to count)
+[WW] Exposure timestamp 1232224512 was more than 1.5 IMU samples earlier than IMU ts 1232226183 by 1671 µS
+[WW] Exposure timestamp 1232320512 was more than 1.5 IMU samples earlier than IMU ts 1232322309 by 1797 µS
+[WW] Exposure timestamp 1232512512 was more than 1.5 IMU samples earlier than IMU ts 1232514653 by 2141 µS
+[WW] Exposure timestamp 1232550912 was more than 1.5 IMU samples earlier than IMU ts 1232552720 by 1808 µS
+[WW] Exposure timestamp 1232627712 was more than 1.5 IMU samples earlier than IMU ts 1232629860 by 2148 µS
+[WW] Exposure timestamp 1232666112 was more than 1.5 IMU samples earlier than IMU ts 1232667925 by 1813 µS
+[WW] Exposure timestamp 1232685312 was more than 1.5 IMU samples earlier than IMU ts 1232687005 by 1693 µS
+[WW] Exposure timestamp 1232704512 was more than 1.5 IMU samples earlier than IMU ts 1232707040 by 2528 µS
+[WW] Exposure timestamp 1232800512 was more than 1.5 IMU samples earlier than IMU ts 1232802210 by 1698 µS
+[WW] Exposure timestamp 1233069312 was more than 1.5 IMU samples earlier than IMU ts 1233072648 by 3336 µS
+[WW] Exposure timestamp 1233165312 was more than 1.5 IMU samples earlier than IMU ts 1233166813 by 1501 µS
+[WW] Exposure timestamp 1233280512 was more than 1.5 IMU samples earlier than IMU ts 1233282019 by 1507 µS
+[WW] Exposure timestamp 1233472512 was more than 1.5 IMU samples earlier than IMU ts 1233474363 by 1851 µS
+[WW] Exposure timestamp 1233626112 was more than 1.5 IMU samples earlier than IMU ts 1233628638 by 2526 µS
+[WW] Exposure timestamp 1233818112 was more than 1.5 IMU samples earlier than IMU ts 1233819977 by 1865 µS
+[WW] Exposure timestamp 1233952512 was more than 1.5 IMU samples earlier than IMU ts 1233954263 by 1751 µS
+[WW] Exposure timestamp 1234010112 was more than 1.5 IMU samples earlier than IMU ts 1234012320 by 2208 µS
+[WW] Exposure timestamp 1234048512 was more than 1.5 IMU samples earlier than IMU ts 1234050390 by 1878 µS
+[WW] Sensor WMTD306Q701DEK: predicted exposure-to-frame latency of 7.0 ms differed from measured -0.0 ms (1501 so far) - check the sensor sync cable
+[WW] Exposure timestamp 1234182912 was more than 1.5 IMU samples earlier than IMU ts 1234185631 by 2719 µS
+[WW] Exposure timestamp 1234298112 was more than 1.5 IMU samples earlier than IMU ts 1234299878 by 1766 µS
+[WW] Exposure timestamp 1234394112 was more than 1.5 IMU samples earlier than IMU ts 1234396005 by 1893 µS
+[WW] Exposure timestamp 1234413312 was more than 1.5 IMU samples earlier than IMU ts 1234415084 by 1772 µS
+[WW] Exposure timestamp 1234432512 was more than 1.5 IMU samples earlier than IMU ts 1234434071 by 1559 µS
+[WW] Exposure timestamp 1234662912 was more than 1.5 IMU samples earlier than IMU ts 1234664482 by 1570 µS
+[WW] Exposure timestamp 1234854912 was more than 1.5 IMU samples earlier than IMU ts 1234856824 by 1912 µS
+[WW] Exposure timestamp 1235008512 was more than 1.5 IMU samples earlier than IMU ts 1235010098 by 1586 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 1235296512 was more than 1.5 IMU samples earlier than IMU ts 1235302621 by 6109 µS
+[WW] Exposure timestamp 1235315712 was more than 1.5 IMU samples earlier than IMU ts 1235317648 by 1936 µS
+[WW] Exposure timestamp 1235354112 was more than 1.5 IMU samples earlier than IMU ts 1235355714 by 1602 µS
+[WW] Exposure timestamp 1235450112 was more than 1.5 IMU samples earlier than IMU ts 1235451931 by 1819 µS
+[WW] Exposure timestamp 1235546112 was more than 1.5 IMU samples earlier than IMU ts 1235548056 by 1944 µS
+[WW] Exposure timestamp 1235834112 was more than 1.5 IMU samples earlier than IMU ts 1235836618 by 2506 µS
+[WW] Exposure timestamp 1235891712 was more than 1.5 IMU samples earlier than IMU ts 1235894674 by 2962 µS
+[WW] Exposure timestamp 1235930112 was more than 1.5 IMU samples earlier than IMU ts 1235931740 by 1628 µS
+[WW] Exposure timestamp 1236026112 was more than 1.5 IMU samples earlier than IMU ts 1236027963 by 1851 µS
+[WW] Exposure timestamp 1236064512 was more than 1.5 IMU samples earlier than IMU ts 1236066981 by 2469 µS
+[WW] Exposure timestamp 1236218112 was more than 1.5 IMU samples earlier than IMU ts 1236220254 by 2142 µS
+[WW] Exposure timestamp 1236256512 was more than 1.5 IMU samples earlier than IMU ts 1236258368 by 1856 µS
+[WW] Exposure timestamp 1236390912 was more than 1.5 IMU samples earlier than IMU ts 1236392609 by 1697 µS
+[WW] Exposure timestamp 1236410112 was more than 1.5 IMU samples earlier than IMU ts 1236414602 by 4490 µS
+[WW] Exposure timestamp 1236448512 was more than 1.5 IMU samples earlier than IMU ts 1236450664 by 2152 µS
+[WW] Exposure timestamp 1236506112 was more than 1.5 IMU samples earlier than IMU ts 1236507766 by 1654 µS
+[WW] Exposure timestamp 1236582912 was more than 1.5 IMU samples earlier than IMU ts 1236584903 by 1991 µS
+[WW] Exposure timestamp 1236602112 was more than 1.5 IMU samples earlier than IMU ts 1236604004 by 1892 µS
+[WW] Exposure timestamp 1236621312 was more than 1.5 IMU samples earlier than IMU ts 1236622971 by 1659 µS
+[II] accelerometer scale check: |accel| at rest mean 9.7678 m/s^2 (-0.40% vs 9.8067), range 9.399..10.377, 1117 quiet samples | hw calibration NOT requested (driver applies its own)
+[WW] Exposure timestamp 1236813312 was more than 1.5 IMU samples earlier than IMU ts 1236815314 by 2002 µS
+[WW] Exposure timestamp 1236966912 was more than 1.5 IMU samples earlier than IMU ts 1236972596 by 5684 µS
+[WW] Exposure timestamp 1236986112 was more than 1.5 IMU samples earlier than IMU ts 1236987621 by 1509 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 9 missed exposure, diff avg 5.68 min -15.75 max 12.37 ms
+[WW] Exposure timestamp 1237216512 was more than 1.5 IMU samples earlier than IMU ts 1237218032 by 1520 µS
+[II] calib feed: 9901 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 9901 obs, 3991 paired, history 192 over 4 viewpoints, 248 solves, residual 2.05 px, estimated
+[WW] Exposure timestamp 1237523712 was more than 1.5 IMU samples earlier than IMU ts 1237525626 by 1914 µS
+[WW] Exposure timestamp 1237619712 was more than 1.5 IMU samples earlier than IMU ts 1237621751 by 2039 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 6 missed exposure, diff avg 5.27 min -15.90 max 12.15 ms
+[WW] Exposure timestamp 1237792512 was more than 1.5 IMU samples earlier than IMU ts 1237794058 by 1546 µS
+[II] pose export over 10 s: age mean 2.8 ms max 9.5 ms | speed mean 0.20 max 1.04 m/s, ang mean 71 max 389 deg/s | age*speed worst 3.5 mm (743 samples)
+[II] Device 0: joint reconstruction 4501 solved, 6 rejected, 5990 single-camera (0 observations arrived too late to count)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 1238118912 was more than 1.5 IMU samples earlier than IMU ts 1238120640 by 1728 µS
+[WW] Exposure timestamp 1238195712 was more than 1.5 IMU samples earlier than IMU ts 1238197777 by 2065 µS
+[WW] Exposure timestamp 1238253312 was more than 1.5 IMU samples earlier than IMU ts 1238254879 by 1567 µS
+[WW] Exposure timestamp 1238330112 was more than 1.5 IMU samples earlier than IMU ts 1238332062 by 1950 µS
+[WW] Exposure timestamp 1238618112 was more than 1.5 IMU samples earlier than IMU ts 1238620533 by 2421 µS
+[WW] Exposure timestamp 1238675712 was more than 1.5 IMU samples earlier than IMU ts 1238677679 by 1967 µS
+[WW] Exposure timestamp 1239213312 was more than 1.5 IMU samples earlier than IMU ts 1239216595 by 3283 µS
+[WW] Exposure timestamp 1239366912 was more than 1.5 IMU samples earlier than IMU ts 1239368910 by 1998 µS
+[WW] Exposure timestamp 1239520512 was more than 1.5 IMU samples earlier than IMU ts 1239522137 by 1625 µS
+[WW] Exposure timestamp 1239731712 was more than 1.5 IMU samples earlier than IMU ts 1239736521 by 4809 µS
+[WW] Exposure timestamp 1239770112 was more than 1.5 IMU samples earlier than IMU ts 1239772585 by 2473 µS
+[WW] Exposure timestamp 1239827712 was more than 1.5 IMU samples earlier than IMU ts 1239830687 by 2975 µS
+[WW] Exposure timestamp 1239923712 was more than 1.5 IMU samples earlier than IMU ts 1239925857 by 2145 µS
+[WW] Exposure timestamp 1239962112 was more than 1.5 IMU samples earlier than IMU ts 1239963940 by 1828 µS
+[WW] Exposure timestamp 1239981312 was more than 1.5 IMU samples earlier than IMU ts 1239982958 by 1646 µS
+[WW] Exposure timestamp 1240058112 was more than 1.5 IMU samples earlier than IMU ts 1240063101 by 4989 µS
+[WW] Exposure timestamp 1240077312 was more than 1.5 IMU samples earlier than IMU ts 1240079130 by 1818 µS
+[WW] Exposure timestamp 1240288512 was more than 1.5 IMU samples earlier than IMU ts 1240290508 by 1996 µS
+[WW] Exposure timestamp 1240307712 was more than 1.5 IMU samples earlier than IMU ts 1240311546 by 3834 µS
+[WW] Exposure timestamp 1240326912 was more than 1.5 IMU samples earlier than IMU ts 1240328576 by 1664 µS
+[WW] Exposure timestamp 1240384512 was more than 1.5 IMU samples earlier than IMU ts 1240386678 by 2166 µS
+[WW] Exposure timestamp 1240403712 was more than 1.5 IMU samples earlier than IMU ts 1240405758 by 2046 µS
+[WW] Exposure timestamp 1240422912 was more than 1.5 IMU samples earlier than IMU ts 1240426749 by 3837 µS
+[WW] Exposure timestamp 1240442112 was more than 1.5 IMU samples earlier than IMU ts 1240443780 by 1668 µS
+[WW] Exposure timestamp 1240864512 was more than 1.5 IMU samples earlier than IMU ts 1240866579 by 2067 µS
+[WW] Exposure timestamp 1240883712 was more than 1.5 IMU samples earlier than IMU ts 1240888574 by 4862 µS
+[WW] Exposure timestamp 1240922112 was more than 1.5 IMU samples earlier than IMU ts 1240923635 by 1523 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 1240998912 was more than 1.5 IMU samples earlier than IMU ts 1241000772 by 1860 µS
+[WW] Exposure timestamp 1241114112 was more than 1.5 IMU samples earlier than IMU ts 1241115978 by 1866 µS
+[WW] Exposure timestamp 1241229312 was more than 1.5 IMU samples earlier than IMU ts 1241231183 by 1871 µS
+[WW] Exposure timestamp 1241402112 was more than 1.5 IMU samples earlier than IMU ts 1241404494 by 2382 µS
+[WW] Exposure timestamp 1241478912 was more than 1.5 IMU samples earlier than IMU ts 1241480628 by 1716 µS
+[WW] Exposure timestamp 1241613312 was more than 1.5 IMU samples earlier than IMU ts 1241614867 by 1555 µS
+[WW] Exposure timestamp 1241728512 was more than 1.5 IMU samples earlier than IMU ts 1241730072 by 1560 µS
+[WW] Exposure timestamp 1241939712 was more than 1.5 IMU samples earlier than IMU ts 1241942499 by 2787 µS
+[WW] Exposure timestamp 1242054912 was more than 1.5 IMU samples earlier than IMU ts 1242056654 by 1742 µS
+[WW] Exposure timestamp 1242074112 was more than 1.5 IMU samples earlier than IMU ts 1242075688 by 1576 µS
+[WW] Exposure timestamp 1242170112 was more than 1.5 IMU samples earlier than IMU ts 1242171860 by 1748 µS
+[WW] Exposure timestamp 1242304512 was more than 1.5 IMU samples earlier than IMU ts 1242306099 by 1587 µS
+[WW] Exposure timestamp 1242381312 was more than 1.5 IMU samples earlier than IMU ts 1242383236 by 1924 µS
+[WW] Exposure timestamp 1242400512 was more than 1.5 IMU samples earlier than IMU ts 1242402270 by 1758 µS
+[WW] Exposure timestamp 1242496512 was more than 1.5 IMU samples earlier than IMU ts 1242498489 by 1977 µS
+[WW] Exposure timestamp 1242515712 was more than 1.5 IMU samples earlier than IMU ts 1242518525 by 2813 µS
+[WW] Exposure timestamp 1242554112 was more than 1.5 IMU samples earlier than IMU ts 1242556545 by 2433 µS
+[WW] Exposure timestamp 1242746112 was more than 1.5 IMU samples earlier than IMU ts 1242747887 by 1775 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 7 missed exposure, diff avg 5.63 min -14.39 max 13.22 ms
+[WW] Exposure timestamp 1243072512 was more than 1.5 IMU samples earlier than IMU ts 1243074519 by 2007 µS
+[WW] Exposure timestamp 1243322112 was more than 1.5 IMU samples earlier than IMU ts 1243323913 by 1801 µS
+[WW] Exposure timestamp 1243360512 was more than 1.5 IMU samples earlier than IMU ts 1243362983 by 2471 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 8 missed exposure, diff avg 5.24 min -16.10 max 12.91 ms
+[WW] Exposure timestamp 1243437312 was more than 1.5 IMU samples earlier than IMU ts 1243439118 by 1806 µS
+[II] sensor 1 calibration feed: 7201 offered, 4870 passed - rejected 0 for LED ids, 2331 for too few blobs (<10), 0 for error
+[WW] Exposure timestamp 1243610112 was more than 1.5 IMU samples earlier than IMU ts 1243612429 by 2317 µS
+[WW] Exposure timestamp 1243648512 was more than 1.5 IMU samples earlier than IMU ts 1243650495 by 1983 µS
+[WW] Exposure timestamp 1243686912 was more than 1.5 IMU samples earlier than IMU ts 1243688563 by 1651 µS
+[WW] Exposure timestamp 1243802112 was more than 1.5 IMU samples earlier than IMU ts 1243803769 by 1657 µS
+[WW] Exposure timestamp 1243898112 was more than 1.5 IMU samples earlier than IMU ts 1243899940 by 1828 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 4801 solved, 6 rejected, 6293 single-camera (0 observations arrived too late to count)
+[WW] Exposure timestamp 1244032512 was more than 1.5 IMU samples earlier than IMU ts 1244034179 by 1667 µS
+[WW] Exposure timestamp 1244243712 was more than 1.5 IMU samples earlier than IMU ts 1244246558 by 2846 µS
+[WW] Exposure timestamp 1244262912 was more than 1.5 IMU samples earlier than IMU ts 1244264590 by 1678 µS
+[WW] Exposure timestamp 1244358912 was more than 1.5 IMU samples earlier than IMU ts 1244360762 by 1850 µS
+[WW] Exposure timestamp 1244627712 was more than 1.5 IMU samples earlier than IMU ts 1244629249 by 1537 µS
+[WW] Exposure timestamp 1244723712 was more than 1.5 IMU samples earlier than IMU ts 1244728419 by 4707 µS
+[WW] Exposure timestamp 1244838912 was more than 1.5 IMU samples earlier than IMU ts 1244840617 by 1705 µS
+[WW] Exposure timestamp 1244858112 was more than 1.5 IMU samples earlier than IMU ts 1244859651 by 1539 µS
+[WW] Exposure timestamp 1245088512 was more than 1.5 IMU samples earlier than IMU ts 1245090062 by 1550 µS
+[WW] Exposure timestamp 1245165312 was more than 1.5 IMU samples earlier than IMU ts 1245167199 by 1887 µS
+[WW] Exposure timestamp 1245184512 was more than 1.5 IMU samples earlier than IMU ts 1245186233 by 1721 µS
+[WW] Exposure timestamp 1245280512 was more than 1.5 IMU samples earlier than IMU ts 1245282407 by 1895 µS
+[WW] Exposure timestamp 1245414912 was more than 1.5 IMU samples earlier than IMU ts 1245416645 by 1733 µS
+[WW] Exposure timestamp 1245472512 was more than 1.5 IMU samples earlier than IMU ts 1245474794 by 2282 µS
+[WW] Exposure timestamp 1245664512 was more than 1.5 IMU samples earlier than IMU ts 1245666089 by 1577 µS
+[WW] Exposure timestamp 1245702912 was more than 1.5 IMU samples earlier than IMU ts 1245705205 by 2293 µS
+[WW] Sensor WMTD306Q701DEK: predicted exposure-to-frame latency of 6.7 ms differed from measured -0.0 ms (1601 so far) - check the sensor sync cable
+[WW] Exposure timestamp 1246048512 was more than 1.5 IMU samples earlier than IMU ts 1246050821 by 2309 µS
+[WW] Exposure timestamp 1246086912 was more than 1.5 IMU samples earlier than IMU ts 1246089844 by 2932 µS
+[WW] Exposure timestamp 1246202112 was more than 1.5 IMU samples earlier than IMU ts 1246204048 by 1936 µS
+[II] calib feed: 10801 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 10801 obs, 4438 paired, history 192 over 4 viewpoints, 276 solves, residual 2.26 px, estimated
+[WW] Exposure timestamp 1246336512 was more than 1.5 IMU samples earlier than IMU ts 1246338288 by 1776 µS
+[WW] Exposure timestamp 1246413312 was more than 1.5 IMU samples earlier than IMU ts 1246416473 by 3161 µS
+[II] sensor 0 calibration feed: 9001 offered, 5811 passed - rejected 0 for LED ids, 3190 for too few blobs (<10), 0 for error
+[WW] Exposure timestamp 1246547712 was more than 1.5 IMU samples earlier than IMU ts 1246549665 by 1953 µS
+[WW] Exposure timestamp 1246566912 was more than 1.5 IMU samples earlier than IMU ts 1246568698 by 1786 µS
+[WW] Exposure timestamp 1246586112 was more than 1.5 IMU samples earlier than IMU ts 1246587733 by 1621 µS
+[II] accelerometer scale check: |accel| at rest mean 9.7065 m/s^2 (-1.02% vs 9.8067), range 5.874..17.004, 930 quiet samples | hw calibration NOT requested (driver applies its own)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 1246950912 was more than 1.5 IMU samples earlier than IMU ts 1246952429 by 1517 µS
+[WW] Exposure timestamp 1247008512 was more than 1.5 IMU samples earlier than IMU ts 1247010486 by 1974 µS
+[WW] Exposure timestamp 1247123712 was more than 1.5 IMU samples earlier than IMU ts 1247125692 by 1980 µS
+[WW] Exposure timestamp 1247219712 was more than 1.5 IMU samples earlier than IMU ts 1247221863 by 2151 µS
+[WW] Exposure timestamp 1247277312 was more than 1.5 IMU samples earlier than IMU ts 1247278965 by 1653 µS
+[WW] Exposure timestamp 1247526912 was more than 1.5 IMU samples earlier than IMU ts 1247529412 by 2500 µS
+[WW] Exposure timestamp 1247546112 was more than 1.5 IMU samples earlier than IMU ts 1247548492 by 2380 µS
+[WW] Exposure timestamp 1247738112 was more than 1.5 IMU samples earlier than IMU ts 1247739787 by 1675 µS
+[WW] Exposure timestamp 1247757312 was more than 1.5 IMU samples earlier than IMU ts 1247758867 by 1555 µS
+[WW] Exposure timestamp 1247814912 was more than 1.5 IMU samples earlier than IMU ts 1247817926 by 3014 µS
+[II] pose export over 10 s: age mean 2.9 ms max 8.6 ms | speed mean 0.12 max 0.95 m/s, ang mean 27 max 381 deg/s | age*speed worst 3.8 mm (732 samples)
+[WW] Exposure timestamp 1247872512 was more than 1.5 IMU samples earlier than IMU ts 1247874073 by 1561 µS
+[WW] Exposure timestamp 1248275712 was more than 1.5 IMU samples earlier than IMU ts 1248277747 by 2035 µS
+[WW] Exposure timestamp 1248525312 was more than 1.5 IMU samples earlier than IMU ts 1248527192 by 1880 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 9 missed exposure, diff avg 5.85 min -15.76 max 11.80 ms
+[WW] Exposure timestamp 1248659712 was more than 1.5 IMU samples earlier than IMU ts 1248661431 by 1719 µS
+[WW] Exposure timestamp 1248870912 was more than 1.5 IMU samples earlier than IMU ts 1248872808 by 1896 µS
+[WW] Exposure timestamp 1248890112 was more than 1.5 IMU samples earlier than IMU ts 1248891842 by 1730 µS
+[WW] Exposure timestamp 1249024512 was more than 1.5 IMU samples earlier than IMU ts 1249028085 by 3573 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 8 missed exposure, diff avg 5.45 min -12.49 max 12.11 ms
+[WW] Exposure timestamp 1249158912 was more than 1.5 IMU samples earlier than IMU ts 1249162327 by 3415 µS
+[WW] Exposure timestamp 1249235712 was more than 1.5 IMU samples earlier than IMU ts 1249237459 by 1747 µS
+[WW] Exposure timestamp 1249446912 was more than 1.5 IMU samples earlier than IMU ts 1249448836 by 1924 µS
+[WW] Exposure timestamp 1249562112 was more than 1.5 IMU samples earlier than IMU ts 1249564046 by 1934 µS
+[WW] Exposure timestamp 1249581312 was more than 1.5 IMU samples earlier than IMU ts 1249583075 by 1763 µS
+[WW] Exposure timestamp 1249619712 was more than 1.5 IMU samples earlier than IMU ts 1249622191 by 2479 µS
+[WW] Exposure timestamp 1249658112 was more than 1.5 IMU samples earlier than IMU ts 1249660213 by 2101 µS
+[WW] Exposure timestamp 1249715712 was more than 1.5 IMU samples earlier than IMU ts 1249720322 by 4610 µS
+[WW] Exposure timestamp 1249811712 was more than 1.5 IMU samples earlier than IMU ts 1249813487 by 1775 µS
+[II] Device 0: joint reconstruction 5101 solved, 6 rejected, 6592 single-camera (0 observations arrived too late to count)
+[WW] Exposure timestamp 1249888512 was more than 1.5 IMU samples earlier than IMU ts 1249890624 by 2112 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 1249907712 was more than 1.5 IMU samples earlier than IMU ts 1249910662 by 2950 µS
+[WW] Exposure timestamp 1250022912 was more than 1.5 IMU samples earlier than IMU ts 1250024863 by 1951 µS
+[WW] Exposure timestamp 1250176512 was more than 1.5 IMU samples earlier than IMU ts 1250178183 by 1671 µS
+[WW] Exposure timestamp 1250291712 was more than 1.5 IMU samples earlier than IMU ts 1250294346 by 2634 µS
+[WW] Exposure timestamp 1250406912 was more than 1.5 IMU samples earlier than IMU ts 1250408594 by 1682 µS
+[WW] Exposure timestamp 1250848512 was more than 1.5 IMU samples earlier than IMU ts 1250850338 by 1826 µS
+[WW] Exposure timestamp 1251078912 was more than 1.5 IMU samples earlier than IMU ts 1251080747 by 1835 µS
+[WW] Exposure timestamp 1251232512 was more than 1.5 IMU samples earlier than IMU ts 1251234021 by 1509 µS
+[WW] Exposure timestamp 1251309312 was more than 1.5 IMU samples earlier than IMU ts 1251311159 by 1847 µS
+[WW] Exposure timestamp 1251386112 was more than 1.5 IMU samples earlier than IMU ts 1251388298 by 2186 µS
+[WW] Exposure timestamp 1251424512 was more than 1.5 IMU samples earlier than IMU ts 1251428376 by 3864 µS
+[WW] Exposure timestamp 1251789312 was more than 1.5 IMU samples earlier than IMU ts 1251791061 by 1749 µS
+[WW] Exposure timestamp 1252019712 was more than 1.5 IMU samples earlier than IMU ts 1252021473 by 1761 µS
+[WW] Exposure timestamp 1252499712 was more than 1.5 IMU samples earlier than IMU ts 1252504290 by 4578 µS
+[WW] Exposure timestamp 1252576512 was more than 1.5 IMU samples earlier than IMU ts 1252579423 by 2911 µS
+[WW] Exposure timestamp 1252614912 was more than 1.5 IMU samples earlier than IMU ts 1252616489 by 1577 µS
+[WW] Exposure timestamp 1252730112 was more than 1.5 IMU samples earlier than IMU ts 1252732742 by 2630 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 1252845312 was more than 1.5 IMU samples earlier than IMU ts 1252846900 by 1588 µS
+[WW] Exposure timestamp 1253056512 was more than 1.5 IMU samples earlier than IMU ts 1253058279 by 1767 µS
+[WW] Exposure timestamp 1253075712 was more than 1.5 IMU samples earlier than IMU ts 1253078359 by 2647 µS
+[WW] Exposure timestamp 1253382912 was more than 1.5 IMU samples earlier than IMU ts 1253384860 by 1948 µS
+[WW] Exposure timestamp 1253536512 was more than 1.5 IMU samples earlier than IMU ts 1253538134 by 1622 µS
+[WW] Exposure timestamp 1253613312 was more than 1.5 IMU samples earlier than IMU ts 1253616275 by 2963 µS
+[WW] Exposure timestamp 1253651712 was more than 1.5 IMU samples earlier than IMU ts 1253655343 by 3631 µS
+[WW] Exposure timestamp 1253728512 was more than 1.5 IMU samples earlier than IMU ts 1253730477 by 1965 µS
+[WW] Exposure timestamp 1253766912 was more than 1.5 IMU samples earlier than IMU ts 1253768547 by 1635 µS
+[WW] Exposure timestamp 1253843712 was more than 1.5 IMU samples earlier than IMU ts 1253845683 by 1971 µS
+[WW] Exposure timestamp 1253882112 was more than 1.5 IMU samples earlier than IMU ts 1253883751 by 1639 µS
+[WW] Exposure timestamp 1253978112 was more than 1.5 IMU samples earlier than IMU ts 1253979968 by 1856 µS
+[WW] Exposure timestamp 1253997312 was more than 1.5 IMU samples earlier than IMU ts 1253998956 by 1644 µS
+[WW] Exposure timestamp 1254150912 was more than 1.5 IMU samples earlier than IMU ts 1254154282 by 3370 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 8 missed exposure, diff avg 5.72 min -12.81 max 11.97 ms
+[WW] Exposure timestamp 1254323712 was more than 1.5 IMU samples earlier than IMU ts 1254325589 by 1877 µS
+[WW] Exposure timestamp 1254362112 was more than 1.5 IMU samples earlier than IMU ts 1254363620 by 1508 µS
+[WW] Exposure timestamp 1254458112 was more than 1.5 IMU samples earlier than IMU ts 1254460827 by 2715 µS
+[WW] Exposure timestamp 1254784512 was more than 1.5 IMU samples earlier than IMU ts 1254786411 by 1899 µS
+[WW] Exposure timestamp 1254803712 was more than 1.5 IMU samples earlier than IMU ts 1254805396 by 1684 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 9 missed exposure, diff avg 5.52 min -13.32 max 12.03 ms
+[WW] Exposure timestamp 1254938112 was more than 1.5 IMU samples earlier than IMU ts 1254939645 by 1533 µS
+[II] calib feed: 11701 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 11701 obs, 4886 paired, history 192 over 4 viewpoints, 304 solves, residual 2.29 px, estimated
+[WW] Exposure timestamp 1255264512 was more than 1.5 IMU samples earlier than IMU ts 1255268224 by 3712 µS
+[WW] Exposure timestamp 1255283712 was more than 1.5 IMU samples earlier than IMU ts 1255286303 by 2591 µS
+[WW] Exposure timestamp 1255360512 was more than 1.5 IMU samples earlier than IMU ts 1255362437 by 1925 µS
+[WW] Exposure timestamp 1255514112 was more than 1.5 IMU samples earlier than IMU ts 1255515664 by 1552 µS
+[WW] Exposure timestamp 1255590912 was more than 1.5 IMU samples earlier than IMU ts 1255592848 by 1936 µS
+[WW] Exposure timestamp 1255706112 was more than 1.5 IMU samples earlier than IMU ts 1255708054 by 1942 µS
+[II] Device 0: joint reconstruction 5401 solved, 6 rejected, 6891 single-camera (0 observations arrived too late to count)
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 1255821312 was more than 1.5 IMU samples earlier than IMU ts 1255826221 by 4909 µS
+[WW] Exposure timestamp 1255840512 was more than 1.5 IMU samples earlier than IMU ts 1255843295 by 2783 µS
+[WW] Exposure timestamp 1256051712 was more than 1.5 IMU samples earlier than IMU ts 1256053671 by 1959 µS
+[WW] Exposure timestamp 1256205312 was more than 1.5 IMU samples earlier than IMU ts 1256206900 by 1588 µS
+[WW] Exposure timestamp 1256397312 was more than 1.5 IMU samples earlier than IMU ts 1256399288 by 1976 µS
+[WW] Exposure timestamp 1256435712 was more than 1.5 IMU samples earlier than IMU ts 1256438313 by 2601 µS
+[WW] Exposure timestamp 1256627712 was more than 1.5 IMU samples earlier than IMU ts 1256629700 by 1988 µS
+[WW] Exposure timestamp 1256704512 was more than 1.5 IMU samples earlier than IMU ts 1256706791 by 2279 µS
+[II] accelerometer scale check: |accel| at rest mean 9.7793 m/s^2 (-0.28% vs 9.8067), range 8.260..10.444, 477 quiet samples | hw calibration NOT requested (driver applies its own)
+[WW] Exposure timestamp 1256781312 was more than 1.5 IMU samples earlier than IMU ts 1256782927 by 1615 µS
+[WW] Exposure timestamp 1257222912 was more than 1.5 IMU samples earlier than IMU ts 1257224717 by 1805 µS
+[WW] Exposure timestamp 1257318912 was more than 1.5 IMU samples earlier than IMU ts 1257320934 by 2022 µS
+[WW] Exposure timestamp 1257510912 was more than 1.5 IMU samples earlier than IMU ts 1257513232 by 2320 µS
+[WW] Exposure timestamp 1257568512 was more than 1.5 IMU samples earlier than IMU ts 1257570334 by 1822 µS
+[WW] Exposure timestamp 1257683712 was more than 1.5 IMU samples earlier than IMU ts 1257685557 by 1845 µS
+[WW] Exposure timestamp 1257798912 was more than 1.5 IMU samples earlier than IMU ts 1257800745 by 1833 µS
+[II] pose export over 10 s: age mean 2.9 ms max 6.7 ms | speed mean 0.18 max 1.00 m/s, ang mean 67 max 382 deg/s | age*speed worst 3.7 mm (733 samples)
+[WW] Exposure timestamp 1257837312 was more than 1.5 IMU samples earlier than IMU ts 1257838813 by 1501 µS
+[WW] Exposure timestamp 1257933312 was more than 1.5 IMU samples earlier than IMU ts 1257934985 by 1673 µS
+[WW] Exposure timestamp 1258029312 was more than 1.5 IMU samples earlier than IMU ts 1258032160 by 2848 µS
+[WW] Exposure timestamp 1258067712 was more than 1.5 IMU samples earlier than IMU ts 1258069225 by 1513 µS
+[WW] Exposure timestamp 1258278912 was more than 1.5 IMU samples earlier than IMU ts 1258280602 by 1690 µS
+[WW] Sensor WMTD3052400VZL: predicted exposure-to-frame latency of 6.6 ms differed from measured -7.1 ms (1701 so far) - check the sensor sync cable
+[WW] Exposure timestamp 1258605312 was more than 1.5 IMU samples earlier than IMU ts 1258607188 by 1876 µS
+[WW] Exposure timestamp 1258643712 was more than 1.5 IMU samples earlier than IMU ts 1258645254 by 1542 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 1258835712 was more than 1.5 IMU samples earlier than IMU ts 1258837597 by 1885 µS
+[WW] Exposure timestamp 1258950912 was more than 1.5 IMU samples earlier than IMU ts 1258952803 by 1891 µS
+[WW] Exposure timestamp 1259142912 was more than 1.5 IMU samples earlier than IMU ts 1259146156 by 3244 µS
+[WW] Exposure timestamp 1259181312 was more than 1.5 IMU samples earlier than IMU ts 1259183215 by 1903 µS
+[WW] Exposure timestamp 1259315712 was more than 1.5 IMU samples earlier than IMU ts 1259317454 by 1742 µS
+[WW] Exposure timestamp 1259526912 was more than 1.5 IMU samples earlier than IMU ts 1259528832 by 1920 µS
+[WW] Exposure timestamp 1259603712 was more than 1.5 IMU samples earlier than IMU ts 1259605970 by 2258 µS
+[WW] Exposure timestamp 1259872512 was more than 1.5 IMU samples earlier than IMU ts 1259874449 by 1937 µS
+[WW] Exposure timestamp 1259987712 was more than 1.5 IMU samples earlier than IMU ts 1259989655 by 1943 µS
+[WW] Exposure timestamp 1260006912 was more than 1.5 IMU samples earlier than IMU ts 1260008689 by 1777 µS
+[WW] Exposure timestamp 1260026112 was more than 1.5 IMU samples earlier than IMU ts 1260027723 by 1611 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 8 missed exposure, diff avg 5.76 min -12.35 max 13.91 ms
+[WW] Exposure timestamp 1260352512 was more than 1.5 IMU samples earlier than IMU ts 1260354307 by 1795 µS
+[WW] Exposure timestamp 1260467712 was more than 1.5 IMU samples earlier than IMU ts 1260469512 by 1800 µS
+[WW] Exposure timestamp 1260506112 was more than 1.5 IMU samples earlier than IMU ts 1260509584 by 3472 µS
+[WW] Exposure timestamp 1260525312 was more than 1.5 IMU samples earlier than IMU ts 1260527616 by 2304 µS
+[WW] Exposure timestamp 1260602112 was more than 1.5 IMU samples earlier than IMU ts 1260603752 by 1640 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 9 missed exposure, diff avg 5.37 min -13.98 max 13.59 ms
+[WW] Exposure timestamp 1260813312 was more than 1.5 IMU samples earlier than IMU ts 1260816180 by 2868 µS
+[WW] Exposure timestamp 1260832512 was more than 1.5 IMU samples earlier than IMU ts 1260834165 by 1653 µS
+[WW] Exposure timestamp 1260928512 was more than 1.5 IMU samples earlier than IMU ts 1260930336 by 1824 µS
+[WW] Exposure timestamp 1261370112 was more than 1.5 IMU samples earlier than IMU ts 1261376134 by 6022 µS
+[WW] Exposure timestamp 1261389312 was more than 1.5 IMU samples earlier than IMU ts 1261392209 by 2897 µS
+[II] sensor 1 calibration feed: 8101 offered, 5770 passed - rejected 0 for LED ids, 2331 for too few blobs (<10), 0 for error
+[WW] Exposure timestamp 1261427712 was more than 1.5 IMU samples earlier than IMU ts 1261429233 by 1521 µS
+[WW] Exposure timestamp 1261638912 was more than 1.5 IMU samples earlier than IMU ts 1261640605 by 1693 µS
+[WW] Exposure timestamp 1261658112 was more than 1.5 IMU samples earlier than IMU ts 1261659639 by 1527 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[II] Device 0: joint reconstruction 5701 solved, 6 rejected, 7194 single-camera (0 observations arrived too late to count)
+[WW] Exposure timestamp 1261754112 was more than 1.5 IMU samples earlier than IMU ts 1261755810 by 1698 µS
+[WW] Exposure timestamp 1261926912 was more than 1.5 IMU samples earlier than IMU ts 1261930124 by 3212 µS
+[WW] Exposure timestamp 1262118912 was more than 1.5 IMU samples earlier than IMU ts 1262121473 by 2561 µS
+[WW] Exposure timestamp 1262310912 was more than 1.5 IMU samples earlier than IMU ts 1262312805 by 1893 µS
+[WW] Exposure timestamp 1262330112 was more than 1.5 IMU samples earlier than IMU ts 1262331839 by 1727 µS
+[WW] Exposure timestamp 1262349312 was more than 1.5 IMU samples earlier than IMU ts 1262350873 by 1561 µS
+[WW] Exposure timestamp 1262445312 was more than 1.5 IMU samples earlier than IMU ts 1262448048 by 2736 µS
+[WW] Exposure timestamp 1262483712 was more than 1.5 IMU samples earlier than IMU ts 1262486115 by 2403 µS
+[WW] Exposure timestamp 1262656512 was more than 1.5 IMU samples earlier than IMU ts 1262658423 by 1911 µS
+[WW] Exposure timestamp 1262675712 was more than 1.5 IMU samples earlier than IMU ts 1262677463 by 1751 µS
+[WW] Exposure timestamp 1263021312 was more than 1.5 IMU samples earlier than IMU ts 1263024078 by 2766 µS
+[WW] Exposure timestamp 1263059712 was more than 1.5 IMU samples earlier than IMU ts 1263063146 by 3434 µS
+[WW] Exposure timestamp 1263232512 was more than 1.5 IMU samples earlier than IMU ts 1263234452 by 1940 µS
+[WW] Exposure timestamp 1263386112 was more than 1.5 IMU samples earlier than IMU ts 1263388728 by 2616 µS
+[WW] Exposure timestamp 1263731712 was more than 1.5 IMU samples earlier than IMU ts 1263733344 by 1632 µS
+[WW] Exposure timestamp 1263827712 was more than 1.5 IMU samples earlier than IMU ts 1263829515 by 1803 µS
+[WW] Exposure timestamp 1263942912 was more than 1.5 IMU samples earlier than IMU ts 1263944723 by 1811 µS
+[WW] Exposure timestamp 1264038912 was more than 1.5 IMU samples earlier than IMU ts 1264040893 by 1981 µS
+[WW] Exposure timestamp 1264154112 was more than 1.5 IMU samples earlier than IMU ts 1264158148 by 4036 µS
+[WW] Exposure timestamp 1264173312 was more than 1.5 IMU samples earlier than IMU ts 1264175133 by 1821 µS
+[WW] Exposure timestamp 1264211712 was more than 1.5 IMU samples earlier than IMU ts 1264213248 by 1536 µS
+[II] sensor 0 calibration feed: 9901 offered, 6706 passed - rejected 0 for LED ids, 3195 for too few blobs (<10), 0 for error
+[WW] Exposure timestamp 1264326912 was more than 1.5 IMU samples earlier than IMU ts 1264328477 by 1565 µS
+[WW] Exposure timestamp 1264403712 was more than 1.5 IMU samples earlier than IMU ts 1264407548 by 3836 µS
+[WW] Exposure timestamp 1264538112 was more than 1.5 IMU samples earlier than IMU ts 1264539784 by 1672 µS
+[WW] Exposure timestamp 1264768512 was more than 1.5 IMU samples earlier than IMU ts 1264770196 by 1684 µS
+[WW] Exposure timestamp 1264787712 was more than 1.5 IMU samples earlier than IMU ts 1264789276 by 1564 µS
+[WW] Exposure timestamp 1264979712 was more than 1.5 IMU samples earlier than IMU ts 1264981574 by 1862 µS
+[WW] Exposure timestamp 1265018112 was more than 1.5 IMU samples earlier than IMU ts 1265019688 by 1576 µS
+[WW] Exposure timestamp 1265056512 was more than 1.5 IMU samples earlier than IMU ts 1265058712 by 2200 µS
+[WW] Exposure timestamp 1265248512 was more than 1.5 IMU samples earlier than IMU ts 1265250055 by 1543 µS
+[WW] Exposure timestamp 1265306112 was more than 1.5 IMU samples earlier than IMU ts 1265308157 by 2045 µS
+[WW] Exposure timestamp 1265344512 was more than 1.5 IMU samples earlier than IMU ts 1265346225 by 1713 µS
+[WW] Exposure timestamp 1265786112 was more than 1.5 IMU samples earlier than IMU ts 1265788017 by 1905 µS
+[WW] Exposure timestamp 1265805312 was more than 1.5 IMU samples earlier than IMU ts 1265810108 by 4796 µS
+[WW] Exposure timestamp 1265824512 was more than 1.5 IMU samples earlier than IMU ts 1265826129 by 1617 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 8 missed exposure, diff avg 5.48 min -13.36 max 14.16 ms
+[WW] Exposure timestamp 1265882112 was more than 1.5 IMU samples earlier than IMU ts 1265884187 by 2075 µS
+[WW] Exposure timestamp 1265901312 was more than 1.5 IMU samples earlier than IMU ts 1265904223 by 2911 µS
+[WW] Exposure timestamp 1265920512 was more than 1.5 IMU samples earlier than IMU ts 1265922255 by 1743 µS
+[WW] Exposure timestamp 1265939712 was more than 1.5 IMU samples earlier than IMU ts 1265941335 by 1623 µS
+[WW] Exposure timestamp 1265978112 was more than 1.5 IMU samples earlier than IMU ts 1265980359 by 2247 µS
+[WW] Exposure timestamp 1266400512 was more than 1.5 IMU samples earlier than IMU ts 1266402159 by 1647 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 8 missed exposure, diff avg 5.20 min -13.87 max 13.61 ms
+[II] calib feed: 12601 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 12601 obs, 5212 paired, history 192 over 4 viewpoints, 324 solves, residual 2.14 px, estimated
+[WW] Exposure timestamp 1266496512 was more than 1.5 IMU samples earlier than IMU ts 1266498285 by 1773 µS
+[WW] Exposure timestamp 1266515712 was more than 1.5 IMU samples earlier than IMU ts 1266518320 by 2608 µS
+[WW] Exposure timestamp 1266630912 was more than 1.5 IMU samples earlier than IMU ts 1266632571 by 1659 µS
+[II] accelerometer scale check: |accel| at rest mean 9.7722 m/s^2 (-0.35% vs 9.8067), range 8.526..10.586, 2845 quiet samples | hw calibration NOT requested (driver applies its own)
+[WW] Exposure timestamp 1266822912 was more than 1.5 IMU samples earlier than IMU ts 1266824868 by 1956 µS
+[WW] Exposure timestamp 1266899712 was more than 1.5 IMU samples earlier than IMU ts 1266902054 by 2342 µS
+[WW] Exposure timestamp 1266918912 was more than 1.5 IMU samples earlier than IMU ts 1266922042 by 3130 µS
+[WW] Exposure timestamp 1266938112 was more than 1.5 IMU samples earlier than IMU ts 1266940074 by 1962 µS
+[WW] Exposure timestamp 1266957312 was more than 1.5 IMU samples earlier than IMU ts 1266959108 by 1796 µS
+[WW] Exposure timestamp 1266976512 was more than 1.5 IMU samples earlier than IMU ts 1266978191 by 1679 µS
+[WW] Exposure timestamp 1267014912 was more than 1.5 IMU samples earlier than IMU ts 1267017212 by 2300 µS
+[WW] Exposure timestamp 1267206912 was more than 1.5 IMU samples earlier than IMU ts 1267208600 by 1688 µS
+[WW] Exposure timestamp 1267437312 was more than 1.5 IMU samples earlier than IMU ts 1267441973 by 4661 µS
+[WW] Exposure timestamp 1267456512 was more than 1.5 IMU samples earlier than IMU ts 1267459048 by 2536 µS
+[WW] Exposure timestamp 1267552512 was more than 1.5 IMU samples earlier than IMU ts 1267554218 by 1706 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 1267667712 was more than 1.5 IMU samples earlier than IMU ts 1267669425 by 1713 µS
+[WW] Exposure timestamp 1267686912 was more than 1.5 IMU samples earlier than IMU ts 1267688414 by 1502 µS
+[WW] Exposure timestamp 1267802112 was more than 1.5 IMU samples earlier than IMU ts 1267803618 by 1506 µS
+[II] pose export over 10 s: age mean 2.7 ms max 10.5 ms | speed mean 0.21 max 1.65 m/s, ang mean 28 max 277 deg/s | age*speed worst 7.0 mm (740 samples)
+[WW] Exposure timestamp 1267878912 was more than 1.5 IMU samples earlier than IMU ts 1267880756 by 1844 µS
+[WW] Exposure timestamp 1268013312 was more than 1.5 IMU samples earlier than IMU ts 1268016000 by 2688 µS
+[WW] Exposure timestamp 1268358912 was more than 1.5 IMU samples earlier than IMU ts 1268360660 by 1748 µS
+[WW] Exposure timestamp 1268378112 was more than 1.5 IMU samples earlier than IMU ts 1268380696 by 2584 µS
+[WW] Exposure timestamp 1268685312 was more than 1.5 IMU samples earlier than IMU ts 1268687198 by 1886 µS
+[WW] Exposure timestamp 1268704512 was more than 1.5 IMU samples earlier than IMU ts 1268706278 by 1766 µS
+[WW] Exposure timestamp 1268954112 was more than 1.5 IMU samples earlier than IMU ts 1268955678 by 1566 µS
+[WW] Sensor WMTD3052400VZL: predicted exposure-to-frame latency of 6.7 ms differed from measured -6.1 ms (1801 so far) - check the sensor sync cable
+[WW] Exposure timestamp 1269146112 was more than 1.5 IMU samples earlier than IMU ts 1269148022 by 1910 µS
+[WW] Exposure timestamp 1269722112 was more than 1.5 IMU samples earlier than IMU ts 1269725054 by 2942 µS
+[WW] Exposure timestamp 1269741312 was more than 1.5 IMU samples earlier than IMU ts 1269743132 by 1820 µS
+[WW] Exposure timestamp 1269837312 was more than 1.5 IMU samples earlier than IMU ts 1269839258 by 1946 µS
+[WW] Exposuresteamtours.sh[288177]: Relaunch under scout LDLP runtime.
+steamtours.sh[288177]: exec /home/mia/.steam/bin/steam-runtime/run.sh /home/mia/.local/share/Steam/steamapps/common/SteamVR/tools/steamvr_environments/game/steamtours.sh -vr -retail -vulkan -useappid SteamVRAppID -nowindow -vconport 29009
+steamtours.sh[288177]: Detected scout LDLP runtime.
+ timestamp 1269856512 was more than 1.5 IMU samples earlier than IMU ts 1269858338 by 1826 µS
+[WW] Exposure timestamp 1270221312 was more than 1.5 IMU samples earlier than IMU ts 1270224948 by 3636 µS
+[WW] Exposure timestamp 1270317312 was more than 1.5 IMU samples earlier than IMU ts 1270319163 by 1851 µS
+[WW] Exposure timestamp 1271142912 was more than 1.5 IMU samples earlier than IMU ts 1271144593 by 1681 µS
+[WW] Exposure timestamp 1271373312 was more than 1.5 IMU samples earlier than IMU ts 1271375005 by 1693 µS
+[WW] Exposure timestamp 1271488512 was more than 1.5 IMU samples earlier than IMU ts 1271490211 by 1699 µS
+[WW] Exposure timestamp 1271584512 was more than 1.5 IMU samples earlier than IMU ts 1271586429 by 1917 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 5 missed exposure, diff avg 5.38 min -11.89 max 11.29 ms
+[WW] Exposure timestamp 1271738112 was more than 1.5 IMU samples earlier than IMU ts 1271739657 by 1545 µS
+[WW] Exposure timestamp 1271814912 was more than 1.5 IMU samples earlier than IMU ts 1271816841 by 1929 µS
+[WW] Exposure timestamp 1271891712 was more than 1.5 IMU samples earlier than IMU ts 1271894935 by 3223 µS
+[WW] Exposure timestamp 1271930112 was more than 1.5 IMU samples earlier than IMU ts 1271932048 by 1936 µS
+[WW] Exposure timestamp 1272160512 was more than 1.5 IMU samples earlier than IMU ts 1272162460 by 1948 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 4 missed exposure, diff avg 5.16 min -11.95 max 11.38 ms
+[WW] Exposure timestamp 1272275712 was more than 1.5 IMU samples earlier than IMU ts 1272277666 by 1954 µS
+[WW] Exposure timestamp 1272525312 was more than 1.5 IMU samples earlier than IMU ts 1272527066 by 1754 µS
+[WW] Exposure timestamp 1272890112 was more than 1.5 IMU samples earlier than IMU ts 1272891718 by 1606 µS
+[WW] Exposure timestamp 1272986112 was more than 1.5 IMU samples earlier than IMU ts 1272987938 by 1826 µS
+[WW] Exposure timestamp 1273005312 was more than 1.5 IMU samples earlier than IMU ts 1273007980 by 2668 µS
+[WW] Exposure timestamp 1273024512 was more than 1.5 IMU samples earlier than IMU ts 1273026960 by 2448 µS
+[WW] Exposure timestamp 1273101312 was more than 1.5 IMU samples earlier than IMU ts 1273103097 by 1785 µS
+[WW] Exposure timestamp 1273370112 was more than 1.5 IMU samples earlier than IMU ts 1273372579 by 2467 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 1273542912 was more than 1.5 IMU samples earlier than IMU ts 1273547895 by 4983 µS
+[WW] Exposure timestamp 1273677312 was more than 1.5 IMU samples earlier than IMU ts 1273679127 by 1815 µS
+[WW] Exposure timestamp 1273907712 was more than 1.5 IMU samples earlier than IMU ts 1273909545 by 1833 µS
+[WW] Exposure timestamp 1273926912 was more than 1.5 IMU samples earlier than IMU ts 1273928574 by 1662 µS
+[WW] Exposure timestamp 1274118912 was more than 1.5 IMU samples earlier than IMU ts 1274120964 by 2052 µS
+[WW] Exposure timestamp 1274138112 was more than 1.5 IMU samples earlier than IMU ts 1274139952 by 1840 µS
+[WW] Exposure timestamp 1274483712 was more than 1.5 IMU samples earlier than IMU ts 1274485571 by 1859 µS
+[WW] Exposure timestamp 1274675712 was more than 1.5 IMU samples earlier than IMU ts 1274678917 by 3205 µS
+[WW] Exposure timestamp 1274733312 was more than 1.5 IMU samples earlier than IMU ts 1274735017 by 1705 µS
+[WW] Exposure timestamp 1274752512 was more than 1.5 IMU samples earlier than IMU ts 1274754051 by 1539 µS
+[WW] Exposure timestamp 1274944512 was more than 1.5 IMU samples earlier than IMU ts 1274946395 by 1883 µS
+[WW] Exposure timestamp 1274982912 was more than 1.5 IMU samples earlier than IMU ts 1274985465 by 2553 µS
+[WW] Exposure timestamp 1275078912 was more than 1.5 IMU samples earlier than IMU ts 1275080636 by 1724 µS
+[WW] Exposure timestamp 1275290112 was more than 1.5 IMU samples earlier than IMU ts 1275292014 by 1902 µS
+[WW] Exposure timestamp 1275309312 was more than 1.5 IMU samples earlier than IMU ts 1275312050 by 2738 µS
+[WW] Exposure timestamp 1275405312 was more than 1.5 IMU samples earlier than IMU ts 1275407222 by 1910 µS
+[WW] Exposure timestamp 1275770112 was more than 1.5 IMU samples earlier than IMU ts 1275772879 by 2767 µS
+[WW] Exposure timestamp 1275789312 was more than 1.5 IMU samples earlier than IMU ts 1275790907 by 1595 µS
+[WW] Exposure timestamp 1275827712 was more than 1.5 IMU samples earlier than IMU ts 1275829984 by 2272 µS
+[WW] Exposure timestamp 1275962112 was more than 1.5 IMU samples earlier than IMU ts 1275964263 by 2151 µS
+[WW] Exposure timestamp 1276000512 was more than 1.5 IMU samples earlier than IMU ts 1276002285 by 1773 µS
+[WW] Exposure timestamp 1276346112 was more than 1.5 IMU samples earlier than IMU ts 1276348905 by 2793 µS
+[WW] Exposure timestamp 1276595712 was more than 1.5 IMU samples earlier than IMU ts 1276597350 by 1638 µS
+[II] accelerometer scale check: |accel| at rest mean 9.7767 m/s^2 (-0.31% vs 9.8067), range 9.544..10.003, 7185 quiet samples | hw calibration NOT requested (driver applies its own)
+[WW] Exposure timestamp 1276864512 was more than 1.5 IMU samples earlier than IMU ts 1276867836 by 3324 µS
+[WW] Exposure timestamp 1276902912 was more than 1.5 IMU samples earlier than IMU ts 1276905948 by 3036 µS
+[WW] Exposure timestamp 1276941312 was more than 1.5 IMU samples earlier than IMU ts 1276942969 by 1657 µS
+[WW] Exposure timestamp 1277152512 was more than 1.5 IMU samples earlier than IMU ts 1277154347 by 1835 µS
+[WW] Exposure timestamp 1277190912 was more than 1.5 IMU samples earlier than IMU ts 1277192415 by 1503 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 2 missed exposure, diff avg 5.58 min -14.87 max 9.42 ms
+[WW] Exposure timestamp 1277421312 was more than 1.5 IMU samples earlier than IMU ts 1277423832 by 2520 µS
+[WW] Exposure timestamp 1277440512 was more than 1.5 IMU samples earlier than IMU ts 1277442864 by 2352 µS
+[WW] Exposure timestamp 1277632512 was more than 1.5 IMU samples earlier than IMU ts 1277634225 by 1713 µS
+[II] pose export over 10 s: age mean 2.5 ms max 7.3 ms | speed mean 0.06 max 0.07 m/s, ang mean 0 max 1 deg/s | age*speed worst 0.4 mm (759 samples)
+[WW] Exposure timestamp 1277843712 was more than 1.5 IMU samples earlier than IMU ts 1277845585 by 1873 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 2 missed exposure, diff avg 5.31 min -12.71 max 9.42 ms
+[WW] Exposure timestamp 1277997312 was more than 1.5 IMU samples earlier than IMU ts 1277998859 by 1547 µS
+[WW] Exposure timestamp 1278189312 was more than 1.5 IMU samples earlier than IMU ts 1278193253 by 3941 µS
+[WW] Exposure timestamp 1278208512 was more than 1.5 IMU samples earlier than IMU ts 1278210238 by 1726 µS
+[WW] Exposure timestamp 1278304512 was more than 1.5 IMU samples earlier than IMU ts 1278306410 by 1898 µS
+[WW] Sensor WMTD3052400VZL: predicted exposure-to-frame latency of 6.7 ms differed from measured -0.6 ms (1901 so far) - check the sensor sync cable
+[WW] Exposure timestamp 1278688512 was more than 1.5 IMU samples earlier than IMU ts 1278690097 by 1585 µS
+[WW] Exposure timestamp 1278995712 was more than 1.5 IMU samples earlier than IMU ts 1278997647 by 1935 µS
+[WW] Exposure timestamp 1279110912 was more than 1.5 IMU samples earlier than IMU ts 1279112854 by 1942 µS
+[WW] Exposure timestamp 1279130112 was more than 1.5 IMU samples earlier than IMU ts 1279131888 by 1776 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 1279629312 was more than 1.5 IMU samples earlier than IMU ts 1279630827 by 1515 µS
+[WW] Exposure timestamp 1279706112 was more than 1.5 IMU samples earlier than IMU ts 1279707919 by 1807 µS
+[WW] Exposure timestamp 1280051712 was more than 1.5 IMU samples earlier than IMU ts 1280053538 by 1826 µS
+[WW] Exposure timestamp 1280070912 was more than 1.5 IMU samples earlier than IMU ts 1280072572 by 1660 µS
+[WW] Exposure timestamp 1280186112 was more than 1.5 IMU samples earlier than IMU ts 1280189784 by 3672 µS
+[WW] Exposure timestamp 1280205312 was more than 1.5 IMU samples earlier than IMU ts 1280206859 by 1547 µS
+[WW] Exposure timestamp 1280282112 was more than 1.5 IMU samples earlier than IMU ts 1280283951 by 1839 µS
+[WW] Exposure timestamp 1280320512 was more than 1.5 IMU samples earlier than IMU ts 1280322065 by 1553 µS
+[WW] Exposure timestamp 1280397312 was more than 1.5 IMU samples earlier than IMU ts 1280399158 by 1846 µS
+[WW] Exposure timestamp 1280531712 was more than 1.5 IMU samples earlier than IMU ts 1280533401 by 1689 µS
+[WW] Exposure timestamp 1280627712 was more than 1.5 IMU samples earlier than IMU ts 1280629570 by 1858 µS
+[WW] Exposure timestamp 1280723712 was more than 1.5 IMU samples earlier than IMU ts 1280725744 by 2032 µS
+[WW] Exposure timestamp 1280742912 was more than 1.5 IMU samples earlier than IMU ts 1280744776 by 1864 µS
+[WW] Exposure timestamp 1280781312 was more than 1.5 IMU samples earlier than IMU ts 1280782890 by 1578 µS
+[WW] Exposure timestamp 1280858112 was more than 1.5 IMU samples earlier than IMU ts 1280859982 by 1870 µS
+[WW] Exposure timestamp 1281088512 was more than 1.5 IMU samples earlier than IMU ts 1281090395 by 1883 µS
+[WW] Exposure timestamp 1281126912 was more than 1.5 IMU samples earlier than IMU ts 1281128510 by 1598 µS
+[WW] Exposure timestamp 1281184512 was more than 1.5 IMU samples earlier than IMU ts 1281186567 by 2055 µS
+[WW] Exposure timestamp 1281318912 was more than 1.5 IMU samples earlier than IMU ts 1281320808 by 1896 µS
+[WW] Exposure timestamp 1281549312 was more than 1.5 IMU samples earlier than IMU ts 1281551221 by 1909 µS
+[WW] Exposure timestamp 1281664512 was more than 1.5 IMU samples earlier than IMU ts 1281666427 by 1915 µS
+[WW] Exposure timestamp 1281683712 was more than 1.5 IMU samples earlier than IMU ts 1281685461 by 1749 µS
+[WW] Exposure timestamp 1281702912 was more than 1.5 IMU samples earlier than IMU ts 1281704541 by 1629 µS
+[II] sensor 0 calibration feed: 10801 offered, 7606 passed - rejected 0 for LED ids, 3195 for too few blobs (<10), 0 for error
+[WW] Exposure timestamp 1281837312 was more than 1.5 IMU samples earlier than IMU ts 1281840741 by 3429 µS
+[WW] Exposure timestamp 1281875712 was more than 1.5 IMU samples earlier than IMU ts 1281877805 by 2093 µS
+[WW] Exposure timestamp 1281933312 was more than 1.5 IMU samples earlier than IMU ts 1281935909 by 2597 µS
+[WW] Exposure timestamp 1282010112 was more than 1.5 IMU samples earlier than IMU ts 1282012047 by 1935 µS
+[WW] Exposure timestamp 1282029312 was more than 1.5 IMU samples earlier than IMU ts 1282031096 by 1784 µS
+[WW] Exposure timestamp 1282144512 was more than 1.5 IMU samples earlier than IMU ts 1282146287 by 1775 µS
+[WW] Exposure timestamp 1282163712 was more than 1.5 IMU samples earlier than IMU ts 1282165366 by 1654 µS
+[WW] Exposure timestamp 1282259712 was more than 1.5 IMU samples earlier than IMU ts 1282261493 by 1781 µS
+[WW] Exposure timestamp 1282278912 was more than 1.5 IMU samples earlier than IMU ts 1282280573 by 1661 µS
+[WW] Exposure timestamp 1282394112 was more than 1.5 IMU samples earlier than IMU ts 1282397738 by 3626 µS
+[WW] Exposure timestamp 1282470912 was more than 1.5 IMU samples earlier than IMU ts 1282472871 by 1959 µS
+[WW] Exposure timestamp 1282624512 was more than 1.5 IMU samples earlier than IMU ts 1282626192 by 1680 µS
+[WW] Exposure timestamp 1282739712 was more than 1.5 IMU samples earlier than IMU ts 1282741398 by 1686 µS
+[WW] Exposure timestamp 1282835712 was more than 1.5 IMU samples earlier than IMU ts 1282837525 by 1813 µS
+[WW] Exposure timestamp 1282854912 was more than 1.5 IMU samples earlier than IMU ts 1282856606 by 1694 µS
+[WW] Exposure timestamp 1282970112 was more than 1.5 IMU samples earlier than IMU ts 1282971811 by 1699 µS
+[II] frame-timing WMTD306Q701DEK: 300 frames, 6 missed exposure, diff avg 5.63 min -12.90 max 13.49 ms
+[WW] Exposure timestamp 1283315712 was more than 1.5 IMU samples earlier than IMU ts 1283317431 by 1719 µS
+[WW] Exposure timestamp 1283334912 was more than 1.5 IMU samples earlier than IMU ts 1283336418 by 1506 µS
+[WW] Exposure timestamp 1283526912 was more than 1.5 IMU samples earlier than IMU ts 1283528763 by 1851 µS
+[II] frame-timing WMTD3052400VZL: 300 frames, 5 missed exposure, diff avg 5.38 min -11.75 max 10.08 ms
+[II] calib feed: 13501 observations offered (auto_calib 1, sensors 2, exposure_info yes, device 0)
+[II] calib feed WMTD3052400VZL: 13501 obs, 5212 paired, history 192 over 4 viewpoints, 324 solves, residual 2.14 px, estimated
+[WW] Exposure timestamp 1284102912 was more than 1.5 IMU samples earlier than IMU ts 1284104795 by 1883 µS
+[WW] Exposure timestamp 1284237312 was more than 1.5 IMU samples earlier than IMU ts 1284239081 by 1769 µS
+[WW] Exposure timestamp 1284467712 was more than 1.5 IMU samples earlier than IMU ts 1284470450 by 2738 µS
+[WW] Exposure timestamp 1284582912 was more than 1.5 IMU samples earlier than IMU ts 1284584657 by 1745 µS
+[WW] Exposure timestamp 1284602112 was more than 1.5 IMU samples earlier than IMU ts 1284607698 by 5586 µS
+[WW] Exposure timestamp 1284678912 was more than 1.5 IMU samples earlier than IMU ts 1284680827 by 1915 µS
+[WW] Exposure timestamp 1284947712 was more than 1.5 IMU samples earlier than IMU ts 1284949308 by 1596 µS
+[II] HMD obs quality: full(strong+ids) 300 ids-verified 0 strong 0 prior-agree 0 reacquire 0 rejected 0 | flags: led-ids 300 strong 300
+[WW] Exposure timestamp 1285408512 was more than 1.5 IMU samples earlier than IMU ts 1285410135 by 1623 µS
+[WW] Exposure timestamp 1285523712 was more than 1.5 IMU samples earlier than IMU ts 1285525340 by 1628 µS
+[WW] Exposure timestamp 1285715712 was more than 1.5 IMU samples earlier than IMU ts 1285719691 by 3979 µS
+[WW] Exposure timestamp 1285734912 was more than 1.5 IMU samples earlier than IMU ts 1285738727 by 3815 µS
+[WW] Exposure timestamp 1285850112 was more than 1.5 IMU samples earlier than IMU ts 1285851972 by 1860 µS
+[WW] Exposure timestamp 1285946112 was more than 1.5 IMU samples earlier than IMU ts 1285948098 by 1986 µS
+[WW] Exposure timestamp 1285965312 was more than 1.5 IMU samples earlier than IMU ts 1285967178 by 1866 µS
+[WW] Exposure timestamp 1286099712 was more than 1.5 IMU samples earlier than IMU ts 1286101372 by 1660 µS
+[WW] Exposure timestamp 1286253312 was more than 1.5 IMU samples earlier than IMU ts 1286255651 by 2339 µS
+[WW] Exposure timestamp 1286426112 was more than 1.5 IMU samples earlier than IMU ts 1286428007 by 1895 µS
+[WW] Exposure timestamp 1286560512 was more than 1.5 IMU samples earlier than IMU ts 1286562199 by 1687 µS
+[WW] Exposure timestamp 1286656512 was more than 1.5 IMU samples earlier than IMU ts 1286658417 by 1905 µS
+[II] accelerometer scale check: |accel| at rest mean 9.7781 m/s^2 (-0.29% vs 9.8067), range 9.543..10.028, 6941 quiet samples | hw calibration NOT requested (driver applies its own)
+[WW] Exposure timestamp 1286790912 was more than 1.5 IMU samples earlier than IMU ts 1286792660 by 1748 µS
+[WW] Exposure timestamp 1286925312 was more than 1.5 IMU samples earlier than IMU ts 1286926852 by 1540 µS
+[WW] Exposure timestamp 1287155712 was more than 1.5 IMU samples earlier than IMU ts 1287157265 by 1553 µS
+[WW] Exposure timestamp 1287270912 was more than 1.5 IMU samples earlier than IMU ts 1287272471 by 1559 µS
+stream state: "unconnected"
+stream state: "unconnected"
+stream state: "unconnected"
+stream state: "unconnected"
+stream state: "unconnected"
+stream state: "unconnected"
