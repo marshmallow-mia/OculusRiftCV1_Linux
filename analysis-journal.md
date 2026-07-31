@@ -483,3 +483,85 @@ evidence of a defect — it is the number the calibration is supposed to correct
 
 Note a decoder discrepancy to resolve while doing this: `analyze_hid_pcap.py`
 caps at `min(b[3], 2)` samples per report where `packet.c` caps at 3.
+
+---
+
+## Iteration 6 — 2026-07-31 — **a confirmed defect against an absolute reference**
+
+### The first measurement that did not compare the system against itself
+
+Live telemetry, headset stationary:
+
+```
+accelerometer scale check: |accel| at rest mean 10.0543 m/s^2 (+2.52% vs 9.8067),
+range 9.816..10.272, 10013 quiet samples | hw calibration NOT requested
+```
+
+Steady at 10.0533–10.0547 over four independent 10 s windows. At rest an
+accelerometer measures gravity and nothing else, so this **must** be 9.8067.
+
+Correction to an earlier reading: `rift.c:1471` sets `RIFT_SCF_USE_CALIBRATION`,
+from which I concluded `apply_imu_calibration()` was dead code. At runtime the
+flag is **clear** — the device does not accept it — so the driver does apply its
+own calibration, and that path produces the 10.0543.
+
+### H8 — the factory matrix is applied wrongly
+
+**CONFIRMED.** On the Oculus runtime's own raw capture, with this headset's
+factory values:
+
+| | \|accel\| at rest |
+|---|---|
+| raw | 9.4487 (−3.6%) |
+| offset only | **9.7503 (−0.6%)** |
+| offset + matrix (ours) | 10.0963 (**+3.0%**) |
+
+Offline +3.0% against live +2.52%; the gap is only the resting orientation.
+Every alternative convention was tried and **none** reaches 9.8067:
+
+| convention | result |
+|---|---|
+| `M(raw−off)` (ours) | +3.01% |
+| `M⁻¹(raw−off)` | −3.86% |
+| `Mᵀ(raw−off)` | +3.04% |
+| `M⁻ᵀ(raw−off)` | −3.83% |
+| `M·raw − off` | +2.90% |
+| `M·raw + off` | −3.22% |
+| **offset only** | **−0.50%** |
+
+### What it is not
+
+- **Not the scale constants.** `1/((1<<20)-1)` and `1e-4` both appear in
+  `Rift.dll` exactly as `packet.c` uses them.
+- **Not the row layout.** Decoding accel and gyro rows *interleaved* yields two
+  diagonally-dominant matrices; reading them sequentially does not.
+- **Not a data-fit answer.** The ellipsoid fit over `imu_tracking.pcap` is
+  under-determined: only **5 distinct gravity directions** among the stationary
+  samples, and the fit is not positive definite. Recorded as a dead end.
+
+### What it is
+
+The HMD matrix carries a real **8% scale** — singular values 1.0381 / 1.0219 /
+0.9614 — where its orthogonal part is near-identity with ~1° of cross-axis
+alignment. The **Touch** matrix, from the radio JSON, is an axis permutation
+already orthogonal to **0.41%**.
+
+So one rule serves both: **keep the orthogonal polar factor, discard the scale.**
+
+| | before | after |
+|---|---|---|
+| HMD `\|accel\|` | +3.01% | **−0.50%** |
+| Touch matrix | permutation | unchanged (max element shift 0.005) |
+
+Implemented as a Newton iteration `R ← (R + R⁻ᵀ)/2` at calibration load, which
+matches the SVD polar factor to 3e-16 and is orthogonal to 1e-16.
+`OHMD_RIFT_NO_CALIB_ORTHO=1` restores the raw factory matrix.
+
+### Honest magnitude
+
+Phantom acceleration drops from ~0.25 to ~0.05 m/s². In the harness at 1.2 m/s,
+settling after a stop goes **868 ms → 414 ms** against an ideal of 390 ms, with
+drift 5.50 → 4.54 mm. So this is a real defect corrected against an absolute
+reference, but the predicted improvement is **moderate, not dramatic** — and the
+residual −0.50% is unexplained, as is why the factory matrix carries a scale at
+all. Both are open.
