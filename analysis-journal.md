@@ -378,3 +378,108 @@ reported symptom:
   error), held back only to avoid confounding this hunt.
 - **Track B parity**: their bias states carry covariance and adapt; ours are
   fixed-gain integrators.
+
+---
+
+## Iteration 5 — 2026-07-31 — the symptom is restated, and the search restarts
+
+New information from the user that reshapes everything:
+
+> *"Its the same on headset and controllers. I move and it overshoots, gets back
+> too far, etc until it reached the real point."*
+
+- **Identical on HMD and both Touch controllers** → the fault is in *shared*
+  machinery, not anything device-specific. Rules out the HMD render pivot, IPD,
+  and per-device offsets.
+- **A damped oscillation**, not a lag or a one-way tail.
+
+The iteration-4 fix (coast through vision dropouts) was deployed at 16:38 and the
+user ran it at 16:56 — verified from `vrserver.txt`. It changed nothing. The
+mechanism family was right; the trigger was not.
+
+### Correction to iteration 2's method
+
+`wp` in the capture is **not** a per-camera vision pose. It is
+`exp_dev_info->capture_pose` — the **fusion's** pose at exposure time, written
+identically into every sensor's record (verified in `rift-sensor-pose-search.c`
+and by finding both sensors reporting bit-identical values). A first pass here
+reported "cross-camera disagreement median 0.00 mm", which was a value being
+compared against itself. The real per-camera vision estimate is
+`campose ∘ cam`.
+
+### H6 — the two cameras disagree, and the fusion chases the difference
+
+**PARTLY TRUE, BUT NOT THE CAUSE.** With the composition done properly
+(`angvelworld.jsonl`, LED-ID-verified, gross outliers dropped):
+
+| device | cross-camera disagreement (median) | p90 | position dependence |
+|---|---|---|---|
+| HMD | 5.33 mm | 9.38 | changes 5.6–8.3 mm across the room |
+| ctrl 1 | 9.48 mm | 13.92 | changes 3.5–9.3 mm |
+| ctrl 2 | 6.06 mm | 11.48 | changes 3.0–5.3 mm |
+
+So the calibration's self-reported **1.4 mm** is optimistic by 4–7× against live
+data — it scores itself on the viewpoints it fitted, the trap already documented
+in `cv1-auto-calibration`.
+
+**But it is not a rigid calibration error.** Pooling all three devices (7318
+co-observed exposures) and solving for the single best rigid correction:
+median 7.79 → **6.48 mm**, needing only **3.30 mm / 0.084°**. The extrinsics are
+essentially right; the residual is per-camera PnP bias that varies with viewing
+geometry — which this project already established cannot be estimated away
+(a full bundle adjustment scored no better than a robust mean).
+
+### H7 — vision hands the fusion a wobbling target
+
+**DEAD.** There is a same-exposure merge and a joint solve
+(`rift-tracker.c:1753`), so the fusion receives one merged target, not two
+conflicting ones. Measured wobble of that merged target against a 5-sample
+running median:
+
+| device | wobble median | p90 |
+|---|---|---|
+| HMD | 0.13 mm | 0.97 mm |
+| ctrl 1 | 0.58 mm | 2.78 mm |
+| ctrl 2 | 0.42 mm | 4.19 mm |
+
+**The vision input is smooth to well under a millimetre.** The cross-camera
+disagreement is a slowly-varying bias the merge averages away.
+
+### Where that leaves it — a tight elimination
+
+1. The merged vision target is smooth (0.13–0.69 mm) → the oscillation is **not**
+   in the vision input.
+2. The harness shows the fusion does **not** ring when fed clean input.
+3. Therefore the remaining input is the **IMU**.
+
+An IMU scale or timing error makes IMU-integrated motion disagree with vision
+*in proportion to how much you move* — fighting during motion, correct at rest,
+and identical on HMD and controllers if the fault is in shared decode/scaling
+rather than per-device hardware. That matches the restated symptom exactly and
+has never been tested.
+
+### First IMU measurement
+
+Decoding `captures/win/2026-07-12/imu_tracking.pcap` (65630 samples, the Oculus
+runtime's own session) with our decoder's scaling:
+
+- `|accel|` at rest (|gyro| < 0.05 rad/s, 27.4% of samples): **9.4582 m/s²**
+  against 9.8067 expected → **−3.55%**.
+
+This is the **raw** decode without the factory `AccCalibration` matrix, which
+the driver does apply (`apply_imu_calibration`, `rift.c:413`), so it is not yet
+evidence of a defect — it is the number the calibration is supposed to correct.
+
+### Next
+
+1. Extract the `IMU_CALIBRATION` (report 0x03) matrices from
+   `captures/win/2026-07-12/setup_hid.pcap`, apply them to the raw stream, and
+   check that `|accel|` lands on 9.8067. That validates our whole IMU
+   calibration path end-to-end, offline.
+2. The same report carries the **gyro** matrix. A gyro scale error is the single
+   best fit to "overshoots, gets back too far": a 3% error turns a 90° turn into
+   93°, which vision then drags back over a second or two.
+3. Then Stage 3 proper — our fusion on their raw IMU, diffed against their poses.
+
+Note a decoder discrepancy to resolve while doing this: `analyze_hid_pcap.py`
+caps at `min(b[3], 2)` samples per report where `packet.c` caps at 3.
