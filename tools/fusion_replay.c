@@ -110,6 +110,8 @@ int main(int argc, char **argv)
 	double hold_override = -1.0;
 	double vision_bias_mm = 0.0;
 	double dropout_ms = 0.0;
+	double ts_error_ms = 0.0;
+	double accel_scale = 1.0;
 	const profile *pr = NULL;
 	int i;
 
@@ -126,6 +128,10 @@ int main(int argc, char **argv)
 			vision_bias_mm = atof(argv[++i]);
 		else if (!strcmp(argv[i], "--dropout-ms") && i + 1 < argc)
 			dropout_ms = atof(argv[++i]);
+		else if (!strcmp(argv[i], "--ts-error-ms") && i + 1 < argc)
+			ts_error_ms = atof(argv[++i]);
+		else if (!strcmp(argv[i], "--accel-scale") && i + 1 < argc)
+			accel_scale = atof(argv[++i]);
 		else if (!strcmp(argv[i], "--no-euro"))
 			use_euro = false;
 		else if (!strcmp(argv[i], "--noise"))
@@ -244,6 +250,14 @@ int main(int argc, char **argv)
 			oquatf_inverse(&inv);
 			oquatf_get_rotated(&inv, &accel_world, &accel);
 		}
+		/* An accelerometer scale error leaves a residual after the
+		 * fusion subtracts GRAVITY_MAG: a phantom acceleration that is
+		 * always there, which the estimator must fight. */
+		if (accel_scale != 1.0) {
+			accel.x *= (float)accel_scale;
+			accel.y *= (float)accel_scale;
+			accel.z *= (float)accel_scale;
+		}
 		if (noisy) {
 			gyro.x += (float)nrand(0.002); gyro.y += (float)nrand(0.002);
 			gyro.z += (float)nrand(0.002);
@@ -282,9 +296,14 @@ int main(int argc, char **argv)
 					vis.pos.y += (float)nrand(0.0015);
 					vis.pos.z += (float)nrand(0.0015);
 				}
-				rift_fusion_ovr_prepare_delay_slot(&f, ts, s);
+				uint64_t booked = ts;
+				if (ts_error_ms != 0.0) {
+					int64_t off = (int64_t)(ts_error_ms * 1e6);
+					booked = (off < 0 && (uint64_t)(-off) > ts) ? 0 : (uint64_t)((int64_t)ts + off);
+				}
+				rift_fusion_ovr_prepare_delay_slot(&f, booked, s);
 				pending[s].used = true;
-				pending[s].exposure_ts = ts;
+				pending[s].exposure_ts = booked;
 				pending[s].deliver_ts = ts + vision_latency_ns;
 				pending[s].pose = vis;
 				pending[s].slot = s;
