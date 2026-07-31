@@ -108,6 +108,7 @@ int main(int argc, char **argv)
 	bool use_euro = true, noisy = false;
 	double vision_latency_ms = 30.0;
 	double hold_override = -1.0;
+	double vision_bias_mm = 0.0;
 	const profile *pr = NULL;
 	int i;
 
@@ -120,6 +121,8 @@ int main(int argc, char **argv)
 			vision_latency_ms = atof(argv[++i]);
 		else if (!strcmp(argv[i], "--hold") && i + 1 < argc)
 			hold_override = atof(argv[++i]);
+		else if (!strcmp(argv[i], "--vision-bias") && i + 1 < argc)
+			vision_bias_mm = atof(argv[++i]);
 		else if (!strcmp(argv[i], "--no-euro"))
 			use_euro = false;
 		else if (!strcmp(argv[i], "--noise"))
@@ -258,6 +261,12 @@ int main(int argc, char **argv)
 			}
 			if (s < RIFT_FUSION_OVR_MAX_SLOTS) {
 				posef vis = truth;
+				/* Viewpoint-dependent per-camera bias: turning the head
+				 * changes which camera dominates the solve, stepping the
+				 * vision estimate by a few mm. The estimator then has to
+				 * chase that step - with whatever time constant it has. */
+				if (t >= motion_end)
+					vis.pos.x += (float)(vision_bias_mm / 1000.0);
 				if (noisy) {
 					vis.pos.x += (float)nrand(0.0015);
 					vis.pos.y += (float)nrand(0.0015);
