@@ -149,7 +149,7 @@ in a commit. A fresh context should be able to resume from this table alone.
 | W4 | **Measurement model and per-observation R** | **started** | real function is `fcn.18013a840` (4408 B, 13 args, matrix-heavy); no inline constants, so R arrives as an argument — tracing which one needs the driver's argument setup |
 | W5 | **Reset policy** — triggers and thresholds | open | `fcn.180138780`, `fcn.180132a20`; 11 named causes, only sigmas known |
 | W6 | **Gravity aligner → EKF coupling** | open | `fcn.18011ab20`, `fcn.180146860`, `fcn.1801376b0`; a prior attempt at gravity states was inert for want of this |
-| W7 | **`dump_csv` plumbing** — config source, settable under Wine?, buffer depth | **open, PROMOTED to next** | static passes are now yielding one fact each; a real capture would answer the R rule, reset thresholds and Q directly |
+| W7 | **`dump_csv` plumbing** — config source, settable under Wine?, buffer depth | **BLOCKED** | registry path recovered; **not exercisable here** — Rift.dll is in `server-plugins/disabled/` and the runtime has never tracked in this prefix. Recipe recorded for a real Windows install |
 | W8 | **Reconcile the constant discrepancy** vs `rift-dll-functions.md` | **DONE** | resolved against me: the earlier note was right, my pass-1 scan was incomplete. See "W8 result" |
 
 Stop when the queue is empty or every remaining item is blocked — and say which,
@@ -442,6 +442,50 @@ items still open — the R rule, reset thresholds, the gravity coupling, Q — a
 exactly the things a real capture would show directly. If the key can be set
 under Wine, one event window answers several of them empirically; if it cannot,
 nothing is lost but one iteration.
+
+## W7 result: the config is the registry, and the recipe is recorded
+
+**Recovered.** The config store `fcn.18021d340` searches is populated from the
+Windows **registry**, not a file. The paths are in `.rdata`:
+
+```
+HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Oculus VR, LLC\Oculus\Config\
+HKEY_LOCAL_MACHINE\SOFTWARE\Oculus VR, LLC\Oculus\
+HKEY_CURRENT_USER\SOFTWARE\Oculus\
+HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Oculus VR, LLC\LibOVR\
+```
+
+Searching the whole Wine prefix for `dump_csv`, `HmdDropThresholdInGs` or
+`TouchImpactThresholdInGs` finds nothing in any file, which is consistent: these
+are registry values, and the `Config` subkey does not exist yet.
+
+`fcn.18021d340` reads the resolved entry as `*(double *)(entry + 0x58)` and tests
+it non-zero, so any non-zero value enables the dump.
+
+### Blocked, and why — this cannot be exercised on this machine
+
+**Recovered.** `Rift.dll` lives in `server-plugins/**disabled**/`, not
+`server-plugins/`, and there are no runtime logs anywhere in the prefix. Meta
+disabled CV1 support in v79 by moving the plugin aside; the Oculus runtime has
+never tracked a headset here. Setting the registry value would therefore change
+nothing, because the code that reads it never loads.
+
+**The recipe, for whenever a working Windows install is in front of us** — that
+is the machine which produced `captures/win/2026-07-12`, not this Wine prefix:
+
+1. Create `HKLM\SOFTWARE\Wow6432Node\Oculus VR, LLC\Oculus\Config` and set a
+   value named `dump_csv` to something non-zero.
+2. Restart the Oculus service so the plugin re-reads its config.
+3. Track normally, then produce a high-G event — an impact above
+   `TouchImpactThresholdInGs` on a controller, or above `HmdDropThresholdInGs` on
+   the headset.
+4. Collect `\impact_*.csv` / `\drop_hmd_*.csv`.
+
+Each file is a buffered window carrying the fused state **and** the vision-only
+channel on one timeline, which is exactly what every capture in `captures/win/`
+lacks. **Untested** — the trigger thresholds, the buffer depth and the output
+directory are all still unread, so this recipe is recovered-plausible rather than
+verified.
 
 ### Scratch state worth preserving
 
