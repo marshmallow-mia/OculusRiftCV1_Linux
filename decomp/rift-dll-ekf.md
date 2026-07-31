@@ -144,7 +144,7 @@ in a commit. A fresh context should be able to resume from this table alone.
 |---|---|---|---|
 | W1 | RTTI → COL → vftable → **constructor** for `IndirectEkf<18,9>` and `EkfFusion`; object size and layout | **DONE** | see "W1 result" below |
 | W2 | **Q and initial P** from the constructor and its callers | **partly done** | ctor found and it only allocates/zeroes; P0 formula located in the reset path; **Q still open** — look for the propagation-time noise injection in W3 |
-| W3 | **Propagation model** — predict step off the IMU path | open | `fcn.180134cd0` → core |
+| W3 | **Propagation model** — predict step off the IMU path | **partly done** | P proven 18x18 row-major; per-state covariance FLOOR found; "EKF core" mislabelling corrected. Propagation math and Q still open — next look at `fcn.1801386a0` (8602 B) and the second 18 inline doubles at `+0xa0` |
 | W4 | **Measurement model and per-observation R** | open | `fcn.18013a920`; should also settle what the `9` is |
 | W5 | **Reset policy** — triggers and thresholds | open | `fcn.180138780`, `fcn.180132a20`; 11 named causes, only sigmas known |
 | W6 | **Gravity aligner → EKF coupling** | open | `fcn.18011ab20`, `fcn.180146860`, `fcn.1801376b0`; a prior attempt at gravity states was inert for want of this |
@@ -303,6 +303,81 @@ must be harvested from **both** — `data.*` labels for the ones that stay as
 memory operands, and numeric literals in `pdg` output for the rest. Neither alone
 is complete, and reading one as exhaustive is what produced a false contradiction
 against a correct note.
+
+## W3 result: P is 18x18 row-major, and Oculus floors its diagonal
+
+### Correction: the "EKF core" functions are the camera calibrator
+
+**Recovered.** `rift-dll-functions.md` labels `fcn.18017d9e0`, `fcn.1801896e0`
+and `fcn.18017cae0` "EKF core (generic)" on the strength of their
+`P not positive definite` / `Update: Invalid P or K` strings. Those strings are
+Kalman-shaped, but the call graph says what they serve. Scanning `.text` for
+`E8 rel32` call sites (rizin's `axt` cannot do this):
+
+```
+0x18017d910 <- 0x18017d8b0 (85 B wrapper) <- 0x180199c40  ("OnWorldFromCameraChange")
+0x18017ca10 <- 0x180199c40                <- 0x180197120  ("Estimate: obj=", "Estimate: cam=")
+0x180189610 <- 0x18017ca10, 0x18017d910
+```
+
+They are reached only from the **world-from-camera estimator**, i.e. camera
+calibration. They are a generic least-squares/Kalman library, not the tracking
+fusion's predict step. Anyone hunting the tracking EKF in those functions is in
+the wrong module.
+
+The tracking EKF is driven from `fcn.180134bf0` (10709 B, contains the recorded
+`0x180134cd0`), which calls its siblings with the EKF subobject directly:
+
+```c
+fcn.18013a840(ctx + 0x56be8, ctx + 0x200, ...)   /* vision update */
+fcn.18013b980(ctx + 0x56be8, ctx + 0x200, ...)   /* covariance set + floor */
+```
+
+### P is 18x18, row-major — proven by a stride
+
+**Recovered.** `fcn.18013b980` dereferences `*(double **)arg2` (which W2
+established is **P**, at `IndirectEkf+0x00`) and touches indices
+
+```
+0, 0x13, 0x26, 0x39, 0x4c, 0x5f, 0x72, ...      = 19i
+```
+
+A stride of 19 is `P[i][i]` for an 18x18 row-major matrix (`i*18 + i`). That
+settles both the storage order and, independently, the 18.
+
+`fcn.18012b2d0`, called immediately before, copies an 18x18 matrix (18
+iterations of 18 doubles), so `fcn.18013b980` is **"set P from source, then floor
+its diagonal"**.
+
+### The inline doubles are a per-state minimum-variance floor
+
+**Recovered.** The clamp is
+
+```c
+P[i][i] = max(P[i][i], floor[i])
+```
+
+with `floor[i]` read from `IndirectEkf + 0x10 + 8i`, spanning `+0x10` to `+0x98`
+— **exactly 18 doubles**, one per state. That names the first half of the 36
+inline doubles W2 found.
+
+**Why this matters beyond bookkeeping.** `windows-vs-linux-tracking.md:377-421`
+records that this project already tried adding gravity states to its own filter
+and reverted them because they were **inert**: "with ~1000 accelerometer updates
+per second and a process noise of 1e-16 the gravity covariance collapses within
+the first few samples and the state is frozen thereafter". Oculus prevents
+exactly that failure with a per-state variance floor. The mechanism our attempt
+lacked is now recovered, and it is not a tuning value but a structural feature.
+
+**Inferred:** the second 18 inline doubles (`+0xa0`..`+0x128`) are the obvious
+counterpart — a process-noise vector or an upper clamp — but nothing observed so
+far writes or reads them, so the role is unassigned.
+
+### Q is still not located
+
+Not in the constructor (W2), not in the reset path (W2), and not in the floor
+path. Remaining candidate is injection during propagation, inside
+`fcn.1801386a0` (8602 B) or the driver itself. That is where W3 resumes.
 
 ### Scratch state worth preserving
 
