@@ -148,7 +148,7 @@ in a commit. A fresh context should be able to resume from this table alone.
 | W3 | **Propagation model** — predict step off the IMU path | **partly done** | P proven 18x18 row-major; per-state covariance FLOOR found; "EKF core" mislabelling corrected. Propagation math and Q still open — next look at `fcn.1801386a0` (8602 B) and the second 18 inline doubles at `+0xa0` |
 | W4 | **Measurement model and per-observation R** | **started** | real function is `fcn.18013a840` (4408 B, 13 args, matrix-heavy); no inline constants, so R arrives as an argument — tracing which one needs the driver's argument setup |
 | W5 | **Reset policy** — triggers and thresholds | **partly done** | all 10 reset-cause strings are in `fcn.1801386a0`; "Too few matches" threshold recovered (< 5). Other guards obscured by logging boilerplate |
-| W6 | **Gravity aligner → EKF coupling** | open | `fcn.18011ab20`, `fcn.180146860`, `fcn.1801376b0`; a prior attempt at gravity states was inert for want of this |
+| W6 | **Gravity aligner → EKF coupling** | **partly done** | gravity magnitude is an accumulated scalar at `EkfFusion+0x598`, hard-clamped to [9.71, 9.91] — NOT Kalman-updated. Direction states still to trace |
 | W7 | **`dump_csv` plumbing** — config source, settable under Wine?, buffer depth | **BLOCKED** | registry path recovered; **not exercisable here** — Rift.dll is in `server-plugins/disabled/` and the runtime has never tracked in this prefix. Recipe recorded for a real Windows install |
 | W8 | **Reconcile the constant discrepancy** vs `rift-dll-functions.md` | **DONE** | resolved against me: the earlier note was right, my pass-1 scan was incomplete. See "W8 result" |
 
@@ -529,6 +529,43 @@ per logging block, which in this function means dozens of times, and they are
 what a naive "harvest the integer comparisons" pass would return. The remaining
 reset guards are buried under the same boilerplate; extracting them means
 following control flow rather than pattern-matching constants.
+
+## W6 result: gravity magnitude is clamped, not estimated
+
+**Recovered.** In `fcn.1801375d0` (the gravity-correction function, 2629 B):
+
+```c
+dVar8 = dVar2 + *(double *)(arg1 + 0x598);   /* accumulate a correction */
+if (9.91 <= dVar8) dVar8 = 9.91;             /* clamp high */
+dVar34 = 9.710000000000001;
+if (9.710000000000001 <= dVar8) dVar34 = dVar8;   /* clamp low */
+*(double *)(arg1 + 0x598) = dVar34;          /* store back */
+```
+
+So the **gravity magnitude lives at `EkfFusion + 0x598`** and is maintained by
+accumulating a correction and hard-clamping the result to **[9.71, 9.91] m/s^2**.
+It is not updated through the filter's gain at all.
+
+Immediately above, `arg1 + 0x8a0`, `+0x8a8`, `+0x8b0` receive a scaled
+3-vector — **inferred** to be the gravity direction, on the grounds that the
+constructor initialises that region as a unit quaternion/vector block and it is
+written in the same breath as the magnitude.
+
+**Why this settles the question W6 was asked.** The standing puzzle was how the
+aligner's output reaches the EKF's gravity states, because this project added
+gravity states to its own filter and reverted them as inert — the covariance
+collapsed and the states froze
+(`windows-vs-linux-tracking.md:377-421`). The answer is that **Oculus does not
+drive gravity through the estimator's gain either.** The magnitude is an
+externally accumulated, clamped scalar; the estimator carries gravity states, but
+the value is fed to them rather than inferred from the accelerometer residual.
+Combined with the per-state variance floor from W3, the picture is consistent:
+gravity is held up from outside, and the covariance is prevented from collapsing
+so the states stay responsive.
+
+Constants recovered in the aligner chain (`fcn.1801375d0`, `fcn.180146860`,
+`fcn.18011ab20`): **9.71 / 9.91** the acceptance band, **0.0076** rad (0.435 deg),
+**0.0005**, plus 0.1, 3.0, 5.0, 9.0 whose roles are unassigned.
 
 ### Scratch state worth preserving
 
