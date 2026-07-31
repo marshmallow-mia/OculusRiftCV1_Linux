@@ -147,7 +147,7 @@ in a commit. A fresh context should be able to resume from this table alone.
 | W2 | **Q and initial P** from the constructor and its callers | **partly done** | ctor found and it only allocates/zeroes; P0 formula located in the reset path; **Q still open** — look for the propagation-time noise injection in W3 |
 | W3 | **Propagation model** — predict step off the IMU path | **partly done** | P proven 18x18 row-major; per-state covariance FLOOR found; "EKF core" mislabelling corrected. Propagation math and Q still open — next look at `fcn.1801386a0` (8602 B) and the second 18 inline doubles at `+0xa0` |
 | W4 | **Measurement model and per-observation R** | **started** | real function is `fcn.18013a840` (4408 B, 13 args, matrix-heavy); no inline constants, so R arrives as an argument — tracing which one needs the driver's argument setup |
-| W5 | **Reset policy** — triggers and thresholds | open | `fcn.180138780`, `fcn.180132a20`; 11 named causes, only sigmas known |
+| W5 | **Reset policy** — triggers and thresholds | **partly done** | all 10 reset-cause strings are in `fcn.1801386a0`; "Too few matches" threshold recovered (< 5). Other guards obscured by logging boilerplate |
 | W6 | **Gravity aligner → EKF coupling** | open | `fcn.18011ab20`, `fcn.180146860`, `fcn.1801376b0`; a prior attempt at gravity states was inert for want of this |
 | W7 | **`dump_csv` plumbing** — config source, settable under Wine?, buffer depth | **BLOCKED** | registry path recovered; **not exercisable here** — Rift.dll is in `server-plugins/disabled/` and the runtime has never tracked in this prefix. Recipe recorded for a real Windows install |
 | W8 | **Reconcile the constant discrepancy** vs `rift-dll-functions.md` | **DONE** | resolved against me: the earlier note was right, my pass-1 scan was incomplete. See "W8 result" |
@@ -486,6 +486,49 @@ channel on one timeline, which is exactly what every capture in `captures/win/`
 lacks. **Untested** — the trigger thresholds, the buffer depth and the output
 directory are all still unread, so this recipe is recovered-plausible rather than
 verified.
+
+## W5 result: one real threshold, and a trap to avoid
+
+**Recovered.** All ten `Ekf Reset:` strings live in the single function
+`fcn.1801386a0` (8602 B), which is therefore the reset policy in its entirety:
+
+```
+Ekf Reset: %.4f, %.4f, %.3f, %d, %d
+Ekf Reset: Too few matches: %d
+Ekf Reset: Invalid reset sample time: %.4f
+Ekf Reset: Filter empty, adding sample %d %.4f
+Ekf Reset: Integrate Forward failure
+Ekf Reset: Inclinometer aligned from gravity aligned sample
+EkfReset: No velocity estimate %d
+Ekf Reset #%d: pose %s, vel %.0f, %.0f, %.0f (%.0f)
+Ekf Reset %s
+Ekf Reset: Sigmas: pos %.1f, vel %.1f, orient %.2f
+```
+
+**The one threshold recovered outright:**
+
+```c
+if (*(int32_t *)(arg2 + 0x48) < 5) { ... "Ekf Reset: Too few matches: %d" ... }
+```
+
+**A vision fix with fewer than 5 matches triggers a reset.** For comparison, our
+own tracker's minimum is set elsewhere and was never chosen against a reference.
+
+### The trap: most integer comparisons here are log levels
+
+**Recovered, and worth recording so it is not mistaken for a finding.** The
+comparisons that dominate this function —
+
+```c
+if ((_data.180533f74 < 4) && (uVar15 = fcn.1801fe450(), (uVar15 & 2) == 0)) { ...
+if ((_data.180533f74 < 2) && ...
+```
+
+— are **log-verbosity gates** on a global, not EKF thresholds. They appear once
+per logging block, which in this function means dozens of times, and they are
+what a naive "harvest the integer comparisons" pass would return. The remaining
+reset guards are buried under the same boilerplate; extracting them means
+following control flow rather than pattern-matching constants.
 
 ### Scratch state worth preserving
 
