@@ -116,3 +116,100 @@ the response to *realistic* input is untested.
    smoothing (do they have a One Euro equivalent at all?), and where their
    angular acceleration comes from.
 3. Fix H4 regardless of the tail outcome; it is a 150° error in shipping code.
+
+---
+
+## Iteration 2 — 2026-07-31
+
+### H2 revisited — the 1.79 s accel-bias pole
+
+**DEAD, on numbers.** Iteration 1 left it unresolved because clean input barely
+excites it. Tested properly by stepping the *vision measurement* — which is what
+really happens when a head turn changes which camera dominates the solve and the
+per-camera bias shifts by a few mm — and measuring the response:
+
+| fraction of a 10 mm vision step absorbed | time |
+|---|---|
+| 50% | 92 ms |
+| 90% | 134 ms |
+| 99% | 146 ms |
+| residual, exponential fit | **τ = 1.44 s** |
+
+The slow pole is real and lands near its predicted 1.79 s, but it carries
+**under 10% of the response**. A 10 mm step leaves ~1 mm crawling over ~1.4 s.
+Sub-perceptual. The bulk of any vision correction is absorbed in ~134 ms by the
+well-damped 1.1 Hz pair. **Not the cause.** (`--vision-bias` in the harness.)
+
+### Track A limitation found: the recorded captures cannot drive a replay
+
+`captures/lin/*.jsonl` `wp` poses are per-observation pose-search *outputs*, not
+a clean trajectory: median inter-sample speed 0.66 m/s but p90 **285 m/s** and
+max 32970 m/s on `horizon.jsonl` — many entries are failed matches. Only 57–93%
+of samples fall under a 3 m/s sanity bar, and the longest contiguous sane run is
+6.4 s. Reconstructing "truth" from them to test the fusion would be circular.
+**Replay-from-capture is not viable with the data we have.**
+
+### Phase 3 metric built, but it cannot separate estimator from physics
+
+`tools/settling_metric.py` finds deceleration-to-rest events and measures how far
+the pose keeps travelling. On the Oculus capture: translation coast **524 ms /
+41.2 mm**, rotation **262 ms** — but only 1 event each in 61 s, and, more
+importantly, *that number includes the head physically decelerating*. With only
+the runtime's own output there is no independent truth to subtract. **Do not
+treat 41 mm as a target.** The metric is only meaningful comparing two stacks on
+the same motion, which needs a Linux motion capture we have agreed not to
+request. Our one existing Linux poselog (`2026-07-12/steamvr-live.csv`) is
+effectively stationary (|ω| mean 1.0 °/s) and predates this session.
+
+### Track B — their bias is an EKF state, ours is a fixed integrator
+
+Established from the string table without needing full decompilation:
+
+```
+%d: Update: AccBias %.2f, %.2f, %.2f (%.2f), GyroBias %.2f, %.2f, %.2f (%.2f), GravAlign ...
+%d: Ekf Reset: Sigmas: pos %.1f, vel %.1f, orient %.2f
+EKF: Update: P or Z is not positive definite
+EKF: P not positive definite: %d = %.3g
+velocity_max / linear_velocity / angular_velocity / angular_acceleration / linear_acceleration
+Setting dynamic prediction failed!
+```
+
+Each bias is logged **with its own uncertainty** in parentheses, and a covariance
+matrix `P` is maintained and checked for positive-definiteness. So their bias
+gain is covariance-derived and adapts — high while converging, low once settled —
+where ours is a fixed 25/s integrator with a permanent pole. A real structural
+difference, though iteration 2 has now shown our pole is too small to be the
+complaint, so this is a parity item rather than the fix.
+
+`angular_acceleration` appears as a first-class named quantity alongside
+`linear_velocity`/`angular_velocity`, confirming the CSV finding that they
+populate it and we do not.
+
+The prior function map in `decomp/rift-dll-functions.md` already locates the EKF
+(`fcn.18013a920` vision update, `fcn.180138780` reset, `fcn.180141610` init
+state, `fcn.18017d9e0` core), so exact Q/R extraction is possible later but was
+not worth the cost this iteration.
+
+### Verdict for iteration 2
+
+The leading suspect is dead. Six candidates now eliminated with numbers.
+
+### The strongest remaining candidate — `vision_recent`
+
+Untested, and it fits the symptom better than anything eliminated so far.
+`rift_fusion_ovr_imu_update()` integrates position **only while a vision fix is
+newer than `VISION_RECENT_NS` (70 ms)**; otherwise it takes the `else` branch and
+**zeroes `lin_vel` outright**, freezing position.
+
+Fast head motion is exactly when vision drops out — motion blur costs blobs, and
+the pose search needs 10 matched LEDs. So during a fast turn the position can
+freeze, and when the head stops and vision recovers, the estimate has to travel
+from where it froze to where the head actually is. **The image continues moving
+after the wearer has stopped** — which is the complaint, in the wearer's own
+words.
+
+Test next: inject vision dropouts during the motion phase of the harness and
+measure the post-motion catch-up distance and duration against dropout length.
+The in-headset logs support the premise — `settle.log` recorded 26 "Matched
+orientation after" gaps with a median of 0.19 s and a max of 0.87 s, i.e. vision
+outages far longer than the 70 ms gate.
