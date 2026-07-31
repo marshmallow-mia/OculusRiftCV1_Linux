@@ -296,3 +296,85 @@ error into velocity.
 Regression test: the dropout sweep above becomes the acceptance criterion —
 post-stop travel must stay near the 2.4 mm no-dropout figure across
 120–500 ms gaps.
+
+---
+
+## Iteration 4 — 2026-07-31 — **FIXED**
+
+### Fix A — coast on the IMU through a vision gap instead of freezing
+
+Applied in `rift_fusion_ovr_imu_update()`: position now integrates while a fix
+is newer than `VISION_REACQUIRE_NS` (500 ms) rather than `VISION_RECENT_NS`
+(70 ms). Past that the fix snaps anyway, so coasting further buys nothing.
+`OHMD_RIFT_DEADRECKON_MS` overrides; **70 reproduces the old behaviour**.
+
+Post-stop **drift** at 1.2 m/s, old gate vs coasting:
+
+| dropout | OLD drift | NEW drift |
+|---|---|---|
+| 0 ms | 3.14 | 3.14 |
+| 70 ms | 5.17 | 4.67 |
+| 120 ms | **9.97** | 5.81 |
+| 200 ms | **114.81** | 6.48 |
+| 300 ms | **88.78** | 3.91 |
+| 500 ms | 3.54 | 3.40 |
+| 700 ms | 3.53 | 3.32 |
+
+The rationale for the old 70 ms gate was accelerometer drift under double
+integration, but that is far cheaper than freezing: over a 300 ms gap a
+0.05 m/s² residual bias contributes ~2 mm, against the 59 mm the freeze cost at
+200 ms.
+
+### Drift vs snap — an important distinction for the metric
+
+Past the coast window the returning fix is applied as a **single-frame snap**
+(`VISION_REACQUIRE_NS`), not a drift. Decomposed at 1.2 m/s with the fix in:
+
+| dropout | total | largest single step | drift |
+|---|---|---|---|
+| 300 ms | 3.91 mm | 0.04 mm | 3.91 mm |
+| 500 ms | 22.77 mm | 6.21 mm | 3.40 mm |
+| 700 ms | 154.57 mm | 42.34 mm | 3.32 mm |
+
+So drift — the reported symptom — is fixed across the whole range. What remains
+at long outages is a discrete jump, which is pre-existing behaviour for genuine
+tracking loss and reads as a pop, not as "takes a bit to stop moving". The
+regression test therefore gates on **drift** and reports snap separately, so
+neither can regress unnoticed and neither hides the other.
+
+### Fix for H4 — the exponential-map singularity
+
+`adjust_exp_map_proximity()` rewritten to choose whichever of the two equivalent
+representations of the previous sample lies closer to the current one, instead
+of rescaling along its own direction. Worst orientation error ending a 400 °/s
+turn at exactly 180°: **149.503° → 2.121°**, i.e. now identical to every other
+final orientation. The residual 2.121° is H3, the filter's 5.3 ms lag, which is
+a separate open item.
+
+### Regression test
+
+`tools/run_dropout_check.sh` — builds `fusion_replay` against the real driver
+sources and gates on post-stop drift (8 mm bar) plus the 180° orientation error
+(5° bar). **Passes with the fix; fails on the old behaviour** at 120/200/300 ms,
+which is the property that makes it a test rather than a demonstration.
+
+Full unit suite passes. Driver rebuilt and deployed.
+
+### Status
+
+Cause found, fixed, and covered by a regression test, entirely offline. The
+plan's stop condition is met. Remaining open items are separate from the
+reported symptom:
+
+- **H3**: the One Euro filter costs 2.121° of orientation error at 400 °/s
+  against 0.138° bypassed. Its adaptation is also dead — `exp_filter3d_run()`
+  computes `dy` as a raw sample difference and never divides by `dt`, so the
+  `beta` term is ~0.001 Hz against a 30 Hz cutoff. Worth revisiting: the filter
+  may not be earning its place at all.
+- **Angular acceleration**: `DriverPose_t.vecAngularAcceleration` exists and we
+  export nothing into it; the runtime populates it (786 °/s² mean, 21131 peak).
+  Worth 0.05–0.27° at a 22 ms horizon.
+- **Vision gain 0.25 → 3.0**: 10× better on its own metric (1.8° → 0.09° mean
+  error), held back only to avoid confounding this hunt.
+- **Track B parity**: their bias states carry covariance and adapt; ours are
+  fixed-gain integrators.
