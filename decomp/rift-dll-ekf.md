@@ -143,13 +143,13 @@ in a commit. A fresh context should be able to resume from this table alone.
 | # | item | status | notes |
 |---|---|---|---|
 | W1 | RTTI → COL → vftable → **constructor** for `IndirectEkf<18,9>` and `EkfFusion`; object size and layout | **DONE** | see "W1 result" below |
-| W2 | **Q and initial P** from the constructor and its callers | **open, unblocked** | decompile `fcn.18012bbb0` and `fcn.18012c1d0`; the EKF subobject is at `+0x200` |
+| W2 | **Q and initial P** from the constructor and its callers | **partly done** | ctor found and it only allocates/zeroes; P0 formula located in the reset path; **Q still open** — look for the propagation-time noise injection in W3 |
 | W3 | **Propagation model** — predict step off the IMU path | open | `fcn.180134cd0` → core |
 | W4 | **Measurement model and per-observation R** | open | `fcn.18013a920`; should also settle what the `9` is |
 | W5 | **Reset policy** — triggers and thresholds | open | `fcn.180138780`, `fcn.180132a20`; 11 named causes, only sigmas known |
 | W6 | **Gravity aligner → EKF coupling** | open | `fcn.18011ab20`, `fcn.180146860`, `fcn.1801376b0`; a prior attempt at gravity states was inert for want of this |
 | W7 | **`dump_csv` plumbing** — config source, settable under Wine?, buffer depth | open | empirical ground truth; may short-circuit later items, but can be blocked by the Wine install so it is not first |
-| W8 | **Reconcile the constant discrepancy** vs `rift-dll-functions.md` | open | this pass found none of `9.80667/750/0.01` or the `2.5e-5/9e-6` sigmas it attributes to these functions |
+| W8 | **Reconcile the constant discrepancy** vs `rift-dll-functions.md` | **DONE** | resolved against me: the earlier note was right, my pass-1 scan was incomplete. See "W8 result" |
 
 Stop when the queue is empty or every remaining item is blocked — and say which,
 rather than looping on a blocked item.
@@ -221,6 +221,88 @@ memory at `+0x200`.
 script using a single global delta misreads them. `tools/rip_xref.py` maps
 per-section via the section table; the ad-hoc constant-dump scripts in pass 1 did
 not, and were only correct because they happened to touch `.rdata` alone.
+
+## W2 result: the `9` is settled, and the object's first fields
+
+**Recovered.** `fcn.18012bbb0` is `EkfFusion`'s constructor, and its first act is
+exactly what W1 predicted:
+
+```c
+fcn.18012b9b0(arg1 + 0x200);                       /* IndirectEkf subobject */
+fcn.18017a7f0(arg1);
+*(code **)arg1 = vtable.OVR::Vision::EkfFusion.0;
+```
+
+`fcn.18012b9b0` (468 bytes) is therefore the **`IndirectEkf<18,9>`
+initialiser**, and its two heap allocations settle the dimensions by arithmetic:
+
+| alloc | bytes | zeroing loop | shape | member |
+|---|---|---|---|---|
+| `fcn.18029718c(0xa20)` | 2592 | **18** iterations x 18 doubles | **18 x 18** | `+0x00` |
+| `fcn.18029718c(0x510)` | 1296 | **9** iterations x 18 doubles | **9 x 18** | `+0x08` |
+
+2592 = 18·18·8 and 1296 = 9·18·8 exactly.
+
+**The `9` in `IndirectEkf<18,9>` is the measurement dimension.** The 18x18 is the
+error covariance **P**; the 9x18 is the measurement Jacobian **H**. This was the
+standing unknown that no note in the repo had ever stated, and it is now read off
+the allocation sizes rather than inferred.
+
+Layout so far, relative to the subobject base (`EkfFusion + 0x200`):
+
+```
++0x00   double *P        heap, 18x18
++0x08   double *H        heap,  9x18
++0x10 .. +0x128          36 doubles inline, zeroed  (= two 18-vectors)
+```
+
+**Inferred:** the 36 inline doubles are two 18-vectors — plausibly the error
+state and one working vector — but nothing yet distinguishes them.
+
+### Q and P0 are not set at construction
+
+**Recovered.** The constructor zeroes everything and sets no noise values at all.
+So neither Q nor the initial covariance is a construction-time constant; both are
+written later by the init/reset path. The reset path already shows the P0
+arithmetic (`fcn.180132a20`):
+
+```c
+dVar32 = ((dVar33*dVar33 + dVar30*dVar30 + dVar32*dVar32) * 2.5e-05) / 3.0
+       + *(double *)(arg1 + 0x440) * *(double *)(arg1 + 0x440) + dVar31 * 9e-06;
+```
+
+`2.5e-05` m^2 = (5 mm)^2 and `9e-06` m^2 = (3 mm)^2, matching the "reset sigmas"
+reading in `rift-dll-functions.md`. So P0 is **built from a formula over current
+state, not from a constant diagonal** — which is why no P0 matrix appears
+anywhere as data.
+
+**Q remains open.** It is not in the constructor and not in the reset path; the
+remaining candidate is injection at propagation time, which is W3.
+
+## W8 result: the earlier note was right and my pass-1 scan was wrong
+
+**Recovered, and it is a correction against me.** Pass 1 reported that it could
+not find `9.80667 / 750 / 0.01` in `fcn.180134cd0` or `2.5e-5 / 9e-6` in
+`fcn.180132a20`, and flagged one of the two extractions as wrong. It was mine.
+
+Harvesting numeric literals from the decompiled C finds them immediately:
+
+| function | literals |
+|---|---|
+| `180132a20` | **2.5e-05**, **9e-06** |
+| `180134cd0` | **750.0**, **0.01**, **0.25**, 10.0 |
+| `180138780` | 0.25, 2.75 |
+| `180141610` | 9.0 |
+| `18017d9e0` | pi, 1e-06, 1e-05 |
+| `1801896e0` | 0.1 |
+
+**Method correction, and the same shape as the metric failures in the tracking
+work:** pass 1 scanned only rizin's resolved `data.*` labels in `pdf` output.
+That misses every constant the decompiler folds into an expression. Constants
+must be harvested from **both** — `data.*` labels for the ones that stay as
+memory operands, and numeric literals in `pdg` output for the rest. Neither alone
+is complete, and reading one as exhaustive is what produced a false contradiction
+against a correct note.
 
 ### Scratch state worth preserving
 
