@@ -148,7 +148,7 @@ in a commit. A fresh context should be able to resume from this table alone.
 | W4 | **Measurement model and per-observation R** | **started** | real function is `fcn.18013a840` (4408 B, 13 args, matrix-heavy); no inline constants, so R arrives as an argument — tracing which one needs the driver's argument setup |
 | W5 | **Reset policy** — triggers and thresholds | open | `fcn.180138780`, `fcn.180132a20`; 11 named causes, only sigmas known |
 | W6 | **Gravity aligner → EKF coupling** | open | `fcn.18011ab20`, `fcn.180146860`, `fcn.1801376b0`; a prior attempt at gravity states was inert for want of this |
-| W7 | **`dump_csv` plumbing** — config source, settable under Wine?, buffer depth | open | empirical ground truth; may short-circuit later items, but can be blocked by the Wine install so it is not first |
+| W7 | **`dump_csv` plumbing** — config source, settable under Wine?, buffer depth | **open, PROMOTED to next** | static passes are now yielding one fact each; a real capture would answer the R rule, reset thresholds and Q directly |
 | W8 | **Reconcile the constant discrepancy** vs `rift-dll-functions.md` | **DONE** | resolved against me: the earlier note was right, my pass-1 scan was incomplete. See "W8 result" |
 
 Stop when the queue is empty or every remaining item is blocked — and say which,
@@ -405,9 +405,42 @@ There is therefore no tabulated R anywhere in the update: the measurement noise
 is passed in per call. That is direct confirmation of the "per-observation R"
 reading in `windows-vs-linux-tracking.md:345`, which until now was qualitative.
 
+### The update works in state space, not innovation space
+
+**Recovered.** Allocation sizes name the matrices, since every one is a multiple
+of 8 with an unambiguous factorisation:
+
+| size | doubles | shape | where |
+|---|---|---|---|
+| `0xa20` | 324 | **18x18** | **six** allocations inside `fcn.18013a840`, one in the driver |
+| `0x510` | 162 | 9x18 | the constructor's H |
+
+**There is no `0x288` (9x9 = 648 byte) allocation anywhere in either function.**
+A textbook EKF update forms the innovation covariance `S = H P H' + R` at 9x9 and
+the gain `K = P H' S^-1` at 18x9. Six 18x18 temporaries and no 9x9 heap buffer
+instead points at a **state-space formulation** — Joseph form
+`(I-KH) P (I-KH)' + K R K'` is all 18x18 — though a 9x9 could equally live in the
+864-byte stack buffer (`auStack_7e8`, 108 doubles) rather than the heap.
+
+**Inferred, flagged as such:** Joseph-form or otherwise state-space update. The
+allocation evidence is suggestive, not conclusive, and the stack buffer is an
+unexcluded alternative.
+
+Nine-element strides do appear (`pdVar15[9]`, offsets of `0x48` = 9 doubles), so
+the 9-dimensional structure is present in the working set even without a 9x9
+allocation.
+
 **Still open:** which of the eleven trailing arguments is R, and the rule the
-driver uses to build it (reprojection error, camera count, distance). That needs
-the driver's argument setup rather than the update itself.
+driver uses to build it (reprojection error, camera count, distance).
+
+### Re-prioritisation
+
+W7 (`dump_csv`) is promoted ahead of the remaining static items. The last few
+iterations have each cost a full pass to recover one structural fact, and the
+items still open — the R rule, reset thresholds, the gravity coupling, Q — are
+exactly the things a real capture would show directly. If the key can be set
+under Wine, one event window answers several of them empirically; if it cannot,
+nothing is lost but one iteration.
 
 ### Scratch state worth preserving
 
