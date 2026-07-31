@@ -45,17 +45,32 @@ if (cVar3 != '\0') {
 and tested for non-zero. The output path is built from `"\impact_"`
 (`0x1804534f0`) + fields + `".csv"` (`0x180452f24`).
 
-**Why this matters more than any amount of static analysis.** That file contains
-their fused state *and* a parallel vision-only channel (`*_vis`) on one
-timeline, plus `g_thresh`. Every capture in `captures/win/` lacks exactly this:
-we have their raw IMU and their final pose, but nothing in between. With
-`dump_csv` enabled we would have their filter's input, internal state and output
-together — which turns "reimplement their EKF" from guesswork into curve-fitting
-against ground truth.
+**What it is, precisely — correcting my own first reading of it.** I initially
+described this as their filter's internals on one timeline, which oversold it.
+The logger is **event-triggered, not continuous**. `dump_csv` sits among
+telemetry keys in `.rdata` — `sensor_fusion`, `telemetry_tag`,
+`oculus_imu_event`, `device_category`, `HmdDropThresholdInGs`,
+`TouchImpactThresholdInGs` — and the two output paths are `\impact_` and
+`\drop_hmd_`. The write loop fetches a count and iterates a stored buffer:
+
+```c
+var_3f8h = fcn.180118d10(arg2 + 0x48);      /* number of buffered samples */
+do { ...write one row... } while (var_460h < var_3f8h);
+```
+
+So it dumps a **buffered window of samples around a detected drop or impact**
+(an acceleration above `HmdDropThresholdInGs` / `TouchImpactThresholdInGs`), not
+a continuous trace of a normal session.
+
+**It is still worth having**, because each window contains what no capture in
+`captures/win/` does: the fused state and the vision-only channel side by side,
+with `g_thresh`. It is a sample of ground truth rather than a stream of it, and
+high-G events are trivially producible on purpose. But it will not, by itself,
+support fitting a filter against a normal tracking session.
 
 **Not yet established:** where the config store reads `dump_csv` from (JSON under
-`%LOCALAPPDATA%\Oculus`, registry, or a server config), and whether it can be set
-in the Wine install. That is the highest-value next step.
+`%LOCALAPPDATA%\Oculus`, registry, or a server config), whether it can be set in
+the Wine install, and how many samples the buffer holds.
 
 ## Function map corrections
 
