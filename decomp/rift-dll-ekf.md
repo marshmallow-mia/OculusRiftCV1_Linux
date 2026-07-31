@@ -135,16 +135,28 @@ constants, because MSVC folds them into arithmetic (`mulsd xmm,[rip+d32]`).
 Reading rizin's resolved `data.*` labels out of `pdf` output is both easier and
 more complete.
 
-## Still open
+## Queue
 
-1. **Where `dump_csv` is read from**, and whether it can be enabled under Wine.
-   Highest value by a wide margin.
-2. **The `IndirectEkf` constructor** — the only place Q, R and the initial
-   covariance can come from.
-3. **The propagation model.** Not attempted this pass.
-4. **What the `9` in `<18,9>` is.** Still unstated anywhere.
-5. **The nominal/error-state injection convention.**
-6. **Per-observation R.** Known qualitatively only.
-7. **Reconciling the constants** this pass found against the earlier note.
-8. The gravity aligner's coupling into the EKF states, which is what made a
-   previous attempt at gravity states inert.
+Durable state for a multi-session extraction. One item per iteration; each ends
+in a commit. A fresh context should be able to resume from this table alone.
+
+| # | item | status | notes |
+|---|---|---|---|
+| W1 | RTTI → COL → vftable → **constructor** for `IndirectEkf<18,9>` and `EkfFusion`; object size and layout | **open** | TD at `0x180526208`; mangling `$0BC@`=18, `$08`=9 confirms the template args |
+| W2 | **Q and initial P** from the constructor and its callers | open | blocked on W1 |
+| W3 | **Propagation model** — predict step off the IMU path | open | `fcn.180134cd0` → core |
+| W4 | **Measurement model and per-observation R** | open | `fcn.18013a920`; should also settle what the `9` is |
+| W5 | **Reset policy** — triggers and thresholds | open | `fcn.180138780`, `fcn.180132a20`; 11 named causes, only sigmas known |
+| W6 | **Gravity aligner → EKF coupling** | open | `fcn.18011ab20`, `fcn.180146860`, `fcn.1801376b0`; a prior attempt at gravity states was inert for want of this |
+| W7 | **`dump_csv` plumbing** — config source, settable under Wine?, buffer depth | open | empirical ground truth; may short-circuit later items, but can be blocked by the Wine install so it is not first |
+| W8 | **Reconcile the constant discrepancy** vs `rift-dll-functions.md` | open | this pass found none of `9.80667/750/0.01` or the `2.5e-5/9e-6` sigmas it attributes to these functions |
+
+Stop when the queue is empty or every remaining item is blocked — and say which,
+rather than looping on a blocked item.
+
+### Scratch state worth preserving
+
+`scratchpad/ekf/` holds `Rift.dll`, `rift.rzdb` (~20 s to rebuild, 5585
+functions), `pdg_*.c` for the eight EKF functions plus the CSV logger, and
+`dis_*.txt` disassembly. Regenerate with the recipe in
+`rift-dll-functions.md:11-16` if lost.
